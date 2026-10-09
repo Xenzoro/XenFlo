@@ -33,6 +33,8 @@ export const LIMITS = {
   inputTokens: 16_000,
   outputTokens: 3_500,
   images: 2,
+  /** Phase 10: the rest of the site's logos (a restaurant group's logo grid) at low detail, to read each brand name. ~$0.001 */
+  logoGrid: 12,
   timeoutMs: 25_000,
 };
 

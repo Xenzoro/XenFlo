@@ -22,7 +22,8 @@ const LOGO_RANK: Record<string, number> = {
   "og:image": 5,
   favicon: 6,
 };
-const MAX_LOGOS = 8;
+// Enough for a restaurant group's grid of sub-brand logos (Dragon Factory shows about 12)
+const MAX_LOGOS = 16;
 const LOGO_HINT = /logo|\bbrand(mark)?\b/i;
 const PARTNER_CONTEXT = /partner|sponsor|client|affiliate|trusted by|as seen|featured/i;
 const NOT_OWN_LOGO = /partner|client|sponsor|payment|visa|mastercard|paypal|trustpilot|badge|flag|award|seal|google|apple-store|app-store|play-store/i;

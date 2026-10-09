@@ -246,7 +246,8 @@ function fromVision(out: VisionOutput, images: ImageInput[], kb: KnowledgeBase, 
   // Brand names are read facts (tier 1), so the evidence quotes the text read in the logo.
   const company = (kb.company.name.value ?? kb.companyName).toLowerCase();
   const logos = usable.filter((i) => i.isLogo && images[i.index]?.meta.kind !== "og:image");
-  const names = clean(logos.flatMap((i) => i.brandNames)).filter((n) => n.toLowerCase() !== company);
+  // Up to 16: a restaurant group's logo grid can name a dozen brands
+  const names = clean(logos.flatMap((i) => i.brandNames), 16).filter((n) => n.toLowerCase() !== company);
   if (names.length) {
     s.push({ ...base, path: "company.alternateNames", label: "Brand names read from logos", value: names, list: true, basedOn: names.map((n) => `logo text: “${n}”`) });
   }
@@ -323,12 +324,12 @@ function isPlaceholder(value: unknown): boolean {
 }
 
 /** Trim, drop empties, placeholders and duplicates, cap the length. */
-function clean(list: string[]): string[] {
+function clean(list: string[], max = MAX_LIST): string[] {
   const seen = new Set<string>();
   return list
     .map((v) => v.trim())
     .filter((v) => v && !isPlaceholder(v) && !seen.has(v.toLowerCase()) && seen.add(v.toLowerCase()))
-    .slice(0, MAX_LIST);
+    .slice(0, max);
 }
 
 function hash(value: unknown): string {

@@ -1,6 +1,6 @@
 /**
- * Images for the vision call, capped at 2: screenshots waiting for AI first, then the logo,
- * then the hero. (The text call's input is built in evidence.ts.)
+ * Images for the vision call: screenshots waiting for AI first, then the logo, then the hero (2 in all),
+ * plus up to 12 more logos at low detail (a restaurant group's logo grid, for brand names). (The text call's input is built in evidence.ts.)
  */
 import type { KnowledgeBase } from "@/types/knowledge";
 import { signedUploadUrl } from "@/lib/db/storage";
@@ -47,6 +47,14 @@ export async function pickImages(kb: KnowledgeBase): Promise<ImageInput[]> {
 
   const hero = vals(kb.brand.logos).find((l) => l.kind === "og:image" && RASTER.test(l.url));
   if (hero) add(hero.url, "low", "og:image", hero.alt);
+
+  // The rest of the logos, e.g. a restaurant group's grid of brand logos: low detail is enough to read a name.
+  // Their names come back as "Brand names read from logos" and feed the brand list (menus/brands.ts).
+  const used = new Set(images.map((i) => i.url));
+  for (const l of logos.filter((x) => x.kind === "logo image" && !used.has(x.url)).slice(0, LIMITS.logoGrid)) {
+    const file = decodeURIComponent(l.url.split(/[?#]/)[0].split("/").pop() ?? "");
+    images.push({ url: l.url, detail: "low", meta: { index: images.length, kind: "logo image", alt: l.alt, fileNameClue: file || null } });
+  }
   return images;
 }
 
