@@ -45,7 +45,19 @@ export function KnowledgeCard({
         <div className="mt-3 flex items-center gap-3">
           <RecordLogo url={record.logoUrl} name={record.companyName} className="size-12" />
           <div className="min-w-0">
-            <h3 className="truncate font-bold">{record.companyName || hostOf(record.url)}</h3>
+            {/* The name is the keyboard way in; mouse users can click anywhere on the card */}
+            <h3 className="truncate font-bold">
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handlers.onDetails(record);
+                }}
+                className="max-w-full truncate rounded text-left hover:text-primary"
+              >
+                {record.companyName || hostOf(record.url)}
+              </button>
+            </h3>
             <p className="truncate text-xs text-muted">{hostOf(record.url)}</p>
           </div>
         </div>

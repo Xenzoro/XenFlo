@@ -96,7 +96,16 @@ export function KnowledgeTable({
                       <RecordLogo url={r.logoUrl} name={r.companyName} className="size-9 rounded-lg" />
                       <div className="min-w-0">
                         <p className="flex items-center gap-2 truncate font-semibold">
-                          {r.companyName || hostOf(r.url)}
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handlers.onDetails(r);
+                            }}
+                            className="truncate rounded text-left hover:text-primary"
+                          >
+                            {r.companyName || hostOf(r.url)}
+                          </button>
                           {busy && <Loader2 className="size-3.5 animate-spin text-primary" />}
                         </p>
                         <p className="truncate text-xs text-muted">{hostOf(r.url)}</p>

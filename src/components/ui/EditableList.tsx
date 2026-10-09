@@ -99,7 +99,7 @@ export function EditableList<T = string>({
                 initial={{ opacity: 0, y: -6 }}
                 animate={{ opacity: 1, y: 0, transition: { delay: Math.min(i, 12) * 0.04 } }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                className={cn(variant === "rows" && "w-full")}
+                className={cn(variant === "rows" ? "w-full" : "max-w-full")}
               >
                 {editing === i ? (
                   editor
@@ -150,7 +150,8 @@ function Item({
   if (variant === "chips") {
     return (
       <span className="inline-flex max-w-full items-center gap-1 rounded-full border border-border bg-card py-1 pl-3 pr-1.5 text-xs font-medium">
-        <button type="button" onClick={onEdit} disabled={disabled} className="truncate text-left disabled:cursor-default">
+        {/* min-w-0 lets long text truncate instead of stretching the chip past its container */}
+        <button type="button" onClick={onEdit} disabled={disabled} className="min-w-0 truncate text-left disabled:cursor-default">
           {children}
         </button>
         {badge}

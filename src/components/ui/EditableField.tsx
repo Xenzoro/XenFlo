@@ -92,10 +92,12 @@ export function EditableField<T = string>({
       {editing ? (
         <div>
           {kind === "textarea" ? (
-            <TextArea autoFocus rows={4} value={draft} placeholder={placeholder} onChange={(e) => setDraft(e.target.value)} onBlur={save} onKeyDown={onKeyDown} />
+            <TextArea autoFocus rows={4} aria-label={label ?? emptyLabel} value={draft} placeholder={placeholder} onChange={(e) => setDraft(e.target.value)} onBlur={save} onKeyDown={onKeyDown} />
           ) : (
             <Input
               autoFocus
+              aria-label={label ?? emptyLabel}
+              aria-invalid={!!error}
               type={kind === "number" ? "number" : "text"}
               value={draft}
               placeholder={placeholder}
@@ -117,6 +119,7 @@ export function EditableField<T = string>({
           type="button"
           onClick={start}
           disabled={busy}
+          aria-label={label ? `${label}: ${format(value)}. Click to edit` : undefined}
           className={cn(
             "group -mx-2 flex w-[calc(100%+1rem)] items-start gap-2 rounded-lg px-2 py-1 text-left transition-colors hover:bg-page disabled:cursor-default",
             // No class-merging library, so the default size only applies when the caller doesn't set one

@@ -1,11 +1,12 @@
 "use client";
 
 /** Side panel that slides in from the right (full width on phones). Esc or the backdrop closes it. */
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { SectionLabel } from "./Card";
+import { useDialog } from "./useDialog";
 
 export function Drawer({
   open,
@@ -20,6 +21,8 @@ export function Drawer({
   title: string;
   children: React.ReactNode;
 }) {
+  const panel = useRef<HTMLElement>(null);
+  useDialog(open, panel);
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
@@ -34,6 +37,8 @@ export function Drawer({
         <motion.div className="fixed inset-0 z-[65]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
           <div className="absolute inset-0 bg-ink/30" onClick={onClose} />
           <motion.aside
+            ref={panel}
+            tabIndex={-1}
             role="dialog"
             aria-modal="true"
             aria-label={title}
@@ -41,7 +46,7 @@ export function Drawer({
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", stiffness: 320, damping: 34 }}
-            className="absolute inset-y-0 right-0 flex w-full flex-col bg-card shadow-2xl sm:max-w-md"
+            className="absolute inset-y-0 right-0 flex w-full flex-col bg-card shadow-2xl outline-none sm:max-w-md"
           >
             <header className="flex items-start justify-between gap-3 border-b border-border p-5">
               <div className="min-w-0">

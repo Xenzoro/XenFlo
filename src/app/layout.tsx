@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import { Providers } from "./providers";
 
 // Poppins is exposed as a CSS variable so Tailwind's --font-sans can use it.
 const poppins = Poppins({
@@ -24,7 +25,9 @@ export default function RootLayout({
     // The font variable goes on <html> (:root) because globals.css defines --font-sans there,
     // and a CSS variable can only reference variables that exist on the same element or above.
     <html lang="en" className={poppins.variable}>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

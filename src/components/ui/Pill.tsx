@@ -29,6 +29,7 @@ export function AddPill({ label = "Add", onClick, disabled }: { label?: string; 
       type="button"
       onClick={onClick}
       disabled={disabled}
+      aria-label={`Add ${label}`}
       className="inline-flex items-center gap-1 rounded-full border border-dashed border-primary/40 px-3 py-1 text-xs font-medium text-primary transition-colors hover:border-primary hover:bg-primary-soft disabled:cursor-not-allowed disabled:opacity-50"
     >
       <Plus className="size-3" />

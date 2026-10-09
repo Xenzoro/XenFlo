@@ -12,6 +12,7 @@ import type { ListSort } from "@/lib/db/types";
 import { DATE_RANGES, SCORE_BANDS, SORT_LABELS, hasFilters, type DateRange, type ScoreBand, type ViewMode, type ViewState } from "@/lib/view/filters";
 import { Card } from "@/components/ui/Card";
 import { Menu, type MenuItem } from "@/components/ui/Menu";
+import { moveTab } from "@/components/ui/Tabs";
 import { cn } from "@/lib/utils/cn";
 
 const MODES: { key: ViewMode; label: string; icon: React.ReactNode }[] = [
@@ -78,13 +79,14 @@ export function ViewToolbar({
           />
         </div>
         {/* View mode pills; the blue background slides between them */}
-        <div role="tablist" aria-label="View mode" className="inline-flex shrink-0 self-start rounded-full border border-border bg-page p-1">
+        <div role="tablist" aria-label="View mode" onKeyDown={(e) => moveTab(e, MODES, view.mode, (mode) => setView({ mode }))} className="inline-flex shrink-0 self-start rounded-full border border-border bg-page p-1">
           {MODES.map((m) => (
             <button
               key={m.key}
               type="button"
               role="tab"
               aria-selected={view.mode === m.key}
+              tabIndex={view.mode === m.key ? 0 : -1}
               onClick={() => setView({ mode: m.key })}
               className={cn("relative flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-colors", view.mode === m.key ? "text-white" : "text-muted hover:text-ink")}
             >

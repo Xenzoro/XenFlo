@@ -4,11 +4,12 @@
   Centered dialog: the page dims and the panel fades and floats up into place.
   Esc or clicking the backdrop closes it (unless `busy`, so a running action can't be abandoned).
 */
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { AlertTriangle } from "lucide-react";
 import { Button } from "./Button";
+import { useDialog } from "./useDialog";
 
 export function Modal({
   open,
@@ -26,6 +27,8 @@ export function Modal({
   wide?: boolean;
   children: React.ReactNode;
 }) {
+  const panel = useRef<HTMLDivElement>(null);
+  useDialog(open, panel);
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && !busy && onClose();
@@ -45,6 +48,8 @@ export function Modal({
           onMouseDown={(e) => e.target === e.currentTarget && !busy && onClose()}
         >
           <motion.div
+            ref={panel}
+            tabIndex={-1}
             role="dialog"
             aria-modal="true"
             aria-labelledby={labelledBy}
@@ -52,7 +57,7 @@ export function Modal({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 12 }}
             transition={{ type: "spring", stiffness: 380, damping: 30 }}
-            className={`max-h-[calc(100dvh-2rem)] w-full overflow-y-auto rounded-3xl bg-card p-6 shadow-xl ${wide ? "max-w-2xl" : "max-w-md"}`}
+            className={`max-h-[calc(100dvh-2rem)] w-full overflow-y-auto rounded-3xl bg-card p-6 shadow-xl outline-none ${wide ? "max-w-2xl" : "max-w-md"}`}
           >
             {children}
           </motion.div>

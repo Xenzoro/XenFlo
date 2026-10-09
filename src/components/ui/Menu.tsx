@@ -55,6 +55,16 @@ export function Menu({
     else setPos({ top, left: Math.max(8, Math.min(r.left, maxLeft)) });
   }, [align, items.length]);
 
+  // Focus the checked item (or the first) once the menu is open, like a native select
+  useEffect(() => {
+    if (!open) return;
+    const t = window.setTimeout(() => {
+      const el = menuRef.current;
+      (el?.querySelector<HTMLButtonElement>("[aria-checked=true]") ?? el?.querySelector<HTMLButtonElement>("button:not([disabled])"))?.focus({ preventScroll: true });
+    }, 30);
+    return () => window.clearTimeout(t);
+  }, [open]);
+
   useLayoutEffect(() => {
     if (!open) return;
     place();
@@ -69,7 +79,21 @@ export function Menu({
       const t = e.target as Node;
       if (!menuRef.current?.contains(t) && !triggerRef.current?.contains(t)) close();
     };
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && close();
+    // Keyboard: ↑/↓/Home/End move between items, Esc closes and returns focus to the button
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        close();
+        triggerRef.current?.focus();
+        return;
+      }
+      if (e.key === "Tab") return close();
+      const items = Array.from(menuRef.current?.querySelectorAll<HTMLButtonElement>("button:not([disabled])") ?? []);
+      if (!items.length || !["ArrowDown", "ArrowUp", "Home", "End"].includes(e.key)) return;
+      e.preventDefault();
+      const i = items.indexOf(document.activeElement as HTMLButtonElement);
+      const to = e.key === "Home" ? 0 : e.key === "End" ? items.length - 1 : e.key === "ArrowDown" ? (i + 1) % items.length : (i - 1 + items.length) % items.length;
+      items[to].focus();
+    };
     document.addEventListener("mousedown", onDown);
     document.addEventListener("keydown", onKey);
     // Follow the trigger when anything scrolls (closing instead broke tapping a pill
@@ -106,14 +130,16 @@ export function Menu({
                   <motion.li key={it.label} variants={item} className={cn(it.separated && "mt-1 border-t border-border-soft pt-1")}>
                     <button
                       type="button"
-                      role="menuitem"
+                      role={it.checked === undefined ? "menuitem" : "menuitemradio"}
+                      aria-checked={it.checked}
                       disabled={it.disabled}
                       onClick={() => {
                         setOpen(false);
+                        triggerRef.current?.focus({ preventScroll: true });
                         it.onSelect();
                       }}
                       className={cn(
-                        "flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-left text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-40",
+                        "flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-left text-sm outline-none transition-colors focus-visible:bg-page focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed disabled:opacity-40",
                         it.danger ? "text-danger hover:bg-danger-soft" : it.checked ? "bg-primary-soft text-primary" : "hover:bg-page",
                       )}
                     >

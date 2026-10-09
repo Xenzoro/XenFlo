@@ -40,6 +40,17 @@
   --shadow-glow: 0 0 0 4px rgb(37 99 235 / 0.25);
 }
 
+/* Reserve the scrollbar's space so locking scroll (modals) doesn't shift the page */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* One consistent keyboard focus ring everywhere (mouse clicks don't show it) */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
 body {
   background: var(--color-page);
   color: var(--color-ink);
