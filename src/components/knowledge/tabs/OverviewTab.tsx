@@ -22,7 +22,7 @@ import { tierOf } from "@/lib/ai/field-tiers";
 import { ENRICH_EVENT } from "../ai/EnrichModal";
 import { FIELD_LABELS, fieldName } from "../fieldLabels";
 import { groupOfferings } from "@/lib/scraper/menus/group";
-import { waitingForAi } from "@/lib/utils/offerings";
+import { needsReview, waitingForAi } from "@/lib/utils/offerings";
 import { priceRange } from "../offerings/fields";
 
 function healthLabel(score: number) {
@@ -182,6 +182,9 @@ function OfferingsSummary() {
   const range = priceRange(all.min, all.max);
   const named = groups.filter((g) => g.name);
   const waiting = (kb.crawl.menuSources ?? []).filter(waitingForAi).length;
+  // Prices AI read from menu pictures that the owner hasn't checked yet (never quoted by AI until reviewed)
+  const unreviewedPrice = (g: (typeof groups)[number]) => g.categories.some((c) => c.items.some(({ field }) => needsReview(field) && !!field.value?.priceText));
+  const flagged = groups.filter(unreviewedPrice).length;
 
   return (
     <Card className="p-6 lg:col-span-3">
@@ -202,13 +205,19 @@ function OfferingsSummary() {
         <ul className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {groups.map((g) => (
             <li key={g.name ?? "_other"} className="flex items-center justify-between gap-2 rounded-2xl border border-border-soft bg-page px-3 py-2 text-sm">
-              <span className="min-w-0 truncate font-medium">{g.name ?? "Other items"}</span>
-              <span className="shrink-0 text-xs text-muted">
+              <span className="min-w-0 truncate font-medium">{g.name ?? kb.companyName}</span>
+              <span className="flex shrink-0 items-center gap-1.5 text-xs text-muted">
                 {g.count} · {priceRange(g.priceMin, g.priceMax) ?? "no prices"}
+                {unreviewedPrice(g) && <Badge tone="amber">needs review</Badge>}
               </span>
             </li>
           ))}
         </ul>
+      )}
+      {flagged > 0 && (
+        <p className="mt-3 text-xs text-warning">
+          Prices read by AI in {flagged} menu{flagged === 1 ? "" : "s"} need review before Flo uses them. Open Offerings and mark each menu as reviewed.
+        </p>
       )}
       {waiting > 0 && (
         <p className="mt-3 text-xs text-muted">

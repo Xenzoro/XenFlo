@@ -6,7 +6,8 @@
  * Every item has a short id ("p3", "cta2"). The model cites ids or short quotes as evidence, and
  * enrich.ts checks that each citation really exists in this input before trusting it.
  */
-import type { KnowledgeBase } from "@/types/knowledge";
+import type { Field, KnowledgeBase, Offering } from "@/types/knowledge";
+import { needsReview } from "@/lib/utils/offerings";
 
 export interface EvidenceItem {
   id: string;
@@ -89,7 +90,7 @@ export function buildEvidence(kb: KnowledgeBase, budgetTokens: number): Evidence
   ]);
   group(
     "o",
-    kb.offerings.slice(0, 40).flatMap((f) => (f.value ? [{ kind: "offering", page: pathOf(f.source), text: [f.value.name, f.value.category && `(${f.value.category})`, f.value.priceText].filter(Boolean).join(" ") }] : [])),
+    kb.offerings.slice(0, 40).flatMap((f) => (f.value ? [{ kind: "offering", page: pathOf(f.source), text: [f.value.name, f.value.category && `(${f.value.category})`, quotablePrice(f)].filter(Boolean).join(" ") }] : [])),
   );
   // 4. What visitors are asked to do, and where it goes
   group(
@@ -109,7 +110,7 @@ export function buildEvidence(kb: KnowledgeBase, budgetTokens: number): Evidence
   );
   group("x", vals(kb.customers.suppliersPartners).map((s) => ({ kind: `tool_or_partner:${s.category}`, text: s.name })));
 
-  const offerings = kb.offerings.slice(0, 40).flatMap((f, index) => (f.value ? [{ index, name: f.value.name, category: f.value.category, priceText: f.value.priceText }] : []));
+  const offerings = kb.offerings.slice(0, 40).flatMap((f, index) => (f.value ? [{ index, name: f.value.name, category: f.value.category, priceText: quotablePrice(f) }] : []));
   const task = categoryTask(kb);
 
   // Fill the budget group by group, item by item: highest value first.
@@ -149,4 +150,13 @@ export function resolveCitation(citation: string, e: Evidence, inputLower: strin
   const quote = c.replace(/^["“']|["”']$/g, "").trim();
   if (quote.length >= 3 && inputLower.includes(quote.toLowerCase())) return `“${cut(quote, 90)}”`;
   return null;
+}
+
+/**
+ * A price AI may see and quote: anything except prices AI read from a menu picture that the owner hasn't
+ * reviewed yet ("Mark as reviewed"). Small print and raised cents are easy to misread, so those stay out
+ * of every prompt until the owner checks them.
+ */
+export function quotablePrice(f: Field<Offering>): string | null {
+  return needsReview(f) ? null : (f.value?.priceText ?? null);
 }

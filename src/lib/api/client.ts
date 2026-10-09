@@ -128,8 +128,8 @@ export function enrichStatus(): Promise<ApiResult<EnrichStatus>> {
 }
 
 /** "Read menus with AI": new menu items and updated menu sources, merged by the caller. */
-export function readMenus(kb: KnowledgeBase, passcode: string): Promise<ApiResult<MenuReadResult>> {
-  return post<MenuReadResult>("/api/menus", { knowledgeBase: kb, passcode });
+export function readMenus(kb: KnowledgeBase, passcode: string, opts: { only?: string[]; fresh?: boolean } = {}): Promise<ApiResult<MenuReadResult>> {
+  return post<MenuReadResult>("/api/menus", { knowledgeBase: kb, passcode, ...opts });
 }
 
 /** Ask for AI suggestions. Nothing is applied until the user accepts them. */

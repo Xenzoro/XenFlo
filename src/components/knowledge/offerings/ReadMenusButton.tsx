@@ -16,7 +16,8 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { readPasscode, savePasscode } from "../ai/passcode";
 
-export function ReadMenusButton({ waiting }: { waiting: number }) {
+/** `only`: read just these menus again with the current prompt (a brand's "Read again with AI"). */
+export function ReadMenusButton({ waiting, only, label = "Read menus with AI", compact }: { waiting: number; only?: string[]; label?: string; compact?: boolean }) {
   const { kb, applyMenuResult, busy, setBusy } = useKnowledge();
   const [status, setStatus] = useState<EnrichStatus | null>(null);
   const [asking, setAsking] = useState(false);
@@ -45,7 +46,7 @@ export function ReadMenusButton({ waiting }: { waiting: number }) {
     setNotes([]);
     setRunning(true);
     setBusy(true);
-    const res = await readMenus(kb, code);
+    const res = await readMenus(kb, code, only ? { only, fresh: true } : {});
     setRunning(false);
     setBusy(false);
     if (res.error) {
@@ -96,12 +97,12 @@ export function ReadMenusButton({ waiting }: { waiting: number }) {
           </button>
         </form>
       ) : (
-        <Button size="sm" onClick={start} disabled={!live || busy || waiting === 0} loading={running} icon={<Sparkles className="size-3.5" />}>
-          {running ? `Reading menus… ${elapsed}s` : "Read menus with AI"}
+        <Button size="sm" variant={compact ? "secondary" : "primary"} onClick={start} disabled={!live || busy || waiting === 0} loading={running} icon={<Sparkles className="size-3.5" />}>
+          {running ? `Reading… ${elapsed}s` : label}
         </Button>
       )}
-      {!live && status && <p className="text-xs text-muted">Live AI isn&apos;t set up on this server, so picture menus can&apos;t be read here. You can add items yourself.</p>}
-      {live && !running && notes.length === 0 && waiting > 0 && (
+      {!live && status && !compact && <p className="text-xs text-muted">Live AI isn&apos;t set up on this server, so picture menus can&apos;t be read here. You can add items yourself.</p>}
+      {live && !compact && !running && notes.length === 0 && waiting > 0 && (
         <p className="text-[11px] text-subtle">
           Reads up to 8 menu pages per run (about $0.01 each) · {status?.remainingToday ?? "?"} live runs left today
         </p>

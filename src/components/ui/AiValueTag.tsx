@@ -14,7 +14,9 @@ export function AiValueTag({
   evidence,
   onRemove,
   disabled,
+  reviewed,
 }: {
+  reviewed?: boolean;
   confidence: Confidence;
   source?: string | null;
   evidence?: string[];
@@ -23,7 +25,7 @@ export function AiValueTag({
 }) {
   return (
     <span className="inline-flex shrink-0 items-center gap-1.5">
-      <ConfidenceBadge confidence={confidence} source={source} evidence={evidence} />
+      <ConfidenceBadge confidence={confidence} source={source} evidence={evidence} reviewed={reviewed} />
       {isAi(confidence) && onRemove && (
         <button
           type="button"

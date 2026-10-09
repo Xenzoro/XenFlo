@@ -12,7 +12,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import type { Field, KnowledgeBase } from "@/types/knowledge";
 import type { MenuReadResult, Suggestion } from "@/types/enrichment";
-import { mergeMenuResult } from "@/lib/utils/offerings";
+import { mergeMenuResult, reviewGroup } from "@/lib/utils/offerings";
 import { scoreCompleteness } from "@/lib/scraper/score";
 import { field, missing } from "@/lib/utils/knowledge";
 import { getAt, setAt } from "@/lib/utils/path";
@@ -56,6 +56,8 @@ interface KnowledgeState {
   jumpTo: (path: string) => void;
   /** Write AI suggestions the owner accepted, keeping their AI confidence, source and evidence */
   applySuggestions: (suggestions: Suggestion[]) => void;
+  /** "Mark as reviewed" on a brand's menu: its AI items become the owner's (user_edited), with a timestamp */
+  reviewMenuGroup: (group: string | null) => void;
   /** Add what "Read menus with AI" found (new items with their AI badge, updated menu sources) */
   applyMenuResult: (result: MenuReadResult) => void;
   /** "Wrong? Remove": clear an AI/inferred value (or list item at `index`) and remember not to suggest it again */
@@ -162,6 +164,7 @@ export function KnowledgeProvider({ children, initial }: { children: React.React
   // value and remembers it (pure functions in src/lib/ai/apply.ts). Unsaved until Save.
   const applySuggestions = useCallback((suggestions: Suggestion[]) => edit((k) => applySuggestionsTo(k, suggestions)), [edit]);
   const applyMenuResult = useCallback((result: MenuReadResult) => edit((k) => mergeMenuResult(k, result)), [edit]);
+  const reviewMenuGroup = useCallback((group: string | null) => edit((k) => reviewGroup(k, group)), [edit]);
   const dismissValue = useCallback((path: string, index?: number) => edit((k) => dismissIn(k, path, index)), [edit]);
 
   const setNotApplicable = useCallback(
@@ -221,11 +224,12 @@ export function KnowledgeProvider({ children, initial }: { children: React.React
       jumpTo,
       applySuggestions,
       applyMenuResult,
+      reviewMenuGroup,
       dismissValue,
       setNotApplicable,
       promoteLocation,
     }),
-    [kb, loadKb, saved, markSaved, dirty, advanced, tab, busy, setFieldValue, addItem, updateItem, removeItem, jumpTo, applySuggestions, applyMenuResult, dismissValue, setNotApplicable, promoteLocation],
+    [kb, loadKb, saved, markSaved, dirty, advanced, tab, busy, setFieldValue, addItem, updateItem, removeItem, jumpTo, applySuggestions, applyMenuResult, reviewMenuGroup, dismissValue, setNotApplicable, promoteLocation],
   );
 
   return <KnowledgeContext.Provider value={value}>{children}</KnowledgeContext.Provider>;
