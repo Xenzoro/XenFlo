@@ -32,16 +32,28 @@ export function socialPlatform(link: string): SocialPlatform | null {
   }
 }
 
+const MAX_SOCIALS = 15;
+// More profile links than this in a page body means it's a directory (server lists,
+// partner pages) linking to other people's profiles, not the company's own.
+const MAX_BODY_PROFILES = 4;
+
 export function extractSocial(ctx: PageContext): void {
-  const { $, url, kb } = ctx;
-  $("a[href]").each((_, el) => {
-    const href = cleanUrl($(el).attr("href") ?? "", url);
-    if (!href) return;
-    const platform = socialPlatform(href);
-    if (platform) {
-      addItem(kb.brand.socialLinks, { platform, url: href }, url, (v) => v.url.toLowerCase().replace(/^https?:\/\/(www\.)?/, ""));
-    }
-  });
+  const { $, url, kb, category } = ctx;
+  const links = (selector: string) =>
+    $(selector)
+      .map((_, el) => cleanUrl($(el).attr("href") ?? "", url))
+      .get()
+      .filter((href): href is string => !!href && !!socialPlatform(href));
+
+  const chrome = links("header a[href], footer a[href], nav a[href]");
+  const body = links("a[href]").filter((href) => !chrome.includes(href));
+  const bodyProfiles = new Set(body.map((h) => h.toLowerCase()));
+  const trusted = category === "home" || bodyProfiles.size <= MAX_BODY_PROFILES ? [...chrome, ...body] : chrome;
+
+  for (const href of trusted) {
+    if (kb.brand.socialLinks.length >= MAX_SOCIALS) break;
+    addItem(kb.brand.socialLinks, { platform: socialPlatform(href)!, url: href }, url, (v) => v.url.toLowerCase().replace(/^https?:\/\/(www\.)?/, ""));
+  }
 
   // twitter:site is "@handle"
   const handle = clean($('meta[name="twitter:site"]').attr("content"));

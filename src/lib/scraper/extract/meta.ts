@@ -1,6 +1,6 @@
 import type { PageContext } from "./types";
 import { addItem, clean, setField } from "../merge";
-import { cleanUrl, siteHost } from "../url";
+import { siteHost } from "../url";
 
 /** Read a <meta> tag by name or property (covers both OG and Twitter styles). */
 export function meta(ctx: PageContext, key: string): string | null {
@@ -34,14 +34,6 @@ export function extractMeta(ctx: PageContext): { title: string | null } {
   if (themeColor && /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(themeColor)) {
     addItem(kb.brand.colors, normalizeHex(themeColor), url, (v) => v);
   }
-
-  // Icons are logo candidates (proper logo detection comes in the branding phase).
-  $('link[rel~="apple-touch-icon"], link[rel~="icon"]').each((_, el) => {
-    const href = cleanUrl($(el).attr("href") ?? "", url);
-    if (!href) return;
-    const rel = $(el).attr("rel") ?? "icon";
-    addItem(kb.brand.logos, { url: href, kind: rel.includes("apple") ? "apple-touch-icon" : "favicon", alt: null }, url, (v) => v.url);
-  });
 
   return { title };
 }

@@ -21,8 +21,8 @@ const COPYRIGHT = new RegExp(
 const COPYRIGHT_YEARS = /(?:©|\(c\)|copyright)\s*(\d{4})\s*[-–]\s*(\d{4})/i;
 
 /** Emails, phones, contact page, copyright/legal entity and legal links. */
-export function extractContact(ctx: PageContext, visibleText: string): void {
-  const { $, url, kb, category } = ctx;
+export function extractContact(ctx: PageContext): void {
+  const { $, url, kb, category, visibleText } = ctx;
 
   // mailto: and tel: links are the most reliable.
   $('a[href^="mailto:"]').each((_, el) => {
