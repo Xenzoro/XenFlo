@@ -25,20 +25,20 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   icon?: React.ReactNode;
 }
 
+/** Button classes, so a link can look like a button (a <button> inside an <a> isn't valid HTML). */
+export function buttonClass(variant: Variant = "primary", size: Size = "md", className?: string): string {
+  return cn(
+    "inline-flex shrink-0 items-center justify-center rounded-full font-medium transition-colors disabled:cursor-not-allowed",
+    VARIANTS[variant],
+    SIZES[size],
+    className,
+  );
+}
+
 /** Pill-shaped button. */
 export function Button({ variant = "primary", size = "md", loading, icon, className, children, disabled, ...rest }: ButtonProps) {
   return (
-    <button
-      type="button"
-      disabled={disabled || loading}
-      className={cn(
-        "inline-flex shrink-0 items-center justify-center rounded-full font-medium transition-colors disabled:cursor-not-allowed",
-        VARIANTS[variant],
-        SIZES[size],
-        className,
-      )}
-      {...rest}
-    >
+    <button type="button" disabled={disabled || loading} className={buttonClass(variant, size, className)} {...rest}>
       {loading ? <Loader2 className="size-4 animate-spin" /> : icon}
       {children}
     </button>

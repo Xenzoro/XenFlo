@@ -2,67 +2,54 @@
 
 /*
   The /knowledge page: scrape bar -> progress -> results (tabs) or an error card.
-  Owns the network actions (scrape, dig deeper, save) and the toast; everything
-  about the knowledge base itself lives in KnowledgeContext.
+  With ?id=<uuid> it opens a saved knowledge base for editing instead of scraping.
+  Save / Dig deeper live in useKnowledgeActions; the knowledge base itself in KnowledgeContext.
 */
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
-import { ADVANCED_TABS, useKnowledge, type TabKey } from "@/context/KnowledgeContext";
-import { digDeeper, saveKnowledge, scrapeUrl, type ApiError } from "@/lib/api/client";
-import { friendlyError } from "@/lib/api/messages";
+import { useKnowledge } from "@/context/KnowledgeContext";
+import { getKnowledge, scrapeUrl, type ApiError } from "@/lib/api/client";
 import { Card, SectionLabel } from "@/components/ui/Card";
-import { Tabs, type TabItem } from "@/components/ui/Tabs";
-import { Toast, type ToastData } from "@/components/ui/Toast";
-import { CrawlSummary } from "./CrawlSummary";
+import { Skeleton } from "@/components/ui/Skeleton";
+import { Toast } from "@/components/ui/Toast";
 import { FooterNote } from "./FooterNote";
-import { ResultsHeader } from "./ResultsHeader";
+import { KnowledgeResults } from "./KnowledgeResults";
 import { ScrapeBar } from "./ScrapeBar";
 import { ScrapeErrorCard } from "./ScrapeErrorCard";
 import { ScrapeProgress } from "./ScrapeProgress";
-import { BrandTab } from "./tabs/BrandTab";
-import { CompanyTab } from "./tabs/CompanyTab";
-import { ContentKitTab } from "./tabs/ContentKitTab";
-import { CustomersTab } from "./tabs/CustomersTab";
-import { InsightsTab } from "./tabs/InsightsTab";
-import { OfferingsTab } from "./tabs/OfferingsTab";
-import { OverviewTab } from "./tabs/OverviewTab";
-import { PeopleTab } from "./tabs/PeopleTab";
-import { RawJsonTab } from "./tabs/RawJsonTab";
-import { SourcesTab } from "./tabs/SourcesTab";
+import { useKnowledgeActions } from "./useKnowledgeActions";
 
-const BASIC_TABS: TabItem<TabKey>[] = [
-  { key: "overview", label: "Overview" },
-  { key: "company", label: "Company" },
-  { key: "customers", label: "Customers" },
-  { key: "brand", label: "Brand" },
-  { key: "people", label: "People" },
-  { key: "offerings", label: "Offerings" },
-];
-
-const POWER_TABS: TabItem<TabKey>[] = [
-  { key: "insights", label: "Insights" },
-  { key: "contentKit", label: "Content Kit" },
-  { key: "sources", label: "Sources" },
-  { key: "json", label: "Raw JSON" },
-];
-
-type Status = "idle" | "loading" | "error" | "done";
+// "opening" = loading a saved record from ?id=
+type Status = "idle" | "loading" | "opening" | "error" | "done";
 
 export function KnowledgeWorkspace() {
-  const { kb, loadKb, saved, markSaved, dirty, advanced, tab, setTab, setBusy } = useKnowledge();
-  const [status, setStatus] = useState<Status>("idle");
+  const { kb, loadKb, markSaved, dirty, setTab } = useKnowledge();
+  const openId = useSearchParams().get("id");
+  const [status, setStatus] = useState<Status>(openId ? "opening" : "idle");
   const [url, setUrl] = useState("");
   const [error, setError] = useState<ApiError | null>(null);
-  const [saving, setSaving] = useState(false);
-  const [digging, setDigging] = useState(false);
-  const [toast, setToast] = useState<ToastData | null>(null);
-  const closeToast = useCallback(() => setToast(null), []);
+  const actions = useKnowledgeActions({ linkToSaved: true });
+  const opened = useRef<string | null>(null);
 
-  // Turning Advanced view off while on an advanced tab falls back to Overview
+  // Open a saved record when the URL has ?id= (from "Open in editor" on the Saved page)
   useEffect(() => {
-    if (!advanced && ADVANCED_TABS.includes(tab)) setTab("overview");
-  }, [advanced, tab, setTab]);
+    if (!openId || opened.current === openId) return;
+    opened.current = openId;
+    setStatus("opening");
+    getKnowledge(openId).then((res) => {
+      if (res.error) {
+        setError(res.error);
+        setStatus("error");
+        return;
+      }
+      markSaved(res.data);
+      setUrl(res.data.url);
+      setTab("overview");
+      setStatus("done");
+    });
+  }, [openId, markSaved, setTab]);
 
   async function scrape(target: string) {
     if (dirty && !window.confirm("Start a new scrape? Your unsaved changes will be lost.")) return;
@@ -80,49 +67,6 @@ export function KnowledgeWorkspace() {
     setStatus("done");
   }
 
-  async function dig() {
-    if (!kb) return;
-    setDigging(true);
-    setBusy(true); // pause editing so nothing typed during the crawl gets overwritten
-    const before = { pages: kb.crawl.pages.length, score: kb.completeness.score };
-    const res = await digDeeper(kb);
-    setDigging(false);
-    setBusy(false);
-    if (res.error) {
-      const f = friendlyError(res.error.code);
-      setToast({ tone: "error", title: f.title, text: f.text });
-      return;
-    }
-    loadKb(res.data);
-    const added = res.data.crawl.pages.length - before.pages;
-    setToast({
-      tone: "success",
-      title: added ? `Read ${added} more ${added === 1 ? "page" : "pages"}` : "No new pages to read",
-      text: `Knowledge Health ${before.score} → ${res.data.completeness.score}`,
-    });
-  }
-
-  async function save() {
-    if (!kb) return;
-    setSaving(true);
-    setBusy(true);
-    const res = await saveKnowledge(kb, saved);
-    setSaving(false);
-    setBusy(false);
-    if (res.error) {
-      const f = friendlyError(res.error.code);
-      setToast({ tone: "error", title: f.title, text: f.text });
-      return;
-    }
-    markSaved(res.data);
-    setToast({
-      tone: "success",
-      title: `Saved ${res.data.companyName} (version ${res.data.version})`,
-      text: "Your knowledge base is stored and ready for Flo.",
-      link: { href: `/knowledge/view?id=${res.data.id}`, label: "View saved knowledge base →" },
-    });
-  }
-
   const showResults = status === "done" && kb;
 
   return (
@@ -135,7 +79,8 @@ export function KnowledgeWorkspace() {
         </div>
       )}
 
-      <ScrapeBar loading={status === "loading"} onScrape={scrape} initialUrl={url} />
+      {/* key: show the opened record's URL once it loads */}
+      <ScrapeBar key={url} loading={status === "loading"} onScrape={scrape} initialUrl={url.replace(/^https?:\/\//, "").replace(/\/$/, "")} />
 
       <AnimatePresence mode="wait">
         {status === "idle" && (
@@ -149,35 +94,24 @@ export function KnowledgeWorkspace() {
             </Card>
           </motion.div>
         )}
+        {status === "opening" && (
+          <motion.div key="opening" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-4">
+            <Skeleton className="h-24 rounded-2xl" />
+            <Skeleton className="h-10 w-2/3 rounded-full" />
+            <Skeleton className="h-72 rounded-2xl" />
+          </motion.div>
+        )}
         {status === "loading" && <ScrapeProgress key="loading" url={url} />}
-        {status === "error" && error && <ScrapeErrorCard key="error" error={error} onRetry={() => scrape(url)} />}
+        {status === "error" && error && <ScrapeErrorCard key="error" error={error} onRetry={url ? () => scrape(url) : undefined} />}
         {showResults && (
-          <motion.div key="results" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
-            <ResultsHeader onSave={save} saving={saving} />
-            <CrawlSummary kb={kb} />
-            <div data-tour="tabs">
-              <Tabs items={advanced ? [...BASIC_TABS, ...POWER_TABS] : BASIC_TABS} active={tab} onChange={setTab} />
-            </div>
-            <AnimatePresence mode="wait">
-              <motion.div key={tab} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }} transition={{ duration: 0.18 }}>
-                {tab === "overview" && <OverviewTab />}
-                {tab === "company" && <CompanyTab />}
-                {tab === "customers" && <CustomersTab />}
-                {tab === "brand" && <BrandTab />}
-                {tab === "people" && <PeopleTab />}
-                {tab === "offerings" && <OfferingsTab />}
-                {tab === "insights" && <InsightsTab />}
-                {tab === "contentKit" && <ContentKitTab />}
-                {tab === "sources" && <SourcesTab onDigDeeper={dig} digging={digging} />}
-                {tab === "json" && <RawJsonTab />}
-              </motion.div>
-            </AnimatePresence>
+          <motion.div key="results" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
+            <KnowledgeResults onSave={actions.save} saving={actions.saving} onDigDeeper={actions.dig} digging={actions.digging} />
           </motion.div>
         )}
       </AnimatePresence>
 
       <FooterNote />
-      <Toast toast={toast} onClose={closeToast} />
+      <Toast toast={actions.toast} onClose={actions.closeToast} />
     </div>
   );
 }

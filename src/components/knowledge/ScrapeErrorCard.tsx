@@ -11,7 +11,8 @@ import { BLOCKED_CODES, friendlyError } from "@/lib/api/messages";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 
-export function ScrapeErrorCard({ error, onRetry }: { error: ApiError; onRetry: () => void }) {
+/** `onRetry` is optional: opening a missing saved record has nothing to retry. */
+export function ScrapeErrorCard({ error, onRetry }: { error: ApiError; onRetry?: () => void }) {
   const friendly = friendlyError(error.code);
   const blocked = BLOCKED_CODES.has(error.code);
 
@@ -26,7 +27,7 @@ export function ScrapeErrorCard({ error, onRetry }: { error: ApiError; onRetry: 
             <h2 className="font-semibold">{friendly.title}</h2>
             <p className="mt-1 text-sm text-muted">{friendly.text}</p>
             {error.message && error.message !== friendly.text && <p className="mt-2 text-xs text-subtle">Details: {error.message}</p>}
-            {!blocked && (
+            {!blocked && onRetry && (
               <Button variant="secondary" size="sm" className="mt-4" onClick={onRetry}>
                 Try again
               </Button>

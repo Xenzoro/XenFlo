@@ -79,9 +79,13 @@ export function tabForPath(path: string): TabKey {
   return "overview";
 }
 
-export function KnowledgeProvider({ children }: { children: React.ReactNode }) {
-  const [kb, setKb] = useState<KnowledgeBase | null>(null);
-  const [saved, setSaved] = useState<KnowledgeState["saved"]>(null);
+/**
+ * `initial` starts the provider with an already-saved knowledge base (the Detailed view
+ * on /knowledge/view), so it begins in the "saved, no changes" state.
+ */
+export function KnowledgeProvider({ children, initial }: { children: React.ReactNode; initial?: KnowledgeBase }) {
+  const [kb, setKb] = useState<KnowledgeBase | null>(initial ?? null);
+  const [saved, setSaved] = useState<KnowledgeState["saved"]>(initial ? { id: initial.id, version: initial.version } : null);
   const [dirty, setDirty] = useState(false);
   const [advanced, setAdvanced] = useState(false);
   const [tab, setTab] = useState<TabKey>("overview");
