@@ -85,7 +85,7 @@ The database owns `id`, `version`, `createdAt` and `updatedAt` and writes them b
 
 **`update_knowledge_base(p_id, p_data, p_expected_version, p_note)`**
 1. Locks the row (`select … for update`) so two saves can't both become version N+1.
-2. If `p_expected_version` doesn't match the current version, it raises `40001`. The API returns **409 CONFLICT** ("Someone saved a newer version"), which is optimistic concurrency for multiple editors.
+2. If `p_expected_version` doesn't match the current version, it raises `PT409`, which PostgREST passes straight through as HTTP 409. (`40001` would be retried automatically by PostgREST until the request timed out.) The API returns **409 CONFLICT** ("Someone saved a newer version"), which is optimistic concurrency for multiple editors.
 3. Otherwise it bumps the version, updates the columns and `data`, and writes the snapshot.
 
 A delete cascades to versions, crawl runs and consents.

@@ -26,7 +26,7 @@ export function fromPostgrest(err: PostgrestLikeError): DbError {
     case "PGRST116": // .single() found no row
     case "P0002": // raised by update_knowledge_base when the id doesn't exist
       return new DbError("NOT_FOUND", "That knowledge base doesn't exist.");
-    case "40001": // raised by update_knowledge_base on a version mismatch
+    case "PT409": // raised by update_knowledge_base on a version mismatch
       return new DbError("CONFLICT", "Someone saved a newer version. Reload to see the latest changes.");
     default:
       return new DbError("DB_ERROR", `Database error: ${err.message}`);
