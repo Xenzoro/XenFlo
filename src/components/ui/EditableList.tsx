@@ -10,7 +10,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { useKnowledge, useList } from "@/context/KnowledgeContext";
 import { cn } from "@/lib/utils/cn";
-import { ConfidenceBadge } from "./Badge";
+import { ConfidenceBadge, isAi } from "./Badge";
 import { Input } from "./Input";
 import { AddPill } from "./Pill";
 
@@ -115,7 +115,7 @@ export function EditableList<T = string>({
                     onEdit={() => start(i)}
                     onRemove={() => removeItem(path, i)}
                     disabled={busy}
-                    badge={advanced ? <ConfidenceBadge confidence={item.confidence} source={item.source} /> : null}
+                    badge={advanced || isAi(item.confidence) ? <ConfidenceBadge confidence={item.confidence} source={item.source} /> : null}
                   >
                     {render ? render(item.value) : format(item.value)}
                   </Item>

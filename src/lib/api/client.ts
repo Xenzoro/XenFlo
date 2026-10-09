@@ -5,6 +5,7 @@
 */
 import type { KnowledgeBase, UploadRecord } from "@/types/knowledge";
 import type { KnowledgeSummary, VersionSummary } from "@/lib/db/types";
+import type { EnrichResult, EnrichStatus } from "@/types/enrichment";
 
 export interface ApiError {
   code: string;
@@ -120,4 +121,13 @@ export async function listVersions(id: string): Promise<ApiResult<VersionSummary
 export async function getVersion(id: string, version: number): Promise<ApiResult<KnowledgeBase>> {
   const res = await get<KbResponse>(`/api/knowledge/${id}/versions/${version}`);
   return res.error ? res : { data: res.data.knowledgeBase };
+}
+
+export function enrichStatus(): Promise<ApiResult<EnrichStatus>> {
+  return get<EnrichStatus>("/api/enrich");
+}
+
+/** Ask for AI suggestions. Nothing is applied until the user accepts them. */
+export function enrichKnowledge(kb: KnowledgeBase, opts: { passcode?: string; preview?: boolean }): Promise<ApiResult<EnrichResult>> {
+  return post<EnrichResult>("/api/enrich", { knowledgeBase: kb, ...opts });
 }

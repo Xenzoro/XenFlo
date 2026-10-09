@@ -7,9 +7,11 @@
     1. stamp the value as user_edited (source "user", fresh updatedAt)
     2. recompute the completeness score so the Health gauge updates live
     3. mark the page dirty (unsaved changes)
+  applySuggestions is the exception: accepted AI values keep their AI confidence.
 */
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import type { Field, KnowledgeBase } from "@/types/knowledge";
+import type { Suggestion } from "@/types/enrichment";
 import { scoreCompleteness } from "@/lib/scraper/score";
 import { field, missing } from "@/lib/utils/knowledge";
 import { getAt, setAt } from "@/lib/utils/path";
@@ -50,6 +52,8 @@ interface KnowledgeState {
   removeItem: (path: string, index: number) => void;
   /** Open the tab that holds `path`, scroll to it and flash it */
   jumpTo: (path: string) => void;
+  /** Write AI suggestions the owner accepted, keeping their AI confidence and source */
+  applySuggestions: (suggestions: Suggestion[]) => void;
 }
 
 const KnowledgeContext = createContext<KnowledgeState | null>(null);
@@ -144,6 +148,22 @@ export function KnowledgeProvider({ children, initial }: { children: React.React
     [edit],
   );
 
+  // Accepted AI suggestions keep ai_live / ai_mock (not user_edited), so they show an AI badge.
+  // List suggestions add new items; scalar ones replace the field. Unsaved until Save.
+  const applySuggestions = useCallback(
+    (suggestions: Suggestion[]) =>
+      edit((k) =>
+        suggestions.reduce((acc, s) => {
+          if (!s.list) return setAt(acc, s.path, field(s.value, s.source, s.confidence));
+          const list = (getAt(acc, s.path) as Field<unknown>[]) ?? [];
+          const have = new Set(list.map((f) => String(f.value).toLowerCase()));
+          const added = (s.value as string[]).filter((v) => !have.has(v.toLowerCase())).map((v) => field(v, s.source, s.confidence));
+          return setAt(acc, s.path, [...list, ...added]);
+        }, k),
+      ),
+    [edit],
+  );
+
   const jumpTo = useCallback((path: string) => {
     const target = tabForPath(path);
     if (ADVANCED_TABS.includes(target)) setAdvanced(true);
@@ -177,8 +197,9 @@ export function KnowledgeProvider({ children, initial }: { children: React.React
       updateItem,
       removeItem,
       jumpTo,
+      applySuggestions,
     }),
-    [kb, loadKb, saved, markSaved, dirty, advanced, tab, busy, setFieldValue, addItem, updateItem, removeItem, jumpTo],
+    [kb, loadKb, saved, markSaved, dirty, advanced, tab, busy, setFieldValue, addItem, updateItem, removeItem, jumpTo, applySuggestions],
   );
 
   return <KnowledgeContext.Provider value={value}>{children}</KnowledgeContext.Provider>;

@@ -113,7 +113,7 @@ export function OverviewTab() {
           <PreviewTile icon={<Mail className="size-4" />} label="Email subject" text={preview.emailSubject} />
           <PreviewTile icon={<FileText className="size-4" />} label="Blog idea" text={preview.blogIdea} />
         </div>
-        <p className="mt-3 text-[11px] text-subtle">These are template examples built from your knowledge, not real AI output. Live AI writing arrives with enrichment.</p>
+        <p className="mt-3 text-[11px] text-subtle">These are template examples built from your knowledge, not real AI output. Use Enrich with AI (top right) for real suggestions.</p>
       </Card>
     </div>
   );

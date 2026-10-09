@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { liveAvailable } from "@/lib/ai/config";
 import { z } from "zod";
 import type { UploadRecord } from "@/types/knowledge";
 import { MAX_SCREENSHOT_BYTES, SCREENSHOT_TYPES, signedUploadUrl, uploadScreenshot } from "@/lib/db";
@@ -40,7 +41,7 @@ export async function POST(request: Request) {
       needsAiFields: needs.data,
     };
     // Only whether a key exists; nothing is sent to OpenAI here
-    const aiAvailable = !!process.env.OPENAI_API_KEY;
+    const aiAvailable = liveAvailable(); // key and passcode both configured
     return NextResponse.json({ upload, url: await signedUploadUrl(path), aiAvailable }, { status: 201 });
   } catch (err) {
     return errorResponse(err);

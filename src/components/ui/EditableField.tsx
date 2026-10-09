@@ -9,7 +9,7 @@ import { useState } from "react";
 import { Pencil } from "lucide-react";
 import { useField, useKnowledge } from "@/context/KnowledgeContext";
 import { cn } from "@/lib/utils/cn";
-import { ConfidenceBadge } from "./Badge";
+import { ConfidenceBadge, isAi } from "./Badge";
 import { Input, TextArea } from "./Input";
 import { AddPill } from "./Pill";
 
@@ -52,7 +52,7 @@ export function EditableField<T = string>({
   const [error, setError] = useState<string | null>(null);
 
   const value = f?.value ?? null;
-  const badge = advanced && f ? <ConfidenceBadge confidence={f.confidence} source={f.source} /> : null;
+  const badge = f && (advanced || isAi(f.confidence)) ? <ConfidenceBadge confidence={f.confidence} source={f.source} /> : null;
 
   function start() {
     if (busy) return;

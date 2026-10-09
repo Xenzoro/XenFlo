@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // The enrich route reads the prompt files at runtime; make sure Vercel bundles them.
+  outputFileTracingIncludes: {
+    "/api/enrich": ["./prompts/**/*.md"],
+  },
 };
 
 export default nextConfig;

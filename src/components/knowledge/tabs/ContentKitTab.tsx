@@ -16,7 +16,7 @@ export function ContentKitTab() {
   return (
     <div className="space-y-4">
       <Card className="border-dashed p-4 text-xs text-muted">
-        The Content Kit is mostly written by AI enrichment, which comes in a later step. Anything you add here is used by Flo right away.
+        The Content Kit is mostly written by Enrich with AI (top right), and you approve every suggestion. Anything you add here is used by Flo right away.
       </Card>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <SectionCard title="Content pillars" subtitle="The 3 to 5 topics you post about">

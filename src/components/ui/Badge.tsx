@@ -37,7 +37,10 @@ const CONFIDENCE: Record<Confidence, { label: string; tone: Tone }> = {
   missing: { label: "Missing", tone: "gray" },
 };
 
-/** Badge saying where a value came from. Shown on every field in Advanced view. */
+/** AI values always show their badge (not only in Advanced view), so nobody mistakes them for facts from the site. */
+export const isAi = (c: Confidence) => c === "ai_live" || c === "ai_mock";
+
+/** Badge saying where a value came from. Shown on every field in Advanced view, and on AI values always. */
 export function ConfidenceBadge({ confidence, source }: { confidence: Confidence; source?: string | null }) {
   const { label, tone } = CONFIDENCE[confidence];
   return (

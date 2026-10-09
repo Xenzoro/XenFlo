@@ -1,6 +1,6 @@
 # logo-vision v1
 
-Fills: `brand.artStyle` (`Field<string>`), `company.alternateNames` (`FieldList<string>`), plus color hints that are checked against `brand.colors`
+Fills: `brand.artStyle` (`Field<string>`) and `company.alternateNames` (`FieldList<string>`, from `brandNames` of logo images), plus screenshot facts (see `src/lib/ai/prompts.ts`)
 Model: vision (image + JSON mode)
 
 ## Role
@@ -12,8 +12,7 @@ Up to 6 images (logos first, then hero or header images), each sent as an image 
 ```json
 {
   "companyName": "string",
-  "images": [{ "index": 0, "kind": "header logo | logo image | json-ld logo | header image | apple-touch-icon | og:image | favicon | screenshot", "alt": "string | null", "fileNameClue": "string | null" }],
-  "knownColors": ["#rrggbb"]
+  "images": [{ "index": 0, "kind": "header logo | logo image | json-ld logo | header image | apple-touch-icon | og:image | favicon | screenshot", "alt": "string | null", "fileNameClue": "string | null", "allowedPaths": ["string"] }]
 }
 ```
 
@@ -26,11 +25,10 @@ Up to 6 images (logos first, then hero or header images), each sent as an image 
       "isLogo": true,
       "isBlankOrPlaceholder": false,
       "textInImage": ["string"],
-      "dominantColors": ["#rrggbb"]
+      "brandNames": ["string"]
     }
   ],
   "artStyle": "string | null",
-  "alternateNames": ["string"],
   "basedOn": ["string"],
   "missing": ["string"]
 }
@@ -38,13 +36,12 @@ Up to 6 images (logos first, then hero or header images), each sent as an image 
 - `images[].isLogo`: false for photos, banners and stock images.
 - `images[].isBlankOrPlaceholder`: true for empty, gray, broken or generic placeholder images. **Those images are ignored for everything else.**
 - `images[].textInImage`: words actually readable in the image, exactly as written.
-- `images[].dominantColors`: up to 3 hex values. These are only **hints**: the app keeps a color only if it is close to one already found in the site's CSS, or if the owner confirms it.
-- `artStyle`: 2 to 3 sentences: shapes, line weight, typography style (serif, script, geometric sans…), mood, illustration vs photo. `null` when no usable logo is present.
-- `alternateNames`: brand or sub-brand names read from logos that differ from `companyName` (e.g. restaurant names in a group's logo grid). Leave out slogans and taglines.
+- `images[].brandNames`: brand or sub-brand names shown in this image (e.g. restaurant names in a group's logo grid). Leave out slogans and taglines. The app only uses names from images marked `isLogo`; names on a hero banner may belong to partners or a parent company.
+- `artStyle`: 2 to 3 sentences: shapes, line weight, typography style (serif, script, geometric sans…), mood, illustration vs photo. Base it on the logos; if no logo is usable, describe the hero image's visual style instead. `null` when no usable image is present.
 
 ## Rules
 1. Report only what's visible. Don't guess a brand name from a symbol, and don't name the font family unless it is unmistakable. Describe its style instead.
-2. If every image is blank, broken or a placeholder, return `"artStyle": null`, `"alternateNames": []` and `missing: ["logo"]`. Never describe a blank image's "style".
+2. If every image is blank, broken or a placeholder, return `"artStyle": null`, empty `brandNames` and `missing: ["logo"]`. Never describe a blank image's "style".
 3. `textInImage` must be spelled exactly as shown. If it's unreadable, leave it out.
 4. Don't identify people in photos.
 5. Output only the JSON object.
@@ -58,20 +55,18 @@ Input: 3 images from Dragon Factory, a restaurant group. The first is the header
     { "index": 0, "kind": "header logo", "alt": "Dragonfactory", "fileNameClue": "callingcard cheongdam foodhall" },
     { "index": 1, "kind": "logo image", "alt": null, "fileNameClue": "3 5x2 logos Page 01" },
     { "index": 2, "kind": "logo image", "alt": null, "fileNameClue": "3 5x2 logos Page 05" }
-  ],
-  "knownColors": ["#2b5672", "#c6a47e", "#e03939"]
+  ]
 }
 ```
 Output (illustrative: shows the format, not a real model run):
 ```json
 {
   "images": [
-    { "index": 0, "isLogo": true, "isBlankOrPlaceholder": false, "textInImage": ["DRAGON FACTORY"], "dominantColors": ["#c6a47e", "#1a1a1a"] },
-    { "index": 1, "isLogo": true, "isBlankOrPlaceholder": false, "textInImage": ["NEKO LOCO"], "dominantColors": ["#e03939"] },
-    { "index": 2, "isLogo": true, "isBlankOrPlaceholder": false, "textInImage": ["CHOJANG"], "dominantColors": ["#2b5672"] }
+    { "index": 0, "isLogo": true, "isBlankOrPlaceholder": false, "textInImage": ["DRAGON FACTORY"], "brandNames": ["Dragon Factory"] },
+    { "index": 1, "isLogo": true, "isBlankOrPlaceholder": false, "textInImage": ["NEKO LOCO"], "brandNames": ["Neko Loco"] },
+    { "index": 2, "isLogo": true, "isBlankOrPlaceholder": false, "textInImage": ["CHOJANG"], "brandNames": ["Chojang"] }
   ],
   "artStyle": "Bold, modern restaurant branding: heavy display lettering in all caps, simple flat marks and strong contrast. Warm gold and red accents on dark backgrounds give it an upscale, nightlife feel rather than a casual cafe look.",
-  "alternateNames": ["Neko Loco", "Chojang"],
   "basedOn": ["images[0]", "images[1]", "images[2]"],
   "missing": []
 }

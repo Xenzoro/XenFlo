@@ -13,7 +13,7 @@ import { Pencil, X } from "lucide-react";
 import type { Field } from "@/types/knowledge";
 import { useKnowledge, useList } from "@/context/KnowledgeContext";
 import { cn } from "@/lib/utils/cn";
-import { ConfidenceBadge } from "./Badge";
+import { ConfidenceBadge, isAi } from "./Badge";
 import { Card } from "./Card";
 import { AddPill } from "./Pill";
 import { RecordForm, type FormField } from "./RecordForm";
@@ -101,7 +101,7 @@ export function RecordList<T extends object>({
                       </IconButton>
                     </div>
                     {render(item.value, values)}
-                    {advanced && (
+                    {(advanced || isAi(item.confidence)) && (
                       <div className="mt-3">
                         <ConfidenceBadge confidence={item.confidence} source={item.source} />
                       </div>

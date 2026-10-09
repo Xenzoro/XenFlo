@@ -99,7 +99,7 @@ export function UploadPanel({
     onResult({
       knowledgeBase: kb,
       message: aiAvailable
-        ? `Stored ${shots.length} screenshot${shots.length === 1 ? "" : "s"}. Flo will read these when AI enrichment runs.`
+        ? `Stored ${shots.length} screenshot${shots.length === 1 ? "" : "s"}. Use Enrich with AI to have Flo read them.`
         : `Stored ${shots.length} screenshot${shots.length === 1 ? "" : "s"}. Flo can't read screenshots yet because AI isn't set up, so paste the text instead.`,
     });
   }

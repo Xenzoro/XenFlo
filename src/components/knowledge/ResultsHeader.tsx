@@ -1,15 +1,18 @@
 "use client";
 
-/** Bar above the tabs: company name, live score, Advanced view toggle and Save button. */
-import { Save } from "lucide-react";
+/** Bar above the tabs: company name, live score, Advanced view toggle, Enrich with AI and Save. */
+import { useState } from "react";
+import { Save, Sparkles } from "lucide-react";
 import { useKnowledge } from "@/context/KnowledgeContext";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Toggle } from "@/components/ui/Toggle";
+import { EnrichModal } from "./ai/EnrichModal";
 
 export function ResultsHeader({ onSave, saving }: { onSave: () => void; saving: boolean }) {
   const { kb, dirty, saved, advanced, setAdvanced, busy } = useKnowledge();
+  const [enriching, setEnriching] = useState(false);
   if (!kb) return null;
 
   return (
@@ -28,12 +31,18 @@ export function ResultsHeader({ onSave, saving }: { onSave: () => void; saving: 
         <span data-tour="advanced" className="rounded-full">
           <Toggle checked={advanced} onChange={setAdvanced} label="Advanced view" />
         </span>
+        {/* Only ever runs from this button: enrichment costs money, so never automatically */}
+        <Button variant="secondary" onClick={() => setEnriching(true)} disabled={busy} icon={<Sparkles className="size-4" />}>
+          <span className="hidden sm:inline">Enrich with AI</span>
+          <span className="sm:hidden">AI</span>
+        </Button>
         <span data-tour="save" className="rounded-full">
           <Button onClick={onSave} loading={saving} disabled={busy || (!dirty && !!saved)} icon={<Save className="size-4" />}>
             {saved && !dirty ? "Saved" : "Save"}
           </Button>
         </span>
       </div>
+      <EnrichModal open={enriching} onClose={() => setEnriching(false)} />
     </Card>
   );
 }

@@ -22,6 +22,7 @@ export const ERROR_MESSAGES: Record<string, FriendlyError> = {
   CONFLICT: { title: "Someone saved a newer version", text: "Reload the saved record to see the latest changes before saving again." },
   NOT_FOUND: { title: "That knowledge base no longer exists", text: "It may have been deleted. Save again to create a new one." },
   NOT_CONFIGURED: { title: "Saving isn't set up", text: "The database connection is missing. Add the Supabase keys to .env.local." },
+  INVALID_PASSCODE: { title: "That passcode isn't right", text: "Check it and try again, or use preview mode, which needs no passcode." },
   NETWORK: { title: "You seem to be offline", text: "We couldn't reach XenFlo. Check your connection and try again." },
 };
 
