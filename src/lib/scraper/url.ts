@@ -39,6 +39,16 @@ export function isSameSite(a: string, b: string): boolean {
   }
 }
 
+/** Same company domain, counting subdomains (billing.site.com is still site.com). */
+export function isSameDomain(a: string, b: string): boolean {
+  try {
+    const [x, y] = [siteHost(a), siteHost(b)];
+    return x === y || x.endsWith(`.${y}`) || y.endsWith(`.${x}`);
+  } catch {
+    return false;
+  }
+}
+
 const TRACKING_PARAMS = /^(utm_|fbclid|gclid|mc_|ref$|_ga)/i;
 
 /** Resolve a (possibly relative) href against a page and strip hash and tracking params. */

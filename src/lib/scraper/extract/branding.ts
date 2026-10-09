@@ -86,6 +86,13 @@ function extractLogos(ctx: PageContext): void {
 function addAlternateName(ctx: PageContext, clue: string | null): void {
   if (!clue || clue.length < 4) return;
   const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
+  // On inner pages, only trust a logo name that matches the page itself
+  // ("Neko Loco" logo on /neko-loco-sushi), so random images don't become brands.
+  if (ctx.category !== "home") {
+    const pageText = `${new URL(ctx.url).pathname} ${ctx.$("title").text()}`.toLowerCase();
+    const words = clue.toLowerCase().split(/\s+/).filter((w) => w.length >= 3);
+    if (!words.some((w) => pageText.includes(w))) return;
+  }
   const company = norm(ctx.kb.company.name.value ?? "");
   const c = norm(clue);
   if (!c || (company && (company.includes(c) || c.includes(company)))) return;

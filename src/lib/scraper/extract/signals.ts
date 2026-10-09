@@ -30,6 +30,8 @@ export function extractSignals(ctx: PageContext): void {
   const { $text: $, kb, url } = ctx;
   // An HTML sitemap is a list of every page title ("Black Friday Server Deals"), not current messaging.
   if (/site-?map/i.test(new URL(url).pathname)) return;
+  // Privacy/terms pages mention "special offers" and "guarantee" in legal boilerplate.
+  if (ctx.category === "legal") return;
 
   // Innermost elements whose text mentions a signal.
   const blocks: string[] = [];

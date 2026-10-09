@@ -1,6 +1,6 @@
 import type { PageContext } from "./types";
 import { addItem } from "../merge";
-import { cleanUrl, isSameSite } from "../url";
+import { cleanUrl, isSameDomain } from "../url";
 import { socialPlatform } from "./social";
 import { imageClue, textOf } from "./text";
 
@@ -20,7 +20,7 @@ export function extractPress(ctx: PageContext): void {
       const el = $(node);
       const href = cleanUrl(el.attr("href") ?? "", url);
       const label = textOf(el);
-      if (!href || isSameSite(href, url) || socialPlatform(href)) return;
+      if (!href || isSameDomain(href, url) || socialPlatform(href)) return;
       if (label.length >= 15 && label.length <= 150) add(label, href);
     });
   }
