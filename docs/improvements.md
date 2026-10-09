@@ -34,7 +34,19 @@ Status key: **Fixed** · **Planned** · **Idea**
 
 | Issue | Found on | Status |
 |---|---|---|
-| **Platform default colors reported as brand colors:** `#007cba` and `#005a87` (WordPress default blues), `#1da1f2` (Twitter blue), and WordPress palette oranges | Anime Boba Cafe | Idea: filter a list of known platform and library default colors |
+| **Platform default colors reported as brand colors:** `#007cba` and `#005a87` (WordPress default blues), `#1da1f2` (Twitter blue), and WordPress palette oranges | Anime Boba Cafe, Goettl | Fixed: colors are now ranked by where they're actually used (buttons ×6, header and nav ×4, links ×2), plugin only CSS rules are ignored, and known platform defaults (WordPress, Kadence `#f76a0c`, Swiper, Wix `#116dff`) are filtered. Goettl went from WordPress blues and orange to its real navy `#003963` and red `#cd163f` |
+| A brand's real color (Goettl's red, used on icons and the Book Now button) was missing entirely | Goettl | Fixed with usage based ranking above |
+| All colors shown as one flat list, so minor icon colors (like a green checkmark) look as important as the brand colors | Goettl | Fixed in Phase 7: Brand tab shows the top 3 as **Primary** and the rest as **Secondary** |
+| White logos invisible on the light checkerboard preview | Apex, Dragon Factory, Goettl | Fixed: logo previews detect light logos and switch to a dark background, with a manual light/dark toggle |
+| The same logo listed several times (header, JSON-LD, apple touch icon, social image) | Goettl | Fixed in Phase 7: identical logos are grouped and shown once, listing every place they were found (Goettl went from 7 logos to 5) |
+| Photo alt text treated as an alternate company name ("Person holding a wrench...") | Goettl (Phase 7) | Idea: only accept alt text clues from logo images, and reject descriptive sentences |
+
+## Offerings and contact
+
+| Issue | Found on | Status |
+|---|---|---|
+| Section headings picked up as offerings ("Signs You Need Duct Services"); Goettl showed 42 offerings | Goettl (Phase 7) | Idea: require a price, a services page, or a short description pattern; skip headings phrased as questions or "signs you need..." |
+| Phone numbers from other locations picked up, plus button text like "CALL Now" | Goettl (Phase 7) | Idea: keep only valid phone formats, and when a location page is scraped, prefer the number for that location |
 | Library default color reported as brand color (Swiper's `#007aff`) | Apex Hosting (Phase 2) | Fixed in Phase 2: bundled library stylesheets are skipped |
 | "Apple System" listed as a font; it's the device's built in system font | Anime Boba Cafe | Idea: add to the system font filter (alongside Arial, Segoe UI, system-ui) |
 | Unresolved CSS variables and icon fonts listed as fonts (`var(--font-family)`, `ETmodules`) | MoFlo's sample profiles | Fixed in Phase 2: variables resolved, icon fonts filtered |
