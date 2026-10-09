@@ -11,6 +11,7 @@ import { knowledgeBaseSchema } from "@/types/knowledge.schema";
 import { scoreCompleteness } from "@/lib/scraper/score";
 import { getDb } from "./client";
 import { DbError, fromPostgrest } from "./errors";
+import { removeScreenshots } from "./storage";
 import type { KnowledgeBaseRow, KnowledgeSummary, ListFilters, ListSort, VersionSummary } from "./types";
 
 // `logos:data->brand->logos` is PostgREST JSON-path syntax: it pulls just the logo list out
@@ -130,11 +131,25 @@ export async function updateKnowledgeBase(
   return toKnowledgeBase(data);
 }
 
-/** Delete a knowledge base. Versions, crawl runs and consents cascade with it. */
+/**
+ * Delete a knowledge base. Versions, crawl runs and consents cascade with it.
+ * Its screenshots live in Storage (not the database), so they're removed separately.
+ */
 export async function deleteKnowledgeBase(id: string): Promise<void> {
+  const paths = await screenshotPaths(id);
   const { data, error } = await getDb().from("knowledge_bases").delete().eq("id", id).select("id");
   if (error) throw fromPostgrest(error);
   if (!data || data.length === 0) throw new DbError("NOT_FOUND", "That knowledge base doesn't exist.");
+  // Best effort: the record is already gone, so a storage hiccup shouldn't fail the delete
+  if (paths.length) await removeScreenshots(paths).catch((err) => console.error("Screenshot cleanup failed:", err.message));
+}
+
+/** Storage paths of every screenshot in any version of a knowledge base (a restore could bring old ones back). */
+async function screenshotPaths(id: string): Promise<string[]> {
+  const { data, error } = await getDb().from("knowledge_versions").select("uploads:data->uploads").eq("knowledge_base_id", id);
+  if (error) throw fromPostgrest(error);
+  const paths = (data as { uploads: { path: string | null }[] | null }[]).flatMap((v) => (v.uploads ?? []).map((u) => u.path));
+  return [...new Set(paths.filter((p): p is string => !!p))];
 }
 
 /** Version history, newest first (metadata only, no snapshots). */

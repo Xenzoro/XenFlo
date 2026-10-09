@@ -7,7 +7,9 @@
     - "FAQ" sections: a line ending in "?" is a question, the lines after it its answer
     - review sections: lines like  "Great service!" - Jenna R.
     - service/menu/pricing sections: lines like  Full Groom - $65. Bath, haircut...
+    - team sections: lines like  Maria Ortega - Owner and lead groomer
     - a US-style street address anywhere:  4120 Sunset Road, Suite 6, Henderson, NV 89014
+    - web addresses become links, so social profiles are picked up like on a real page
   Everything comes from the user's own words; nothing is guessed or invented.
 */
 
@@ -22,6 +24,7 @@ const isHeadingLike = (line: string) => line.length > 0 && line.length <= HEADIN
 const FAQ_HEADING = /\b(faq|faqs|frequently asked|questions)\b/i;
 const REVIEW_HEADING = /testimonial|reviews?|what .{0,30}(say|said)|kind words|happy (customers|clients)|feedback/i;
 const SERVICE_HEADING = /\b(services?|menu|pricing|prices|packages?|products?|plans?|rates|treatments|classes)\b/i;
+const TEAM_HEADING = /\b(team|staff|our people|meet (the|our)|leadership|founders?|owners?)\b/i;
 const STORY_HEADING = /\b(our story|story|history|how we started|about us|who we are)\b/i;
 
 const PRICE = /\$\s?(\d{1,6}(?:,\d{3})*(?:\.\d{2})?)/;
@@ -70,6 +73,20 @@ function serviceItems(lines: string[]) {
   });
 }
 
+function teamItems(lines: string[]) {
+  // "Maria Ortega - Owner"  (2-4 capitalized words, then a dash, comma or colon, then the title)
+  const re = /^([A-Z][\w.'-]+(?:\s+[A-Z][\w.'-]+){1,3})\s*[-–—,:]\s*(.{2,80})$/;
+  return lines.flatMap((line) => {
+    const m = line.match(re);
+    return m ? [{ name: m[1], jobTitle: m[2].trim() }] : [];
+  });
+}
+
+/** Text with web addresses turned into links (escaped first, so user text can't inject HTML). */
+function linkify(line: string): string {
+  return escape(line).replace(/\bhttps?:\/\/[^\s<]+[^\s<.,;:!?)]/g, (url) => `<a href="${url}">${url}</a>`);
+}
+
 /** The founding story, when the text has a section clearly labeled as one. */
 export function storyFromSections(sections: TextSection[]): string | null {
   const s = sections.find((x) => x.heading && STORY_HEADING.test(x.heading));
@@ -102,6 +119,8 @@ export function textToHtml(text: string): string {
       if (faqs.length) graph.push({ "@type": "FAQPage", mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.question, acceptedAnswer: { "@type": "Answer", text: f.answer } })) });
     } else if (REVIEW_HEADING.test(s.heading)) {
       for (const r of reviewItems(s.lines)) graph.push({ "@type": "Review", reviewBody: r.quote, ...(r.author ? { author: r.author } : {}) });
+    } else if (TEAM_HEADING.test(s.heading)) {
+      for (const person of teamItems(s.lines)) graph.push({ "@type": "Person", name: person.name, jobTitle: person.jobTitle });
     } else if (SERVICE_HEADING.test(s.heading)) {
       for (const item of serviceItems(s.lines)) {
         // "Product", not "Service": the JSON-LD extractor treats any *Service type as the business itself
@@ -116,7 +135,7 @@ export function textToHtml(text: string): string {
   }
 
   const body = sections
-    .map((s) => `${s.heading ? `<h2>${escape(s.heading)}</h2>` : ""}<p>${s.lines.map(escape).join("<br>")}</p>`)
+    .map((s) => `${s.heading ? `<h2>${escape(s.heading)}</h2>` : ""}<p>${s.lines.map(linkify).join("<br>")}</p>`)
     .join("\n");
   // "<" is escaped inside the JSON so user text can't close the script tag
   const jsonLd = graph.length

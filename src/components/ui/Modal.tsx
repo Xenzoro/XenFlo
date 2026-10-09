@@ -44,7 +44,7 @@ export function Modal({
           className="fixed inset-0 z-[70] flex items-end justify-center bg-ink/40 p-4 sm:items-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          exit={{ opacity: 0, transition: { duration: 0.15 } }}
           onMouseDown={(e) => e.target === e.currentTarget && !busy && onClose()}
         >
           <motion.div
@@ -55,7 +55,8 @@ export function Modal({
             aria-labelledby={labelledBy}
             initial={{ opacity: 0, y: 24, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 12 }}
+            // Spring in, but leave quickly: closing should feel instant
+            exit={{ opacity: 0, y: 12, transition: { duration: 0.15 } }}
             transition={{ type: "spring", stiffness: 380, damping: 30 }}
             className={`max-h-[calc(100dvh-2rem)] w-full overflow-y-auto rounded-3xl bg-card p-6 shadow-xl outline-none ${wide ? "max-w-2xl" : "max-w-md"}`}
           >

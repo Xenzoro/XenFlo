@@ -34,7 +34,7 @@ export function Drawer({
   return createPortal(
     <AnimatePresence>
       {open && (
-        <motion.div className="fixed inset-0 z-[65]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+        <motion.div className="fixed inset-0 z-[65]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, transition: { duration: 0.2 } }}>
           <div className="absolute inset-0 bg-ink/30" onClick={onClose} />
           <motion.aside
             ref={panel}
@@ -44,7 +44,7 @@ export function Drawer({
             aria-label={title}
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
-            exit={{ x: "100%" }}
+            exit={{ x: "100%", transition: { duration: 0.2, ease: "easeIn" } }}
             transition={{ type: "spring", stiffness: 320, damping: 34 }}
             className="absolute inset-y-0 right-0 flex w-full flex-col bg-card shadow-2xl outline-none sm:max-w-md"
           >

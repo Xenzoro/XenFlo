@@ -24,3 +24,9 @@ export async function signedUploadUrl(path: string): Promise<string> {
   if (error || !data) throw new DbError("NOT_FOUND", "That file doesn't exist.");
   return data.signedUrl;
 }
+
+/** Delete stored screenshots (used when their knowledge base is deleted). */
+export async function removeScreenshots(paths: string[]): Promise<void> {
+  const { error } = await getDb().storage.from(BUCKET).remove(paths);
+  if (error) throw new DbError("DB_ERROR", `Storage error: ${error.message}`);
+}
