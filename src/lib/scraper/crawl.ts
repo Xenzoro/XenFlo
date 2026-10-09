@@ -2,7 +2,7 @@ import type { CrawledPage, CrawlLogEntry, KnowledgeBase, PageCategory } from "@/
 import { ScrapeError } from "./errors";
 import { fetchPage, isHtml } from "./fetch";
 import { categorize, discoverLinks, type DiscoveredLink } from "./discover";
-import { extractPage } from "./extract";
+import { extractPage, type PageEvidence } from "./extract";
 import { potentialPoints, scoreCompleteness } from "./score";
 import { cleanUrl, pageKey } from "./url";
 
@@ -67,7 +67,7 @@ export async function crawlPages(session: CrawlSession, links: DiscoveredLink[],
         if (!isHtml(page.contentType)) continue;
 
         const result = extractPage(page.body, finalUrl, link.category, kb);
-        kb.crawl.pages.push(pageRecord(finalUrl, link.category, page.status, result.title, page.durationMs, null));
+        kb.crawl.pages.push(pageRecord(finalUrl, link.category, page.status, result.title, page.durationMs, null, result.evidence));
         addToPool(session, discoverLinks(result.$, finalUrl));
         crawled++;
       } catch (err) {
@@ -140,6 +140,7 @@ export function pageRecord(
   title: string | null,
   durationMs: number,
   error: string | null,
+  evidence?: PageEvidence,
 ): CrawledPage {
-  return { url, category, status, title, fetchedAt: new Date().toISOString(), durationMs, error };
+  return { url, category, status, title, fetchedAt: new Date().toISOString(), durationMs, error, ...evidence };
 }

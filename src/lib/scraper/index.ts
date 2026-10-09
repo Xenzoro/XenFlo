@@ -86,7 +86,7 @@ export async function scrapeSite(input: string, options: ScrapeOptions = {}): Pr
   log("Reading styles for fonts and colors");
   const css = await collectCss(cheerio.load(home.body), homeUrl, isAllowed);
   const homeResult = extractPage(home.body, homeUrl, "home", kb, css);
-  kb.crawl.pages.push(pageRecord(homeUrl, "home", home.status, homeResult.title, home.durationMs, null));
+  kb.crawl.pages.push(pageRecord(homeUrl, "home", home.status, homeResult.title, home.durationMs, null, homeResult.evidence));
   if (homeResult.wordCount < MIN_WORDS) log(`Homepage has very little readable text (${homeResult.wordCount} words)`, "warn");
 
   log("Discovering pages");
