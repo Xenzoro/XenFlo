@@ -66,3 +66,23 @@ export function isSimilar(a: string, b: string): boolean {
   const [x, y] = [hexToRgb(a), hexToRgb(b)];
   return Math.hypot(x[0] - y[0], x[1] - y[1], x[2] - y[2]) < 40;
 }
+
+// Colors that ship with platforms and plugins, so they say nothing about the brand.
+const PLATFORM_DEFAULTS = [
+  "#007cba", // WordPress admin/theme blue
+  "#006ba1", // ...its darker-10 shade
+  "#005a87", // ...its darker-20 shade
+  "#0073aa", // older WordPress blue
+  "#f76a0c", // Kadence highlight orange
+  "#007aff", // Swiper
+  "#116dff", // Wix focus rings and skip link
+];
+
+/** True for WordPress/Kadence/Swiper default colors (allowing tiny rounding differences). */
+export function isPlatformDefault(hex: string): boolean {
+  const [r, g, b] = hexToRgb(hex);
+  return PLATFORM_DEFAULTS.some((d) => {
+    const [x, y, z] = hexToRgb(d);
+    return Math.hypot(r - x, g - y, b - z) < 6;
+  });
+}

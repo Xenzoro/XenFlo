@@ -2,7 +2,7 @@ import type { Logo } from "@/types/knowledge";
 import type { PageContext } from "./types";
 import { addItem, clean } from "../merge";
 import { cleanUrl } from "../url";
-import { isNeutral, isSimilar, parseColor } from "../colors";
+import { isNeutral, isPlatformDefault, isSimilar, parseColor } from "../colors";
 import { imageClue, titleCaseIfLower } from "./text";
 import { meta } from "./meta";
 
@@ -192,39 +192,99 @@ function cleanFontName(raw: string): string | null {
 
 // ---------- Colors ----------
 
+/*
+  Colors are ranked by where the site actually uses them, not where they're defined:
+  a color on buttons and CTAs counts most, then header/nav, then links, then anything else.
+  Rules that only style plugin or block library markup (.wp-block-*, .kadence-*...) count for nothing,
+  since those carry the plugin's defaults rather than the brand.
+*/
 const BRAND_VAR = /^--[\w-]*(primary|brand|accent|secondary|main|theme)[\w-]*$/i;
 // Variables that belong to bundled UI libraries, not the site's brand.
-const LIBRARY_VAR = /^--(swiper|slick|splide|glide|tw|bs|fa|wp--preset|toastify|plyr|mejs)/i;
+const LIBRARY_VAR = /^--(swiper|slick|splide|glide|tw|bs|fa|wp--preset|wp-admin|toastify|plyr|mejs)/i;
+// Selectors for plugin and block library markup, plus WordPress's preset color utility classes.
+const LIBRARY_SELECTOR = /\.(wp-|kadence-|kb-|elementor-|e-con|swiper-|slick-|has-[\w-]*color)|#wpadminbar/i;
+const BUTTON_SELECTOR = /button|\bbtn|cta|\[type=["']?submit/i;
+const HEADER_SELECTOR = /header|\bnav|menu|topbar|top-bar/i;
+const LINK_SELECTOR = /(^|[\s>+~])a([:.[\s]|$)|link/i;
 const MAX_COLORS = 6;
 
+/** How much a selector tells us about brand usage. 0 = plugin-only rule, ignore it. */
+function selectorWeight(selectorList: string): number {
+  const own = selectorList.split(",").map((s) => s.trim()).filter((s) => s && !LIBRARY_SELECTOR.test(s));
+  if (!own.length) return 0;
+  const joined = own.join(",");
+  if (BUTTON_SELECTOR.test(joined)) return 6;
+  if (HEADER_SELECTOR.test(joined)) return 4;
+  if (LINK_SELECTOR.test(joined)) return 2;
+  return 1;
+}
+
+/** Background and text color matter most; borders, fills and shadows are supporting colors. */
+function propertyWeight(prop: string): number {
+  if (/^(background(-color)?|color)$/.test(prop)) return 1;
+  if (/^(border|border-[\w-]*color|border-(top|right|bottom|left)|fill|stroke|outline(-color)?|box-shadow|text-decoration-color)$/.test(prop)) return 0.5;
+  return 0;
+}
+
+function colorsIn(value: string): string[] {
+  return [...value.matchAll(/#[0-9a-f]{3,8}\b|rgba?\([^)]*\)|oklch\([^)]*\)/gi)]
+    .map((m) => parseColor(m[0]))
+    .filter((hex): hex is string => !!hex);
+}
+
 function extractColors(ctx: PageContext): void {
-  const { kb, url } = ctx;
+  const { $, kb, url } = ctx;
   const css = ctx.css ?? "";
+  const vars = cssVariables(css); // from every rule, so plugin-defined palettes still resolve where the site uses them
+  const scores = new Map<string, number>();
+  const usedVars = new Set<string>();
+
+  const score = (decls: string, weight: number) => {
+    for (const d of decls.matchAll(/([\w-]+)\s*:\s*([^;]+)/g)) {
+      const prop = d[1].toLowerCase();
+      const w = weight * propertyWeight(prop);
+      if (!w) continue;
+      for (const v of d[2].matchAll(/var\(\s*(--[\w-]+)/g)) usedVars.add(v[1]);
+      for (const hex of colorsIn(resolveVars(d[2], vars))) scores.set(hex, (scores.get(hex) ?? 0) + w);
+    }
+  };
+
+  // 1. Stylesheet rules (innermost blocks, so rules inside @media count too).
+  for (const m of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    const selector = m[1].trim();
+    if (selector === "x" || selector.startsWith("@")) continue; // "x{...}" is an inline style, scored below
+    const weight = selectorWeight(selector);
+    if (weight) score(m[2], weight);
+  }
+
+  // 2. Inline style="" attributes, weighted by the element they sit on.
+  $("[style]").each((_, node) => {
+    const el = $(node);
+    const hints = `${node.tagName} ${el.attr("class") ?? ""} ${el.attr("id") ?? ""}`;
+    if (LIBRARY_SELECTOR.test(hints.split(/\s+/).map((c) => `.${c}`).join(" "))) return;
+    const weight = BUTTON_SELECTOR.test(hints) || node.tagName === "button" ? 6 : el.closest("header, nav").length ? 4 : node.tagName === "a" ? 2 : 1;
+    score(el.attr("style") ?? "", weight);
+  });
+
+  // 3. Small bonus for colors kept in brand-named variables the site actually uses (--primary, --brand-500).
+  for (const name of usedVars) {
+    const value = vars.get(name);
+    if (!value || !BRAND_VAR.test(name) || LIBRARY_VAR.test(name)) continue;
+    for (const hex of colorsIn(resolveVars(value, vars))) scores.set(hex, (scores.get(hex) ?? 0) + 2);
+  }
+
   const picked: string[] = kb.brand.colors.map((c) => c.value).filter((v): v is string => !!v); // theme-color from meta.ts
   const take = (hex: string) => {
     if (picked.length >= MAX_COLORS || picked.some((p) => isSimilar(p, hex))) return;
     picked.push(hex);
     addItem(kb.brand.colors, hex, url, (v) => v);
   };
-
-  // 1. Variables named like brand colors (--primary, --color-brand-500, --accent).
-  const named: string[] = [];
-  for (const [name, value] of cssVariables(css)) {
-    if (!BRAND_VAR.test(name) || LIBRARY_VAR.test(name)) continue;
-    const hex = parseColor(value);
-    if (hex && !isNeutral(hex)) named.push(hex);
-  }
-  named.slice(0, 3).forEach(take);
-
-  // 2. The most frequently used colors in the CSS.
-  const counts = new Map<string, number>();
-  for (const m of css.matchAll(/#[0-9a-f]{3,8}\b|rgba?\([^)]*\)/gi)) {
-    const hex = parseColor(m[0]);
-    if (hex) counts.set(hex, (counts.get(hex) ?? 0) + 1);
-  }
-  const ranked = [...counts.entries()].sort((a, b) => b[1] - a[1]).map(([hex]) => hex);
+  const ranked = [...scores.entries()]
+    .filter(([hex]) => !isPlatformDefault(hex))
+    .sort((a, b) => b[1] - a[1])
+    .map(([hex]) => hex);
   ranked.filter((hex) => !isNeutral(hex)).forEach(take);
 
-  // 3. A black-and-white site: keep its dominant neutral so the swatch list isn't empty.
+  // 4. A black-and-white site: keep its dominant neutral so the swatch list isn't empty.
   if (!picked.length && ranked[0]) take(ranked[0]);
 }

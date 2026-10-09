@@ -135,7 +135,7 @@ export function KnowledgeWorkspace() {
                 <Sparkles className="size-6" />
               </span>
               <p className="mt-4 font-semibold">Your knowledge base will appear here</p>
-              <p className="mt-1 max-w-sm text-xs text-muted">We read up to 15 pages, respect robots.txt, and label where every detail came from.</p>
+              <p className="mt-1 max-w-sm text-xs text-muted">We start with up to 15 pages (you can dig deeper after), respect robots.txt, and label where every detail came from.</p>
             </Card>
           </motion.div>
         )}

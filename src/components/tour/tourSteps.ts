@@ -13,7 +13,7 @@ export const TOUR_STEPS: TourStep[] = [
     id: "scrape",
     selector: '[data-tour="scrape"]',
     title: "Start with your website",
-    text: "Paste your web address and Flo reads up to 15 pages for you, politely and within the site's rules.",
+    text: "Paste your web address and Flo reads your most important pages first, politely and within the site's rules. You can dig deeper after.",
   },
   {
     id: "tabs",

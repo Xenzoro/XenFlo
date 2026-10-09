@@ -1,6 +1,7 @@
 import type { PageContext } from "./types";
 import { addItem, clean, setField } from "../merge";
 import { siteHost } from "../url";
+import { isPlatformDefault } from "../colors";
 
 /** Read a <meta> tag by name or property (covers both OG and Twitter styles). */
 export function meta(ctx: PageContext, key: string): string | null {
@@ -31,7 +32,8 @@ export function extractMeta(ctx: PageContext): { title: string | null } {
 
   // theme-color is the browser UI color the site chose: a strong brand color hint.
   const themeColor = meta(ctx, "theme-color") ?? meta(ctx, "msapplication-TileColor");
-  if (themeColor && /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(themeColor)) {
+  // (Skip platform defaults: some WordPress themes ship the admin blue here.)
+  if (themeColor && /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(themeColor) && !isPlatformDefault(normalizeHex(themeColor))) {
     addItem(kb.brand.colors, normalizeHex(themeColor), url, (v) => v);
   }
 

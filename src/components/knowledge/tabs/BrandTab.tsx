@@ -1,6 +1,6 @@
 "use client";
 
-/** Brand: colors as swatches, logos as images, fonts in their own face, social links as icons. */
+/** Brand: colors as swatches, logos as images (on a dark backdrop when they're white), fonts in their own face, social links as icons. */
 import type { Logo, SocialLink } from "@/types/knowledge";
 import { useList } from "@/context/KnowledgeContext";
 import { SectionCard } from "@/components/ui/Card";
@@ -9,6 +9,7 @@ import { EditableList } from "@/components/ui/EditableList";
 import { RecordList } from "@/components/ui/RecordList";
 import { PLATFORM_COLOR, PLATFORM_LABEL, SocialIcon, detectPlatform } from "@/components/ui/SocialIcon";
 import { FontPreview } from "../FontPreview";
+import { LogoPreview } from "../LogoPreview";
 
 const validHex = (t: string) => (/^#?[0-9a-f]{6}$|^#?[0-9a-f]{3}$/i.test(t) ? null : "Use a hex color like #2563eb.");
 const toHex = (t: string) => (t.startsWith("#") ? t : `#${t}`).toLowerCase();
@@ -53,11 +54,7 @@ export function BrandTab() {
           ]}
           render={(logo) => (
             <div>
-              {/* Checkerboard so white or transparent logos stay visible */}
-              <div className="flex h-24 items-center justify-center rounded-xl bg-[repeating-conic-gradient(#f1f3f6_0%_25%,#fff_0%_50%)] bg-[length:16px_16px] p-3">
-                {/* eslint-disable-next-line @next/next/no-img-element -- remote logos from any domain */}
-                <img src={logo.url} alt={logo.alt ?? "Logo"} className="max-h-full max-w-full object-contain" loading="lazy" />
-              </div>
+              <LogoPreview url={logo.url} alt={logo.alt} />
               <p className="mt-2 truncate text-xs text-muted">{logo.kind}</p>
             </div>
           )}

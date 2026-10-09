@@ -5,7 +5,8 @@ import { cleanUrl, isSameSite } from "./url";
 const MAX_SHEETS = 3;
 const MAX_SHEET_CHARS = 600_000;
 // Bundled UI libraries ship their own colors and fonts (Swiper's #007aff, icon fonts).
-const LIBRARY_CSS = /swiper|slick|splide|glide|flickity|owl|bootstrap|font-?awesome|animate|aos|lightbox|fancybox|magnific|normalize|reset|jquery|select2|tippy|toastify|plyr/i;
+// WordPress plugin and core block CSS too; site-generated CSS under /wp-content/uploads/ is kept.
+const LIBRARY_CSS = /\/wp-content\/plugins\/|\/wp-includes\/|wp-block-library|swiper|slick|splide|glide|flickity|owl|bootstrap|font-?awesome|animate|aos|lightbox|fancybox|magnific|normalize|reset|jquery|select2|tippy|toastify|plyr/i;
 
 /**
  * All CSS we can see for a page: <style> blocks, style="" attributes, and up to
