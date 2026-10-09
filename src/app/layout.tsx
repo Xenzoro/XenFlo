@@ -21,8 +21,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${poppins.variable} antialiased`}>{children}</body>
+    // The font variable goes on <html> (:root) because globals.css defines --font-sans there,
+    // and a CSS variable can only reference variables that exist on the same element or above.
+    <html lang="en" className={poppins.variable}>
+      <body className="antialiased">{children}</body>
     </html>
   );
 }
