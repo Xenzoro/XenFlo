@@ -121,11 +121,12 @@ The policies are already in place.
 | method | route | does |
 |---|---|---|
 | POST | `/api/knowledge` | save a new KB (v1) → 201 `{ knowledgeBase }` |
-| GET | `/api/knowledge?q&industry&minScore&maxScore&from&to&sort&limit&offset` | list summaries → `{ items, total }` |
+| GET | `/api/knowledge?q&industry&minScore&maxScore&from&to&sort&limit&offset` | list summaries (incl. first `logoUrl` via a JSON-path select) → `{ items, total }`. `sort`: `updated`, `name`, `industry`, `completeness`, `version`, each `_asc`/`_desc` |
 | GET | `/api/knowledge/[id]` | current KB |
 | PATCH | `/api/knowledge/[id]` | `{ knowledgeBase, expectedVersion?, note? }` → saved as the next version |
 | DELETE | `/api/knowledge/[id]` | delete with cascade |
 | GET | `/api/knowledge/[id]/versions` | `[{ version, completeness, note, createdAt }]`, newest first |
+| GET | `/api/knowledge/[id]/versions/[version]` | that version's full snapshot → `{ knowledgeBase }` (restore = PATCH it back with a note) |
 
 Errors always come back as `{ error: { code, message } }`:
 

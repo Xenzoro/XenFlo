@@ -6,6 +6,7 @@ import { Check, Copy, Download } from "lucide-react";
 import { useKnowledge } from "@/context/KnowledgeContext";
 import { Button } from "@/components/ui/Button";
 import { SectionCard } from "@/components/ui/Card";
+import { downloadJson, hostOf } from "@/lib/utils/download";
 
 export function RawJsonTab() {
   const { kb } = useKnowledge();
@@ -19,14 +20,7 @@ export function RawJsonTab() {
     window.setTimeout(() => setCopied(false), 1500);
   }
 
-  function download() {
-    const blob = new Blob([json], { type: "application/json" });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = `${new URL(kb!.url).hostname.replace(/^www\./, "")}-knowledge.json`;
-    a.click();
-    URL.revokeObjectURL(a.href);
-  }
+  const download = () => downloadJson(`${hostOf(kb.url)}-knowledge`, kb);
 
   return (
     <SectionCard

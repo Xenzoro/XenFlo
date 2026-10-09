@@ -12,18 +12,25 @@ import { getDb } from "./client";
 import { DbError, fromPostgrest } from "./errors";
 import type { KnowledgeBaseRow, KnowledgeSummary, ListFilters, ListSort, VersionSummary } from "./types";
 
+// `logo:data->...->>url` is PostgREST JSON-path syntax: it pulls one value out of the JSONB
+// (the first logo's URL) without sending the whole knowledge base.
 const SUMMARY_COLUMNS =
-  "id, company_id, url, company_name, industry, completeness, version, last_crawled_at, created_at, updated_at";
+  "id, company_id, url, company_name, industry, completeness, version, last_crawled_at, created_at, updated_at, logo:data->brand->logos->0->value->>url";
 
 const SORTS: Record<ListSort, { column: string; ascending: boolean }> = {
   updated_desc: { column: "updated_at", ascending: false },
   updated_asc: { column: "updated_at", ascending: true },
   name_asc: { column: "company_name", ascending: true },
+  name_desc: { column: "company_name", ascending: false },
+  industry_asc: { column: "industry", ascending: true },
+  industry_desc: { column: "industry", ascending: false },
   completeness_desc: { column: "completeness", ascending: false },
   completeness_asc: { column: "completeness", ascending: true },
+  version_desc: { column: "version", ascending: false },
+  version_asc: { column: "version", ascending: true },
 };
 
-type SummaryRow = Omit<KnowledgeBaseRow, "data" | "owner_id">;
+type SummaryRow = Omit<KnowledgeBaseRow, "data" | "owner_id"> & { logo: string | null };
 
 function toSummary(row: SummaryRow): KnowledgeSummary {
   return {
@@ -32,6 +39,7 @@ function toSummary(row: SummaryRow): KnowledgeSummary {
     url: row.url,
     companyName: row.company_name,
     industry: row.industry,
+    logoUrl: row.logo,
     completeness: row.completeness,
     version: row.version,
     lastCrawledAt: row.last_crawled_at,
@@ -150,4 +158,17 @@ export async function listVersions(id: string): Promise<VersionSummary[]> {
     note: v.note,
     createdAt: v.created_at,
   }));
+}
+
+/** One saved version's full snapshot. */
+export async function getVersion(id: string, version: number): Promise<KnowledgeBase> {
+  const { data, error } = await getDb()
+    .from("knowledge_versions")
+    .select("data")
+    .eq("knowledge_base_id", id)
+    .eq("version", version)
+    .maybeSingle<Pick<KnowledgeBaseRow, "data">>();
+  if (error) throw fromPostgrest(error);
+  if (!data) throw new DbError("NOT_FOUND", `Version ${version} doesn't exist.`);
+  return toKnowledgeBase(data);
 }

@@ -36,7 +36,20 @@ const listQuerySchema = z.object({
   to: z.preprocess(blank, z.iso.date().or(z.iso.datetime()).optional()),
   sort: z.preprocess(
     blank,
-    z.enum(["updated_desc", "updated_asc", "name_asc", "completeness_desc", "completeness_asc"]).optional(),
+    z
+      .enum([
+        "updated_desc",
+        "updated_asc",
+        "name_asc",
+        "name_desc",
+        "industry_asc",
+        "industry_desc",
+        "completeness_desc",
+        "completeness_asc",
+        "version_desc",
+        "version_asc",
+      ])
+      .optional(),
   ),
   limit: z.preprocess(blank, z.coerce.number().int().min(1).max(100).optional()),
   offset: z.preprocess(blank, z.coerce.number().int().min(0).optional()),

@@ -23,6 +23,8 @@ export interface KnowledgeSummary {
   url: string;
   companyName: string;
   industry: string | null;
+  /** First logo's URL, read straight from the JSONB so cards can show it */
+  logoUrl: string | null;
   completeness: number;
   version: number;
   lastCrawledAt: string | null;
@@ -37,7 +39,17 @@ export interface VersionSummary {
   createdAt: string;
 }
 
-export type ListSort = "updated_desc" | "updated_asc" | "name_asc" | "completeness_desc" | "completeness_asc";
+export type ListSort =
+  | "updated_desc"
+  | "updated_asc"
+  | "name_asc"
+  | "name_desc"
+  | "industry_asc"
+  | "industry_desc"
+  | "completeness_desc"
+  | "completeness_asc"
+  | "version_desc"
+  | "version_asc";
 
 export interface ListFilters {
   /** Free text matched against company name, URL and industry */
