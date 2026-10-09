@@ -53,9 +53,10 @@ export function useKnowledgeActions(opts: { linkToSaved?: boolean; onSaved?: (kb
     if (res.error) return showError(res.error.code);
     loadKb(res.data); // unsaved until the user saves
     const added = res.data.crawl.pages.length - before.pages;
+    const progress = `${res.data.crawl.pages.length} of ${res.data.crawl.maxPages ?? 200}`;
     setToast({
       tone: "success",
-      title: added ? `Read ${added} more ${added === 1 ? "page" : "pages"}` : "No new pages to read",
+      title: added ? `Read ${added} more ${added === 1 ? "page" : "pages"} · ${progress}` : "No more useful pages found",
       text: `Knowledge Health ${before.score} → ${res.data.completeness.score}`,
     });
   }

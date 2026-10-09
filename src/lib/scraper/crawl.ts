@@ -19,6 +19,8 @@ export interface CrawlSession {
   delayMs: number;
   concurrency: number;
   log: (message: string, level?: CrawlLogEntry["level"]) => void;
+  /** Deep crawls only: links that fail this are never queued or crawled (focus.ts) */
+  accept?: (link: DiscoveredLink) => boolean;
 }
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -28,7 +30,7 @@ export const outOfTime = (s: CrawlSession) => Date.now() - s.started > s.timeBud
 export function addToPool(session: CrawlSession, links: DiscoveredLink[]): void {
   for (const link of links) {
     const key = pageKey(link.url);
-    if (session.visited.has(key) || !session.isAllowed(link.url)) continue;
+    if (session.visited.has(key) || !session.isAllowed(link.url) || session.accept?.(link) === false) continue;
     const existing = session.pool.get(key);
     if (!existing || existing.score < link.score) session.pool.set(key, link);
   }
@@ -52,7 +54,12 @@ export async function crawlPages(session: CrawlSession, links: DiscoveredLink[],
       if (outOfTime(session)) return;
       const link = queue.shift()!;
       const key = pageKey(link.url);
+      // A focus filter set mid-crawl (past FOCUS_AFTER pages) also applies to links already queued
       if (session.visited.has(key)) continue;
+      if (session.accept?.(link) === false) {
+        session.pool.delete(key); // so crawlForMissing never picks it again
+        continue;
+      }
       session.visited.add(key);
       session.pool.delete(key);
       session.log(`Crawling ${kb.crawl.pages.length + inFlight + 1} of ${maxTotalPages}: ${new URL(link.url).pathname}`);

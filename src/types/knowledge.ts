@@ -311,6 +311,8 @@ export interface CrawlInfo {
   log: CrawlLogEntry[];
   /** Menus and price lists in PDFs and images (absent on records scraped before Phase 10) */
   menuSources?: MenuSource[];
+  /** Total page cap for Dig deeper (MAX_CRAWL_PAGES on the server); absent on older records */
+  maxPages?: number;
 }
 
 export interface Completeness {

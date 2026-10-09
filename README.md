@@ -118,7 +118,7 @@ npm run build
 - **Brand:** colors split into **Primary** (top 3) and **Secondary**, shown as swatches; logos as images (white logos automatically get a dark background, with a light/dark toggle, and duplicates are grouped); fonts rendered in their own face; social icons.
   - **People:** team members are kept separate from customers and partners, so testimonial authors never end up on the team.
 - **Advanced view** (toggle, top right) adds **Insights**, **Content Kit**, **Sources** (pages crawled, crawl log, per-field sources, completeness breakdown, Dig deeper) and **Raw JSON** (copy and download). Every field also gets a confidence badge: Scraped, Inferred, AI preview, AI, User edited or Missing.
-- **Dig deeper** crawls more of the pages found, up to 30 in total. **Add info yourself** lets the owner paste text or upload files to fill empty fields without overwriting what's there.
+- **Dig deeper** crawls up to 15 more pages per click, up to `MAX_CRAWL_PAGES` in total (default 200). After 30 pages it only follows menus, locations and restaurant pages, services, pricing, about and contact. The button shows progress ("Dig deeper (45 of 200 pages)"). **Add info yourself** lets the owner paste text or upload files to fill empty fields without overwriting what's there.
 - **Upload fallback** for blocked or thin sites: paste text, upload an HTML file or screenshots, behind a required ownership checkbox (see [consent](#robotstxt-and-owner-consent)).
 - **Save** writes a new version to Supabase and also offers the JSON.
 - **First-visit tour:** the page dims and a glowing highlight moves between the scrape bar, tabs, health gauge, Advanced toggle and Save. It can be replayed anytime from "Take a tour".
@@ -151,7 +151,7 @@ Everything runs server side in API routes (`src/app/api/scrape`), split into sma
 2. **Discover** links from the nav, header, footer and body, plus `sitemap.xml` (from robots.txt or common locations). Each link is categorized (menu, about, team, services, products, pricing, features, faq, testimonials, contact, locations, press, careers, blog, legal) and scored. Menu pages (`/menu`, `/food`, `/drinks`, price lists, specials, catering) rank just below About, so they make the first 15 pages. Nav links rank higher; deep paths and blog posts rank lower.
 3. **Priority pages:** the best page of each useful kind is crawled first.
 4. **Adaptive pages:** after each batch, XenFlo checks which important fields are still empty and picks pages likely to fill them. For example, if testimonials are missing it tries `/reviews`; if offerings are missing it tries `/pricing`, `/menu` or `/plans`. Pages are ranked by the completeness points they could add.
-5. **Limits:** **15 pages first**, then **up to 30 in total with Dig deeper**. There is a 30-second time budget, 2 requests at a time, and a 300ms pause between requests.
+5. **Limits:** **15 pages first**, then **15 more per Dig deeper click**, up to `MAX_CRAWL_PAGES` (default 200). Past 30 pages only high-value pages are followed; blog, news, tag, category, archive, pagination and query-string URLs are skipped. Each click has a 30-second crawl budget, 2 requests at a time, and a 300ms pause between requests. Pages keep only trimmed evidence (meta description, up to 12 headings and 10 image alts), never raw HTML, and the crawl log keeps its last 300 lines.
 
 ### Extractors (`src/lib/scraper/extract/`)
 | Module | Reads |
@@ -419,7 +419,7 @@ Other results:
 
 ### Anime Boba Cafe (`animebobacafe.com`): blocked site, template placeholder staff
 - **Update (October 9, 2026):** the site's robots.txt no longer restricts bots. It only asks for a 10-second crawl delay, which XenFlo respects (capped at 3 s per request for the demo). The site is now a single page: no menu (HTML, PDF or image) and no prices. Its Clover online ordering link is recorded as the channel "Online ordering (Clover)". The notes below describe the earlier version of the site.
-- Its robots.txt asked AI crawlers (GPTBot, ClaudeBot and others) to stay out, so XenFlo stops and shows the blocked panel with the ownership checkbox and upload options. That is the demo of the consent flow. Its content was only used with the owner's permission.
+- When first tested, its robots.txt asked AI crawlers (GPTBot, ClaudeBot and others) to stay out, so XenFlo stopped and showed the blocked panel with the ownership checkbox and upload options. Its robots.txt has since changed and no longer blocks XenFloBot, so the consent flow is now shown with any site that blocks it. Its content was only used with the owner's permission.
 - With permission, the scrape worked technically, but the About page lists **three staff profiles that appear to be template filler** on a real site. The scraper read them correctly; the content itself isn't real.
 - The site also still has WordPress demo pages (`/sample-page`, `/hello-world`) and WordPress default colors.
 - This is the motivating case for placeholder detection in [docs/data-quality.md](docs/data-quality.md).

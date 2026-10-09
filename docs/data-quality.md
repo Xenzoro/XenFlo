@@ -142,7 +142,7 @@ On the test sites:
 |---|---|
 | **Adaptive crawl** | While crawling, each missing field maps to the pages likely to hold it (`FIELD_HINTS`: missing FAQs → `/faq`, `/help`; missing team → `/team`, `/about`, `/meet`…). Pages are ranked by the points they could add. |
 | **Next to do cards** | The Overview shows the most valuable missing fields with their points ("Add your founding year +5"). Clicking one jumps to the field and highlights it. |
-| **Low score banner** | Below 70, a banner offers **Dig deeper** (crawl more of the pages found, up to 30 total) or **Add info yourself** (paste text, upload an HTML file or screenshots). |
+| **Low score banner** | Below 70, a banner offers **Dig deeper** (15 more pages per click, up to `MAX_CRAWL_PAGES`, default 200) or **Add info yourself** (paste text, upload an HTML file or screenshots). |
 
 Fields that need judgment rather than reading (tier 2) are never filled during the scrape. They stay Missing until the owner writes them or accepts suggestions from Enrich with AI (live AI, or the keyword and CTA heuristics in preview mode).
 

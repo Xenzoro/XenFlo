@@ -250,6 +250,7 @@ export const crawlInfoSchema = z.object({
     }),
   ),
   menuSources: z.array(menuSourceSchema).optional(),
+  maxPages: z.number().int().positive().optional(),
 });
 
 export const knowledgeBaseSchema = z.object({

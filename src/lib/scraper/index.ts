@@ -11,11 +11,12 @@ import { collectCss } from "./styles";
 import { addToPool, crawlForMissing, crawlLegalPage, crawlPages, linkFromUrl, outOfTime, pageRecord, type CrawlSession } from "./crawl";
 import { cleanUrl, isSameDomain, normalizeUrl, pageKey } from "./url";
 import { readMenus } from "./menus";
+import { FOCUS_AFTER, isFocusLink } from "./focus";
 
 export { ScrapeError } from "./errors";
 
 export interface ScrapeOptions {
-  /** Pages to crawl including the homepage (capped at HARD_MAX_PAGES) */
+  /** Pages to crawl including the homepage (capped at maxCrawlPages()) */
   maxPages?: number;
   /** Overall time budget in ms; no new pages start after this */
   timeBudgetMs?: number;
@@ -31,8 +32,19 @@ export interface ScrapeOptions {
   ownerConsent?: boolean;
 }
 
+/** Pages in the first scrape, and pages added by each "Dig deeper" click */
 export const DEFAULT_MAX_PAGES = 15;
-export const HARD_MAX_PAGES = 30;
+export const BATCH_PAGES = 15;
+
+/** Total page cap across all Dig deeper clicks: MAX_CRAWL_PAGES from env (default 200, kept within 15 to 500). */
+export function maxCrawlPages(): number {
+  const n = Number(process.env.MAX_CRAWL_PAGES);
+  if (!process.env.MAX_CRAWL_PAGES?.trim() || !Number.isFinite(n)) return 200;
+  return Math.min(500, Math.max(DEFAULT_MAX_PAGES, Math.floor(n)));
+}
+
+// Kept on the record: about 20 lines per click would otherwise grow without end
+const MAX_LOG_ENTRIES = 300;
 const MIN_WORDS = 30; // below this the homepage is probably a JS-only shell
 
 /**
@@ -43,7 +55,7 @@ const MIN_WORDS = 30; // below this the homepage is probably a JS-only shell
 export async function scrapeSite(input: string, options: ScrapeOptions = {}): Promise<KnowledgeBase> {
   const startUrl = normalizeUrl(input);
   const kb = emptyKnowledgeBase(startUrl);
-  const maxPages = Math.min(options.maxPages ?? DEFAULT_MAX_PAGES, HARD_MAX_PAGES);
+  const maxPages = Math.min(options.maxPages ?? DEFAULT_MAX_PAGES, maxCrawlPages());
   const log = makeLogger(kb, options.onProgress);
 
   log("Checking robots.txt");
@@ -104,7 +116,7 @@ export async function scrapeSite(input: string, options: ScrapeOptions = {}): Pr
   // Adaptive pages: only those likely to fill fields that are still empty.
   await crawlForMissing(session, maxPages);
   // One privacy / terms page for the legal name, when the footer didn't state it
-  await crawlLegalPage(session, HARD_MAX_PAGES);
+  await crawlLegalPage(session, maxCrawlPages());
   // Menu PDFs found on the way (has its own time budget)
   await readMenus(session);
 
@@ -117,19 +129,24 @@ export async function scrapeSite(input: string, options: ScrapeOptions = {}): Pr
 
 /**
  * "Dig deeper": continue a previous crawl from its saved pending links, targeting
- * missing fields first, then the best remaining pages, up to HARD_MAX_PAGES total.
+ * missing fields first, then the best remaining pages. Each click adds up to BATCH_PAGES
+ * pages, up to maxCrawlPages() in total. Past FOCUS_AFTER pages only high-value pages
+ * (menus, locations, restaurants, services…) are followed (focus.ts).
  */
 export async function digDeeper(previous: KnowledgeBase, options: ScrapeOptions = {}): Promise<KnowledgeBase> {
   const kb: KnowledgeBase = structuredClone(previous);
   const log = makeLogger(kb, options.onProgress);
-  const maxPages = Math.min(options.maxPages ?? HARD_MAX_PAGES, HARD_MAX_PAGES);
+  const cap = maxCrawlPages();
+  kb.crawl.maxPages = cap;
+  // This click's target: one more batch, never past the cap
+  const maxPages = Math.min(kb.crawl.pages.length + (options.maxPages ?? BATCH_PAGES), cap);
 
-  if (kb.crawl.pages.length >= maxPages) {
+  if (kb.crawl.pages.length >= cap) {
     log(`Already crawled ${kb.crawl.pages.length} pages (the maximum)`, "warn");
     return kb;
   }
   if (!kb.crawl.pendingUrls.length) {
-    log("No more pages left to crawl", "warn");
+    log("No more useful pages found", "warn");
     return kb;
   }
 
@@ -146,6 +163,9 @@ export async function digDeeper(previous: KnowledgeBase, options: ScrapeOptions 
   }
   const isAllowed = consented && !robots.isAllowed(kb.url) ? () => true : robots.isAllowed;
   const session = newSession(kb, isAllowed, robots.crawlDelay, options, log);
+  // Checked per link, so it also starts applying when this click crosses FOCUS_AFTER pages
+  session.accept = (link) => kb.crawl.pages.length < FOCUS_AFTER || isFocusLink(link, kb);
+  if (kb.crawl.pages.length >= FOCUS_AFTER) log("Past 30 pages: only menus, locations, services, pricing, about and contact pages");
   for (const page of kb.crawl.pages) session.visited.add(pageKey(page.url));
   // pendingUrls come back from the browser, so only trust ones on this company's own domain.
   addToPool(session, kb.crawl.pendingUrls.filter((u) => isSameDomain(u, kb.url)).map(linkFromUrl));
@@ -194,7 +214,10 @@ function makeLogger(kb: KnowledgeBase, onProgress?: ScrapeOptions["onProgress"])
 function finish(session: CrawlSession, check?: () => void): KnowledgeBase {
   const { kb } = session;
   if (outOfTime(session)) session.log("Time budget reached; stopping crawl", "warn");
+  kb.crawl.maxPages = maxCrawlPages();
+  // Past FOCUS_AFTER pages only useful links are kept, so an empty list means "no more useful pages"
   kb.crawl.pendingUrls = [...session.pool.values()]
+    .filter((l) => session.accept?.(l) !== false)
     .sort((a, b) => b.score - a.score)
     .map((l) => l.url)
     .slice(0, 150);
@@ -210,5 +233,6 @@ function finish(session: CrawlSession, check?: () => void): KnowledgeBase {
   session.log(
     `Done: ${kb.crawl.pages.length} pages total, ${kb.crawl.pendingUrls.length} more available, completeness ${kb.completeness.score}`,
   );
+  kb.crawl.log = kb.crawl.log.slice(-MAX_LOG_ENTRIES);
   return kb;
 }

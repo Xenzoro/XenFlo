@@ -2,7 +2,7 @@
 
 /*
   Sources (advanced): what we crawled, the crawl log, how the score adds up,
-  and "Dig deeper" to crawl more pages (up to the 30-page hard max).
+  and "Dig deeper" to crawl more pages: up to 15 per click, up to the server's cap (MAX_CRAWL_PAGES, default 200).
 */
 import { Check, Pickaxe, X } from "lucide-react";
 import { useKnowledge } from "@/context/KnowledgeContext";
@@ -22,35 +22,36 @@ const CONSENT_METHOD = {
   checkbox_scrape: "ticked the permission box to continue a scrape that robots.txt restricts",
 } as const;
 
-// Matches HARD_MAX_PAGES in src/lib/scraper/index.ts (not imported: that module pulls in server-only code)
-const HARD_MAX_PAGES = 30;
+// The server stamps its cap on the record (kb.crawl.maxPages); records from before that use the default
+const DEFAULT_MAX_PAGES = 200;
 
 export function SourcesTab({ onDigDeeper, digging }: { onDigDeeper: () => void; digging: boolean }) {
   const { kb, jumpTo, setNotApplicable, busy } = useKnowledge();
   if (!kb) return null;
 
   const pages = kb.crawl.pages;
-  const atMax = pages.length >= HARD_MAX_PAGES;
+  const maxPages = kb.crawl.maxPages ?? DEFAULT_MAX_PAGES;
+  const atMax = pages.length >= maxPages;
   const nothingLeft = kb.crawl.pendingUrls.length === 0;
 
   return (
     <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
       <SectionCard
         title="Dig deeper"
-        subtitle={`${pages.length} of up to ${HARD_MAX_PAGES} pages crawled · ${kb.crawl.pendingUrls.length} more found`}
+        subtitle={`${pages.length} of up to ${maxPages} pages crawled · ${kb.crawl.pendingUrls.length} more found`}
         className="lg:col-span-2"
         action={
           <Button onClick={onDigDeeper} loading={digging} disabled={busy || atMax || nothingLeft} icon={<Pickaxe className="size-4" />}>
-            {digging ? "Digging…" : "Dig deeper"}
+            {digging ? "Digging…" : `Dig deeper (${pages.length} of ${maxPages} pages)`}
           </Button>
         }
       >
         <p className="text-sm text-muted">
           {atMax
-            ? "We've read the maximum number of pages for this site."
+            ? `We've read the maximum of ${maxPages} pages for this site.`
             : nothingLeft
-              ? "There are no more pages left to read."
-              : "Read more pages, starting with the ones most likely to fill your missing fields. Your edits are kept."}
+              ? "No more useful pages found."
+              : "Reads up to 15 more pages per click, starting with the ones most likely to fill your missing fields. After 30 pages, only menus, locations, services, pricing, about and contact pages. Your edits are kept."}
         </p>
       </SectionCard>
 

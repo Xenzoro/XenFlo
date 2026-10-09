@@ -57,7 +57,7 @@ Runs server side in API routes only. Split into small modules (fetch, robots, di
 1. Respect robots.txt. If disallowed, stop and show the blocked state (see Upload fallback). Use an honest User Agent like "XenFloBot/1.0".
 2. Fetch homepage with a timeout. Follow redirects. Handle non 200s.
 3. Discover internal links and prioritize: about, team, services, products, pricing, faq, testimonials/reviews, contact, locations, press, careers. Also check sitemap.xml.
-4. Adaptive crawl: crawl priority pages first, then check which fields are still empty and only crawl pages likely to fill them. Default cap ~15 pages, hard max ~30, with an overall time budget. Small concurrency, polite delays.
+4. Adaptive crawl: crawl priority pages first, then check which fields are still empty and only crawl pages likely to fill them. First scrape ~15 pages. Dig deeper works in batches: up to 15 more pages per click, up to MAX_CRAWL_PAGES in total (env, default 200). After 30 pages only high value pages are followed (menu, restaurant/location, services, pricing, about, contact, legal if still needed). Overall time budget per click. Small concurrency, polite delays.
 5. Extract from: title and meta tags, Open Graph and Twitter tags, JSON LD (ld+json: Organization, LocalBusiness, Product, FAQPage, Review, Person), headings and paragraphs, nav and footer, regex for emails, phones, addresses, copyright year and legal entity (LLC, Inc), social links (LinkedIn, Facebook, Instagram, X/Twitter, YouTube, TikTok, Twitch, Discord), pricing patterns, CTA button text, testimonial blocks, FAQ blocks.
 6. Branding: logo (img with logo in class/alt/src, header images, apple touch icon, favicon), fonts (Google Fonts links, font-family in CSS; resolve CSS variables; filter icon fonts like ETmodules, FontAwesome), colors (CSS variables, theme-color meta, frequent hex values; ignore pure black/white unless dominant).
 7. Image clues without AI: use alt text and cleaned file names (example: "Sumo Henderson_Logo.png" becomes "Sumo Henderson").
@@ -67,7 +67,7 @@ Runs server side in API routes only. Split into small modules (fetch, robots, di
 
 ## After the crawl
 If important fields are still missing, offer the user:
-1. "Dig deeper" (crawl more pages up to the hard max), or
+1. "Dig deeper" (15 more pages per click, up to MAX_CRAWL_PAGES), or
 2. "Add info yourself" (fill fields or upload content)
 
 ## Upload fallback (blocked or thin sites)
@@ -121,7 +121,8 @@ src/app (pages, API routes), src/components (ui, knowledge, view, tour), src/lib
 - apexminecrafthosting.com (main showcase, info rich)
 - dragonfactories.com (stress test: multi brand restaurant group, info in images, Wix)
 - a small local service business (typical MoFlo customer)
-- animebobacafe.com (blocked site demo: robots.txt disallows bots; use for the blocked state and upload fallback. Only use its content with the owner's permission.)
+- animebobacafe.com (small local cafe; its robots.txt no longer blocks XenFloBot, so it is no longer the blocked site demo. Only use its content with the owner's permission.)
+- Blocked state and consent flow: demo with any site whose robots.txt blocks XenFloBot or AI crawlers.
 
 ## Working rules
 - Small, focused commits with clear messages
