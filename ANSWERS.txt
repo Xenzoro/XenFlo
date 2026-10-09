@@ -1,27 +1,59 @@
-XenFlo: Builder Challenge answers
-
-
 1. What approach did you take to scraping and structuring the knowledge base data?
 
+First, I want to be clear: I've never built anything this big before. I wanted to do something that would make me stand out a little, then work my way back and optimize it bit by bit.
 
+My plan was to follow the format laid out for me first. I signed up for a free MoFlo Cloud account and listed my portfolio website. I noted the style, colors, animations, tab structure, and overall look and feel. My portfolio had almost no information beyond the About Me, which makes sense since it isn't a company.
+
+Since I've only done a small amount of React and Tailwind in Bit2Byte, a club at UNLV, I used Claude and Claude Code. From the requirements, I got the sense this project was meant for us to use AI in our code, so I followed that. When I gave Claude the doc, it immediately wanted to give me a Claude Code prompt and call it a day, but I knew I needed to go deeper. I told it to slow down and break the project into components step by step. Given my lack of experience at this scale, in this language, and with these tools, I knew understanding design principles and how we would structure things was essential, so before I wrote or prompted any code, I discussed it with Claude. For example, we talked about whether to show the data in a bunch of tabs or combine it in a dashboard. Knowing most of MoFlo's clients aren't very tech-savvy, I made the dashboard the main view, with an Advanced toggle for more technical information.
+
+For the scraper itself, it respects robots.txt, ranks pages by priority, and crawls 15 first, with Dig Deeper going up to 200. It pulls from meta tags, JSON-LD, and the page content for contact info, addresses, brand colors, fonts, logos, offerings, people, testimonials, and FAQs. Every field has a confidence label (scraped, inferred, AI, user-edited, missing), and if something isn't on the site, it stays missing instead of being made up.
+
+The plan was to go through many rounds of back-and-forth with Claude, challenging points, and then review the code on my iPad with notes and visualizations for how the style, structure, and code work. Given the time constraints, I spent less time on each line and focused on the bigger picture.
 
 
 2. What information beyond our current baseline did you choose to include, and why?
 
+I included extra features because I want to learn more about everything, especially with an application like this, since this is my first time implementing something like it. With agents, I could make a bigger impact than if I coded it myself. Reducing the friction of the owner having to input all this data is essential for a product, and I weighed that against the impact for the time given.
 
+The part I like most is the whole AI confidence suite. AI only suggests something when it's super confident and can point to evidence from the site. At the same time, I think it's super important that it shows it was generated, so the owner can review it more critically. Every AI item shows where it came from, like "read from Nabe menu PDF," with a one-click "Wrong? Remove." AI never guesses things like legal entity, revenue, or people.
+
+I also added a content kit (content pillars, social hooks, hashtags, email subject lines, and blog ideas) that feeds MoSocial, MoMail, and MoBlogs directly, and I made the scraper responsible: it respects robots.txt, asks for the owner's permission when a site restricts bots, and is protected against SSRF.
 
 
 3. How would your knowledge base design improve the outputs of MoSocial, MoMail, and MoBlogs specifically?
 
+Comparing MoFlo Cloud's Knowledge on Apex with my scraper, I think they do different things. MoFlo Cloud is more about making posts and pulling the relevant information for that. Overnight, it had already made dozens of drafts and showed how much the score would go up using MoSocial, MoMail, and MoBlogs. It has strengths I don't, like how it lays out offerings with key features and buyer groupings. But some fields were blank, like headquarters, founding story, employees, and key people. With my scraper, I believe I can gather much more information about the company itself.
 
+For the Mo apps, I think it's pretty simple to understand how my work could improve their output. More relevant data from the company, with less input from the owner, could lead to better results. I can't guarantee it will, but since the data is relevant and the owner verifies it, these tools should produce better output.
+
+MoSocial: testimonials, FAQs, and the content kit give it real things to post about, in the customers' own words.
+MoMail: real offerings, locations and calls to action, so emails point people to the right place.
+MoBlogs: writing style based on real customer language, so the voice sounds like the brand and not corporate.
+
+Every field also has a confidence label, so the apps can tell what was scraped from what was guessed.
 
 
 4. What would you improve or change about MoKnowledge if you had more time?
 
+Well, I'm still working on this project, and things may change. What I would change is optimization. I would love to break it down, understand each piece, and, knowing AI often creates convoluted plans, simplify it as much as possible to reduce execution time, API costs, and general overhead. I would also love to talk to the people using it, ask them about their problems with the site and what they feel is missing, and then implement those features.
 
+Reading menus with AI is the clearest example. On the Neko Hana menu (one of Dragon Factory's restaurants), the AI completely skipped both Omakase menus, the $58.95 AYCE and the $48.95 regular, and my fix didn't solve it (I pushed further and solved it). I'm almost certain that, given the time frame, it won't get everything 100% right. If I had a month or more, I'd do more, but that isn't possible with the time we have, and I accept it. So I added a disclaimer and a review step: menus read by AI show a banner, the owner marks each one as reviewed, and unreviewed AI prices are kept out of content.
+
+Other things on my list:
+1. Remember removals and Not applicable choices across rescrapes. Right now only edited values carry over.
+2. Detect placeholder or template content, like staff profiles that are just filler.
+3. Skip hidden elements and check that each value actually appears on its source page.
+4. Show live crawl progress.
+5. Use outside sources like Google Places or state registries, with the owner's permission, for fields small sites don't list.
+6. Protect against DNS rebinding, the one known gap in my SSRF protection.
 
 
 5. What was the most challenging part of this assignment?
 
+I think I've been saying this the whole time, but what made this assignment so challenging was my lack of knowledge in the field, especially understanding the scope of what I wanted to build. It is so easy to let your creativity balloon out of control, and it's important to stay grounded and understand constraints for time, cost, and impact.
 
+Real sites kept breaking my assumptions. On Dragon Factory, the restaurant hours ran into the address, so the scraper thought one address started at "30 PM." After fixing that by keeping line breaks, three restaurants in the same building merged into one location, so I added the unit number to the duplicate check. Now it finds all 10 locations. Goettl initially listed the wrong brand colors because it picked the most common colors: WordPress default blues and a plugin orange. We ranked colors by where they're actually used, like buttons, the header, and links, and filtered out platform defaults. Now it shows Goettl's real navy and red, and the red on their Book Now button was missing entirely before. Anime Boba Cafe, which I tested with the owner's permission, had its address only in an Apple Maps link, so the scraper missed it entirely. We added a fallback that reads it from the link and marks it as inferred.
 
+Cost was another constraint. As I added more AI features, the cost per run went up. Reading menus with AI could have gone up to about 13 cents a run at 12 pages, so I capped it at 8 pages, about 9 cents (estimate). I also added a daily limit, a passcode, and caching.
+
+Security taught me the most. Near the end, I asked Claude about RLS, which I had used before on my portfolio site with Supabase. While looking into it, Claude brought up SSRF. We used a home or office analogy: an attacker could trick your butler, or the server, into doing something it's not supposed to, like fetching private data. Since my scraper fetches any URL a user gives it, that matters. I hadn't mentioned it in my original prompt, and when we checked, the protection wasn't there. Now it blocks localhost, private IPs, and the cloud metadata address, and checks every redirect. The one known gap is DNS rebinding. To me, this is a perfect example of why asking as many questions as I do is important. AI isn't all-encompassing and can't foresee everything. I am not a 10x engineer, and this is only my second time working with React, but one thing from the interview that stuck with me is that I should get comfortable being uncomfortable, and I am. That's why I ask as many questions as I do.
