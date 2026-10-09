@@ -45,3 +45,13 @@ body {
   color: var(--color-ink);
   font-family: var(--font-sans);
 }
+
+/* Blue glow pulse on a field after a "Next to do" jump (added by jumpTo in KnowledgeContext). */
+@keyframes flash-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgb(37 99 235 / 0); }
+  30%, 60% { box-shadow: 0 0 0 4px rgb(37 99 235 / 0.35); }
+}
+.flash {
+  animation: flash-glow 1.6s ease-in-out;
+  border-radius: 0.75rem;
+}
