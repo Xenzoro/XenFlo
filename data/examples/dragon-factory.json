@@ -1,0 +1,733 @@
+{
+  "id": "4df07473-5bb1-418c-9332-e1e383b51b1a",
+  "url": "https://www.dragonfactories.com/",
+  "companyName": "DRAGON FACTORY",
+  "createdAt": "2026-10-09T16:22:45.494Z",
+  "updatedAt": "2026-10-09T16:22:52.549Z",
+  "version": 1,
+  "company": {
+    "name": {
+      "value": "DRAGON FACTORY",
+      "source": "https://www.dragonfactories.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:46.342Z"
+    },
+    "overview": {
+      "value": "Dragon Factory has become a staple of All you can eat sushi, all you can eat kbbq and all you can hot pot places all across the Las Vegas. We bring new innovative experiences and combine them with the traditional styles of foods you love.",
+      "source": "https://www.dragonfactories.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:46.342Z"
+    },
+    "website": {
+      "value": "https://www.dragonfactories.com/",
+      "source": "https://dragonfactories.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:45.494Z"
+    },
+    "industry": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:45.494Z"
+    },
+    "businessModel": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:45.494Z"
+    },
+    "companyRole": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:45.494Z"
+    },
+    "yearFounded": {
+      "value": 2013,
+      "source": "https://www.dragonfactories.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:46.344Z"
+    },
+    "legalEntityType": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:45.494Z"
+    },
+    "legalName": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:45.494Z"
+    },
+    "employeeCount": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:45.494Z"
+    },
+    "revenue": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:45.494Z"
+    },
+    "mainAddress": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:45.494Z"
+    },
+    "otherLocations": [],
+    "serviceLocations": [],
+    "alternateNames": [
+      {
+        "value": "Neko Loco",
+        "source": "https://www.dragonfactories.com/",
+        "confidence": "inferred",
+        "updatedAt": "2026-10-09T16:22:46.368Z"
+      },
+      {
+        "value": "Chojang",
+        "source": "https://www.dragonfactories.com/",
+        "confidence": "inferred",
+        "updatedAt": "2026-10-09T16:22:46.368Z"
+      },
+      {
+        "value": "Sumo Hotpot",
+        "source": "https://www.dragonfactories.com/",
+        "confidence": "inferred",
+        "updatedAt": "2026-10-09T16:22:46.368Z"
+      },
+      {
+        "value": "Sushi Sumo Decatur",
+        "source": "https://www.dragonfactories.com/",
+        "confidence": "inferred",
+        "updatedAt": "2026-10-09T16:22:46.369Z"
+      },
+      {
+        "value": "Sumo Henderson",
+        "source": "https://www.dragonfactories.com/",
+        "confidence": "inferred",
+        "updatedAt": "2026-10-09T16:22:46.369Z"
+      },
+      {
+        "value": "Omakase Sumo",
+        "source": "https://www.dragonfactories.com/",
+        "confidence": "inferred",
+        "updatedAt": "2026-10-09T16:22:46.369Z"
+      },
+      {
+        "value": "Neko Hana",
+        "source": "https://www.dragonfactories.com/",
+        "confidence": "inferred",
+        "updatedAt": "2026-10-09T16:22:46.369Z"
+      },
+      {
+        "value": "Umami",
+        "source": "https://www.dragonfactories.com/umami",
+        "confidence": "inferred",
+        "updatedAt": "2026-10-09T16:22:49.190Z"
+      }
+    ],
+    "pitch": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:45.494Z"
+    },
+    "foundingStory": {
+      "value": "Dragon Factory Company founded in 2013 has evolved from a cozy mom and pop shop named Sakana into a culinary powerhouse. With a foundation rooted in creativity and innovation, expanding our concept into a diverse portfolio of restaurants. Our journey from a single restaurant to a flourishing enterprise showcases our passion for food and unwavering commitment to reinventing the dining landscape.",
+      "source": "https://www.dragonfactories.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:46.356Z"
+    }
+  },
+  "contact": {
+    "emails": [
+      {
+        "value": "apply.dragonfactory@gmail.com",
+        "source": "https://www.dragonfactories.com/apply-now",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:48.138Z"
+      }
+    ],
+    "phones": [
+      {
+        "value": "(725) 205-8505",
+        "source": "https://www.dragonfactories.com/captain-6",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:51.589Z"
+      }
+    ],
+    "contactPageUrl": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:45.494Z"
+    }
+  },
+  "customers": {
+    "targetBuyers": [],
+    "customerNeeds": [],
+    "idealPersona": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:45.494Z"
+    },
+    "industryGroupings": [],
+    "industryOutlook": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:45.494Z"
+    },
+    "channels": [],
+    "funnels": [],
+    "ctas": [
+      {
+        "value": {
+          "text": "apply now",
+          "url": "https://www.dragonfactories.com/apply-now"
+        },
+        "source": "https://www.dragonfactories.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:46.361Z"
+      },
+      {
+        "value": {
+          "text": "learn more",
+          "url": "https://www.dragonfactories.com/hwaro1"
+        },
+        "source": "https://www.dragonfactories.com/ayce-kbbq",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:47.303Z"
+      },
+      {
+        "value": {
+          "text": "order online",
+          "url": "https://umami.menu11.com/"
+        },
+        "source": "https://www.dragonfactories.com/umami",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:49.188Z"
+      }
+    ],
+    "suppliersPartners": [
+      {
+        "value": {
+          "name": "Google Analytics",
+          "category": "analytics"
+        },
+        "source": "https://www.dragonfactories.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:46.498Z"
+      },
+      {
+        "value": {
+          "name": "Wix",
+          "category": "platform"
+        },
+        "source": "https://www.dragonfactories.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:46.500Z"
+      }
+    ]
+  },
+  "brand": {
+    "writingStyle": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:45.494Z"
+    },
+    "artStyle": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:45.494Z"
+    },
+    "fonts": [
+      {
+        "value": "Avenir LT",
+        "source": "https://www.dragonfactories.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:46.372Z"
+      },
+      {
+        "value": "Barlow",
+        "source": "https://www.dragonfactories.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:46.372Z"
+      },
+      {
+        "value": "Barlow Medium",
+        "source": "https://www.dragonfactories.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:46.372Z"
+      }
+    ],
+    "colors": [
+      {
+        "value": "#2b5672",
+        "source": "https://www.dragonfactories.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:46.490Z"
+      },
+      {
+        "value": "#c6a47e",
+        "source": "https://www.dragonfactories.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:46.490Z"
+      },
+      {
+        "value": "#e03939",
+        "source": "https://www.dragonfactories.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:46.490Z"
+      },
+      {
+        "value": "#e3cfb9",
+        "source": "https://www.dragonfactories.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:46.490Z"
+      },
+      {
+        "value": "#41bbb3",
+        "source": "https://www.dragonfactories.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:46.490Z"
+      },
+      {
+        "value": "#0088cb",
+        "source": "https://www.dragonfactories.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:46.490Z"
+      }
+    ],
+    "logos": [
+      {
+        "value": {
+          "url": "https://static.wixstatic.com/media/e381d2_50fa3382955d4f6f838f7b2026257b05~mv2.png/v1/crop/x_151,y_193,w_747,h_123/fill/w_406,h_64,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/callingcard-cheongdam-foodhall.png",
+          "kind": "header logo",
+          "alt": "Dragonfactory"
+        },
+        "source": "https://www.dragonfactories.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:46.365Z"
+      },
+      {
+        "value": {
+          "url": "https://static.wixstatic.com/media/e381d2_9c76e7bd90034cdea9522ee3ffca330d~mv2.png/v1/fill/w_277,h_84,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/3_5x2%20logos_Page_01.png",
+          "kind": "logo image",
+          "alt": null
+        },
+        "source": "https://www.dragonfactories.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:46.367Z"
+      },
+      {
+        "value": {
+          "url": "https://static.wixstatic.com/media/e381d2_4b457e7e4b3c4011a2ec89ea9974f48f~mv2.png/v1/crop/x_108,y_131,w_720,h_337/fill/w_214,h_114,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/3_5x2%20logos_Page_05.png",
+          "kind": "logo image",
+          "alt": null
+        },
+        "source": "https://www.dragonfactories.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:46.367Z"
+      },
+      {
+        "value": {
+          "url": "https://static.wixstatic.com/media/e381d2_b7bec70a4a28406fad4beaa981ead398~mv2.png/v1/fill/w_256,h_81,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/3_5x2%20logos_Page_13.png",
+          "kind": "logo image",
+          "alt": null
+        },
+        "source": "https://www.dragonfactories.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:46.367Z"
+      },
+      {
+        "value": {
+          "url": "https://static.wixstatic.com/media/e381d2_2a78a9ec0aaf4889aa81dcd109e27334~mv2.png/v1/crop/x_188,y_131,w_670,h_337/fill/w_199,h_100,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/3_5x2%20logos_Page_06.png",
+          "kind": "logo image",
+          "alt": null
+        },
+        "source": "https://www.dragonfactories.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:46.367Z"
+      },
+      {
+        "value": {
+          "url": "https://static.wixstatic.com/media/e381d2_fe4c7d4f07b744eca39f5e29cf36077e~mv2.png/v1/crop/x_189,y_149,w_671,h_300/fill/w_248,h_105,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/3_5x2%20logos_Page_07.png",
+          "kind": "logo image",
+          "alt": null
+        },
+        "source": "https://www.dragonfactories.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:46.367Z"
+      },
+      {
+        "value": {
+          "url": "https://static.wixstatic.com/media/e381d2_58ff43a281b64112888f544ba07d23d6~mv2.png/v1/fill/w_277,h_88,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/3_5x2%20logos_Page_14.png",
+          "kind": "logo image",
+          "alt": null
+        },
+        "source": "https://www.dragonfactories.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:46.368Z"
+      },
+      {
+        "value": {
+          "url": "https://static.wixstatic.com/media/e381d2_99e9a4b2374c47508c41732ee8b3406d~mv2.png/v1/crop/x_154,y_146,w_730,h_312/fill/w_260,h_111,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/3_5x2%20logos_Page_04.png",
+          "kind": "logo image",
+          "alt": null
+        },
+        "source": "https://www.dragonfactories.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:46.368Z"
+      }
+    ],
+    "socialLinks": [
+      {
+        "value": {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/captain6lv"
+        },
+        "source": "https://www.dragonfactories.com/captain-6",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:51.589Z"
+      }
+    ]
+  },
+  "people": [],
+  "offerings": [],
+  "insights": {
+    "testimonials": [],
+    "faqs": [],
+    "differentiators": [],
+    "trustSignals": [],
+    "contentThemes": [],
+    "promotions": [],
+    "pressMentions": [],
+    "communityValues": [],
+    "legalLinks": [],
+    "positioningSignals": []
+  },
+  "contentKit": {
+    "contentPillars": [],
+    "socialHooks": [],
+    "hashtags": [],
+    "emailSubjects": [],
+    "blogIdeas": [],
+    "voiceGuide": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:45.494Z"
+    }
+  },
+  "completeness": {
+    "score": 51,
+    "missing": [
+      "company.industry",
+      "company.legalEntityType",
+      "company.mainAddress",
+      "company.pitch",
+      "customers.targetBuyers",
+      "customers.idealPersona",
+      "brand.writingStyle",
+      "people",
+      "offerings",
+      "insights.testimonials",
+      "insights.faqs",
+      "insights.trustSignals"
+    ]
+  },
+  "crawl": {
+    "startedAt": "2026-10-09T16:22:45.494Z",
+    "finishedAt": "2026-10-09T16:22:52.549Z",
+    "durationMs": 6803,
+    "robotsAllowed": true,
+    "pendingUrls": [
+      "https://www.dragonfactories.com/chojang-house",
+      "https://www.dragonfactories.com/sumo-sushi-lasvegas",
+      "https://www.dragonfactories.com/sumohotpotandsushi",
+      "https://www.dragonfactories.com/sushi-sumo-decatur",
+      "https://www.dragonfactories.com/sumo-henderson",
+      "https://www.dragonfactories.com/neko-hana-omakase",
+      "https://www.dragonfactories.com/nabe-hot-pot"
+    ],
+    "pages": [
+      {
+        "url": "https://www.dragonfactories.com/",
+        "category": "home",
+        "status": 200,
+        "title": "DRAGON FACTORY LAS VEGAS | ALL YOU CAN EAT KBBQ | ALL YOU CAN EAT SUSHI | ALL YOU CAN EAT HOT POT",
+        "fetchedAt": "2026-10-09T16:22:46.501Z",
+        "durationMs": 331,
+        "error": null
+      },
+      {
+        "url": "https://www.dragonfactories.com/ayce-kbbq",
+        "category": "other",
+        "status": 200,
+        "title": "ALL YOU CAN EAT KBBQ | DRAGON FACTORY",
+        "fetchedAt": "2026-10-09T16:22:47.316Z",
+        "durationMs": 87,
+        "error": null
+      },
+      {
+        "url": "https://www.dragonfactories.com/ayce-sushi",
+        "category": "other",
+        "status": 200,
+        "title": "ALL YOU CAN EAT SUSHI | DRAGON FACTORY",
+        "fetchedAt": "2026-10-09T16:22:47.432Z",
+        "durationMs": 185,
+        "error": null
+      },
+      {
+        "url": "https://www.dragonfactories.com/ayce-hotpot",
+        "category": "other",
+        "status": 200,
+        "title": "ALL YOU CAN EAT HOTPOT | DRAGON FACTORY",
+        "fetchedAt": "2026-10-09T16:22:47.819Z",
+        "durationMs": 94,
+        "error": null
+      },
+      {
+        "url": "https://www.dragonfactories.com/apply-now",
+        "category": "other",
+        "status": 200,
+        "title": "APPLY NOW | DRAGON FACTORY",
+        "fetchedAt": "2026-10-09T16:22:48.151Z",
+        "durationMs": 255,
+        "error": null
+      },
+      {
+        "url": "https://www.dragonfactories.com/sakana",
+        "category": "other",
+        "status": 200,
+        "title": "SAKANA SUSHI | ALL YOU CAN EAT SUSHI",
+        "fetchedAt": "2026-10-09T16:22:48.622Z",
+        "durationMs": 77,
+        "error": null
+      },
+      {
+        "url": "https://www.dragonfactories.com/mr-shota",
+        "category": "services",
+        "status": 200,
+        "title": "MR.SHOTA | ALL YOU CAN EAT SUSHI",
+        "fetchedAt": "2026-10-09T16:22:48.703Z",
+        "durationMs": 173,
+        "error": null
+      },
+      {
+        "url": "https://www.dragonfactories.com/sushi-neko-1",
+        "category": "other",
+        "status": 200,
+        "title": "SUSHI NEKO | DRAGON FACTORY",
+        "fetchedAt": "2026-10-09T16:22:49.074Z",
+        "durationMs": 85,
+        "error": null
+      },
+      {
+        "url": "https://www.dragonfactories.com/umami",
+        "category": "other",
+        "status": 200,
+        "title": "UMAMI | ALL YOU CAN EAT SUSHI",
+        "fetchedAt": "2026-10-09T16:22:49.209Z",
+        "durationMs": 122,
+        "error": null
+      },
+      {
+        "url": "https://www.dragonfactories.com/neko-supremo",
+        "category": "other",
+        "status": 200,
+        "title": "NEKO SUPREMO | DRAGON FACTORY",
+        "fetchedAt": "2026-10-09T16:22:49.737Z",
+        "durationMs": 111,
+        "error": null
+      },
+      {
+        "url": "https://www.dragonfactories.com/hwaro1",
+        "category": "other",
+        "status": 200,
+        "title": "HWARO 1 AYCE KBBQ & SUSHI",
+        "fetchedAt": "2026-10-09T16:22:49.849Z",
+        "durationMs": 232,
+        "error": null
+      },
+      {
+        "url": "https://www.dragonfactories.com/hwaro2",
+        "category": "other",
+        "status": 200,
+        "title": "HWARO 2 AYCE KBBQ IN LAS VEGAS",
+        "fetchedAt": "2026-10-09T16:22:50.222Z",
+        "durationMs": 92,
+        "error": null
+      },
+      {
+        "url": "https://www.dragonfactories.com/captain-6",
+        "category": "other",
+        "status": 200,
+        "title": "CAPTAIN 6 | DRAGON FACTORY",
+        "fetchedAt": "2026-10-09T16:22:51.624Z",
+        "durationMs": 1243,
+        "error": null
+      },
+      {
+        "url": "https://www.dragonfactories.com/kogi",
+        "category": "other",
+        "status": 200,
+        "title": "KOGI | DRAGON FACTORY",
+        "fetchedAt": "2026-10-09T16:22:52.157Z",
+        "durationMs": 158,
+        "error": null
+      },
+      {
+        "url": "https://www.dragonfactories.com/neko-loco-sushi",
+        "category": "other",
+        "status": 200,
+        "title": "NEKO LOCO SUSHI | DRAGON FACTORY",
+        "fetchedAt": "2026-10-09T16:22:52.249Z",
+        "durationMs": 238,
+        "error": null
+      }
+    ],
+    "log": [
+      {
+        "at": "2026-10-09T16:22:45.494Z",
+        "level": "info",
+        "message": "Checking robots.txt"
+      },
+      {
+        "at": "2026-10-09T16:22:45.746Z",
+        "level": "info",
+        "message": "Fetching homepage https://dragonfactories.com/"
+      },
+      {
+        "at": "2026-10-09T16:22:46.077Z",
+        "level": "info",
+        "message": "Reading styles for fonts and colors"
+      },
+      {
+        "at": "2026-10-09T16:22:46.501Z",
+        "level": "info",
+        "message": "Discovering pages"
+      },
+      {
+        "at": "2026-10-09T16:22:47.143Z",
+        "level": "info",
+        "message": "Found 21 linked pages and 22 sitemap entries"
+      },
+      {
+        "at": "2026-10-09T16:22:47.144Z",
+        "level": "info",
+        "message": "Crawling 0 priority pages"
+      },
+      {
+        "at": "2026-10-09T16:22:47.144Z",
+        "level": "info",
+        "message": "Checking other pages for missing info"
+      },
+      {
+        "at": "2026-10-09T16:22:47.144Z",
+        "level": "info",
+        "message": "Crawling 2 of 15: /ayce-kbbq"
+      },
+      {
+        "at": "2026-10-09T16:22:47.144Z",
+        "level": "info",
+        "message": "Crawling 3 of 15: /ayce-sushi"
+      },
+      {
+        "at": "2026-10-09T16:22:47.618Z",
+        "level": "info",
+        "message": "Crawling 4 of 15: /ayce-hotpot"
+      },
+      {
+        "at": "2026-10-09T16:22:47.820Z",
+        "level": "info",
+        "message": "Crawling 5 of 15: /apply-now"
+      },
+      {
+        "at": "2026-10-09T16:22:48.452Z",
+        "level": "info",
+        "message": "Looking for: targetBuyers, offerings"
+      },
+      {
+        "at": "2026-10-09T16:22:48.452Z",
+        "level": "info",
+        "message": "Crawling 6 of 15: /mr-shota"
+      },
+      {
+        "at": "2026-10-09T16:22:48.453Z",
+        "level": "info",
+        "message": "Crawling 7 of 15: /sakana"
+      },
+      {
+        "at": "2026-10-09T16:22:48.922Z",
+        "level": "info",
+        "message": "Crawling 8 of 15: /sushi-neko-1"
+      },
+      {
+        "at": "2026-10-09T16:22:49.004Z",
+        "level": "info",
+        "message": "Crawling 9 of 15: /umami"
+      },
+      {
+        "at": "2026-10-09T16:22:49.509Z",
+        "level": "info",
+        "message": "Checking other pages for missing info"
+      },
+      {
+        "at": "2026-10-09T16:22:49.509Z",
+        "level": "info",
+        "message": "Crawling 10 of 15: /neko-supremo"
+      },
+      {
+        "at": "2026-10-09T16:22:49.510Z",
+        "level": "info",
+        "message": "Crawling 11 of 15: /hwaro1"
+      },
+      {
+        "at": "2026-10-09T16:22:50.039Z",
+        "level": "info",
+        "message": "Crawling 12 of 15: /hwaro2"
+      },
+      {
+        "at": "2026-10-09T16:22:50.223Z",
+        "level": "info",
+        "message": "Crawling 13 of 15: /captain-6"
+      },
+      {
+        "at": "2026-10-09T16:22:51.925Z",
+        "level": "info",
+        "message": "Checking other pages for missing info"
+      },
+      {
+        "at": "2026-10-09T16:22:51.925Z",
+        "level": "info",
+        "message": "Crawling 14 of 15: /kogi"
+      },
+      {
+        "at": "2026-10-09T16:22:51.926Z",
+        "level": "info",
+        "message": "Crawling 15 of 15: /neko-loco-sushi"
+      },
+      {
+        "at": "2026-10-09T16:22:52.549Z",
+        "level": "info",
+        "message": "Extracting and scoring"
+      },
+      {
+        "at": "2026-10-09T16:22:52.549Z",
+        "level": "info",
+        "message": "Done: 15 pages total, 7 more available, completeness 51"
+      }
+    ]
+  },
+  "consent": null,
+  "uploads": []
+}

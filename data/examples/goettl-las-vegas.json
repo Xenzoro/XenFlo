@@ -1,0 +1,2170 @@
+{
+  "id": "2b7f78ef-66f2-4348-8522-1cebebbd2502",
+  "url": "https://www.goettl.com/location/las-vegas",
+  "companyName": "Goettl Air Conditioning and Plumbing",
+  "createdAt": "2026-10-09T16:22:52.650Z",
+  "updatedAt": "2026-10-09T16:23:06.629Z",
+  "version": 1,
+  "company": {
+    "name": {
+      "value": "Goettl Air Conditioning and Plumbing",
+      "source": "https://www.goettl.com/location/las-vegas",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:53.155Z"
+    },
+    "overview": {
+      "value": "At Goettl, our mission is clear: to deliver top-notch and fast HVAC and plumbing services to the Las Vegas community.",
+      "source": "https://www.goettl.com/location/las-vegas",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:53.157Z"
+    },
+    "website": {
+      "value": "https://www.goettl.com/location/las-vegas",
+      "source": "https://www.goettl.com/location/las-vegas/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:52.650Z"
+    },
+    "industry": {
+      "value": "HVACBusiness",
+      "source": "https://www.goettl.com/location/las-vegas",
+      "confidence": "inferred",
+      "updatedAt": "2026-10-09T16:22:53.155Z"
+    },
+    "businessModel": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:52.650Z"
+    },
+    "companyRole": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:52.650Z"
+    },
+    "yearFounded": {
+      "value": 1939,
+      "source": "https://www.goettl.com/location/las-vegas",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:53.190Z"
+    },
+    "legalEntityType": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:52.650Z"
+    },
+    "legalName": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:52.650Z"
+    },
+    "employeeCount": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:52.650Z"
+    },
+    "revenue": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:52.650Z"
+    },
+    "mainAddress": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:52.650Z"
+    },
+    "otherLocations": [],
+    "serviceLocations": [],
+    "alternateNames": [
+      {
+        "value": "Goettl - Since 1939 - Air Conditioning and Plumbing",
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "inferred",
+        "updatedAt": "2026-10-09T16:22:53.307Z"
+      },
+      {
+        "value": "Goettl Tech",
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "inferred",
+        "updatedAt": "2026-10-09T16:22:53.310Z"
+      },
+      {
+        "value": "Person holding a wrench in front of the goettl",
+        "source": "https://www.goettl.com/about-us",
+        "confidence": "inferred",
+        "updatedAt": "2026-10-09T16:22:54.416Z"
+      },
+      {
+        "value": "Original Goettl Air Conditioning",
+        "source": "https://www.goettl.com/the-goettl-story",
+        "confidence": "inferred",
+        "updatedAt": "2026-10-09T16:23:02.374Z"
+      }
+    ],
+    "pitch": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:52.650Z"
+    },
+    "foundingStory": {
+      "value": "Keeping Las Vegas cool (and comfortable) since 2012. Our name may be hard to spell but we’re pretty easy to work with! When you want expert cooling, heating, and plumbing services, trust Goettl to do things the right way.",
+      "source": "https://www.goettl.com/location/las-vegas",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:53.226Z"
+    }
+  },
+  "contact": {
+    "emails": [],
+    "phones": [
+      {
+        "value": "(213) 317-2704",
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.188Z"
+      },
+      {
+        "value": "(844) 446-3885",
+        "source": "https://www.goettl.com/plumbing/emergency-plumbing-services",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:54.081Z"
+      },
+      {
+        "value": "CALL Now",
+        "source": "https://www.goettl.com/smart-sadie-membership",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:54.958Z"
+      },
+      {
+        "value": " 6025368852",
+        "source": "https://www.goettl.com/locations",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:55.863Z"
+      },
+      {
+        "value": "5202145988",
+        "source": "https://www.goettl.com/locations",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:55.863Z"
+      },
+      {
+        "value": "+1702-291-9893",
+        "source": "https://www.goettl.com/locations",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:55.863Z"
+      },
+      {
+        "value": "+1210-405-6238",
+        "source": "https://www.goettl.com/locations",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:55.863Z"
+      },
+      {
+        "value": "7377272107",
+        "source": "https://www.goettl.com/locations",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:55.863Z"
+      }
+    ],
+    "contactPageUrl": {
+      "value": "https://www.goettl.com/contact-us",
+      "source": "https://www.goettl.com/contact-us",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:01.192Z"
+    }
+  },
+  "customers": {
+    "targetBuyers": [],
+    "customerNeeds": [],
+    "idealPersona": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:52.650Z"
+    },
+    "industryGroupings": [],
+    "industryOutlook": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:52.650Z"
+    },
+    "channels": [],
+    "funnels": [],
+    "ctas": [
+      {
+        "value": {
+          "text": "Book Now",
+          "url": null
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.283Z"
+      },
+      {
+        "value": {
+          "text": "Book Online",
+          "url": "https://www.goettl.com/location/las-vegas"
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.283Z"
+      },
+      {
+        "value": {
+          "text": "VIEW ALL POSTS",
+          "url": "https://www.goettl.com/expert-center"
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.283Z"
+      },
+      {
+        "value": {
+          "text": "Learn More About Goettl",
+          "url": "https://www.goettl.com/the-goettl-story"
+        },
+        "source": "https://www.goettl.com/plumbing/emergency-plumbing-services",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:54.115Z"
+      },
+      {
+        "value": {
+          "text": "JOIN TODAY",
+          "url": "https://www.goettl.com/smart-sadie-membership"
+        },
+        "source": "https://www.goettl.com/about-us",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:54.388Z"
+      },
+      {
+        "value": {
+          "text": "CALL Now",
+          "url": null
+        },
+        "source": "https://www.goettl.com/smart-sadie-membership",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:55.014Z"
+      },
+      {
+        "value": {
+          "text": "Contact Us",
+          "url": "https://www.goettl.com/smart-sadie-membership"
+        },
+        "source": "https://www.goettl.com/smart-sadie-membership",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:55.014Z"
+      },
+      {
+        "value": {
+          "text": "Learn More",
+          "url": null
+        },
+        "source": "https://www.goettl.com/smart-sadie-membership",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:55.014Z"
+      },
+      {
+        "value": {
+          "text": "call any time",
+          "url": null
+        },
+        "source": "https://www.goettl.com/smart-sadie-membership",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:55.014Z"
+      },
+      {
+        "value": {
+          "text": "View Location",
+          "url": "https://www.goettl.com/location/phoenix-arizona"
+        },
+        "source": "https://www.goettl.com/locations",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:55.897Z"
+      },
+      {
+        "value": {
+          "text": "Learn More about The Goettl Story",
+          "url": "https://www.goettl.com/the-goettl-story"
+        },
+        "source": "https://www.goettl.com/plumbing/waterline-services",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:23:02.163Z"
+      },
+      {
+        "value": {
+          "text": "find a location near you",
+          "url": "https://www.goettl.com/locations"
+        },
+        "source": "https://www.goettl.com/expert-center/clean-air-and-water/debunking-5-common-water-myths-the-truth-about-drinking-water-contaminants",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:23:04.242Z"
+      }
+    ],
+    "suppliersPartners": [
+      {
+        "value": {
+          "name": "Google Analytics",
+          "category": "analytics"
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.338Z"
+      },
+      {
+        "value": {
+          "name": "Google Tag Manager",
+          "category": "analytics"
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.338Z"
+      },
+      {
+        "value": {
+          "name": "HubSpot",
+          "category": "crm"
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.339Z"
+      },
+      {
+        "value": {
+          "name": "WordPress",
+          "category": "platform"
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.339Z"
+      },
+      {
+        "value": {
+          "name": "Google Maps",
+          "category": "maps"
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.339Z"
+      }
+    ]
+  },
+  "brand": {
+    "writingStyle": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:52.650Z"
+    },
+    "artStyle": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:52.650Z"
+    },
+    "fonts": [
+      {
+        "value": "Helserif",
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.315Z"
+      },
+      {
+        "value": "Sofia Pro",
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.315Z"
+      },
+      {
+        "value": "Superclarendon",
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.315Z"
+      }
+    ],
+    "colors": [
+      {
+        "value": "#003963",
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.322Z"
+      },
+      {
+        "value": "#cd163f",
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.322Z"
+      },
+      {
+        "value": "#acdcff",
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.322Z"
+      },
+      {
+        "value": "#72b556",
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.322Z"
+      },
+      {
+        "value": "#2b6cb0",
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.322Z"
+      },
+      {
+        "value": "#44d62c",
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.322Z"
+      }
+    ],
+    "logos": [
+      {
+        "value": {
+          "url": "https://www.goettl.com/wp-content/uploads/Goettl-Logoweb.png",
+          "kind": "header logo",
+          "alt": "Goettl Air Conditioning and Plumbing - Since 1939"
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.307Z"
+      },
+      {
+        "value": {
+          "url": "https://www.goettl.com/wp-content/uploads/Goettl-Logo-2-e1791311615782.png",
+          "kind": "header logo",
+          "alt": "Goettl - Since 1939 - Air Conditioning and Plumbing"
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.307Z"
+      },
+      {
+        "value": {
+          "url": "https://www.goettl.com/wp-content/uploads/10011-24_Goettl-tech-icon-01-04.png",
+          "kind": "header logo",
+          "alt": "Goettl Tech"
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.310Z"
+      },
+      {
+        "value": {
+          "url": "https://www.goettl.com/wp-content/uploads/Goettl-Logo-2.png",
+          "kind": "json-ld logo",
+          "alt": null
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.155Z"
+      },
+      {
+        "value": {
+          "url": "https://www.goettl.com/wp-content/uploads/cropped-android-chrome-512x512-1-192x192-1.png",
+          "kind": "apple-touch-icon",
+          "alt": "Android Chrome"
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.312Z"
+      },
+      {
+        "value": {
+          "url": "https://www.goettl.com/wp-content/uploads/DSC06297.png",
+          "kind": "og:image",
+          "alt": null
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.313Z"
+      },
+      {
+        "value": {
+          "url": "https://www.goettl.com/wp-content/uploads/cropped-android-chrome-512x512-1-192x192-1-80x80.png",
+          "kind": "favicon",
+          "alt": "Android Chrome"
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.313Z"
+      }
+    ],
+    "socialLinks": [
+      {
+        "value": {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/Goettl"
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.155Z"
+      },
+      {
+        "value": {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/goettlacplumbing/"
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.155Z"
+      },
+      {
+        "value": {
+          "platform": "linkedin",
+          "url": "https://www.linkedin.com/company/goettl/"
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.155Z"
+      },
+      {
+        "value": {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/@GoettlAirConditioningPlumbing"
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.155Z"
+      },
+      {
+        "value": {
+          "platform": "tiktok",
+          "url": "https://www.tiktok.com/@goettlacplumbing"
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.155Z"
+      },
+      {
+        "value": {
+          "platform": "linkedin",
+          "url": "https://www.linkedin.com/authwall?trk=ripf&trkInfo=AQFOCz0jfHLuRQAAAXhLuTgIgPUkNL7ZD9RK6fXSoaWwl4MJNZMe7iNzpZPGcvs-NInpEMcIzEbk661txngOOkQNRbsbriwOZPsEW81dtvTqAsiDRpfbtmA0BnGnnhM2XAvVO6w=&originalReferer=https://www.goettl.com/&sessionRedirect=https%3A%2F%2Fwww.linkedin.com%2Fcompany%2Fgoettl%2F"
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.185Z"
+      },
+      {
+        "value": {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/goettlacplumbing"
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.185Z"
+      },
+      {
+        "value": {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/channel/UCBGzJ2yOVe0rENM4SpVj_Qw"
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.185Z"
+      },
+      {
+        "value": {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/policy.php"
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.185Z"
+      },
+      {
+        "value": {
+          "platform": "x",
+          "url": "https://x.com/goettlair"
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.186Z"
+      },
+      {
+        "value": {
+          "platform": "youtube",
+          "url": "https://youtu.be/FlXS_sq-iqM?si=_t-yPFw24a2QJUey"
+        },
+        "source": "https://www.goettl.com/smart-sadie-membership",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:54.956Z"
+      },
+      {
+        "value": {
+          "platform": "youtube",
+          "url": "https://youtube.com/playlist?list=PLKi5_TI5r41xRzcuSzglYLF5_7LcM8p9Q&feature=shared"
+        },
+        "source": "https://www.goettl.com/expert-center/clean-air-and-water/debunking-5-common-water-myths-the-truth-about-drinking-water-contaminants",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:23:04.140Z"
+      }
+    ]
+  },
+  "people": [],
+  "offerings": [
+    {
+      "value": {
+        "name": "24/7 Emergency Plumbing Services",
+        "category": "Emergency Plumbing Services",
+        "description": "In those moments of panic when you need a plumber right away, the team at Goettl has you covered! We know there’s nothing worse than an unexpected pipe burst or a backed-up sewer line , which is why our convenient, 24/7 emergency plumbing services are the perfect solution to every plumbing issue you",
+        "features": [
+          "Flooding",
+          "Clogged Drains",
+          "Frozen Pipes",
+          "Sewer Gas Smell",
+          "Water Heater Repair",
+          "Broken Water Line Repair",
+          "Leaks",
+          "No Hot Water"
+        ],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/plumbing/emergency-plumbing-services",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:54.106Z"
+    },
+    {
+      "value": {
+        "name": "How We Can Help",
+        "category": "Emergency Plumbing Services",
+        "description": "Over the decades, we’ve seen our fair share of plumbing emergencies and have the expert knowledge and cutting-edge tools to handle a wide variety of problems.",
+        "features": [
+          "Flooding",
+          "Clogged Drains",
+          "Frozen Pipes",
+          "Sewer Gas Smell",
+          "Water Heater Repair",
+          "Broken Water Line Repair",
+          "Leaks",
+          "No Hot Water"
+        ],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/plumbing/emergency-plumbing-services",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:54.106Z"
+    },
+    {
+      "value": {
+        "name": "Plumbing Maintenance Services Near You",
+        "category": "Emergency Plumbing Services",
+        "description": "Having regular, routine maintenance done on your plumbing system can actually save you time, money, and stress.",
+        "features": [
+          "Faucets",
+          "Water Heater",
+          "Drains",
+          "Sinks",
+          "Toilets",
+          "Bath/Showers",
+          "And more!"
+        ],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/plumbing/emergency-plumbing-services",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:54.107Z"
+    },
+    {
+      "value": {
+        "name": "Plumbing Service Done the Goettl Way",
+        "category": "Emergency Plumbing Services",
+        "description": "Emergency plumbing issues happen more often than you think, especially with sudden weather changes or if you have an older home. No one wants to have an emergency plumbing problem, and there’s no need to panic or stress when the reliable team at Goettl has you covered with prompt customer response c",
+        "features": [],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/plumbing/emergency-plumbing-services",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:54.107Z"
+    },
+    {
+      "value": {
+        "name": "Preventative Maintenance",
+        "category": "Membership Benefits",
+        "description": "*Restrictions Apply",
+        "features": [
+          "Annual Cooling & Heating Maintenance",
+          "Water Heater Maintenance*",
+          "Water Quality Analysis",
+          "Camera Inspection*",
+          "Flood Prevention Inspection",
+          "1 Free Drain Clearing per Year*",
+          "$25 Annual Air Filter Voucher"
+        ],
+        "pricingType": "subscription",
+        "priceText": "$25/yr",
+        "priceAmount": 25,
+        "currency": "USD"
+      },
+      "source": "https://www.goettl.com/smart-sadie-membership",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:54.997Z"
+    },
+    {
+      "value": {
+        "name": "Member-Only Savings",
+        "category": "Membership Benefits",
+        "description": null,
+        "features": [
+          "10% off Repairs (Parts & Labor)",
+          "Up to $2,500 off HVAC Equipment",
+          "Up to $1,250 off Ductwork Replacement",
+          "Up to $2,500 off Sewer, Drain & Pipe Replacement",
+          "Up to $100 Loyalty Credit Sign-up Bonus",
+          "Up to $200 Loyalty Credit Anniversary Bonus"
+        ],
+        "pricingType": "fixed",
+        "priceText": "$2,500",
+        "priceAmount": 2500,
+        "currency": "USD"
+      },
+      "source": "https://www.goettl.com/smart-sadie-membership",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:54.997Z"
+    },
+    {
+      "value": {
+        "name": "Smart Sadie Protect",
+        "category": "Choose your level of protection.",
+        "description": null,
+        "features": [
+          "All Smart Sadie Member Benefits",
+          "Annual Cooling, Heating & Plumbing Maintenance",
+          "Priority Scheduling + No Trip Fees",
+          "10% Off All Repairs (Parts & Labor)",
+          "2-Year Parts & Labor Warranty on Repairs",
+          "$25 Annual Air Filter Voucher",
+          "Exclusive Member Hotline",
+          "Monthly Health Reports",
+          "24/7 HVAC System Monitoring",
+          "Water Leak Detection"
+        ],
+        "pricingType": "subscription",
+        "priceText": "$19.95/mo",
+        "priceAmount": 19.95,
+        "currency": "USD"
+      },
+      "source": "https://www.goettl.com/smart-sadie-membership",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:54.998Z"
+    },
+    {
+      "value": {
+        "name": "Smart Sadie Connect",
+        "category": "Choose your level of protection.",
+        "description": null,
+        "features": [
+          "All Smart Sadie Member Benefits",
+          "Annual Cooling, Heating & Plumbing Maintenance",
+          "Priority Scheduling + No Trip Fees",
+          "10% Off All Repairs (Parts & Labor)",
+          "2-Year Parts & Labor Warranty on Repairs",
+          "$25 Annual Air Filter Voucher",
+          "Exclusive Member Hotline",
+          "Monthly Health Reports"
+        ],
+        "pricingType": "subscription",
+        "priceText": "$12.95/mo",
+        "priceAmount": 12.95,
+        "currency": "USD"
+      },
+      "source": "https://www.goettl.com/smart-sadie-membership",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:54.999Z"
+    },
+    {
+      "value": {
+        "name": "A/C & Heating Equipment",
+        "category": "Total home comfort from $12.95 a month.",
+        "description": null,
+        "features": [],
+        "pricingType": "fixed",
+        "priceText": "$2,500",
+        "priceAmount": 2500,
+        "currency": "USD"
+      },
+      "source": "https://www.goettl.com/smart-sadie-membership",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:55.002Z"
+    },
+    {
+      "value": {
+        "name": "Duct Replacement",
+        "category": "Total home comfort from $12.95 a month.",
+        "description": null,
+        "features": [],
+        "pricingType": "fixed",
+        "priceText": "$1,250",
+        "priceAmount": 1250,
+        "currency": "USD"
+      },
+      "source": "https://www.goettl.com/smart-sadie-membership",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:55.003Z"
+    },
+    {
+      "value": {
+        "name": "Sewer, Drain & Pipe Replacement",
+        "category": "Total home comfort from $12.95 a month.",
+        "description": null,
+        "features": [],
+        "pricingType": "fixed",
+        "priceText": "$2,500",
+        "priceAmount": 2500,
+        "currency": "USD"
+      },
+      "source": "https://www.goettl.com/smart-sadie-membership",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:55.003Z"
+    },
+    {
+      "value": {
+        "name": "Terms & Conditions",
+        "category": "Total home comfort from $12.95 a month.",
+        "description": null,
+        "features": [
+          "All plans have a minimum 12-month subscription.",
+          "Monthly and annual subscriptions renew automatically unless cancelled by the customer.",
+          "$120 cancellation fee applies to Smart Sadie Protect (Sensor) plans per member.",
+          "$60 cancellation fee applies to Smart Sadie Connect (App) plans per member."
+        ],
+        "pricingType": "subscription",
+        "priceText": "$120/mo",
+        "priceAmount": 120,
+        "currency": "USD"
+      },
+      "source": "https://www.goettl.com/smart-sadie-membership",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:55.005Z"
+    },
+    {
+      "value": {
+        "name": "Waterline Repair",
+        "category": "Waterline Services",
+        "description": "Depending on the waterline issues your home may be experiencing, we offer trenchless and traditional waterline replacement services. Our plumbing experts provide comprehensive waterline replacement services. They can either replace your waterline or install your new main waterline quickly and with m",
+        "features": [],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/plumbing/waterline-services",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:02.152Z"
+    },
+    {
+      "value": {
+        "name": "Signs of Waterline Issues",
+        "category": "Waterline Services",
+        "description": "It’s important not to delay a water main or line repair because it could compromise your home’s water quality if contaminants enter your home’s pipes, or the leak worsens, causing water damage and leaving you with a large water bill . Keep an eye out for these warning signs of potential waterline is",
+        "features": [],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/plumbing/waterline-services",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:02.152Z"
+    },
+    {
+      "value": {
+        "name": "Full-Service Waterline Repair & Maintenance",
+        "category": "Waterline Services",
+        "description": "The Goettl professional plumbers can handle your waterline repairs, including issues with multiple water lines. We begin with an initial inspection and diagnosis of the problem to determine its severity and the best course of action. We will discuss all repair options with you to ensure we find a so",
+        "features": [
+          "The age of the water line",
+          "Frequency of repairs needed",
+          "Any significant damage or leaks"
+        ],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/plumbing/waterline-services",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:02.153Z"
+    },
+    {
+      "value": {
+        "name": "Waterline Replacement",
+        "category": "Waterline Services",
+        "description": "If you need an alternative to waterline repair, a waterline replacement may be the way to go. For customers in the Southwest, we are your go-to experts for water line replacement. We provide all our customers with decades of knowledge and expertise to determine when a waterline replacement is necess",
+        "features": [
+          "The age of the water line",
+          "Frequency of repairs needed",
+          "Any significant damage or leaks"
+        ],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/plumbing/waterline-services",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:02.153Z"
+    },
+    {
+      "value": {
+        "name": "When Waterline Replacement Is Necessary",
+        "category": "Waterline Services",
+        "description": "How do you know if your waterline needs to be replaced? Let the expert plumbers at Goettl support you in fixing your waterline to ensure it is corrected properly and effectively. A few considerations when figuring out if your line needs replacing:",
+        "features": [
+          "The age of the water line",
+          "Frequency of repairs needed",
+          "Any significant damage or leaks"
+        ],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/plumbing/waterline-services",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:02.154Z"
+    },
+    {
+      "value": {
+        "name": "Trenchless vs. Traditional Waterline Replacement",
+        "category": "Waterline Services",
+        "description": "If you have broken or corroded waterline pipes that need to be replaced, you will want to determine if trenchless or traditional waterline replacement is best for your home. Our professional plumbers will find the source of the issue and repair the waterline quickly and effectively, so you can conti",
+        "features": [],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/plumbing/waterline-services",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:02.154Z"
+    },
+    {
+      "value": {
+        "name": "Line Installation Process",
+        "category": "Waterline Services",
+        "description": "The Goettl expert plumbers are the best at line installation and will communicate with you through every step of the process. From site assessment and planning, installation techniques and materials necessary, and quality control and testing.",
+        "features": [],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/plumbing/waterline-services",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:02.154Z"
+    },
+    {
+      "value": {
+        "name": "Preventative Maintenance and Inspection",
+        "category": "Waterline Services",
+        "description": "We strongly encourage our clients to have their waterlines regularly inspected. By having your waterline routinely inspected, you can extend the life of the waterline and prevent costly repairs. The inspection process is straightforward, and our friendly, knowledgeable plumbers will help you underst",
+        "features": [],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/plumbing/waterline-services",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:02.155Z"
+    },
+    {
+      "value": {
+        "name": "The Goettl Difference",
+        "category": "Waterline Services",
+        "description": "Goettl provides experienced professionals to help with all your waterline service needs. Our technicians have extensive training and are equipped with the necessary tools to do the job correctly. We offer quality service and strive to provide effective, lasting solutions to keep your home running sm",
+        "features": [],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/plumbing/waterline-services",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:02.155Z"
+    },
+    {
+      "value": {
+        "name": "Trust Goettl for Your Waterline Service",
+        "category": "Waterline Services",
+        "description": "Goettl provides experienced professionals to help with all your waterline service needs. Our technicians have extensive training and are equipped with the necessary tools to do the job correctly. We offer quality service and strive to provide effective, lasting solutions to keep your home running sm",
+        "features": [],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/plumbing/waterline-services",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:02.156Z"
+    },
+    {
+      "value": {
+        "name": "Signs You Need Duct Services",
+        "category": "Duct Services",
+        "description": "If the dirt and dust in your home are more prevalent than usual, or your household is experiencing persistent allergies or asthma symptoms, your ducts may be the culprit. If you notice huge increases in your heating and cooling bills, it could also be a sign your duct system is not working properly.",
+        "features": [
+          "Whistling or hissing sounds coming from them when the AC or heater is running",
+          "Increase in dirt, dust, dander, or other pollutants in the air",
+          "Increase in energy costs"
+        ],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/clean-air/duct-services",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:02.969Z"
+    },
+    {
+      "value": {
+        "name": "Comprehensive Duct Services",
+        "category": "Duct Services",
+        "description": "Your duct system circulates air through the intake vents and into the HVAC system as well as bringing air from your AC and heater into rooms throughout the entire house. To do its job effectively, the ventilation system must have an airtight seal and remain in great condition. If this seal develops ",
+        "features": [],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/clean-air/duct-services",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:02.970Z"
+    },
+    {
+      "value": {
+        "name": "Get a Quote for Duct Services",
+        "category": "Duct Services",
+        "description": "You can trust the experts at Goettl to improve the quality of your indoor air so your home is comfortable, and your air ducts are working efficiently. We are focused and flexible and we find the right solution, not the easy one.",
+        "features": [],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/clean-air/duct-services",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:02.970Z"
+    },
+    {
+      "value": {
+        "name": "Water Filtration Services Near You",
+        "category": "Water Filtration Services",
+        "description": "Without the convenience of clean and quality water in your home, everyday life stops. Let the experts at Goettl get your waterline and filtration system back in service. We also provide maintenance to help extend its life.",
+        "features": [
+          "The presence of cloudy water",
+          "A strange taste or smell",
+          "Changes in water pressure",
+          "Issues with drainage"
+        ],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/clean-water/water-filtration-services",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:03.311Z"
+    },
+    {
+      "value": {
+        "name": "Common Signs of Water Filtration Issues",
+        "category": "Water Filtration Services",
+        "description": "Providing a clean and healthy water supply is more than just a convenience, it’s a matter of health for you and your family. The professionals at Goettl can quickly and easily diagnose what issues are plaguing your water supply, and tailor specific treatment and conditioning services to meet your ne",
+        "features": [
+          "The presence of cloudy water",
+          "A strange taste or smell",
+          "Changes in water pressure",
+          "Issues with drainage"
+        ],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/clean-water/water-filtration-services",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:03.312Z"
+    },
+    {
+      "value": {
+        "name": "Water Filtration Maintenance",
+        "category": "Water Filtration Services",
+        "description": "Whatever type of water filtration system you have in your home, the experienced professionals at Goettl are here to provide high-quality water filtration maintenance services. Every single part of your plumbing system is important and ensuring your water filtration has a regular maintenance plan is ",
+        "features": [],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/clean-water/water-filtration-services",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:03.312Z"
+    },
+    {
+      "value": {
+        "name": "Schedule A Service Today",
+        "category": "Water Filtration Services",
+        "description": "Our expert Goettl plumbers are focused and flexible and we adapt to customer needs to find the right solution for our customers. We do this all with a positive, purposeful, and compassionate attitude!",
+        "features": [],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/clean-water/water-filtration-services",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:03.313Z"
+    },
+    {
+      "value": {
+        "name": "Our Story",
+        "category": "$0 Diagnostic Fee For Everyone",
+        "description": "Our CEO, Ken Goodrich, was a 10-year-old boy holding a flashlight for his dad as he worked on an air conditioner for a customer. His father was an independent technician in Las Vegas who admired the longevity and quality of Goettl products. In 2013, Goodrich purchased Goettl Air Conditioning & Plumb",
+        "features": [],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/never-a-service-fee",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:04.491Z"
+    },
+    {
+      "value": {
+        "name": "It all started with a flashlight.",
+        "category": "$0 Diagnostic Fee For Everyone",
+        "description": "Our CEO, Ken Goodrich, was a 10-year-old boy holding a flashlight for his dad as he worked on an air conditioner for a customer. His father was an independent technician in Las Vegas who admired the longevity and quality of Goettl products. In 2013, Goodrich purchased Goettl Air Conditioning & Plumb",
+        "features": [],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/never-a-service-fee",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:04.491Z"
+    },
+    {
+      "value": {
+        "name": "The Leak Detection & Repair Services We Offer",
+        "category": "Leak Detection",
+        "description": "Water damage from leaking pipes should be addressed immediately.",
+        "features": [
+          "Frozen Pipes",
+          "Water Heater Repair",
+          "Broken Waterline Repair",
+          "Interior Water Leakage",
+          "Flooding"
+        ],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/plumbing/waterline-services/leak-detection",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:05.080Z"
+    },
+    {
+      "value": {
+        "name": "24/7 Emergency Plumbing Repair Services",
+        "category": "Leak Detection",
+        "description": "If you’ve suddenly discovered a water leak, or have another plumbing emergency—call us right away . No matter the size of your property or the extent of the problem, the experienced plumbers at Goettl are here to respond to your issue. We are proud to offer the following 24/7, emergency repair servi",
+        "features": [
+          "Frozen Pipes",
+          "Water Heater Repair",
+          "Broken Waterline Repair",
+          "Interior Water Leakage",
+          "Flooding"
+        ],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/plumbing/waterline-services/leak-detection",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:05.080Z"
+    },
+    {
+      "value": {
+        "name": "Plumbing Repair, Done the Goettl Way",
+        "category": "Leak Detection",
+        "description": "When you have an unexplained water leak or need a pipe repaired, the professionals at Goettl will help you with convenient, reliable services that you can depend on. Since 1939, the Goettl name has stood for professionalism and expertise in everything we do.",
+        "features": [],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/plumbing/waterline-services/leak-detection",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:05.080Z"
+    },
+    {
+      "value": {
+        "name": "Schedule a Leak Detection Service Today",
+        "category": "Leak Detection",
+        "description": "Looking for an expert leak detection or water leak repair service near you? Contact the experts at Goettl today to receive immediate assistance that you can trust.",
+        "features": [],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/plumbing/waterline-services/leak-detection",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:05.081Z"
+    },
+    {
+      "value": {
+        "name": "Our Duct Cleaning Process",
+        "category": "Duct Cleaning Services",
+        "description": "When booking a duct cleaning service with Goettl, our customers will receive the best, thorough care for their duct cleaning. Our duct cleaning process includes three main steps: an initial inspection, a comprehensive cleaning, and a final review with recommendations.",
+        "features": [],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/clean-air/duct-services/duct-cleaning",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:05.413Z"
+    },
+    {
+      "value": {
+        "name": "Indoor Air Quality",
+        "category": "Duct Cleaning Services",
+        "description": "Routine duct cleaning can significantly improve indoor air quality , reducing allergens, pollutants, and respiratory irritants. If pollutant buildup occurs, it will be released into your home once your HVAC system is turned on, circulating harmful contaminants. Stay comfortable, relaxed, and healthy",
+        "features": [],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/clean-air/duct-services/duct-cleaning",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:05.413Z"
+    },
+    {
+      "value": {
+        "name": "Energy Efficiency",
+        "category": "Duct Cleaning Services",
+        "description": "Regular duct cleaning can positively impact your HVAC system’s energy efficiency, potentially lowering your energy bills. A system functioning at its best will have a better airflow, and your system won’t have to work as hard to heat or cool your home.",
+        "features": [],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/clean-air/duct-services/duct-cleaning",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:05.414Z"
+    },
+    {
+      "value": {
+        "name": "System Lifespan",
+        "category": "Duct Cleaning Services",
+        "description": "Prolong the lifespan of your HVAC system by having regular duct cleaning completed by the Goettl experts. These routine cleanings will reduce stress on its components to continue working for you and your home, making it a safe, healthy environment.",
+        "features": [],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/clean-air/duct-services/duct-cleaning",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:05.414Z"
+    },
+    {
+      "value": {
+        "name": "Schedule Your Duct Cleaning Today",
+        "category": "Duct Cleaning Services",
+        "description": "Contact our Goettl team today for more information on scheduling an appointment for our duct cleaning service. We are committed to you and your family by providing the best service in the area. We offer our years of expertise and a 100% customer satisfaction guarantee, so you can rest easy knowing y",
+        "features": [],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/clean-air/duct-services/duct-cleaning",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:05.414Z"
+    },
+    {
+      "value": {
+        "name": "Understanding the Duct Replacement Process",
+        "category": "Duct Replacement",
+        "description": "Our duct replacement process includes these main steps: an initial inspection and consultation, developing a customized duct replacement plan, performing a quality replacement and installation, and post-installation testing and review.",
+        "features": [],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/clean-air/duct-services/duct-replacement",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:06.277Z"
+    },
+    {
+      "value": {
+        "name": "Benefits of Duct Replacement",
+        "category": "Duct Replacement",
+        "description": "There are many benefits of duct replacement, from increased energy efficiency, improved air quality for your home, and a more comfortable, safe, relaxed environment for you and your family. A duct replacement ensures your home experiences enhanced energy efficiency, reducing energy waste and lowerin",
+        "features": [],
+        "pricingType": "unknown",
+        "priceText": null,
+        "priceAmount": null,
+        "currency": null
+      },
+      "source": "https://www.goettl.com/clean-air/duct-services/duct-replacement",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:23:06.278Z"
+    }
+  ],
+  "insights": {
+    "testimonials": [],
+    "faqs": [],
+    "differentiators": [
+      {
+        "value": "2X Yearly Maintenance",
+        "source": "https://www.goettl.com/smart-sadie-membership",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:55.035Z"
+      },
+      {
+        "value": "Caught My Attic Leak",
+        "source": "https://www.goettl.com/smart-sadie-membership",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:55.035Z"
+      },
+      {
+        "value": "Finds Hidden Leak",
+        "source": "https://www.goettl.com/smart-sadie-membership",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:55.035Z"
+      },
+      {
+        "value": "Finds Hidden Problems",
+        "source": "https://www.goettl.com/smart-sadie-membership",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:55.035Z"
+      },
+      {
+        "value": "Home All Setup Now",
+        "source": "https://www.goettl.com/smart-sadie-membership",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:55.035Z"
+      },
+      {
+        "value": "Sensor Install Setup",
+        "source": "https://www.goettl.com/smart-sadie-membership",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:55.035Z"
+      },
+      {
+        "value": "Sadie App Explained",
+        "source": "https://www.goettl.com/smart-sadie-membership",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:55.035Z"
+      },
+      {
+        "value": "Sensors/App Installed",
+        "source": "https://www.goettl.com/smart-sadie-membership",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:55.035Z"
+      },
+      {
+        "value": "ESTABLISHED SINCE 1939",
+        "source": "https://www.goettl.com/never-a-service-fee",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:23:04.524Z"
+      },
+      {
+        "value": "FINANCING OPTIONS",
+        "source": "https://www.goettl.com/never-a-service-fee",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:23:04.524Z"
+      }
+    ],
+    "trustSignals": [
+      {
+        "value": {
+          "kind": "review_count",
+          "text": "4.6 11,415 Reviews"
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.305Z"
+      },
+      {
+        "value": {
+          "kind": "guarantee",
+          "text": "The RIGHT WAY Guarantee 100% satisfaction with every service."
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.305Z"
+      },
+      {
+        "value": {
+          "kind": "guarantee",
+          "text": "The RIGHT WAY Guarantee"
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.305Z"
+      },
+      {
+        "value": {
+          "kind": "guarantee",
+          "text": "GOETTL TOTAL HOME COMFORT GUARANTEE"
+        },
+        "source": "https://www.goettl.com/about-us",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:54.409Z"
+      },
+      {
+        "value": {
+          "kind": "guarantee",
+          "text": "When you choose Goettl, your comfort isn’t just a promise – it’s a guarantee."
+        },
+        "source": "https://www.goettl.com/about-us",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:54.409Z"
+      },
+      {
+        "value": {
+          "kind": "certification",
+          "text": "Our certified technicians will professionally inspect your ducts to ensure they’re working efficiently."
+        },
+        "source": "https://www.goettl.com/clean-air/duct-services",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:23:02.994Z"
+      },
+      {
+        "value": {
+          "kind": "guarantee",
+          "text": "100% Guarantee"
+        },
+        "source": "https://www.goettl.com/clean-water/water-filtration-services",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:23:03.334Z"
+      },
+      {
+        "value": {
+          "kind": "guarantee",
+          "text": "We offer our years of expertise and a 100% customer satisfaction guarantee, so you can rest easy knowing you’re receiving excellent service."
+        },
+        "source": "https://www.goettl.com/clean-air/duct-services/duct-cleaning",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:23:05.438Z"
+      },
+      {
+        "value": {
+          "kind": "certification",
+          "text": "If you need to replace your ducts, the certified and experienced technicians at Goettl are the ones you need to call!"
+        },
+        "source": "https://www.goettl.com/clean-air/duct-services/duct-replacement",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:23:06.298Z"
+      }
+    ],
+    "contentThemes": [],
+    "promotions": [
+      {
+        "value": "Cannot be combined with other discounts, promotions or coupons.",
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.305Z"
+      },
+      {
+        "value": "5% discount for first responders",
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.305Z"
+      },
+      {
+        "value": "Eligible first responders receive a 5% discount on services*.",
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.305Z"
+      },
+      {
+        "value": "5% discount for senior citizens",
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.305Z"
+      },
+      {
+        "value": "Customers aged 65 and older receive a 5% discount on services*.",
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.305Z"
+      },
+      {
+        "value": "5% off for active military & veterans",
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.305Z"
+      },
+      {
+        "value": "Active-duty military and veterans receive a 5% discount on services*.",
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.305Z"
+      },
+      {
+        "value": "10% off Repairs (Parts & Labor)",
+        "source": "https://www.goettl.com/smart-sadie-membership",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:55.034Z"
+      },
+      {
+        "value": "10% Off All Repairs (Parts & Labor)",
+        "source": "https://www.goettl.com/smart-sadie-membership",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:55.034Z"
+      },
+      {
+        "value": "Credits may not be combined with other member discounts or promotions.",
+        "source": "https://www.goettl.com/smart-sadie-membership",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:55.034Z"
+      }
+    ],
+    "pressMentions": [],
+    "communityValues": [],
+    "legalLinks": [
+      {
+        "value": {
+          "label": "Privacy Policy And Terms Of Service",
+          "url": "https://www.goettl.com/privacy-policy-and-terms-of-service"
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.190Z"
+      },
+      {
+        "value": {
+          "label": "Cookie Preferences",
+          "url": "https://www.goettl.com/location/las-vegas"
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.190Z"
+      },
+      {
+        "value": {
+          "label": "legal.hubspot.com (opens in a new window)",
+          "url": "https://legal.hubspot.com/privacy-policy"
+        },
+        "source": "https://www.goettl.com/location/las-vegas",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:53.190Z"
+      },
+      {
+        "value": {
+          "label": "Cookie Preferences",
+          "url": "https://www.goettl.com/plumbing/emergency-plumbing-services"
+        },
+        "source": "https://www.goettl.com/plumbing/emergency-plumbing-services",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:54.083Z"
+      },
+      {
+        "value": {
+          "label": "Cookie Preferences",
+          "url": "https://www.goettl.com/about-us"
+        },
+        "source": "https://www.goettl.com/about-us",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:54.274Z"
+      },
+      {
+        "value": {
+          "label": "Cookie Preferences",
+          "url": "https://www.goettl.com/smart-sadie-membership"
+        },
+        "source": "https://www.goettl.com/smart-sadie-membership",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:54.960Z"
+      },
+      {
+        "value": {
+          "label": "Cookie Preferences",
+          "url": "https://www.goettl.com/locations"
+        },
+        "source": "https://www.goettl.com/locations",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:55.865Z"
+      },
+      {
+        "value": {
+          "label": "Cookie Preferences",
+          "url": "https://www.goettl.com/contact-us"
+        },
+        "source": "https://www.goettl.com/contact-us",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:23:01.193Z"
+      },
+      {
+        "value": {
+          "label": "Cookie Preferences",
+          "url": "https://www.goettl.com/plumbing/waterline-services"
+        },
+        "source": "https://www.goettl.com/plumbing/waterline-services",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:23:02.125Z"
+      },
+      {
+        "value": {
+          "label": "Cookie Preferences",
+          "url": "https://www.goettl.com/the-goettl-story"
+        },
+        "source": "https://www.goettl.com/the-goettl-story",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:23:02.297Z"
+      },
+      {
+        "value": {
+          "label": "Cookie Preferences",
+          "url": "https://www.goettl.com/clean-air/duct-services"
+        },
+        "source": "https://www.goettl.com/clean-air/duct-services",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:23:02.941Z"
+      },
+      {
+        "value": {
+          "label": "Cookie Preferences",
+          "url": "https://www.goettl.com/clean-water/water-filtration-services"
+        },
+        "source": "https://www.goettl.com/clean-water/water-filtration-services",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:23:03.286Z"
+      },
+      {
+        "value": {
+          "label": "Cookie Preferences",
+          "url": "https://www.goettl.com/expert-center/clean-air-and-water/debunking-5-common-water-myths-the-truth-about-drinking-water-contaminants"
+        },
+        "source": "https://www.goettl.com/expert-center/clean-air-and-water/debunking-5-common-water-myths-the-truth-about-drinking-water-contaminants",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:23:04.146Z"
+      },
+      {
+        "value": {
+          "label": "Cookie Preferences",
+          "url": "https://www.goettl.com/never-a-service-fee"
+        },
+        "source": "https://www.goettl.com/never-a-service-fee",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:23:04.435Z"
+      },
+      {
+        "value": {
+          "label": "Cookie Preferences",
+          "url": "https://www.goettl.com/plumbing/waterline-services/leak-detection"
+        },
+        "source": "https://www.goettl.com/plumbing/waterline-services/leak-detection",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:23:05.057Z"
+      },
+      {
+        "value": {
+          "label": "Cookie Preferences",
+          "url": "https://www.goettl.com/clean-air/duct-services/duct-cleaning"
+        },
+        "source": "https://www.goettl.com/clean-air/duct-services/duct-cleaning",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:23:05.390Z"
+      },
+      {
+        "value": {
+          "label": "Cookie Preferences",
+          "url": "https://www.goettl.com/clean-air/duct-services/duct-replacement"
+        },
+        "source": "https://www.goettl.com/clean-air/duct-services/duct-replacement",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:23:06.255Z"
+      }
+    ],
+    "positioningSignals": []
+  },
+  "contentKit": {
+    "contentPillars": [],
+    "socialHooks": [],
+    "hashtags": [],
+    "emailSubjects": [],
+    "blogIdeas": [],
+    "voiceGuide": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:52.650Z"
+    }
+  },
+  "completeness": {
+    "score": 60,
+    "missing": [
+      "company.legalEntityType",
+      "company.mainAddress",
+      "company.pitch",
+      "contact.emails",
+      "customers.targetBuyers",
+      "customers.idealPersona",
+      "brand.writingStyle",
+      "people",
+      "insights.testimonials",
+      "insights.faqs"
+    ]
+  },
+  "crawl": {
+    "startedAt": "2026-10-09T16:22:52.650Z",
+    "finishedAt": "2026-10-09T16:23:06.629Z",
+    "durationMs": 13876,
+    "robotsAllowed": true,
+    "pendingUrls": [
+      "https://www.goettl.com/clean-air/duct-services/duct-inspection",
+      "https://www.goettl.com/clean-air/duct-services/duct-sealing",
+      "https://www.goettl.com/location/austin-texas/sewer-drain-services",
+      "https://www.goettl.com/location/austin-texas/waterline-services",
+      "https://www.goettl.com/location/austin-texas/air-duct-services",
+      "https://www.goettl.com/location/austin-texas/clean-water-services",
+      "https://www.goettl.com/location/las-vegas-nevada/sewer-drain-services",
+      "https://www.goettl.com/location/las-vegas-nevada/waterline-services",
+      "https://www.goettl.com/location/las-vegas-nevada/air-duct-services",
+      "https://www.goettl.com/location/las-vegas-nevada/clean-water-services",
+      "https://www.goettl.com/location/phoenix-arizona/sewer-drain-services",
+      "https://www.goettl.com/location/phoenix-arizona/waterline-services",
+      "https://www.goettl.com/location/phoenix-arizona/air-duct-services",
+      "https://www.goettl.com/location/phoenix-arizona/clean-water-services",
+      "https://www.goettl.com/location/reno-nevada/air-duct-services",
+      "https://www.goettl.com/location/reno-nevada/clean-water-services",
+      "https://www.goettl.com/location/san-antonio-texas/sewer-drain-services",
+      "https://www.goettl.com/location/san-antonio-texas/waterline-services",
+      "https://www.goettl.com/location/san-antonio-texas/air-duct-services",
+      "https://www.goettl.com/location/san-antonio-texas/clean-water-services",
+      "https://www.goettl.com/location/tucson-arizona/sewer-drain-services",
+      "https://www.goettl.com/location/tucson-arizona/waterline-services",
+      "https://www.goettl.com/location/tucson-arizona/air-duct-services",
+      "https://www.goettl.com/location/tucson-arizona/clean-water-services",
+      "https://www.goettl.com/location/las-vegas/clean-water-services",
+      "https://www.goettl.com/plumbing/waterline-services/water-leak-repairs",
+      "https://www.goettl.com/location/reno-nevada/waterline-services",
+      "https://www.goettl.com/expert-center/ductwork/never-neglect-the-services-that-your-ductwork-needs",
+      "https://www.goettl.com/plumbing/waterline-services/waterline-replacement-services",
+      "https://www.goettl.com/plumbing/waterline-services/pipe-replacement-services",
+      "https://www.goettl.com/plumbing/sewer-and-drain/excavation-services",
+      "https://www.goettl.com/plumbing/waterline-services/waterline-repairs",
+      "https://www.goettl.com/location/reno-nevada/sewer-drain-services",
+      "https://www.goettl.com/expert-center/ductwork/what-is-involved-in-duct-testing",
+      "https://www.goettl.com/location/phoenix-arizona",
+      "https://www.goettl.com/location/tucson-arizona",
+      "https://www.goettl.com/location/las-vegas-nevada",
+      "https://www.goettl.com/location/reno-nevada",
+      "https://www.goettl.com/location/san-antonio-texas",
+      "https://www.goettl.com/location/austin-texas",
+      "https://www.goettl.com/expert-center/plumbing/trenchless-sewer-repair-made-simple",
+      "https://www.goettl.com/press",
+      "https://www.goettl.com/location/austin-texas/air-conditioning",
+      "https://www.goettl.com/location/austin-texas/emergency-ac-repair",
+      "https://www.goettl.com/location/austin-texas/ac-repair",
+      "https://www.goettl.com/location/austin-texas/ac-replacement",
+      "https://www.goettl.com/location/austin-texas/ac-installation",
+      "https://www.goettl.com/location/austin-texas/ac-maintenance",
+      "https://www.goettl.com/location/austin-texas/ductless-mini-split",
+      "https://www.goettl.com/location/austin-texas/heating",
+      "https://www.goettl.com/location/austin-texas/furnace-installation",
+      "https://www.goettl.com/location/austin-texas/heat-pump",
+      "https://www.goettl.com/location/austin-texas/plumbing",
+      "https://www.goettl.com/location/austin-texas/austin-emergency-plumber",
+      "https://www.goettl.com/location/austin-texas/plumbing-repair",
+      "https://www.goettl.com/location/austin-texas/plumbing-installation",
+      "https://www.goettl.com/location/austin-texas/clogged-pipes-drains",
+      "https://www.goettl.com/location/austin-texas/trenchless-sewer-repair",
+      "https://www.goettl.com/location/austin-texas/water-heater",
+      "https://www.goettl.com/location/austin-texas/water-heater-repair",
+      "https://www.goettl.com/location/austin-texas/tankless-water-heater",
+      "https://www.goettl.com/location/austin-texas/indoor-air-quality",
+      "https://www.goettl.com/location/austin-texas/blown-in-insulation",
+      "https://www.goettl.com/location/austin-texas/reverse-osmosis-systems",
+      "https://www.goettl.com/location/austin-texas/water-softener-systems",
+      "https://www.goettl.com/location/las-vegas-nevada/air-conditioning",
+      "https://www.goettl.com/location/las-vegas-nevada/emergency-ac-repair",
+      "https://www.goettl.com/location/las-vegas-nevada/ac-repair",
+      "https://www.goettl.com/location/las-vegas-nevada/ac-replacement",
+      "https://www.goettl.com/location/las-vegas-nevada/ac-installation",
+      "https://www.goettl.com/location/las-vegas-nevada/ac-maintenance",
+      "https://www.goettl.com/location/las-vegas-nevada/ductless-mini-split",
+      "https://www.goettl.com/location/las-vegas-nevada/heating",
+      "https://www.goettl.com/location/las-vegas-nevada/furnace-installation",
+      "https://www.goettl.com/location/las-vegas-nevada/heat-pump",
+      "https://www.goettl.com/location/las-vegas-nevada/plumbing",
+      "https://www.goettl.com/location/las-vegas-nevada/las-vegas-emergency-plumber",
+      "https://www.goettl.com/location/las-vegas-nevada/plumbing-repair",
+      "https://www.goettl.com/location/las-vegas-nevada/plumbing-installation",
+      "https://www.goettl.com/location/las-vegas-nevada/clogged-pipes-drains",
+      "https://www.goettl.com/location/las-vegas-nevada/trenchless-sewer-repair",
+      "https://www.goettl.com/location/las-vegas-nevada/water-heater",
+      "https://www.goettl.com/location/las-vegas-nevada/water-heater-repair",
+      "https://www.goettl.com/location/las-vegas-nevada/tankless-water-heater",
+      "https://www.goettl.com/location/las-vegas-nevada/indoor-air-quality",
+      "https://www.goettl.com/location/las-vegas-nevada/blown-in-insulation",
+      "https://www.goettl.com/location/las-vegas-nevada/reverse-osmosis-systems",
+      "https://www.goettl.com/location/las-vegas-nevada/water-softener-systems",
+      "https://www.goettl.com/location/phoenix-arizona/air-conditioning",
+      "https://www.goettl.com/location/phoenix-arizona/emergency-ac-repair",
+      "https://www.goettl.com/location/phoenix-arizona/ac-repair",
+      "https://www.goettl.com/location/phoenix-arizona/ac-maintenance",
+      "https://www.goettl.com/location/phoenix-arizona/ac-replacement",
+      "https://www.goettl.com/location/phoenix-arizona/ac-installation",
+      "https://www.goettl.com/location/phoenix-arizona/ductless-mini-split",
+      "https://www.goettl.com/location/phoenix-arizona/heating",
+      "https://www.goettl.com/location/phoenix-arizona/furnace-installation",
+      "https://www.goettl.com/location/phoenix-arizona/heat-pump",
+      "https://www.goettl.com/location/phoenix-arizona/plumbing",
+      "https://www.goettl.com/location/phoenix-arizona/phoenix-emergency-plumber",
+      "https://www.goettl.com/location/phoenix-arizona/plumbing-installation",
+      "https://www.goettl.com/location/phoenix-arizona/clogged-pipes-drains",
+      "https://www.goettl.com/location/phoenix-arizona/trenchless-sewer-repair",
+      "https://www.goettl.com/location/phoenix-arizona/water-heater",
+      "https://www.goettl.com/location/phoenix-arizona/water-heater-repair",
+      "https://www.goettl.com/location/phoenix-arizona/tankless-water-heater",
+      "https://www.goettl.com/location/phoenix-arizona/indoor-air-quality",
+      "https://www.goettl.com/location/phoenix-arizona/blown-in-insulation",
+      "https://www.goettl.com/location/phoenix-arizona/reverse-osmosis-systems",
+      "https://www.goettl.com/location/phoenix-arizona/water-softener-systems",
+      "https://www.goettl.com/location/reno-nevada/air-conditioning",
+      "https://www.goettl.com/location/reno-nevada/emergency-ac-repair",
+      "https://www.goettl.com/location/reno-nevada/ac-repair",
+      "https://www.goettl.com/location/reno-nevada/ac-replacement",
+      "https://www.goettl.com/location/reno-nevada/ac-installation",
+      "https://www.goettl.com/location/reno-nevada/ac-maintenance",
+      "https://www.goettl.com/location/reno-nevada/ductless-mini-split",
+      "https://www.goettl.com/location/reno-nevada/heating",
+      "https://www.goettl.com/location/reno-nevada/furnace-maintenance",
+      "https://www.goettl.com/location/reno-nevada/emergency-furnace-repair",
+      "https://www.goettl.com/location/reno-nevada/furnace-repair",
+      "https://www.goettl.com/location/reno-nevada/furnace-installation",
+      "https://www.goettl.com/location/reno-nevada/furnace-replacement",
+      "https://www.goettl.com/location/reno-nevada/heat-pump",
+      "https://www.goettl.com/location/reno-nevada/water-heater",
+      "https://www.goettl.com/location/reno-nevada/water-heater-repair",
+      "https://www.goettl.com/location/reno-nevada/tankless-water-heater",
+      "https://www.goettl.com/location/reno-nevada/indoor-air-quality",
+      "https://www.goettl.com/location/reno-nevada/blown-in-insulation",
+      "https://www.goettl.com/location/reno-nevada/reverse-osmosis-systems",
+      "https://www.goettl.com/location/reno-nevada/water-softener-systems",
+      "https://www.goettl.com/location/san-antonio-texas/air-conditioning",
+      "https://www.goettl.com/location/san-antonio-texas/emergency-ac-repair",
+      "https://www.goettl.com/location/san-antonio-texas/ac-repair",
+      "https://www.goettl.com/location/san-antonio-texas/ac-replacement",
+      "https://www.goettl.com/location/san-antonio-texas/ac-installation",
+      "https://www.goettl.com/location/san-antonio-texas/ac-maintenance",
+      "https://www.goettl.com/location/san-antonio-texas/ductless-mini-split",
+      "https://www.goettl.com/location/san-antonio-texas/heating",
+      "https://www.goettl.com/location/san-antonio-texas/furnace-installation",
+      "https://www.goettl.com/location/san-antonio-texas/heat-pump",
+      "https://www.goettl.com/location/san-antonio-texas/plumbing",
+      "https://www.goettl.com/location/san-antonio-texas/san-antonio-emergency-plumber",
+      "https://www.goettl.com/location/san-antonio-texas/plumbing-repair",
+      "https://www.goettl.com/location/san-antonio-texas/plumbing-installation",
+      "https://www.goettl.com/location/san-antonio-texas/clogged-pipes-drains",
+      "https://www.goettl.com/location/san-antonio-texas/trenchless-sewer-repair",
+      "https://www.goettl.com/location/san-antonio-texas/water-heater",
+      "https://www.goettl.com/location/san-antonio-texas/water-heater-repair",
+      "https://www.goettl.com/location/san-antonio-texas/tankless-water-heater"
+    ],
+    "pages": [
+      {
+        "url": "https://www.goettl.com/location/las-vegas",
+        "category": "home",
+        "status": 200,
+        "title": "Las Vegas Air Conditioning, Plumbing & Heating Services | Goettl",
+        "fetchedAt": "2026-10-09T16:22:53.340Z",
+        "durationMs": 187,
+        "error": null
+      },
+      {
+        "url": "https://www.goettl.com/plumbing/emergency-plumbing-services",
+        "category": "services",
+        "status": 200,
+        "title": "Emergency Plumbing Services | Goettl Air Conditioning & Plumbing",
+        "fetchedAt": "2026-10-09T16:22:54.148Z",
+        "durationMs": 365,
+        "error": null
+      },
+      {
+        "url": "https://www.goettl.com/about-us",
+        "category": "about",
+        "status": 200,
+        "title": "Learn About Goettl Air Conditioning",
+        "fetchedAt": "2026-10-09T16:22:54.436Z",
+        "durationMs": 550,
+        "error": null
+      },
+      {
+        "url": "https://www.goettl.com/smart-sadie-membership",
+        "category": "features",
+        "status": 200,
+        "title": "Smart Sadie Membership: Whole-Home Maintenance Plan",
+        "fetchedAt": "2026-10-09T16:22:55.060Z",
+        "durationMs": 375,
+        "error": null
+      },
+      {
+        "url": "https://www.goettl.com/locations",
+        "category": "locations",
+        "status": 200,
+        "title": "View Goettl's locations for Air Conditioning, Plumbing & Heating Services",
+        "fetchedAt": "2026-10-09T16:22:55.939Z",
+        "durationMs": 391,
+        "error": null
+      },
+      {
+        "url": "https://www.goettl.com/contact-us",
+        "category": "contact",
+        "status": 200,
+        "title": "Contact Us for Professional Plumbing Services Today",
+        "fetchedAt": "2026-10-09T16:23:01.255Z",
+        "durationMs": 6361,
+        "error": null
+      },
+      {
+        "url": "https://www.goettl.com/plumbing/waterline-services",
+        "category": "services",
+        "status": 200,
+        "title": "Professional Waterline Services - Repair, Replacement & Installation | Goettl Air Conditioning & Plumbing",
+        "fetchedAt": "2026-10-09T16:23:02.198Z",
+        "durationMs": 410,
+        "error": null
+      },
+      {
+        "url": "https://www.goettl.com/the-goettl-story",
+        "category": "about",
+        "status": 200,
+        "title": "Learn the Story Behind Goettl",
+        "fetchedAt": "2026-10-09T16:23:02.390Z",
+        "durationMs": 647,
+        "error": null
+      },
+      {
+        "url": "https://www.goettl.com/clean-air/duct-services",
+        "category": "services",
+        "status": 200,
+        "title": "Professional Duct Services by Goettl Plumbing & HVAC Experts",
+        "fetchedAt": "2026-10-09T16:23:03.017Z",
+        "durationMs": 336,
+        "error": null
+      },
+      {
+        "url": "https://www.goettl.com/clean-water/water-filtration-services",
+        "category": "services",
+        "status": 200,
+        "title": "Water Filtration Services | Goettl Plumbing Experts",
+        "fetchedAt": "2026-10-09T16:23:03.356Z",
+        "durationMs": 504,
+        "error": null
+      },
+      {
+        "url": "https://www.goettl.com/expert-center/clean-air-and-water/debunking-5-common-water-myths-the-truth-about-drinking-water-contaminants",
+        "category": "about",
+        "status": 200,
+        "title": "The Truth About Drinking Water Contaminants",
+        "fetchedAt": "2026-10-09T16:23:04.296Z",
+        "durationMs": 351,
+        "error": null
+      },
+      {
+        "url": "https://www.goettl.com/never-a-service-fee",
+        "category": "services",
+        "status": 200,
+        "title": "$0 Service Fee. Period. On Every Call | We waive the $89 service fee for everybody. Let us come out to your home to give you an honest professional assessment of your situation at no cost to you. Paying for a company to come out to your home just to inspect what you already know is not working properly doesn’t seem right to us.",
+        "fetchedAt": "2026-10-09T16:23:04.551Z",
+        "durationMs": 647,
+        "error": null
+      },
+      {
+        "url": "https://www.goettl.com/plumbing/waterline-services/leak-detection",
+        "category": "services",
+        "status": 200,
+        "title": "Comprehensive Water Leak Detection Services for Homeowners | Goettl Air Conditioning & Plumbing",
+        "fetchedAt": "2026-10-09T16:23:05.121Z",
+        "durationMs": 352,
+        "error": null
+      },
+      {
+        "url": "https://www.goettl.com/clean-air/duct-services/duct-cleaning",
+        "category": "services",
+        "status": 200,
+        "title": "Professional Duct Cleaning Services | Goettl Air Conditioning & Plumbing",
+        "fetchedAt": "2026-10-09T16:23:05.459Z",
+        "durationMs": 432,
+        "error": null
+      },
+      {
+        "url": "https://www.goettl.com/clean-air/duct-services/duct-replacement",
+        "category": "services",
+        "status": 200,
+        "title": "Expert Duct Replacement Services | Goettl Air Conditioning & Plumbing",
+        "fetchedAt": "2026-10-09T16:23:06.318Z",
+        "durationMs": 384,
+        "error": null
+      }
+    ],
+    "log": [
+      {
+        "at": "2026-10-09T16:22:52.650Z",
+        "level": "info",
+        "message": "Checking robots.txt"
+      },
+      {
+        "at": "2026-10-09T16:22:52.753Z",
+        "level": "info",
+        "message": "Fetching homepage https://www.goettl.com/location/las-vegas/"
+      },
+      {
+        "at": "2026-10-09T16:22:52.940Z",
+        "level": "info",
+        "message": "Reading styles for fonts and colors"
+      },
+      {
+        "at": "2026-10-09T16:22:53.340Z",
+        "level": "info",
+        "message": "Discovering pages"
+      },
+      {
+        "at": "2026-10-09T16:22:53.618Z",
+        "level": "info",
+        "message": "Found 226 linked pages and 269 sitemap entries"
+      },
+      {
+        "at": "2026-10-09T16:22:53.619Z",
+        "level": "info",
+        "message": "Crawling 5 priority pages"
+      },
+      {
+        "at": "2026-10-09T16:22:53.619Z",
+        "level": "info",
+        "message": "Crawling 2 of 15: /about-us"
+      },
+      {
+        "at": "2026-10-09T16:22:53.620Z",
+        "level": "info",
+        "message": "Crawling 3 of 15: /plumbing/emergency-plumbing-services"
+      },
+      {
+        "at": "2026-10-09T16:22:54.461Z",
+        "level": "info",
+        "message": "Crawling 4 of 15: /smart-sadie-membership"
+      },
+      {
+        "at": "2026-10-09T16:22:54.750Z",
+        "level": "info",
+        "message": "Crawling 5 of 15: /contact-us"
+      },
+      {
+        "at": "2026-10-09T16:22:55.372Z",
+        "level": "info",
+        "message": "Crawling 6 of 15: /locations"
+      },
+      {
+        "at": "2026-10-09T16:23:01.566Z",
+        "level": "info",
+        "message": "Looking for: mainAddress, targetBuyers, people"
+      },
+      {
+        "at": "2026-10-09T16:23:01.566Z",
+        "level": "info",
+        "message": "Crawling 7 of 15: /the-goettl-story"
+      },
+      {
+        "at": "2026-10-09T16:23:01.567Z",
+        "level": "info",
+        "message": "Crawling 8 of 15: /plumbing/waterline-services"
+      },
+      {
+        "at": "2026-10-09T16:23:02.508Z",
+        "level": "info",
+        "message": "Crawling 9 of 15: /clean-air/duct-services"
+      },
+      {
+        "at": "2026-10-09T16:23:02.700Z",
+        "level": "info",
+        "message": "Crawling 10 of 15: /clean-water/water-filtration-services"
+      },
+      {
+        "at": "2026-10-09T16:23:03.668Z",
+        "level": "info",
+        "message": "Looking for: mainAddress, targetBuyers, people"
+      },
+      {
+        "at": "2026-10-09T16:23:03.669Z",
+        "level": "info",
+        "message": "Crawling 11 of 15: /expert-center/clean-air-and-water/debunking-5-common-water-myths-the-truth-about-drinking-water-contaminants"
+      },
+      {
+        "at": "2026-10-09T16:23:03.669Z",
+        "level": "info",
+        "message": "Crawling 12 of 15: /never-a-service-fee"
+      },
+      {
+        "at": "2026-10-09T16:23:04.608Z",
+        "level": "info",
+        "message": "Crawling 13 of 15: /plumbing/waterline-services/leak-detection"
+      },
+      {
+        "at": "2026-10-09T16:23:04.863Z",
+        "level": "info",
+        "message": "Crawling 14 of 15: /clean-air/duct-services/duct-cleaning"
+      },
+      {
+        "at": "2026-10-09T16:23:05.771Z",
+        "level": "info",
+        "message": "Looking for: mainAddress, targetBuyers"
+      },
+      {
+        "at": "2026-10-09T16:23:05.771Z",
+        "level": "info",
+        "message": "Crawling 15 of 15: /clean-air/duct-services/duct-replacement"
+      },
+      {
+        "at": "2026-10-09T16:23:06.629Z",
+        "level": "info",
+        "message": "Extracting and scoring"
+      },
+      {
+        "at": "2026-10-09T16:23:06.629Z",
+        "level": "info",
+        "message": "Done: 15 pages total, 150 more available, completeness 60"
+      }
+    ]
+  },
+  "consent": null,
+  "uploads": []
+}

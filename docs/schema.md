@@ -1,6 +1,11 @@
 # Database schema
 
-XenFlo stores knowledge bases in Supabase (Postgres). The migration is `supabase/migrations/20261009120000_knowledge_schema.sql`, and the app's only access path is `src/lib/db`.
+XenFlo stores knowledge bases in Supabase (Postgres). The app's only access path is `src/lib/db`. Migrations, in order:
+
+1. `supabase/migrations/20261009120000_knowledge_schema.sql`: tables, indexes, RLS and the write functions
+2. `20261009130000_version_conflict_code.sql`: version conflicts raise `PT409` (HTTP 409)
+3. `20261009140000_revoke_rls_auto_enable.sql`: revokes execute on Supabase's `rls_auto_enable()` helper from API roles
+4. `20261010120000_uploads_and_scrape_consent.sql`: `checkbox_scrape` consent method and the private `uploads` storage bucket
 
 ## Overview
 

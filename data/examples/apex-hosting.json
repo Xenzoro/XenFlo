@@ -1,0 +1,2478 @@
+{
+  "id": "b5ea2571-fa40-47b6-9b14-a71f59c427dc",
+  "url": "https://apexminecrafthosting.com/",
+  "companyName": "Apex Hosting",
+  "createdAt": "2026-10-09T16:22:34.060Z",
+  "updatedAt": "2026-10-09T16:22:45.408Z",
+  "version": 1,
+  "company": {
+    "name": {
+      "value": "Apex Hosting",
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.358Z"
+    },
+    "overview": {
+      "value": "The best Minecraft server hosting provider with lag free hardware, 24/7 live chat support and video guides. Start your server and play with friends today!",
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.358Z"
+    },
+    "website": {
+      "value": "https://apexminecrafthosting.com/",
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.060Z"
+    },
+    "industry": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:34.060Z"
+    },
+    "businessModel": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:34.060Z"
+    },
+    "companyRole": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:34.060Z"
+    },
+    "yearFounded": {
+      "value": 2013,
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "inferred",
+      "updatedAt": "2026-10-09T16:22:34.363Z"
+    },
+    "legalEntityType": {
+      "value": "LLC",
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.363Z"
+    },
+    "legalName": {
+      "value": "Apex Hosting LLC",
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.363Z"
+    },
+    "employeeCount": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:34.060Z"
+    },
+    "revenue": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:34.060Z"
+    },
+    "mainAddress": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:34.060Z"
+    },
+    "otherLocations": [],
+    "serviceLocations": [],
+    "alternateNames": [],
+    "pitch": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:34.060Z"
+    },
+    "foundingStory": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:34.060Z"
+    }
+  },
+  "contact": {
+    "emails": [],
+    "phones": [],
+    "contactPageUrl": {
+      "value": "https://apexminecrafthosting.com/support",
+      "source": "https://apexminecrafthosting.com/support",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:41.901Z"
+    }
+  },
+  "customers": {
+    "targetBuyers": [],
+    "customerNeeds": [],
+    "idealPersona": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:34.060Z"
+    },
+    "industryGroupings": [],
+    "industryOutlook": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:34.060Z"
+    },
+    "channels": [],
+    "funnels": [],
+    "ctas": [
+      {
+        "value": {
+          "text": "Discover All Games",
+          "url": "https://apexminecrafthosting.com/games"
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.416Z"
+      },
+      {
+        "value": {
+          "text": "Discover all Mods",
+          "url": "https://apexminecrafthosting.com/minecraft-mod-pack-server-list"
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.416Z"
+      },
+      {
+        "value": {
+          "text": "View All Games",
+          "url": "https://apexminecrafthosting.com/games"
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.416Z"
+      },
+      {
+        "value": {
+          "text": "View All Reviews",
+          "url": "https://apexminecrafthosting.com/testimonials"
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.416Z"
+      },
+      {
+        "value": {
+          "text": "View All Guides",
+          "url": "https://apexminecrafthosting.com/guides"
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.416Z"
+      },
+      {
+        "value": {
+          "text": "Join Now",
+          "url": "https://discord.apexminecrafthosting.com/"
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.416Z"
+      },
+      {
+        "value": {
+          "text": "Get Support",
+          "url": "https://apexminecrafthosting.com/support"
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.416Z"
+      },
+      {
+        "value": {
+          "text": "Subscribe",
+          "url": null
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.416Z"
+      },
+      {
+        "value": {
+          "text": "Get Started",
+          "url": "https://apexminecrafthosting.com/pricing"
+        },
+        "source": "https://apexminecrafthosting.com/features",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.036Z"
+      },
+      {
+        "value": {
+          "text": "Contact Us",
+          "url": "https://apexminecrafthosting.com/support"
+        },
+        "source": "https://apexminecrafthosting.com/sitemap",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:44.020Z"
+      },
+      {
+        "value": {
+          "text": "Start A Skywars Server",
+          "url": "https://apexminecrafthosting.com/guides/minecraft/gametypes/skywars-server"
+        },
+        "source": "https://apexminecrafthosting.com/sitemap",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:44.020Z"
+      },
+      {
+        "value": {
+          "text": "Start an MCMMO Server",
+          "url": "https://apexminecrafthosting.com/guides/minecraft/gametypes/mcmmo-server"
+        },
+        "source": "https://apexminecrafthosting.com/sitemap",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:44.020Z"
+      }
+    ],
+    "suppliersPartners": [
+      {
+        "value": {
+          "name": "Google Tag Manager",
+          "category": "analytics"
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.449Z"
+      },
+      {
+        "value": {
+          "name": "Cloudflare Web Analytics",
+          "category": "analytics"
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.449Z"
+      },
+      {
+        "value": {
+          "name": "Cookiebot",
+          "category": "consent"
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.450Z"
+      },
+      {
+        "value": {
+          "name": "Trustpilot",
+          "category": "reviews"
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.450Z"
+      },
+      {
+        "value": {
+          "name": "Apex Hosting",
+          "category": "partner"
+        },
+        "source": "https://apexminecrafthosting.com/partnerships",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:44.349Z"
+      },
+      {
+        "value": {
+          "name": "Asepsocal",
+          "category": "partner"
+        },
+        "source": "https://apexminecrafthosting.com/partnerships",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:44.356Z"
+      },
+      {
+        "value": {
+          "name": "Forest Park Public Library",
+          "category": "partner"
+        },
+        "source": "https://apexminecrafthosting.com/partnerships",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:44.357Z"
+      },
+      {
+        "value": {
+          "name": "Plains Public Schools",
+          "category": "partner"
+        },
+        "source": "https://apexminecrafthosting.com/partnerships",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:44.358Z"
+      },
+      {
+        "value": {
+          "name": "Chill Zone Network",
+          "category": "partner"
+        },
+        "source": "https://apexminecrafthosting.com/partnerships",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:44.359Z"
+      },
+      {
+        "value": {
+          "name": "Poke Play",
+          "category": "partner"
+        },
+        "source": "https://apexminecrafthosting.com/partnerships",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:44.360Z"
+      },
+      {
+        "value": {
+          "name": "Sky Kingdoms",
+          "category": "partner"
+        },
+        "source": "https://apexminecrafthosting.com/partnerships",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:44.361Z"
+      },
+      {
+        "value": {
+          "name": "Typeform",
+          "category": "forms"
+        },
+        "source": "https://apexminecrafthosting.com/partnerships",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:44.374Z"
+      }
+    ]
+  },
+  "brand": {
+    "writingStyle": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:34.060Z"
+    },
+    "artStyle": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:34.060Z"
+    },
+    "fonts": [
+      {
+        "value": "Source Sans 3",
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.432Z"
+      }
+    ],
+    "colors": [
+      {
+        "value": "#c0ff1e",
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.445Z"
+      },
+      {
+        "value": "#9061f9",
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.445Z"
+      },
+      {
+        "value": "#cfff4a",
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.445Z"
+      },
+      {
+        "value": "#a8ed03",
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.445Z"
+      },
+      {
+        "value": "#243503",
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.445Z"
+      },
+      {
+        "value": "#7b3306",
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.445Z"
+      }
+    ],
+    "logos": [
+      {
+        "value": {
+          "url": "https://apexminecrafthosting.com/_astro/logo-full.DZwQV0qV.svg",
+          "kind": "header logo",
+          "alt": "Apex Hosting"
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.423Z"
+      },
+      {
+        "value": {
+          "url": "https://cdn.apexminecrafthosting.com/img/uploads/2026/01/23133011/1200x675-1.png",
+          "kind": "og:image",
+          "alt": null
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.430Z"
+      },
+      {
+        "value": {
+          "url": "https://apexminecrafthosting.com/favicon.svg",
+          "kind": "favicon",
+          "alt": null
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.431Z"
+      }
+    ],
+    "socialLinks": [
+      {
+        "value": {
+          "platform": "x",
+          "url": "https://twitter.com/apexhosting"
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.362Z"
+      },
+      {
+        "value": {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/pages/Apex-Minecraft/174919656042175"
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.362Z"
+      },
+      {
+        "value": {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/user/TeamApexMinecraft"
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.362Z"
+      },
+      {
+        "value": {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/apexhosting"
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.362Z"
+      },
+      {
+        "value": {
+          "platform": "twitch",
+          "url": "https://www.twitch.tv/apexminecrafthosting"
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.362Z"
+      },
+      {
+        "value": {
+          "platform": "tiktok",
+          "url": "https://www.tiktok.com/@apexhosting"
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.362Z"
+      },
+      {
+        "value": {
+          "platform": "discord",
+          "url": "https://discord.gg/SxAVDmb"
+        },
+        "source": "https://apexminecrafthosting.com/support",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.901Z"
+      }
+    ]
+  },
+  "people": [
+    {
+      "value": {
+        "name": "Jayson M.",
+        "title": null,
+        "role": "Customer",
+        "bio": null,
+        "imageUrl": null,
+        "type": "customer_partner"
+      },
+      "source": "https://apexminecrafthosting.com/testimonials",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:41.398Z"
+    },
+    {
+      "value": {
+        "name": "Christine Preusler",
+        "title": null,
+        "role": "Customer at HostingAdvice",
+        "bio": null,
+        "imageUrl": null,
+        "type": "customer_partner"
+      },
+      "source": "https://apexminecrafthosting.com/testimonials",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:41.399Z"
+    },
+    {
+      "value": {
+        "name": "Kurt A.",
+        "title": null,
+        "role": "Customer",
+        "bio": null,
+        "imageUrl": null,
+        "type": "customer_partner"
+      },
+      "source": "https://apexminecrafthosting.com/testimonials",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:41.399Z"
+    },
+    {
+      "value": {
+        "name": "Sara S.",
+        "title": null,
+        "role": "Customer",
+        "bio": null,
+        "imageUrl": null,
+        "type": "customer_partner"
+      },
+      "source": "https://apexminecrafthosting.com/testimonials",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:41.399Z"
+    },
+    {
+      "value": {
+        "name": "Aaron",
+        "title": "Head of Software Engineering",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2021/04/01182604/9cd41984-9817-4b6c-a8e7-fe4d33d1e6cb.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.303Z"
+    },
+    {
+      "value": {
+        "name": "Dan",
+        "title": "Head of Infrastructure Engineering",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2021/04/01182314/28bb290c-cce5-481c-b158-d7f9a042100d.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.303Z"
+    },
+    {
+      "value": {
+        "name": "Cory",
+        "title": "Systems Operations",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2021/04/01182400/3716427e-76ac-4df4-a50a-706618a70f0c.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.303Z"
+    },
+    {
+      "value": {
+        "name": "Tyler",
+        "title": "Software Engineer",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2023/10/11124710/tharold.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.303Z"
+    },
+    {
+      "value": {
+        "name": "Elias",
+        "title": "Software Engineer",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2021/04/01182957/10c49945-56f3-4a19-9f1f-8087fea92b06.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.303Z"
+    },
+    {
+      "value": {
+        "name": "Kyle",
+        "title": "Systems Operations",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2021/04/01183055/7e418993-7482-43b2-a8f6-740d6a308ce5.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.304Z"
+    },
+    {
+      "value": {
+        "name": "Allan",
+        "title": "Systems Operations",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2021/04/01183129/bdc83502-6d75-4c26-a633-729e9ed81aee.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.304Z"
+    },
+    {
+      "value": {
+        "name": "Joseph",
+        "title": "Quality Assurance | System Operations",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2021/04/01183558/8b2f6a04-e8fd-4f7a-bf00-d16c2089309c.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.304Z"
+    },
+    {
+      "value": {
+        "name": "Amber",
+        "title": "Software Engineer | Backend",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2021/04/01183332/7f8c43be-31b1-4c95-b985-537603e69f11.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.304Z"
+    },
+    {
+      "value": {
+        "name": "Antonio",
+        "title": "Technical Support",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2021/10/03021300/toritomm.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.304Z"
+    },
+    {
+      "value": {
+        "name": "Nahuel",
+        "title": "Technical Support",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2021/05/03202528/head.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.305Z"
+    },
+    {
+      "value": {
+        "name": "Jet",
+        "title": "Technical Support",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2021/04/01183253/6291c050-1096-4092-8f46-b3260cba5461.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.306Z"
+    },
+    {
+      "value": {
+        "name": "Santiago",
+        "title": "Technical Support",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2021/04/07004811/chesvin1.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.307Z"
+    },
+    {
+      "value": {
+        "name": "Franco",
+        "title": "Technical Support",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2021/04/01182203/fea22ef0-3efd-463b-8d3f-cc0e543fa57c.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.307Z"
+    },
+    {
+      "value": {
+        "name": "Zach",
+        "title": "Technical Support",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2021/04/01182203/fea22ef0-3efd-463b-8d3f-cc0e543fa57c.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.308Z"
+    },
+    {
+      "value": {
+        "name": "Octavio",
+        "title": "Technical Support",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2021/06/07090619/Plub71.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.308Z"
+    },
+    {
+      "value": {
+        "name": "Erika",
+        "title": "Billing Support",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2021/04/01183750/20fb0129-d6e6-4eab-b2d7-926a8c872722.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.309Z"
+    },
+    {
+      "value": {
+        "name": "Francie",
+        "title": "Billing Support",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2021/07/27015947/cantunsee33.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.310Z"
+    },
+    {
+      "value": {
+        "name": "Mahia",
+        "title": "Billing Support",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2023/02/14152351/irlkaren.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.310Z"
+    },
+    {
+      "value": {
+        "name": "Eber",
+        "title": "Technical Support",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2021/04/01183818/2233396d-2cc9-4310-a092-5673b6c726d6.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.311Z"
+    },
+    {
+      "value": {
+        "name": "Darius",
+        "title": "Technical Support",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2021/09/01230051/filr.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.312Z"
+    },
+    {
+      "value": {
+        "name": "Frani",
+        "title": "Technical Support",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2022/02/05231707/Schvaar.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.314Z"
+    },
+    {
+      "value": {
+        "name": "Matias",
+        "title": "Technical Support",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2022/02/05232049/meradd.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.315Z"
+    },
+    {
+      "value": {
+        "name": "Ignacio",
+        "title": "Technical Support",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2022/11/04162320/Berttah.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.315Z"
+    },
+    {
+      "value": {
+        "name": "William",
+        "title": "Technical Support",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2021/04/01182203/fea22ef0-3efd-463b-8d3f-cc0e543fa57c.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.316Z"
+    },
+    {
+      "value": {
+        "name": "Juan",
+        "title": "Technical Support",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2022/07/06174213/Jluk39.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.317Z"
+    },
+    {
+      "value": {
+        "name": "Megan",
+        "title": "Technical Support",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2023/07/07195010/MerKaiRain.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.318Z"
+    },
+    {
+      "value": {
+        "name": "Brandon",
+        "title": "Technical Support",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2024/02/08141118/log_er.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.318Z"
+    },
+    {
+      "value": {
+        "name": "Noah",
+        "title": "Head of Content",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2021/04/01182822/7a79ba8e-d1fb-4f02-835d-df7f560dfd17.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.319Z"
+    },
+    {
+      "value": {
+        "name": "Dalton",
+        "title": "Global Content Lead",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2023/10/15173742/Daltondorf.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.319Z"
+    },
+    {
+      "value": {
+        "name": "Stu",
+        "title": "SEO Manager",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2021/04/01182203/fea22ef0-3efd-463b-8d3f-cc0e543fa57c.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.319Z"
+    },
+    {
+      "value": {
+        "name": "Treyson",
+        "title": "Lead Digital Media Artist",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2021/04/01184041/d4931f32-d06b-4d49-8a09-db79dbc35e53.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.320Z"
+    },
+    {
+      "value": {
+        "name": "James",
+        "title": "Social Media Manager",
+        "role": null,
+        "bio": null,
+        "imageUrl": "https://cdn.apexminecrafthosting.com/img/uploads/2023/07/07194605/justabluejay.png",
+        "type": "team"
+      },
+      "source": "https://apexminecrafthosting.com/team",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:42.321Z"
+    }
+  ],
+  "offerings": [
+    {
+      "value": {
+        "name": "4 GB RAM",
+        "category": "Minecraft Server Hosting",
+        "description": "Basic servers & some modpacks.",
+        "features": [],
+        "pricingType": "subscription",
+        "priceText": "$14.99/mo, $11.24 first month",
+        "priceAmount": 14.99,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.386Z"
+    },
+    {
+      "value": {
+        "name": "6 GB RAM",
+        "category": "Minecraft Server Hosting",
+        "description": "Basic servers & some modpacks.",
+        "features": [],
+        "pricingType": "subscription",
+        "priceText": "$22.49/mo, $16.87 first month",
+        "priceAmount": 22.49,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.387Z"
+    },
+    {
+      "value": {
+        "name": "8 GB RAM",
+        "category": "Minecraft Server Hosting",
+        "description": "Advanced servers & all modpacks.",
+        "features": [],
+        "pricingType": "subscription",
+        "priceText": "$27.99/mo, $20.99 first month",
+        "priceAmount": 27.99,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.388Z"
+    },
+    {
+      "value": {
+        "name": "Custom",
+        "category": "Minecraft Server Hosting",
+        "description": "Fully tailored to your needs.",
+        "features": [],
+        "pricingType": "starting_at",
+        "priceText": "Starting at $1.88/mo",
+        "priceAmount": 1.88,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.389Z"
+    },
+    {
+      "value": {
+        "name": "16 GB RAM",
+        "category": "Minecraft Server Hosting",
+        "description": "The Ultimate Server Experience",
+        "features": [],
+        "pricingType": "subscription",
+        "priceText": "$71.99/mo, $53.99 first month",
+        "priceAmount": 71.99,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.389Z"
+    },
+    {
+      "value": {
+        "name": "Minecraft: Java Edition",
+        "category": "Minecraft Server Hosting",
+        "description": null,
+        "features": [],
+        "pricingType": "starting_at",
+        "priceText": "Starting at $5.99",
+        "priceAmount": 5.99,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.391Z"
+    },
+    {
+      "value": {
+        "name": "Palworld",
+        "category": "Minecraft Server Hosting",
+        "description": null,
+        "features": [],
+        "pricingType": "starting_at",
+        "priceText": "Starting at $8.99",
+        "priceAmount": 8.99,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.392Z"
+    },
+    {
+      "value": {
+        "name": "Hytale",
+        "category": "Minecraft Server Hosting",
+        "description": null,
+        "features": [],
+        "pricingType": "starting_at",
+        "priceText": "Starting at $11.24",
+        "priceAmount": 11.24,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.392Z"
+    },
+    {
+      "value": {
+        "name": "Minecraft: Bedrock Edition",
+        "category": "Minecraft Server Hosting",
+        "description": null,
+        "features": [],
+        "pricingType": "starting_at",
+        "priceText": "Starting at $2.99",
+        "priceAmount": 2.99,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.393Z"
+    },
+    {
+      "value": {
+        "name": "Windrose",
+        "category": "Minecraft Server Hosting",
+        "description": null,
+        "features": [],
+        "pricingType": "starting_at",
+        "priceText": "Starting at $16.87",
+        "priceAmount": 16.87,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.393Z"
+    },
+    {
+      "value": {
+        "name": "Nightingale",
+        "category": "Minecraft Server Hosting",
+        "description": null,
+        "features": [],
+        "pricingType": "starting_at",
+        "priceText": "Starting at $11.24",
+        "priceAmount": 11.24,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.394Z"
+    },
+    {
+      "value": {
+        "name": "SCUM",
+        "category": "Minecraft Server Hosting",
+        "description": null,
+        "features": [],
+        "pricingType": "starting_at",
+        "priceText": "Starting at $29.24",
+        "priceAmount": 29.24,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.394Z"
+    },
+    {
+      "value": {
+        "name": "Farming Simulator 25",
+        "category": "Minecraft Server Hosting",
+        "description": null,
+        "features": [],
+        "pricingType": "starting_at",
+        "priceText": "Starting at $8.99",
+        "priceAmount": 8.99,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.395Z"
+    },
+    {
+      "value": {
+        "name": "ARK: Survival Evolved",
+        "category": "Minecraft Server Hosting",
+        "description": null,
+        "features": [],
+        "pricingType": "starting_at",
+        "priceText": "Starting at $11.24",
+        "priceAmount": 11.24,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.396Z"
+    },
+    {
+      "value": {
+        "name": "ARK: Survival Ascended",
+        "category": "Minecraft Server Hosting",
+        "description": null,
+        "features": [],
+        "pricingType": "starting_at",
+        "priceText": "Starting at $29.24",
+        "priceAmount": 29.24,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.396Z"
+    },
+    {
+      "value": {
+        "name": "Enshrouded",
+        "category": "Minecraft Server Hosting",
+        "description": null,
+        "features": [],
+        "pricingType": "starting_at",
+        "priceText": "Starting at $16.87",
+        "priceAmount": 16.87,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.397Z"
+    },
+    {
+      "value": {
+        "name": "Valheim",
+        "category": "Minecraft Server Hosting",
+        "description": null,
+        "features": [],
+        "pricingType": "starting_at",
+        "priceText": "Starting at $5.99",
+        "priceAmount": 5.99,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.397Z"
+    },
+    {
+      "value": {
+        "name": "Project Zomboid",
+        "category": "Minecraft Server Hosting",
+        "description": null,
+        "features": [],
+        "pricingType": "starting_at",
+        "priceText": "Starting at $5.99",
+        "priceAmount": 5.99,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.398Z"
+    },
+    {
+      "value": {
+        "name": "Rust",
+        "category": "Minecraft Server Hosting",
+        "description": null,
+        "features": [],
+        "pricingType": "starting_at",
+        "priceText": "Starting at $11.24",
+        "priceAmount": 11.24,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.399Z"
+    },
+    {
+      "value": {
+        "name": "7 Days to Die",
+        "category": "Minecraft Server Hosting",
+        "description": null,
+        "features": [],
+        "pricingType": "starting_at",
+        "priceText": "Starting at $5.99",
+        "priceAmount": 5.99,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.399Z"
+    },
+    {
+      "value": {
+        "name": "Unturned",
+        "category": "Minecraft Server Hosting",
+        "description": null,
+        "features": [],
+        "pricingType": "starting_at",
+        "priceText": "Starting at $5.99",
+        "priceAmount": 5.99,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.400Z"
+    },
+    {
+      "value": {
+        "name": "Conan Exiles",
+        "category": "Minecraft Server Hosting",
+        "description": null,
+        "features": [],
+        "pricingType": "starting_at",
+        "priceText": "Starting at $20.99",
+        "priceAmount": 20.99,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.400Z"
+    },
+    {
+      "value": {
+        "name": "Terraria",
+        "category": "Minecraft Server Hosting",
+        "description": null,
+        "features": [],
+        "pricingType": "starting_at",
+        "priceText": "Starting at $2.99",
+        "priceAmount": 2.99,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.403Z"
+    },
+    {
+      "value": {
+        "name": "Counter-Strike: 2",
+        "category": "Minecraft Server Hosting",
+        "description": null,
+        "features": [],
+        "pricingType": "starting_at",
+        "priceText": "Starting at $2.99",
+        "priceAmount": 2.99,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.403Z"
+    },
+    {
+      "value": {
+        "name": "Satisfactory",
+        "category": "Minecraft Server Hosting",
+        "description": null,
+        "features": [],
+        "pricingType": "starting_at",
+        "priceText": "Starting at $16.87",
+        "priceAmount": 16.87,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.404Z"
+    },
+    {
+      "value": {
+        "name": "Factorio",
+        "category": "Minecraft Server Hosting",
+        "description": null,
+        "features": [],
+        "pricingType": "starting_at",
+        "priceText": "Starting at $2.99",
+        "priceAmount": 2.99,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.404Z"
+    },
+    {
+      "value": {
+        "name": "Arma III",
+        "category": "Minecraft Server Hosting",
+        "description": null,
+        "features": [],
+        "pricingType": "starting_at",
+        "priceText": "Starting at $5.99",
+        "priceAmount": 5.99,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.405Z"
+    },
+    {
+      "value": {
+        "name": "Starbound",
+        "category": "Minecraft Server Hosting",
+        "description": null,
+        "features": [],
+        "pricingType": "starting_at",
+        "priceText": "Starting at $2.99",
+        "priceAmount": 2.99,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.405Z"
+    },
+    {
+      "value": {
+        "name": "ECO",
+        "category": "Minecraft Server Hosting",
+        "description": null,
+        "features": [],
+        "pricingType": "starting_at",
+        "priceText": "Starting at $5.99",
+        "priceAmount": 5.99,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.406Z"
+    },
+    {
+      "value": {
+        "name": "V Rising",
+        "category": "Minecraft Server Hosting",
+        "description": null,
+        "features": [],
+        "pricingType": "starting_at",
+        "priceText": "Starting at $11.24",
+        "priceAmount": 11.24,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.406Z"
+    },
+    {
+      "value": {
+        "name": "The Forest",
+        "category": "Minecraft Server Hosting",
+        "description": null,
+        "features": [],
+        "pricingType": "starting_at",
+        "priceText": "Starting at $5.99",
+        "priceAmount": 5.99,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.407Z"
+    },
+    {
+      "value": {
+        "name": "Sons of the Forest",
+        "category": "Minecraft Server Hosting",
+        "description": null,
+        "features": [],
+        "pricingType": "starting_at",
+        "priceText": "Starting at $16.87",
+        "priceAmount": 16.87,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.407Z"
+    },
+    {
+      "value": {
+        "name": "Myth of Empires",
+        "category": "Minecraft Server Hosting",
+        "description": null,
+        "features": [],
+        "pricingType": "starting_at",
+        "priceText": "Starting at $26.25",
+        "priceAmount": 26.25,
+        "currency": "USD"
+      },
+      "source": "https://apexminecrafthosting.com/",
+      "confidence": "scraped",
+      "updatedAt": "2026-10-09T16:22:34.408Z"
+    }
+  ],
+  "insights": {
+    "testimonials": [
+      {
+        "value": {
+          "quote": "This is actually very cheap and reliable and has a very easy to use control panel. I recommend it 9.5/10",
+          "author": "Jayson M.",
+          "authorTitle": null,
+          "company": null,
+          "rating": null
+        },
+        "source": "https://apexminecrafthosting.com/testimonials",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.398Z"
+      },
+      {
+        "value": {
+          "quote": "For gamers by gamers: Apex Hosting has customized its platform so users of all skill levels can manage the Minecraft server of their dreams.",
+          "author": "Christine Preusler",
+          "authorTitle": null,
+          "company": "HostingAdvice",
+          "rating": null
+        },
+        "source": "https://apexminecrafthosting.com/testimonials",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.399Z"
+      },
+      {
+        "value": {
+          "quote": "Excellent support. Up and running in no time. Their server has been working beautifully for me. When eve an issue has come up, support is fast to respond and offered clear and understandable advice and solutions. Reliable. Excellent support. Up and running in no time. Their server has been working beautifully for me. When eve an issue has come up, support is fast to respond and offered clear and understandable advice and solutions.",
+          "author": "Kurt A.",
+          "authorTitle": null,
+          "company": null,
+          "rating": null
+        },
+        "source": "https://apexminecrafthosting.com/testimonials",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.399Z"
+      },
+      {
+        "value": {
+          "quote": "Apex has the best server around. I’ve switched from ServerMiner and couldn’t be happier! Their customer service is amazing and the pricing is better than other sites. I experience no lagging or offline problems like I did with ServerMiner. Go with Apex!",
+          "author": "Sara S.",
+          "authorTitle": null,
+          "company": null,
+          "rating": null
+        },
+        "source": "https://apexminecrafthosting.com/testimonials",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.399Z"
+      },
+      {
+        "value": {
+          "quote": "I never thought a Minecraft host would be so accurate, trusting and well rounded. I mean, I haven’t experienced any lag at all, neither did my friends. And also, hosting with them you got an awesome control panel and an FTP where you can do whatever you please with your server. Hosting a modded server has never been so easy! 10/10 Would recommend.",
+          "author": "Xmkzink",
+          "authorTitle": null,
+          "company": null,
+          "rating": null
+        },
+        "source": "https://apexminecrafthosting.com/testimonials",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.399Z"
+      },
+      {
+        "value": {
+          "quote": "I absolutely love Apex. It’s Easy to use and maintain, Convenient for myself and my developers to add plugins and manage members, and Fast to setup and implement from the start. Apex makes hosting a minecraft server a pleasure instead of a pain!",
+          "author": "Phact",
+          "authorTitle": null,
+          "company": null,
+          "rating": null
+        },
+        "source": "https://apexminecrafthosting.com/testimonials",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.399Z"
+      },
+      {
+        "value": {
+          "quote": "I didn’t know a thing about getting servers before going into business with Apex and frankly I still don’t, but with their incredible technical support (and patience) I have had a great overall experience and would recommend Apexminecrafthosting to anyone looking for solid hosting and a top class level of customer service! I didn’t know a thing about getting servers before going into business with Apex and frankly I still don’t, but with their incredible technical support (and patience) I have had a great overall experience and would recommend Apexminecrafthosting to anyone looking for solid hosting and a top class level of customer service!",
+          "author": "Qolourz",
+          "authorTitle": null,
+          "company": null,
+          "rating": null
+        },
+        "source": "https://apexminecrafthosting.com/testimonials",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.400Z"
+      },
+      {
+        "value": {
+          "quote": "I recommend Apex Minecraft Hosting I have been with them for about 2 years now and have never had an issue. And their support team is absolutely amazing.",
+          "author": null,
+          "authorTitle": null,
+          "company": null,
+          "rating": null
+        },
+        "source": "https://apexminecrafthosting.com/testimonials",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.400Z"
+      },
+      {
+        "value": {
+          "quote": "Great server and easy to use. Switched from another and apex is much better!",
+          "author": "JFrenchy",
+          "authorTitle": null,
+          "company": null,
+          "rating": null
+        },
+        "source": "https://apexminecrafthosting.com/testimonials",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.400Z"
+      }
+    ],
+    "faqs": [
+      {
+        "value": {
+          "question": "What is the best Minecraft server hosting?",
+          "answer": "The best Minecraft hosting service is the one that will provide fast performance, excellent uptime and helpful support at a reasonable price. You will need at least 2GB of memory available and 3ghz or higher processors to maintain good performance as more players join and modifications are made. It is imperative that the supplier has redundant connections and live chat representatives available to answer any questions and keep your server running at all times."
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.357Z"
+      },
+      {
+        "value": {
+          "question": "How much does Minecraft hosting cost?",
+          "answer": "The price of hosting a Minecraft server is calculated based on the amount of RAM allocated to the customer. Some providers will restrict performance and charge more for additional slots, storage or help. Make sure to calculate the entire cost of the service to determine which is the best value and includes everything that you need to get started and continue growing."
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.357Z"
+      },
+      {
+        "value": {
+          "question": "Is hosting a Minecraft server free?",
+          "answer": "Hosting a Minecraft server is not free as it requires expensive hardware, bandwidth and a professional staff to be able to maintain superior services and customer assistance. Some competitors offer “free” plans but charge for the things you need such as performance, removal of ads or help. There is always some cost involved in operating a reliable server with 24/7 uptime."
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.357Z"
+      },
+      {
+        "value": {
+          "question": "How do I host a Minecraft server?",
+          "answer": "You can make your own Minecraft server by choosing a provider and determining the size that you need and selecting which version to start with. Most packages are instantly deployed and after completing checkout your server will be up and running within a few minutes. All you need to do is share the IP address with everyone you wish to play with."
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.357Z"
+      },
+      {
+        "value": {
+          "question": "How to reset your world",
+          "answer": "To reset your world you must first log into your control panel and stop your server. You will need to change the world setting and restart your server. A new world will be generated as the server starts."
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.357Z"
+      },
+      {
+        "value": {
+          "question": "Do you offer modded Minecraft server hosting?",
+          "answer": "We offer a wide range of mods and modpacks as part of our modded Minecraft hosting packages. Installation is simple, and we have several guides to help you through the process in our guides."
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.357Z"
+      },
+      {
+        "value": {
+          "question": "How to add a whitelist",
+          "answer": "To add a whitelist you need to first go to your server settings in your control panel under Config Files followed by Server Settings. There you will find the whitelist option which you will need to enable than save these settings. For the change to take effect you will need to restart your server."
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.357Z"
+      },
+      {
+        "value": {
+          "question": "How to add mods",
+          "answer": "To add mods to your server you will need to ensure that it’s version is set to Forge. After downloading the mods you would like log into your server panel, then FTP File Access, and get into the mods/ folder. Once there, simply click 'Upload' to upload them. The mods will load after restarting the server."
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.357Z"
+      },
+      {
+        "value": {
+          "question": "How to change server settings",
+          "answer": "You can change the settings of your Minecraft server in the server control panel in your left-hand menu under config files, server settings. After locating your settings and making adjustments, you will need to save and restart the server for the changes to apply."
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.357Z"
+      },
+      {
+        "value": {
+          "question": "Why wont my plugins load?",
+          "answer": "The most common reason that plugins will not load on your Minecraft server is that the version is set to Vanilla. For plugins to work, you need to switch your server version to either Craftbukkit, Spigot or Paper from your server control panel."
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.357Z"
+      },
+      {
+        "value": {
+          "question": "What games do you host?",
+          "answer": "Although we began as a Minecraft hosting company, as of Summer 2021 we have expanded into other games including Ark, Rust, Valheim, CS:GO, Conan, Terraria, Unturned, Project Zomboid, Satisfactory, 7 Days to Die, Arma, Starbound, Eco, V Rising, The Forest, Sons of The Forest, Farming Simulator 25, Nightingale and more coming soon."
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.357Z"
+      },
+      {
+        "value": {
+          "question": "What languages do you have available for support?",
+          "answer": "We're here to help in multiple languages, including English, Spanish and more, so you can feel comfortable reaching out to us with any questions, problems, or concerns you may have. We want to make sure you have the best possible interaction with us!"
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.357Z"
+      },
+      {
+        "value": {
+          "question": "What types of server versions can I use?",
+          "answer": "You can use any jar that you want. We provide many different server versions, modpacks and minigames in the panel that are ready to use. You also have full FTP access to your server to add and remove jars as you would like. We can also assist with installing the exact server version, mods and plugins you would like."
+        },
+        "source": "https://apexminecrafthosting.com/faq",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.800Z"
+      },
+      {
+        "value": {
+          "question": "Can I change my server hosting package?",
+          "answer": "Yes, please submit a ticket to our support staff and let us know which package you would like to change to. We will be able to complete the change within a few hours without changing your servers address."
+        },
+        "source": "https://apexminecrafthosting.com/faq",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.800Z"
+      },
+      {
+        "value": {
+          "question": "Can I use plugins?",
+          "answer": "Yes, We provide full access to your server so you can add and remove plugins. You can also use the plugin manager in the control panel making this quick and easy."
+        },
+        "source": "https://apexminecrafthosting.com/faq",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.800Z"
+      },
+      {
+        "value": {
+          "question": "What if the server version or mod pack I want isn’t listed?",
+          "answer": "We can install any mod pack or server version that you would like. Just let us know and we will be more than happy to set it up for you."
+        },
+        "source": "https://apexminecrafthosting.com/faq",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.800Z"
+      },
+      {
+        "value": {
+          "question": "What is the difference between Minecraft Java and Bedrock?",
+          "answer": "Minecraft currently has two different versions of the game. The original Minecraft was written in Java and is now referred to as Minecraft: Java Edition which is mostly for PC. This is the most common version found on our servers and has the best support for mods, plugins and customization. Minecraft was formerly known as Minecraft: Bedrock Edition and was built on the language C and is used for The Windows 10 edition, Xbox, mobile and more."
+        },
+        "source": "https://apexminecrafthosting.com/faq",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.800Z"
+      },
+      {
+        "value": {
+          "question": "When will my server be ready?",
+          "answer": "Our servers are instantly created and all information including your server’s IP and control panel login information are emailed to you when the order is completed. As soon as you choose a package your server will be ready to host a game of Minecraft, Ark, Rust, Valheim, CS:GO, Conan, Terraria, Unturned, Zomboid, Satisfactory, 7 Days to Die, Factorio, Arma 3, Starbound, ECO, The Forest, V Rising and more."
+        },
+        "source": "https://apexminecrafthosting.com/faq",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.800Z"
+      },
+      {
+        "value": {
+          "question": "What hardware does your hosting use?",
+          "answer": "Our Minecraft and other Game server hosting services use highly reliable and powerful equipment. Check our latest hardware"
+        },
+        "source": "https://apexminecrafthosting.com/faq",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.800Z"
+      },
+      {
+        "value": {
+          "question": "Where are our servers located?",
+          "answer": "Apex Hosting has game server hosting locations available throughout North America, South America, Europe, Australia and Asia. In North America, we have servers from coast to coast including California, Oregon, Texas, Virginia, Miami and Quebec. Our European servers are located in France, Germany, or the United Kingdom. Our Australia servers are located in Sydney. Our Asia region is located in Singapore and Japan. With players in over 70 countries, we are able to offer great connections to our customers across the globe."
+        },
+        "source": "https://apexminecrafthosting.com/faq",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.800Z"
+      },
+      {
+        "value": {
+          "question": "Can I test your server locations?",
+          "answer": "Yes, Please connect to the region that best suits you below: Currently, only Minecraft test servers are active. <br/>Portland, Oregon: or.apexmc.co <br/>San José, California: sj.apexmc.co <br/>Dallas, Texas: tx.apexmc.co <br/>Vint Hill, Virginia: va.apexmc.co <br/>Miami, Florida: fl.apexmc.co <br/>São Paulo, Brazil: br.apexmc.co <br/>New York, New York: ny.apexmc.co <br/>London, United Kingdom: uk.apexmc.co <br/>Amsterdam, Netherlands: nl.apexmc.co <br/>Frankfurt, Germany: de.apexmc.co <br/>Singapore, Singapore: sg.apexmc.co <br/>Sydney, Australia: au.apexmc.co <br/>Tel Aviv, Israel: il.apexmc.co <br/>Tokyo, Japan: jp.apexmc.co <br/>Mumbai, India: in.apexmc.co"
+        },
+        "source": "https://apexminecrafthosting.com/faq",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.800Z"
+      },
+      {
+        "value": {
+          "question": "How do I use my free subdomain?",
+          "answer": "During checkout, you will have the option to select your desired subdomain. If nothing is provided then a default subdomain will be generated for your server using the format username.server_id.apexmc.co. You can find your active subdomain in your Multicraft panel at panel.apexminecrafthosting.com on your server management page. Simply change the text, save the page, and your subdomain will be updated. Note: if a subdomain is rejected it is likely because it already exists in our system. Please contact support if you think this is in error."
+        },
+        "source": "https://apexminecrafthosting.com/faq",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.800Z"
+      },
+      {
+        "value": {
+          "question": "Do I get a MySQL database?",
+          "answer": "Yes, SQL databases are included with all of our packages. Your Multicraft control panel will have the information required for you to create and manage your databases."
+        },
+        "source": "https://apexminecrafthosting.com/faq",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.800Z"
+      },
+      {
+        "value": {
+          "question": "Do I get a control panel with my server?",
+          "answer": "Yes, our custom version of the Multicraft control panel is included with all game server hosting packages. This web based panel gives you complete control over your entire server with an easy to use interface. You can access the console, servers files, databases, chat and more right from here. Please contact us if you would like to try a demo of the panel before making a purchase."
+        },
+        "source": "https://apexminecrafthosting.com/faq",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.800Z"
+      },
+      {
+        "value": {
+          "question": "What uptime do you provide?",
+          "answer": "Our hardware has over 99.9% uptime and rarely becomes unavailable. The most common cause of a crashed Minecraft server is an issue with a plugin or mod which we can help diagnose and repair."
+        },
+        "source": "https://apexminecrafthosting.com/faq",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.800Z"
+      },
+      {
+        "value": {
+          "question": "What is my server IP?",
+          "answer": "To find your servers IP you can log into the members area and open the control panel. On the main page for the server, you will see your IP address in the format of IP:PORT. For example: 199.192.122.144:25712. Enter this address into your game client and you will be able to connect. Please make sure you include the IP and PORT when connecting."
+        },
+        "source": "https://apexminecrafthosting.com/faq",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.800Z"
+      },
+      {
+        "value": {
+          "question": "Do I need to use port forwarding for my server?",
+          "answer": "Not at all! We make it very easy to get started on your server with very little technical knowledge needed. We will send you the IP and Port combination that you will enter into the launcher which will work without any additional configuration."
+        },
+        "source": "https://apexminecrafthosting.com/faq",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.800Z"
+      },
+      {
+        "value": {
+          "question": "How can I get support for my server?",
+          "answer": "Our team boasts the most comprehensive support in the Minecraft server hosting industry and we look to extend that to all games. Our support representatives have in-depth knowledge of Minecraft servers, customization and the infrastructure that we use to run them. You can reach our support team via live chat, ticket or email."
+        },
+        "source": "https://apexminecrafthosting.com/faq",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.800Z"
+      },
+      {
+        "value": {
+          "question": "Can I change my server location?",
+          "answer": "Yes, please contact our support team here to begin the process for server migration. We will have to take your server offline temporary and the transfer time will depend on your server size. On average, a transfer between regions will be completed within a few minutes. Please note that your server IP will change so if you are using a subdomain please also request that we update this. Note: The Brazil region has an extra cost for that region and will require a paid upgrade. Please use the test location br.apexmc.co to gauge if it is a good fit for you."
+        },
+        "source": "https://apexminecrafthosting.com/faq",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.800Z"
+      },
+      {
+        "value": {
+          "question": "How do I cancel my service?",
+          "answer": "If you would like to cancel your server please log into your billing area and select the service you would like to cancel."
+        },
+        "source": "https://apexminecrafthosting.com/faq",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.800Z"
+      },
+      {
+        "value": {
+          "question": "Can I upgrade my server and add more RAM?",
+          "answer": "Yes, To upgrade your services you must log into your billing area and choose upgrade/downgrade from the left-hand menu on the service. After selecting the new package you will be able to complete the upgrade. Once payment is received your existing service will be upgraded or downgraded automatically. Your server IP and all of the files will stay the same, the only thing that will increase is the RAM and slots. Please restart your server for the changes to take effect."
+        },
+        "source": "https://apexminecrafthosting.com/faq",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.800Z"
+      },
+      {
+        "value": {
+          "question": "Do you have an Affiliate Program?",
+          "answer": "Yes, we do. Our Affiliate program offers 15% recurring monthly commissions on every sale. You can log in to your current account here to activate your affiliate program and get your links and banners today. If you do not already have an account, you can register for one here and become an affiliate at no charge."
+        },
+        "source": "https://apexminecrafthosting.com/faq",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.800Z"
+      },
+      {
+        "value": {
+          "question": "Do you offer partnerships or sponsorships?",
+          "answer": "Absolutely, we love the developers, streamers, YouTube channels, organizations and more that we have partnered with. Please refer to our sponsorship page for more information and how to apply."
+        },
+        "source": "https://apexminecrafthosting.com/faq",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.800Z"
+      }
+    ],
+    "differentiators": [
+      {
+        "value": "Free Subdomain",
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.421Z"
+      },
+      {
+        "value": "Unlimited Slots",
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.421Z"
+      },
+      {
+        "value": "24/7 Server Support",
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.421Z"
+      },
+      {
+        "value": "Automated Backups",
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.421Z"
+      },
+      {
+        "value": "Incredibly Fast Hardware For Lag Free Gaming",
+        "source": "https://apexminecrafthosting.com/features",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.038Z"
+      },
+      {
+        "value": "Advanced DDoS Protection",
+        "source": "https://apexminecrafthosting.com/features",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.038Z"
+      },
+      {
+        "value": "Includes a Free Sub-Domain Name",
+        "source": "https://apexminecrafthosting.com/features",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.038Z"
+      },
+      {
+        "value": "Multilanguage Support",
+        "source": "https://apexminecrafthosting.com/features",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.038Z"
+      }
+    ],
+    "trustSignals": [
+      {
+        "value": {
+          "kind": "guarantee",
+          "text": "Automated Backups Offsite automatic backups guarantee your data will not be lost due to any bad configurations or hardware failures."
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.421Z"
+      },
+      {
+        "value": {
+          "kind": "review_count",
+          "text": "7500+ Customers have given rating for our servers & support."
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.421Z"
+      },
+      {
+        "value": {
+          "kind": "review_count",
+          "text": "Shows reviews from Trustpilot"
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.450Z"
+      },
+      {
+        "value": {
+          "kind": "guarantee",
+          "text": "7 Day Money Back Guarantee"
+        },
+        "source": "https://apexminecrafthosting.com/pricing",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:41.515Z"
+      }
+    ],
+    "contentThemes": [],
+    "promotions": [
+      {
+        "value": "25% off on first order with APEX25",
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.420Z"
+      }
+    ],
+    "pressMentions": [],
+    "communityValues": [],
+    "legalLinks": [
+      {
+        "value": {
+          "label": "Privacy Policy",
+          "url": "https://apexminecrafthosting.com/privacy-policy"
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.363Z"
+      },
+      {
+        "value": {
+          "label": "Terms of Service",
+          "url": "https://apexminecrafthosting.com/terms-of-service"
+        },
+        "source": "https://apexminecrafthosting.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:34.363Z"
+      },
+      {
+        "value": {
+          "label": "Minecraft Survival: Illegal Blocks",
+          "url": "https://apexminecrafthosting.com/blog/minecraft-survival-illegal-blocks"
+        },
+        "source": "https://apexminecrafthosting.com/sitemap",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:43.938Z"
+      },
+      {
+        "value": {
+          "label": "Minecraft Server Common Terms and Phrases",
+          "url": "https://apexminecrafthosting.com/blog/minecraft-server-common-terms-and-phrases"
+        },
+        "source": "https://apexminecrafthosting.com/sitemap",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:22:43.940Z"
+      }
+    ],
+    "positioningSignals": []
+  },
+  "contentKit": {
+    "contentPillars": [],
+    "socialHooks": [],
+    "hashtags": [],
+    "emailSubjects": [],
+    "blogIdeas": [],
+    "voiceGuide": {
+      "value": null,
+      "source": null,
+      "confidence": "missing",
+      "updatedAt": "2026-10-09T16:22:34.060Z"
+    }
+  },
+  "completeness": {
+    "score": 61,
+    "missing": [
+      "company.industry",
+      "company.mainAddress",
+      "company.pitch",
+      "company.foundingStory",
+      "contact.emails",
+      "contact.phones",
+      "customers.targetBuyers",
+      "customers.idealPersona",
+      "brand.writingStyle"
+    ]
+  },
+  "crawl": {
+    "startedAt": "2026-10-09T16:22:34.060Z",
+    "finishedAt": "2026-10-09T16:22:45.408Z",
+    "durationMs": 11275,
+    "robotsAllowed": true,
+    "pendingUrls": [
+      "https://apexminecrafthosting.com/press",
+      "https://apexminecrafthosting.com/blog",
+      "https://apexminecrafthosting.com/jobs",
+      "https://apexminecrafthosting.com/privacy-policy",
+      "https://apexminecrafthosting.com/terms-of-service",
+      "https://apexminecrafthosting.com/server-specs",
+      "https://apexminecrafthosting.com/education",
+      "https://apexminecrafthosting.com/minecraft-scholarship",
+      "https://apexminecrafthosting.com/games/minecraft-server-hosting",
+      "https://apexminecrafthosting.com/games/palworld-server-hosting",
+      "https://apexminecrafthosting.com/games/hytale-server-hosting",
+      "https://apexminecrafthosting.com/games/farming-simulator-25-server-hosting",
+      "https://apexminecrafthosting.com/games/ark-survival-evolved-server-hosting",
+      "https://apexminecrafthosting.com/games/ark-server-hosting",
+      "https://apexminecrafthosting.com/games/valheim-server-hosting",
+      "https://apexminecrafthosting.com/games/zomboid-server-hosting",
+      "https://apexminecrafthosting.com/games/unturned-server-hosting",
+      "https://apexminecrafthosting.com/games/terraria-server-hosting",
+      "https://apexminecrafthosting.com/games/satisfactory-server-hosting",
+      "https://apexminecrafthosting.com/games/sons-of-the-forest-server-hosting",
+      "https://apexminecrafthosting.com/branding",
+      "https://apexminecrafthosting.com/blog/the-sift-dungeons-2-vs-vanilla",
+      "https://apexminecrafthosting.com/blog/how-our-experts-got-1000-fps-in-minecraft-with-lunar-client",
+      "https://apexminecrafthosting.com/blog/apex-hosting-minecraft-scholarship-winner-2026",
+      "https://apexminecrafthosting.com/guides/7-days-to-die",
+      "https://apexminecrafthosting.com/guides/ark-survival-ascended",
+      "https://apexminecrafthosting.com/guides/ark-survival-evolved",
+      "https://apexminecrafthosting.com/guides/arma",
+      "https://apexminecrafthosting.com/guides/conan-exiles",
+      "https://apexminecrafthosting.com/guides/cs2",
+      "https://apexminecrafthosting.com/guides/csgo",
+      "https://apexminecrafthosting.com/guides/eco",
+      "https://apexminecrafthosting.com/guides/enshrouded",
+      "https://apexminecrafthosting.com/guides/factorio",
+      "https://apexminecrafthosting.com/guides/farming-simulator-25",
+      "https://apexminecrafthosting.com/guides/general",
+      "https://apexminecrafthosting.com/guides/hytale",
+      "https://apexminecrafthosting.com/guides/nightingale",
+      "https://apexminecrafthosting.com/guides/palworld",
+      "https://apexminecrafthosting.com/guides/project-zomboid",
+      "https://apexminecrafthosting.com/guides/rust",
+      "https://apexminecrafthosting.com/guides/satisfactory",
+      "https://apexminecrafthosting.com/guides/scum",
+      "https://apexminecrafthosting.com/guides/sons-of-the-forest",
+      "https://apexminecrafthosting.com/guides/starbound",
+      "https://apexminecrafthosting.com/guides/terraria",
+      "https://apexminecrafthosting.com/guides/the-forest",
+      "https://apexminecrafthosting.com/guides/unturned",
+      "https://apexminecrafthosting.com/guides/v-rising",
+      "https://apexminecrafthosting.com/guides/valheim",
+      "https://apexminecrafthosting.com/guides/windrose",
+      "https://apexminecrafthosting.com/blog/new-login-security-system",
+      "https://apexminecrafthosting.com/blog/lunar-client-hosted-worlds-vs-a-dedicated-server",
+      "https://apexminecrafthosting.com/blog/fps-vs-tps-for-minecraft-servers",
+      "https://apexminecrafthosting.com/blog/palworld-ps5-dedicated-server-a-server-owners-guide",
+      "https://apexminecrafthosting.com/blog/how-to-duplicate-smithing-templates",
+      "https://apexminecrafthosting.com/blog/are-minecraft-mods-safe",
+      "https://apexminecrafthosting.com/blog/how-to-fix-minecraft-multiplayer-is-disabled",
+      "https://apexminecrafthosting.com/blog/chaos-cubed-minecraft-26-2-update",
+      "https://apexminecrafthosting.com/blog/minecraft-villager-jobs-a-guide",
+      "https://apexminecrafthosting.com/blog/introducing-modbox-for-minecraft-one-click-modding",
+      "https://apexminecrafthosting.com/blog/hytale-update-5-showcase",
+      "https://apexminecrafthosting.com/blog/tiny-takeover-minecraft-sale",
+      "https://apexminecrafthosting.com/blog/ftp-panel-update-news-2026",
+      "https://apexminecrafthosting.com/blog/march-mania-minecraft-bedwars-tournament",
+      "https://apexminecrafthosting.com/blog/parcool-the-best-minecraft-parkour-mod",
+      "https://apexminecrafthosting.com/blog/partner-spotlight-zeefski-jujutsu-kaisen-craft",
+      "https://apexminecrafthosting.com/blog/partner-spotlight-lucky-mining",
+      "https://apexminecrafthosting.com/blog/partner-spotlight-building-tales-2",
+      "https://apexminecrafthosting.com/blog/simple-hytale-modding-with-modbox",
+      "https://apexminecrafthosting.com/blog/custom-models-and-modding-in-hytale",
+      "https://apexminecrafthosting.com/blog/hytale-vs-minecraft",
+      "https://apexminecrafthosting.com/blog/server-version-updates-december-4th-2025",
+      "https://apexminecrafthosting.com/blog/new-numbering-system-for-minecraft",
+      "https://apexminecrafthosting.com/blog/server-version-updates-november-27th-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-november-20th-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-november-13th-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-november-6th-2025",
+      "https://apexminecrafthosting.com/blog/spooky-server-tales-halloween-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-october-30th-2025",
+      "https://apexminecrafthosting.com/blog/minecraft-mounts-of-mayhem",
+      "https://apexminecrafthosting.com/blog/best-minecraft-horror-mods",
+      "https://apexminecrafthosting.com/blog/server-version-updates-october-23rd-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-october-16th-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-october-9th-2025",
+      "https://apexminecrafthosting.com/blog/new-ftp-panel-free-upgrade",
+      "https://apexminecrafthosting.com/blog/server-version-updates-october-2nd-2025",
+      "https://apexminecrafthosting.com/blog/how-to-make-a-copper-golem",
+      "https://apexminecrafthosting.com/blog/best-pokemon-modpacks-for-minecraft",
+      "https://apexminecrafthosting.com/blog/how-to-make-a-harness-in-minecraft",
+      "https://apexminecrafthosting.com/blog/playing-minecraft-java-edition-with-a-controller",
+      "https://apexminecrafthosting.com/blog/cobbleverse-partner-highlight",
+      "https://apexminecrafthosting.com/blog/server-version-updates-september-25th-2025",
+      "https://apexminecrafthosting.com/blog/top-5-best-minecraft-manhunt-modpacks",
+      "https://apexminecrafthosting.com/blog/optifine-alternatives-for-minecraft",
+      "https://apexminecrafthosting.com/blog/the-benefits-of-using-paper-for-your-minecraft-server",
+      "https://apexminecrafthosting.com/blog/best-minecraft-pvp-gametypes",
+      "https://apexminecrafthosting.com/blog/how-to-play-minecraft-cross-platform",
+      "https://apexminecrafthosting.com/blog/server-version-updates-september-18th-2025",
+      "https://apexminecrafthosting.com/blog/how-to-get-a-minimap-in-minecraft",
+      "https://apexminecrafthosting.com/blog/server-version-updates-september-11th-2025",
+      "https://apexminecrafthosting.com/blog/what-is-a-server-address-in-minecraft",
+      "https://apexminecrafthosting.com/blog/server-version-updates-september-4th-2025",
+      "https://apexminecrafthosting.com/blog/how-to-find-a-dried-ghast-in-minecraft",
+      "https://apexminecrafthosting.com/blog/server-version-updates-august-28th-2025",
+      "https://apexminecrafthosting.com/blog/best-minecraft-survival-modpacks",
+      "https://apexminecrafthosting.com/blog/apex-hosting-updates-august-21st-2025",
+      "https://apexminecrafthosting.com/blog/introducing-nightingale-server-hosting",
+      "https://apexminecrafthosting.com/blog/apex-hosting-minecraft-scholarship-winner-2025",
+      "https://apexminecrafthosting.com/blog/apex-updates-august-14th-2025",
+      "https://apexminecrafthosting.com/blog/best-minecraft-anarchy-modpacks",
+      "https://apexminecrafthosting.com/blog/server-version-updates-august-7th-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-july-31st-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-july-24th-2025",
+      "https://apexminecrafthosting.com/blog/amuletmc",
+      "https://apexminecrafthosting.com/blog/server-version-updates-july-17th-2025",
+      "https://apexminecrafthosting.com/blog/mcreator-apex-hosting",
+      "https://apexminecrafthosting.com/blog/server-version-updates-july-10th-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-july-3rd-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-june-26th-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-june-19th-2025",
+      "https://apexminecrafthosting.com/blog/chase-the-skies-minecraft-1-21-6-update",
+      "https://apexminecrafthosting.com/blog/scum-v1-0-is-live-host-your-own-server",
+      "https://apexminecrafthosting.com/blog/server-version-updates-june-12th-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-june-5th-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-may-29th-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-may-22nd-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-may-15th-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-may-8th-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-may-1st-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-april-24th-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-april-17th-2025",
+      "https://apexminecrafthosting.com/blog/apex-hostings-seasonal-spring-sale-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-april-10th-2025",
+      "https://apexminecrafthosting.com/blog/a-minecraft-movie-explained",
+      "https://apexminecrafthosting.com/blog/server-version-updates-april-3rd-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-march-27th-2025",
+      "https://apexminecrafthosting.com/blog/minecraft-1-21-5-spring-to-life",
+      "https://apexminecrafthosting.com/blog/server-version-updates-march-20th-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-march-13th-2025",
+      "https://apexminecrafthosting.com/blog/apex-hosting-incident-february-27-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-february-27th-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-february-20th-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-february-13th-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-february-6th-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-january-30th-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-january-23rd-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-january-16th-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-january-9th-2025",
+      "https://apexminecrafthosting.com/blog/server-version-updates-january-2nd-2025"
+    ],
+    "pages": [
+      {
+        "url": "https://apexminecrafthosting.com/",
+        "category": "home",
+        "status": 200,
+        "title": "Minecraft Server Hosting - Apex Hosting",
+        "fetchedAt": "2026-10-09T16:22:34.452Z",
+        "durationMs": 82,
+        "error": null
+      },
+      {
+        "url": "https://apexminecrafthosting.com/about-us",
+        "category": "about",
+        "status": 200,
+        "title": "About Us - Apex Hosting",
+        "fetchedAt": "2026-10-09T16:22:40.663Z",
+        "durationMs": 41,
+        "error": null
+      },
+      {
+        "url": "https://apexminecrafthosting.com/features",
+        "category": "features",
+        "status": 200,
+        "title": "Features - Apex Hosting",
+        "fetchedAt": "2026-10-09T16:22:41.040Z",
+        "durationMs": 55,
+        "error": null
+      },
+      {
+        "url": "https://apexminecrafthosting.com/testimonials",
+        "category": "testimonials",
+        "status": 200,
+        "title": "Reviews and Testimonials - Apex Hosting",
+        "fetchedAt": "2026-10-09T16:22:41.405Z",
+        "durationMs": 42,
+        "error": null
+      },
+      {
+        "url": "https://apexminecrafthosting.com/pricing",
+        "category": "pricing",
+        "status": 200,
+        "title": "Packages and Pricing - Apex Hosting",
+        "fetchedAt": "2026-10-09T16:22:41.517Z",
+        "durationMs": 884,
+        "error": null
+      },
+      {
+        "url": "https://apexminecrafthosting.com/faq",
+        "category": "faq",
+        "status": 200,
+        "title": "FAQ - Apex Hosting",
+        "fetchedAt": "2026-10-09T16:22:41.818Z",
+        "durationMs": 73,
+        "error": null
+      },
+      {
+        "url": "https://apexminecrafthosting.com/support",
+        "category": "contact",
+        "status": 200,
+        "title": "Contact Us for Support - Apex Hosting",
+        "fetchedAt": "2026-10-09T16:22:41.913Z",
+        "durationMs": 51,
+        "error": null
+      },
+      {
+        "url": "https://apexminecrafthosting.com/guides",
+        "category": "about",
+        "status": 200,
+        "title": "Apex Hosting: Minecraft Server Hosting",
+        "fetchedAt": "2026-10-09T16:22:42.286Z",
+        "durationMs": 44,
+        "error": null
+      },
+      {
+        "url": "https://apexminecrafthosting.com/team",
+        "category": "team",
+        "status": 200,
+        "title": "Apex Hosting: Minecraft Server Hosting",
+        "fetchedAt": "2026-10-09T16:22:42.333Z",
+        "durationMs": 73,
+        "error": null
+      },
+      {
+        "url": "https://apexminecrafthosting.com/games",
+        "category": "other",
+        "status": 200,
+        "title": "Game Server Hosting - Apex Hosting",
+        "fetchedAt": "2026-10-09T16:22:42.662Z",
+        "durationMs": 43,
+        "error": null
+      },
+      {
+        "url": "https://apexminecrafthosting.com/minecraft-mod-pack-server-list",
+        "category": "other",
+        "status": 200,
+        "title": "The Complete Minecraft Modpacks Server List - Apex Hosting",
+        "fetchedAt": "2026-10-09T16:22:43.301Z",
+        "durationMs": 581,
+        "error": null
+      },
+      {
+        "url": "https://apexminecrafthosting.com/sla",
+        "category": "other",
+        "status": 200,
+        "title": "Service Level Agreement ( SLA ) - Apex Hosting",
+        "fetchedAt": "2026-10-09T16:22:43.659Z",
+        "durationMs": 40,
+        "error": null
+      },
+      {
+        "url": "https://apexminecrafthosting.com/sitemap",
+        "category": "other",
+        "status": 200,
+        "title": "The Website Sitemap - Apex Minecraft Hosting",
+        "fetchedAt": "2026-10-09T16:22:44.210Z",
+        "durationMs": 65,
+        "error": null
+      },
+      {
+        "url": "https://apexminecrafthosting.com/partnerships",
+        "category": "other",
+        "status": 200,
+        "title": "Apex Hosting: Minecraft Server Hosting",
+        "fetchedAt": "2026-10-09T16:22:44.375Z",
+        "durationMs": 44,
+        "error": null
+      },
+      {
+        "url": "https://apexminecrafthosting.com/minecraft-minigames-server-list",
+        "category": "other",
+        "status": 200,
+        "title": "Minecraft Minigames Servers - Apex Hosting",
+        "fetchedAt": "2026-10-09T16:22:45.106Z",
+        "durationMs": 534,
+        "error": null
+      }
+    ],
+    "log": [
+      {
+        "at": "2026-10-09T16:22:34.060Z",
+        "level": "info",
+        "message": "Checking robots.txt"
+      },
+      {
+        "at": "2026-10-09T16:22:34.133Z",
+        "level": "info",
+        "message": "Fetching homepage https://apexminecrafthosting.com/"
+      },
+      {
+        "at": "2026-10-09T16:22:34.215Z",
+        "level": "info",
+        "message": "Reading styles for fonts and colors"
+      },
+      {
+        "at": "2026-10-09T16:22:34.452Z",
+        "level": "info",
+        "message": "Discovering pages"
+      },
+      {
+        "at": "2026-10-09T16:22:40.599Z",
+        "level": "info",
+        "message": "Found 54 linked pages and 0 sitemap entries"
+      },
+      {
+        "at": "2026-10-09T16:22:40.600Z",
+        "level": "info",
+        "message": "Crawling 6 priority pages"
+      },
+      {
+        "at": "2026-10-09T16:22:40.600Z",
+        "level": "info",
+        "message": "Crawling 2 of 15: /about-us"
+      },
+      {
+        "at": "2026-10-09T16:22:40.601Z",
+        "level": "info",
+        "message": "Crawling 3 of 15: /pricing"
+      },
+      {
+        "at": "2026-10-09T16:22:40.965Z",
+        "level": "info",
+        "message": "Crawling 4 of 15: /features"
+      },
+      {
+        "at": "2026-10-09T16:22:41.343Z",
+        "level": "info",
+        "message": "Crawling 5 of 15: /testimonials"
+      },
+      {
+        "at": "2026-10-09T16:22:41.707Z",
+        "level": "info",
+        "message": "Crawling 6 of 15: /faq"
+      },
+      {
+        "at": "2026-10-09T16:22:41.832Z",
+        "level": "info",
+        "message": "Crawling 7 of 15: /support"
+      },
+      {
+        "at": "2026-10-09T16:22:42.216Z",
+        "level": "info",
+        "message": "Looking for: foundingStory, targetBuyers, people"
+      },
+      {
+        "at": "2026-10-09T16:22:42.216Z",
+        "level": "info",
+        "message": "Crawling 8 of 15: /guides"
+      },
+      {
+        "at": "2026-10-09T16:22:42.217Z",
+        "level": "info",
+        "message": "Crawling 9 of 15: /team"
+      },
+      {
+        "at": "2026-10-09T16:22:42.591Z",
+        "level": "info",
+        "message": "Crawling 10 of 15: /games"
+      },
+      {
+        "at": "2026-10-09T16:22:42.666Z",
+        "level": "info",
+        "message": "Crawling 11 of 15: /minecraft-mod-pack-server-list"
+      },
+      {
+        "at": "2026-10-09T16:22:43.603Z",
+        "level": "info",
+        "message": "Checking other pages for missing info"
+      },
+      {
+        "at": "2026-10-09T16:22:43.603Z",
+        "level": "info",
+        "message": "Crawling 12 of 15: /sitemap"
+      },
+      {
+        "at": "2026-10-09T16:22:43.604Z",
+        "level": "info",
+        "message": "Crawling 13 of 15: /sla"
+      },
+      {
+        "at": "2026-10-09T16:22:44.259Z",
+        "level": "info",
+        "message": "Crawling 14 of 15: /partnerships"
+      },
+      {
+        "at": "2026-10-09T16:22:44.558Z",
+        "level": "info",
+        "message": "Crawling 15 of 15: /minecraft-minigames-server-list"
+      },
+      {
+        "at": "2026-10-09T16:22:45.408Z",
+        "level": "info",
+        "message": "Extracting and scoring"
+      },
+      {
+        "at": "2026-10-09T16:22:45.408Z",
+        "level": "info",
+        "message": "Done: 15 pages total, 150 more available, completeness 61"
+      }
+    ]
+  },
+  "consent": null,
+  "uploads": []
+}

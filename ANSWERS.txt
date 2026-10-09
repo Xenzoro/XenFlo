@@ -1,0 +1,27 @@
+XenFlo: Builder Challenge answers
+
+
+1. What approach did you take to scraping and structuring the knowledge base data?
+
+
+
+
+2. What information beyond our current baseline did you choose to include, and why?
+
+
+
+
+3. How would your knowledge base design improve the outputs of MoSocial, MoMail, and MoBlogs specifically?
+
+
+
+
+4. What would you improve or change about MoKnowledge if you had more time?
+
+
+
+
+5. What was the most challenging part of this assignment?
+
+
+
