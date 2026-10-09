@@ -83,6 +83,7 @@ export const testimonialSchema = z.object({
   quote: str,
   author: nstr,
   authorTitle: nstr,
+  company: nstr,
   rating: z.number().nullable(),
 });
 
@@ -180,6 +181,7 @@ export const pageCategorySchema = z.enum([
   "services",
   "products",
   "pricing",
+  "features",
   "faq",
   "testimonials",
   "contact",

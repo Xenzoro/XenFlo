@@ -163,7 +163,7 @@ export function extractJsonLd(ctx: PageContext): void {
       const rating = Number(text((review.reviewRating as Node | undefined)?.ratingValue));
       addItem(
         kb.insights.testimonials,
-        { quote, author, authorTitle: null, rating: Number.isFinite(rating) ? rating : null },
+        { quote, author, authorTitle: null, company: null, rating: Number.isFinite(rating) ? rating : null },
         url,
         (v) => v.quote.toLowerCase().slice(0, 80),
       );

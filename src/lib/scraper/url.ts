@@ -52,6 +52,8 @@ export function cleanUrl(href: string, base: string): string | null {
     }
     // Avoid a dangling "?" when every param was a tracking param.
     if (!url.searchParams.size) url.search = "";
+    // Treat "/about/index.html" as "/about/".
+    url.pathname = url.pathname.replace(/\/index\.(html?|php)$/i, "/");
     // Treat "/about/" and "/about" as the same page.
     if (url.pathname.length > 1 && url.pathname.endsWith("/")) {
       url.pathname = url.pathname.slice(0, -1);
@@ -60,4 +62,18 @@ export function cleanUrl(href: string, base: string): string | null {
   } catch {
     return null;
   }
+}
+
+/**
+ * Identity of a page for "have we crawled this already?" checks.
+ * Ignores protocol, "www.", trailing slashes, index files and query param order,
+ * so https://www.site.com/pricing/ and http://site.com/pricing are the same page.
+ */
+export function pageKey(url: string): string {
+  const cleaned = cleanUrl(url, url);
+  if (!cleaned) return url;
+  const u = new URL(cleaned);
+  u.searchParams.sort();
+  const path = u.pathname === "/" ? "" : u.pathname.toLowerCase();
+  return `${siteHost(cleaned)}${path}${u.search}`;
 }

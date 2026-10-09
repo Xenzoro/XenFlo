@@ -93,6 +93,8 @@ export interface Testimonial {
   quote: string;
   author: string | null;
   authorTitle: string | null;
+  /** Company the author belongs to, when the attribution names one */
+  company: string | null;
   rating: number | null;
 }
 
@@ -210,6 +212,7 @@ export type PageCategory =
   | "services"
   | "products"
   | "pricing"
+  | "features"
   | "faq"
   | "testimonials"
   | "contact"
