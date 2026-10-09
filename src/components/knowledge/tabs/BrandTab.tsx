@@ -18,7 +18,7 @@ export function BrandTab() {
   const socials = useList<SocialLink>("brand.socialLinks");
 
   return (
-    <div className="grid gap-4 md:grid-cols-2">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
       <SectionCard title="Brand colors" subtitle="Click a color to change it">
         {colors.length > 0 && (
           // Big palette strip for a quick look at the whole palette
@@ -106,7 +106,7 @@ export function BrandTab() {
       </SectionCard>
 
       <SectionCard title="Voice and style" subtitle="How your brand sounds and looks" className="md:col-span-2">
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <EditableField path="brand.writingStyle" label="Writing style" kind="textarea" emptyLabel="writing style" />
           <EditableField path="brand.artStyle" label="Art style" kind="textarea" emptyLabel="art style" />
         </div>

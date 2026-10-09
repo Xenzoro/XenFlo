@@ -50,7 +50,7 @@ export function RecordList<T extends object>({
   return (
     <div data-field={path}>
       {shown.length === 0 && editing !== "new" && emptyText && <p className="mb-3 text-sm text-muted">{emptyText}</p>}
-      <div className={cn("grid gap-3", grid)}>
+      <div className={cn("grid grid-cols-1 gap-3", grid)}>
         <AnimatePresence initial={false}>
           {shown.map(({ item, index }, i) => (
             <motion.div

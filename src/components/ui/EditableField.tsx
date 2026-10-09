@@ -52,6 +52,7 @@ export function EditableField<T = string>({
   const [error, setError] = useState<string | null>(null);
 
   const value = f?.value ?? null;
+  const badge = advanced && f ? <ConfidenceBadge confidence={f.confidence} source={f.source} /> : null;
 
   function start() {
     if (busy) return;
@@ -81,10 +82,10 @@ export function EditableField<T = string>({
 
   return (
     <div data-field={path} className={cn("min-w-0", className)}>
-      {(label || advanced) && (
+      {label && (
         <div className="mb-1 flex items-center gap-2">
-          {label && <span className="text-xs text-muted">{label}</span>}
-          {advanced && f && <ConfidenceBadge confidence={f.confidence} source={f.source} />}
+          <span className="text-xs text-muted">{label}</span>
+          {badge}
         </div>
       )}
 
@@ -107,18 +108,25 @@ export function EditableField<T = string>({
           {error && <p className="mt-1 text-xs text-danger">{error}</p>}
         </div>
       ) : value === null ? (
-        <AddPill label={emptyLabel} onClick={start} disabled={busy} />
+        <span className="inline-flex items-center gap-2">
+          <AddPill label={emptyLabel} onClick={start} disabled={busy} />
+          {!label && badge}
+        </span>
       ) : (
         <button
           type="button"
           onClick={start}
           disabled={busy}
           className={cn(
-            "group -mx-2 flex w-[calc(100%+1rem)] items-start gap-2 rounded-lg px-2 py-1 text-left text-sm transition-colors hover:bg-page disabled:cursor-default",
-            valueClassName,
+            "group -mx-2 flex w-[calc(100%+1rem)] items-start gap-2 rounded-lg px-2 py-1 text-left transition-colors hover:bg-page disabled:cursor-default",
+            // No class-merging library, so the default size only applies when the caller doesn't set one
+            valueClassName ?? "text-sm",
           )}
         >
-          <span className="min-w-0 flex-1 whitespace-pre-line break-words">{display ? display(value) : format(value)}</span>
+          <span className="min-w-0 flex-1 whitespace-pre-line break-words">
+            {display ? display(value) : format(value)}
+            {!label && badge && <span className="ml-2 inline-block align-middle">{badge}</span>}
+          </span>
           <Pencil className="mt-0.5 size-3.5 shrink-0 text-subtle opacity-0 transition-opacity group-hover:opacity-100" />
         </button>
       )}

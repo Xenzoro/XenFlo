@@ -43,7 +43,7 @@ export function OverviewTab() {
   ];
 
   return (
-    <div className="grid gap-4 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
       {/* Health gauge */}
       <Card className="flex flex-col items-center p-6 text-center" data-tour="health">
         <SectionLabel>Knowledge Health</SectionLabel>

@@ -58,7 +58,7 @@ export function CompanyTab() {
         </div>
       </Card>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <SectionCard title="About" subtitle="What you do and why you started">
           <div className="space-y-4">
             <EditableField path="company.overview" label="Overview" kind="textarea" />
@@ -68,7 +68,7 @@ export function CompanyTab() {
         </SectionCard>
 
         <SectionCard title="Business" subtitle="How your company is set up">
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <EditableField path="company.industry" label="Industry" emptyLabel="industry" />
             <EditableField path="company.businessModel" label="Business model" emptyLabel="model" placeholder="B2B, B2C…" />
             <EditableField path="company.companyRole" label="Company role" emptyLabel="role" placeholder="Service provider, retailer…" />

@@ -9,7 +9,7 @@ import { EditableList } from "@/components/ui/EditableList";
 
 export function CustomersTab() {
   return (
-    <div className="grid gap-4 md:grid-cols-2">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
       <SectionCard title="Who you serve" subtitle="Your buyers and the groups they belong to">
         <div className="space-y-4">
           <EditableList path="customers.targetBuyers" label="Target buyers" addLabel="buyer" placeholder="e.g. Families with young kids" />

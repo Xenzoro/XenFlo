@@ -25,7 +25,7 @@ export function SourcesTab({ onDigDeeper, digging }: { onDigDeeper: () => void; 
   const nothingLeft = kb.crawl.pendingUrls.length === 0;
 
   return (
-    <div className="grid gap-4 lg:grid-cols-2">
+    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
       <SectionCard
         title="Dig deeper"
         subtitle={`${pages.length} of up to ${HARD_MAX_PAGES} pages crawled · ${kb.crawl.pendingUrls.length} more found`}

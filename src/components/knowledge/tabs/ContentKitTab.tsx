@@ -18,7 +18,7 @@ export function ContentKitTab() {
       <Card className="border-dashed p-4 text-xs text-muted">
         The Content Kit is mostly written by AI enrichment, which comes in a later step. Anything you add here is used by Flo right away.
       </Card>
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <SectionCard title="Content pillars" subtitle="The 3 to 5 topics you post about">
           <EditableList path="contentKit.contentPillars" addLabel="pillar" />
         </SectionCard>
@@ -85,7 +85,7 @@ function VoiceGuideCard() {
             }}
           />
         ) : guide ? (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {COLUMNS.map((c) => (
               <div key={c.key}>
                 <p className="mb-1.5 text-xs text-muted">{c.label}</p>

@@ -15,7 +15,7 @@ export function CrawlLog({ log, className }: { log: CrawlLogEntry[]; className?:
               entry.level === "error" ? "text-danger" : entry.level === "warn" ? "text-warning" : lookingFor ? "font-semibold text-primary" : "text-muted",
             )}
           >
-            <span className="shrink-0 text-subtle">{new Date(entry.at).toLocaleTimeString([], { minute: "2-digit", second: "2-digit" })}</span>
+            <span className="shrink-0 text-subtle">{new Date(entry.at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" })}</span>
             <span className="break-all">{entry.message}</span>
           </li>
         );

@@ -24,7 +24,7 @@ function LinkCard({ item }: { item: LinkItem }) {
 
 export function InsightsTab() {
   return (
-    <div className="grid gap-4 md:grid-cols-2">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
       <SectionCard title="Testimonials" subtitle="What customers say about you" className="md:col-span-2">
         <RecordList<Testimonial>
           path="insights.testimonials"
