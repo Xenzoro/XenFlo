@@ -4,12 +4,13 @@
   Company: hero card with the name and quick stats, then two-column section cards
   (About, Business, Locations, Contact). Every value edits inline.
 */
-import { Building2 } from "lucide-react";
 import type { Address } from "@/types/knowledge";
 import { useKnowledge } from "@/context/KnowledgeContext";
 import { Card, SectionCard, SectionLabel } from "@/components/ui/Card";
 import { EditableField } from "@/components/ui/EditableField";
 import { EditableList } from "@/components/ui/EditableList";
+import { RecordLogo } from "@/components/view/RecordLogo";
+import { pickIconLogo } from "@/lib/utils/logo";
 
 // Addresses are edited as one line of text; the split parts are cleared when the user rewrites it.
 const addressText = (a: Address) => a.formatted;
@@ -25,7 +26,7 @@ const validEmail = (t: string) => (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(t) ? null :
 export function CompanyTab() {
   const { kb } = useKnowledge();
   if (!kb) return null;
-  const logo = kb.brand.logos.find((l) => l.value)?.value;
+  const logoUrl = pickIconLogo(kb.brand.logos);
 
   return (
     <div className="space-y-4">
@@ -33,12 +34,7 @@ export function CompanyTab() {
       <Card className="p-5 sm:p-6">
         <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
           <div className="flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-border bg-page">
-            {logo ? (
-              // eslint-disable-next-line @next/next/no-img-element -- remote logos from any domain
-              <img src={logo.url} alt={logo.alt ?? "Logo"} className="max-h-12 max-w-12 object-contain" />
-            ) : (
-              <Building2 className="size-7 text-subtle" />
-            )}
+            <RecordLogo url={logoUrl} name={kb.companyName} className="size-full border-0" />
           </div>
           <div className="min-w-0 flex-1">
             <SectionLabel>Company</SectionLabel>

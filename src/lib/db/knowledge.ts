@@ -5,17 +5,18 @@
  * Writes go through Postgres functions (create_knowledge_base, update_knowledge_base)
  * so each save, its version snapshot, crawl run and consent are one transaction.
  */
-import type { KnowledgeBase } from "@/types/knowledge";
+import type { Field, KnowledgeBase, Logo } from "@/types/knowledge";
+import { pickIconLogo } from "@/lib/utils/logo";
 import { knowledgeBaseSchema } from "@/types/knowledge.schema";
 import { scoreCompleteness } from "@/lib/scraper/score";
 import { getDb } from "./client";
 import { DbError, fromPostgrest } from "./errors";
 import type { KnowledgeBaseRow, KnowledgeSummary, ListFilters, ListSort, VersionSummary } from "./types";
 
-// `logo:data->...->>url` is PostgREST JSON-path syntax: it pulls one value out of the JSONB
-// (the first logo's URL) without sending the whole knowledge base.
+// `logos:data->brand->logos` is PostgREST JSON-path syntax: it pulls just the logo list out
+// of the JSONB (a few hundred bytes) instead of the whole knowledge base.
 const SUMMARY_COLUMNS =
-  "id, company_id, url, company_name, industry, completeness, version, last_crawled_at, created_at, updated_at, logo:data->brand->logos->0->value->>url";
+  "id, company_id, url, company_name, industry, completeness, version, last_crawled_at, created_at, updated_at, logos:data->brand->logos";
 
 const SORTS: Record<ListSort, { column: string; ascending: boolean }> = {
   updated_desc: { column: "updated_at", ascending: false },
@@ -30,7 +31,7 @@ const SORTS: Record<ListSort, { column: string; ascending: boolean }> = {
   version_asc: { column: "version", ascending: true },
 };
 
-type SummaryRow = Omit<KnowledgeBaseRow, "data" | "owner_id"> & { logo: string | null };
+type SummaryRow = Omit<KnowledgeBaseRow, "data" | "owner_id"> & { logos: Field<Logo>[] | null };
 
 function toSummary(row: SummaryRow): KnowledgeSummary {
   return {
@@ -39,7 +40,7 @@ function toSummary(row: SummaryRow): KnowledgeSummary {
     url: row.url,
     companyName: row.company_name,
     industry: row.industry,
-    logoUrl: row.logo,
+    logoUrl: pickIconLogo(row.logos),
     completeness: row.completeness,
     version: row.version,
     lastCrawledAt: row.last_crawled_at,

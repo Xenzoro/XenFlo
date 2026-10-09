@@ -23,7 +23,7 @@ export interface KnowledgeSummary {
   url: string;
   companyName: string;
   industry: string | null;
-  /** First logo's URL, read straight from the JSONB so cards can show it */
+  /** Best small-tile logo (see pickIconLogo), read from the JSONB so cards can show it */
   logoUrl: string | null;
   completeness: number;
   version: number;
