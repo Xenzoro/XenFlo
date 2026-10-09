@@ -121,7 +121,7 @@ src/app (pages, API routes), src/components (ui, knowledge, view, tour), src/lib
 - apexminecrafthosting.com (main showcase, info rich)
 - dragonfactories.com (stress test: multi brand restaurant group, info in images, Wix)
 - a small local service business (typical MoFlo customer)
-- a site that blocks bots (to demo the blocked state and upload fallback)
+- animebobacafe.com (blocked site demo: robots.txt disallows bots; use for the blocked state and upload fallback. Only use its content with the owner's permission.)
 
 ## Working rules
 - Small, focused commits with clear messages
