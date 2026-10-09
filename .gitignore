@@ -40,7 +40,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-#webstormn
+# webstormn
 .idea/
 # allow the env template
 !.env.example
+
+# Scratch to store json files
+scratch/
