@@ -22,6 +22,7 @@ export function fieldSchema<T extends z.ZodType>(inner: T) {
     source: z.string().nullable(),
     confidence: confidenceSchema,
     updatedAt: z.string(),
+    evidence: z.array(z.string()).optional(),
   });
 }
 
@@ -77,6 +78,8 @@ export const offeringSchema = z.object({
   priceText: nstr,
   priceAmount: z.number().nullable(),
   currency: nstr,
+  categoryConfidence: confidenceSchema.optional(),
+  categoryEvidence: z.array(str).optional(),
 });
 
 export const testimonialSchema = z.object({
@@ -163,6 +166,8 @@ export const insightsSectionSchema = z.object({
   communityValues: listSchema(str),
   legalLinks: listSchema(linkItemSchema),
   positioningSignals: listSchema(str),
+  // Added in Phase 9; older records don't have it
+  seasonalMessaging: listSchema(str).default([]),
 });
 
 export const contentKitSectionSchema = z.object({
@@ -208,6 +213,9 @@ export const crawlInfoSchema = z.object({
       fetchedAt: str,
       durationMs: z.number(),
       error: nstr,
+      metaDescription: nstr.optional(),
+      headings: z.array(str).optional(),
+      imageAlts: z.array(str).optional(),
     }),
   ),
   log: z.array(
@@ -260,6 +268,9 @@ export const knowledgeBaseSchema = z.object({
       }),
     )
     .default([]),
+  // Added in Phase 9
+  dismissed: z.array(z.object({ path: str, key: str, at: str })).default([]),
+  notApplicable: z.array(str).default([]),
 });
 
 // Compile-time guard: errors if the schema and the TS interface disagree in either direction.

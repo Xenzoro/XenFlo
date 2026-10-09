@@ -72,6 +72,7 @@ export function emptyKnowledgeBase(url: string): KnowledgeBase {
       communityValues: [],
       legalLinks: [],
       positioningSignals: [],
+      seasonalMessaging: [],
     },
     contentKit: {
       contentPillars: [],
@@ -93,5 +94,7 @@ export function emptyKnowledgeBase(url: string): KnowledgeBase {
     },
     consent: null,
     uploads: [],
+    dismissed: [],
+    notApplicable: [],
   };
 }

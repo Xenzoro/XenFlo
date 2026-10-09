@@ -25,6 +25,8 @@ export interface Field<T> {
   confidence: Confidence;
   /** ISO timestamp */
   updatedAt: string;
+  /** For AI and inferred values: the short quotes or page paths they're based on (shown in the badge tooltip) */
+  evidence?: string[];
 }
 
 export type FieldList<T> = Field<T>[];
@@ -87,6 +89,9 @@ export interface Offering {
   priceText: string | null;
   priceAmount: number | null;
   currency: string | null;
+  /** Set when the category came from AI or a heuristic (the rest of the offering was read from the site) */
+  categoryConfidence?: Confidence;
+  categoryEvidence?: string[];
 }
 
 export interface Testimonial {
@@ -192,6 +197,8 @@ export interface InsightsSection {
   communityValues: FieldList<string>;
   legalLinks: FieldList<LinkItem>;
   positioningSignals: FieldList<string>;
+  /** Seasonal or recurring campaign angles (AI-inferred; scraped offers live in promotions) */
+  seasonalMessaging: FieldList<string>;
 }
 
 export interface ContentKitSection {
@@ -231,6 +238,12 @@ export interface CrawledPage {
   fetchedAt: string;
   durationMs: number;
   error: string | null;
+  /** Evidence for AI enrichment, captured during the crawl (absent on records scraped before Phase 9) */
+  metaDescription?: string | null;
+  /** h1-h3 text, in page order */
+  headings?: string[];
+  /** Image alt text and cleaned logo file names */
+  imageAlts?: string[];
 }
 
 export interface CrawlLogEntry {
@@ -303,4 +316,15 @@ export interface KnowledgeBase {
   crawl: CrawlInfo;
   consent: Consent | null;
   uploads: UploadRecord[];
+  /** Values the owner removed with "Wrong? Remove"; enrichment (and later re-scrapes) won't suggest them again */
+  dismissed: Dismissal[];
+  /** Field paths the owner marked "Not applicable": they count as complete in the health score */
+  notApplicable: string[];
+}
+
+export interface Dismissal {
+  path: string;
+  /** Normalized value (lowercased JSON), so the same value isn't suggested again */
+  key: string;
+  at: string;
 }
