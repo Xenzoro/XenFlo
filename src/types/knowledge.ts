@@ -27,6 +27,8 @@ export interface Field<T> {
   updatedAt: string;
   /** For AI and inferred values: the short quotes or page paths they're based on (shown in the badge tooltip) */
   evidence?: string[];
+  /** When the owner checked an AI value and kept it ("Mark as reviewed" on a menu). It is then user_edited. */
+  reviewedAt?: string;
 }
 
 export type FieldList<T> = Field<T>[];
@@ -262,8 +264,9 @@ export interface CrawledPage {
  * found: not read yet. read: text read by the scraper. no_text: a picture-only PDF (needs AI to read).
  * messy: text found but too jumbled for the heuristics (AI can structure it). read_ai: read by AI.
  * too_large / blocked / failed: not readable, shown to the owner with the link.
+ * duplicate: a text copy of a menu already read from its picture; only items missing from that menu were kept.
  */
-export type MenuSourceStatus = "found" | "read" | "no_text" | "messy" | "read_ai" | "too_large" | "blocked" | "failed";
+export type MenuSourceStatus = "found" | "read" | "no_text" | "messy" | "read_ai" | "too_large" | "blocked" | "failed" | "duplicate";
 
 export interface MenuSource {
   url: string;
@@ -285,6 +288,10 @@ export interface MenuSource {
   text?: string | null;
   /** Why it wasn't read, in plain words */
   note?: string | null;
+  /** The file's own name (Content-Disposition or Wix "dn="), a clue to which brand it belongs to */
+  fileName?: string | null;
+  /** How its items were read: from text (heuristics or AI sorting text) or from the picture (AI vision) */
+  readAs?: "text" | "picture" | null;
 }
 
 export interface CrawlLogEntry {

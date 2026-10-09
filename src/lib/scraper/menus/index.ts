@@ -11,8 +11,7 @@ import { addItem } from "../merge";
 import { fetchBinary } from "../fetch";
 import { ScrapeError } from "../errors";
 import type { CrawlSession } from "../crawl";
-import { groupFromFileName } from "../extract/menu-sources";
-import { linkOfferingLocations } from "./group";
+import { organizeMenus } from "./organize";
 import { menuTextQuality, parseMenuLines, type MenuItem } from "./parse";
 import { isPdf, readPdfText } from "./pdf";
 
@@ -41,7 +40,8 @@ export async function readMenus(session: CrawlSession): Promise<void> {
     const left = (kb.crawl.menuSources ?? []).filter((s) => s.kind === "pdf" && s.status === "found").length;
     if (left) session.log(`${left} menu PDF${left === 1 ? "" : "s"} left for "Dig deeper"`, "warn");
   }
-  linkOfferingLocations(kb);
+  // Name hub menus, skip text copies of menus already read, dedupe within each brand
+  Object.assign(kb, organizeMenus(kb));
 }
 
 async function readPdfSource(session: CrawlSession, source: MenuSource): Promise<void> {
@@ -56,8 +56,8 @@ async function readPdfSource(session: CrawlSession, source: MenuSource): Promise
       Object.assign(source, { status: "failed", note: "The link didn't return a PDF." });
       return;
     }
-    // Wix names the download in the redirect: "...pdf?dn=Captain+6+-+Menu+-+2026.pdf"
-    source.group ??= groupFromFileName(new URL(file.url).searchParams.get("dn") ?? "");
+    // "nabemenu (2).pdf" or Wix's "dn=Captain+6+-+Menu+-+2026.pdf": a clue to the brand (organize.ts)
+    source.fileName = file.fileName;
 
     const pdf = await readPdfText(file.bytes, MENU_LIMITS.maxPdfPages);
     source.pages = pdf.pages;
@@ -71,6 +71,7 @@ async function readPdfSource(session: CrawlSession, source: MenuSource): Promise
       source.text = text.slice(0, MENU_LIMITS.keepTextChars);
       source.note = "Text found, but not laid out clearly enough to sort without AI.";
     } else {
+      source.readAs = "text";
       source.items = addMenuItems(session.kb, items, source, "pdf", "scraped");
     }
   } catch (err) {

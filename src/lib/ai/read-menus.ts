@@ -21,16 +21,24 @@ import { isPdf, readPdfText } from "@/lib/scraper/menus/pdf";
 import { aiConfig, MENU_LIMITS } from "./config";
 import { freshItems, itemsFromReader, pickMenuSources, type ReadItem } from "./menus";
 import { callOpenAi, type Content } from "./openai";
-import { menuSystemPrompt } from "./prompts";
+import { LEGACY_MENU_PROMPTS, menuSystemPrompt } from "./prompts";
 import { menuOutputSchema, type MenuOutput } from "./schemas";
 
 type Job = { source: MenuSource; mode: "vision" | "text" };
 type Usage = { input: number; output: number; ms: number };
 
-export async function readMenusWithAi(kb: KnowledgeBase): Promise<MenuReadResult> {
+/**
+ * `cachedOnly`: only menus that already have a cached answer, with no AI call and no quota (free).
+ * Used to bring back menus already read after a re-scrape, and for checking changes without live runs.
+ */
+export async function readMenusWithAi(kb: KnowledgeBase, opts: { cachedOnly?: boolean; only?: string[]; fresh?: boolean } = {}): Promise<MenuReadResult> {
   const limit = aiConfig.dailyLimit;
-  const plan = pickMenuSources(kb);
-  const jobs: Job[] = [...plan.vision.map((v) => ({ source: v.source, mode: "vision" as const })), ...plan.text.map((source) => ({ source, mode: "text" as const }))];
+  // `only`: read just these menus again (e.g. after a prompt fix), even if they were read before.
+  // `fresh`: ignore answers from earlier prompt versions for them.
+  const target = opts.only?.length ? withOnly(kb, opts.only) : kb;
+  // Cached-only looks at every menu waiting for AI (no cap: nothing is paid for)
+  const plan = opts.cachedOnly ? pickMenuSources(target, Infinity, Infinity) : pickMenuSources(target);
+  let jobs: Job[] = [...plan.vision.map((v) => ({ source: v.source, mode: "vision" as const })), ...plan.text.map((source) => ({ source, mode: "text" as const }))];
   const base = { offerings: [], sources: [], read: 0, cachedCount: 0, remainingToday: await aiQuotaRemaining(limit).catch(() => null) };
   if (!jobs.length) {
     return { ...base, mode: "live", remaining: plan.skipped, notes: ["No menus left for AI to read. Menus over 20 MB can be added as screenshots."] };
@@ -40,8 +48,22 @@ export async function readMenusWithAi(kb: KnowledgeBase): Promise<MenuReadResult
   const system = menuSystemPrompt();
   // Same prompt + model + menu = same answer. Keyed on the URL (Wix and most CMSs give a new file a new URL),
   // not the size, which is only known after the first download and would make the second run miss the cache.
-  const keyFor = (j: Job) => hash({ system, model, url: j.source.url, text: j.mode === "text" ? hash(j.source.text) : null });
-  const cached = await Promise.all(jobs.map((j) => getCachedEnrichment<MenuOutput>(keyFor(j)).catch(() => null)));
+  const keyWith = (sys: string, j: Job) => hash({ system: sys, model, url: j.source.url, text: j.mode === "text" ? hash(j.source.text) : null });
+  const keyFor = (j: Job) => keyWith(system, j);
+  // Current prompt first, then answers from earlier prompt versions (still free) unless `fresh`
+  const legacy = opts.fresh ? [] : LEGACY_MENU_PROMPTS.map((v) => menuSystemPrompt(v));
+  const lookup = async (j: Job) => {
+    for (const sys of [system, ...legacy]) {
+      const hit = await getCachedEnrichment<MenuOutput>(keyWith(sys, j)).catch(() => null);
+      if (hit) return hit;
+    }
+    return null;
+  };
+  let cached = await Promise.all(jobs.map(lookup));
+  if (opts.cachedOnly) {
+    jobs = jobs.filter((_, i) => cached[i]);
+    cached = cached.filter(Boolean);
+  }
   const quota = cached.every(Boolean) || (await takeAiQuota(limit));
 
   const notes: string[] = [];
@@ -80,9 +102,11 @@ export async function readMenusWithAi(kb: KnowledgeBase): Promise<MenuReadResult
             items = itemsFromReader(out, job.mode === "text" ? source.text : null);
           }
         }
-        const fresh = freshItems(kb, source.group, items).filter((it) => !added.some((a) => a.value?.name.toLowerCase() === it.item.name.toLowerCase() && a.value?.group === source.group));
+        // Duplicates aren't dropped here: organizeMenus (in the browser) keeps the better copy and cites both
+        const fresh = freshItems(kb, source.group, items);
         added.push(...fresh.map((it) => toField(kb, it, source, job)));
         if (source.status !== "read") source.status = "read_ai";
+        source.readAs = job.mode === "text" || source.status === "read" ? "text" : "picture";
         source.items += fresh.length;
         source.note = out && !out.isMenu ? "AI says this isn't a menu." : (out?.unreadable ?? null);
         touched.push(source);
@@ -113,7 +137,21 @@ export async function readMenusWithAi(kb: KnowledgeBase): Promise<MenuReadResult
     notes,
     remainingToday: await aiQuotaRemaining(limit).catch(() => null),
     usage: usage.length ? { ...total, calls: usage.length } : undefined,
+    // A re-read replaces that menu's earlier items; only menus that were actually read again count
+    replaces: opts.only?.length ? touched.filter((t) => t.status === "read_ai" || t.status === "read").map((t) => t.url) : undefined,
   };
+}
+
+/** Put the chosen menus back in line to be read (as if never read), and nothing else. */
+function withOnly(kb: KnowledgeBase, urls: string[]): KnowledgeBase {
+  const chosen = new Set(urls);
+  const menuSources = (kb.crawl.menuSources ?? []).flatMap((s) => {
+    if (!chosen.has(s.url)) return [];
+    if (s.status !== "read_ai" && s.status !== "duplicate") return [s];
+    // Read again from the picture (or its kept text, for a text copy)
+    return [{ ...s, status: s.readAs === "text" && s.text ? ("messy" as const) : ("no_text" as const) }];
+  });
+  return { ...kb, crawl: { ...kb.crawl, menuSources } };
 }
 
 /** One live read. PDFs are downloaded with the scraper's checks and caps; a text PDF is read without AI. */
@@ -129,6 +167,7 @@ async function readOne(job: Job, source: MenuSource, model: string, system: stri
     const file = await fetchBinary(source.url, { maxBytes: SCRAPE_MENU_LIMITS.maxPdfBytes, timeoutMs: 10_000 });
     if (!isPdf(file.bytes)) throw new Error("not a PDF");
     source.bytes = file.bytes.byteLength;
+    source.fileName ??= file.fileName;
     if (source.status === "found") {
       const pdf = await readPdfText(file.bytes, SCRAPE_MENU_LIMITS.maxPdfPages);
       source.pages = pdf.pages;

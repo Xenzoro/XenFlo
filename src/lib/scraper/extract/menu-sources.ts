@@ -5,12 +5,12 @@
  * - third-party ordering, delivery and booking links -> customers.channels, with the platform name.
  *   Those platforms are never fetched: we only record that the business uses them.
  */
-import type { KnowledgeBase, MenuSource } from "@/types/knowledge";
+import type { MenuSource } from "@/types/knowledge";
 import type { PageContext } from "./types";
 import { addItem } from "../merge";
 import { cleanUrl, pageKey } from "../url";
-import { textOf, titleCaseIfLower } from "./text";
-import { titleCase } from "../menus/parse";
+import { textOf } from "./text";
+import { companyWords, groupFromTitle } from "../menus/brands";
 
 const MENU_WORD = /menu|food|drinks?|beverage|price|pricing|rates|services|specials|catering|brunch|lunch|dinner|wine|cocktail|happy[- ]hour|price[- ]?list/i;
 const PDF = /\.pdf$/i;
@@ -110,44 +110,12 @@ function imageSize(width: string | undefined, height: string | undefined, src: s
   return m ? { w: Number(m[1]), h: Number(m[2]) } : { w: 0, h: 0 };
 }
 
-// Page titles that describe a section or a list of brands, not one brand
-const NOT_A_GROUP = /^(home|all you can eat|ayce|our |menus?\b|full menu|locations?|order|apply|careers?|jobs|contact|about|gallery|events?|catering|reservations?|specials|services|pricing)/i;
-
 /**
  * The brand or location a page is about, from its <title> or h1: "SAKANA SUSHI | Dragon Factory" -> "Sakana Sushi".
- * Null for the home page, hub pages, and titles that are just the company name.
+ * Null for the home page, hub pages, and titles that are just the company name (see menus/brands.ts).
  */
 export function pageGroup(ctx: Pick<PageContext, "$" | "url" | "kb" | "category">): string | null {
   const { $, url, kb, category } = ctx;
   if (category === "home" || new URL(url).pathname === "/") return null;
-  const company = companyWords(kb, url);
-  const raw = textOf($("title").first()) || textOf($("h1").first());
-  const parts = raw.split(/\s+[|\-–—:·•]\s+/).map((p) => p.trim()).filter(Boolean);
-  const pick = parts.find((p) => !isCompany(p, company)) ?? null;
-  if (!pick || pick.length > 50 || NOT_A_GROUP.test(pick) || /\d{3,}/.test(pick)) return null;
-  return titleCaseIfLower(titleCase(pick));
-}
-
-function companyWords(kb: KnowledgeBase, url: string): string[] {
-  const name = (kb.company.name.value ?? "").toLowerCase();
-  const host = new URL(url).hostname.replace(/^www\./, "").split(".")[0];
-  return [name, host].filter(Boolean);
-}
-
-/** "DRAGON FACTORY" vs company "Dragon Factory Las Vegas" or host "dragonfactories" */
-function isCompany(part: string, company: string[]): boolean {
-  const p = part.toLowerCase();
-  const squashed = p.replace(/[^a-z0-9]/g, "");
-  return company.some((c) => c.includes(p) || p.includes(c) || (squashed.length >= 5 && c.replace(/[^a-z0-9]/g, "").startsWith(squashed.slice(0, 10))));
-}
-
-/** "Captain 6 - Menu - 2026.pdf" (Wix's download name) -> "Captain 6" */
-export function groupFromFileName(name: string): string | null {
-  const out = name
-    .replace(/\.pdf$/i, "")
-    .split(/\s*[-–_|]\s*/)
-    .filter((p) => p && !/^(menu|menus|drinks?|food|price list|\d{2,4}|final|new|v\d+)$/i.test(p))
-    .join(" ")
-    .trim();
-  return out && out.length <= 40 && /[a-z]/i.test(out) ? titleCase(out) : null;
+  return groupFromTitle(textOf($("title").first()) || textOf($("h1").first()), companyWords(kb, url));
 }

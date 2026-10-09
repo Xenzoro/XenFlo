@@ -24,12 +24,24 @@ const MARKET = /^(market\s+price|mp|m\.p\.|seasonal\s+price|ask\s+server)$/i;
 // One price: "$12.99", "12.99", "12", "$9.95/person", "$10 - $15"
 const PRICE_TOKEN = /^\$?\s?(\d{1,4}(?:[.,]\d{2})?)(?:\s*[-–]\s*\$?\s?(\d{1,4}(?:[.,]\d{2})?))?(\s*\/\s*[a-z]+|\s+(?:each|ea|per\s+\w+))?$/i;
 
+const SUPERSCRIPT: Record<string, string> = { "⁰": "0", "¹": "1", "²": "2", "³": "3", "⁴": "4", "⁵": "5", "⁶": "6", "⁷": "7", "⁸": "8", "⁹": "9" };
+
+/**
+ * Cents printed raised ("$58⁹⁵") come out of PDFs and models as "$58⁹⁵", "$58 95" or "$58^95".
+ * With a dollar sign and exactly two raised digits, that's $58.95. Anything else is left as printed.
+ */
+export function normalizeCents(raw: string): string {
+  return raw
+    .replace(/(\$\s?\d{1,4})([⁰¹²³⁴⁵⁶⁷⁸⁹]{2})(?![\d⁰¹²³⁴⁵⁶⁷⁸⁹])/g, (_, d: string, c: string) => `${d}.${[...c].map((x) => SUPERSCRIPT[x]).join("")}`)
+    .replace(/(\$\s?\d{1,4})(?:\s|\^)(\d{2})(?!\d)/g, "$1.$2");
+}
+
 /**
  * Read one price string. Returns null when the text isn't a price at all.
  * "$12.99" -> 12.99, "12" -> 12, "Market price" -> no amount (never guessed).
  */
 export function parsePrice(raw: string): ParsedPrice | null {
-  const text = raw.replace(/\s+/g, " ").trim();
+  const text = normalizeCents(raw.replace(/\s+/g, " ").trim());
   if (!text) return null;
   if (MARKET.test(text)) return { pricingType: "unknown", priceText: text.length <= 3 ? "Market price" : text, priceAmount: null, currency: null };
   const m = text.match(PRICE_TOKEN);

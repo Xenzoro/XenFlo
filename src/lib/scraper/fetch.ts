@@ -103,8 +103,33 @@ export interface BinaryResult {
   url: string;
   contentType: string;
   bytes: Uint8Array;
-  /** ETag or Last-Modified, when the server sends one (part of the AI cache key) */
+  /** ETag or Last-Modified, when the server sends one */
   version: string | null;
+  /** The file's own name, when the server gives one ("nabemenu (2).pdf") */
+  fileName: string | null;
+}
+
+/**
+ * A downloaded file's own name: Content-Disposition ("filename*=UTF-8''nabemenu%20%282%29.pdf" or
+ * filename="...") or Wix's download parameter ("...pdf?dn=Captain+6+-+Menu+-+2026.pdf").
+ */
+export function fileNameFrom(contentDisposition: string | null, url: string): string | null {
+  const cd = contentDisposition ?? "";
+  const star = cd.match(/filename\*\s*=\s*(?:UTF-8|utf-8)?''([^;]+)/);
+  const plain = cd.match(/filename\s*=\s*"([^"]+)"|filename\s*=\s*([^;]+)/);
+  const raw = star?.[1] ?? plain?.[1] ?? plain?.[2] ?? null;
+  if (raw) {
+    try {
+      return decodeURIComponent(raw.trim());
+    } catch {
+      return raw.trim();
+    }
+  }
+  try {
+    return new URL(url).searchParams.get("dn");
+  } catch {
+    return null;
+  }
 }
 
 /**
@@ -149,6 +174,7 @@ export async function fetchBinary(
       contentType: res.headers.get("content-type") ?? "",
       bytes,
       version: res.headers.get("etag") ?? res.headers.get("last-modified"),
+      fileName: fileNameFrom(res.headers.get("content-disposition"), finalUrl),
     };
   } catch (err) {
     throw toScrapeError(err, timeoutMs);

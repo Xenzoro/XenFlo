@@ -11,7 +11,9 @@ import path from "node:path";
 export const TEXT_PROMPTS = ["understand-business.v1"] as const;
 export const VISION_PROMPT = "logo-vision.v1";
 // Phase 10: its own button and route (/api/menus), not part of Enrich with AI
-export const MENU_PROMPT = "menu-reader.v1";
+export const MENU_PROMPT = "menu-reader.v2";
+/** Earlier versions: their cached answers are still used (free) until a menu is read again with the current one */
+export const LEGACY_MENU_PROMPTS = ["menu-reader.v1"] as const;
 
 const cache = new Map<string, string>();
 
@@ -56,11 +58,11 @@ listed for that screenshot. Copy text exactly; leave out anything you can't read
 }
 
 /** System prompt for reading one menu (PDF, image or messy menu text). */
-export function menuSystemPrompt(): string {
+export function menuSystemPrompt(version: string = MENU_PROMPT): string {
   return `${SHARED_RULES}
 
------ ${MENU_PROMPT} -----
-${load(MENU_PROMPT)}`;
+----- ${version} -----
+${load(version)}`;
 }
 
 /** Recorded in the cache key, so editing a prompt version invalidates old results. */

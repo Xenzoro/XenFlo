@@ -14,6 +14,12 @@ export const maxDuration = 60;
 const bodySchema = z.object({
   knowledgeBase: z.unknown(),
   passcode: z.string().max(200).optional(),
+  /** Only menus already read before (cached): no AI call, no quota, so no passcode needed */
+  cachedOnly: z.boolean().optional(),
+  /** Read only these menu URLs (again), e.g. after a prompt fix */
+  only: z.array(z.string().url().max(2048)).max(10).optional(),
+  /** Ignore answers cached with earlier prompt versions */
+  fresh: z.boolean().optional(),
 });
 
 /** POST { knowledgeBase, passcode } -> MenuReadResult (new offerings + updated menu sources; nothing is saved). */
@@ -22,6 +28,14 @@ export async function POST(request: Request) {
   if (!parsed.success) return badRequest("INVALID_REQUEST", "Send JSON like { \"knowledgeBase\": {...}, \"passcode\": \"...\" }.");
   const kb = knowledgeBaseSchema.safeParse(parsed.data.knowledgeBase);
   if (!kb.success) return badRequest("INVALID_DATA", "That knowledge base isn't in the expected format.");
+
+  if (parsed.data.cachedOnly) {
+    try {
+      return NextResponse.json(await readMenusWithAi(kb.data, { cachedOnly: true }));
+    } catch (err) {
+      return errorResponse(err);
+    }
+  }
 
   // Reading pictures needs live AI; there is no preview version of it.
   if (!liveAvailable()) {
@@ -42,7 +56,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    return NextResponse.json(await readMenusWithAi(kb.data));
+    return NextResponse.json(await readMenusWithAi(kb.data, { only: parsed.data.only, fresh: parsed.data.fresh }));
   } catch (err) {
     return errorResponse(err);
   }

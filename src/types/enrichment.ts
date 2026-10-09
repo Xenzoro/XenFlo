@@ -77,6 +77,8 @@ export interface MenuReadResult {
   mode: "live" | "unavailable";
   /** New offerings to add (already filtered against dismissed and existing items) */
   offerings: Field<Offering>[];
+  /** Menus read again this run: their earlier items (except the owner's edits) are replaced by the new ones */
+  replaces?: string[];
   /** The menu sources this run touched, with their new status and item counts (matched by url) */
   sources: MenuSource[];
   /** Menus read this run, menus still waiting, and how many came from the cache (free) */

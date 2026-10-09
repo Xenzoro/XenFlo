@@ -23,6 +23,7 @@ export function fieldSchema<T extends z.ZodType>(inner: T) {
     confidence: confidenceSchema,
     updatedAt: z.string(),
     evidence: z.array(z.string()).optional(),
+    reviewedAt: z.string().optional(),
   });
 }
 
@@ -210,13 +211,15 @@ export const menuSourceSchema = z.object({
   foundOn: str,
   label: nstr,
   group: nstr,
-  status: z.enum(["found", "read", "no_text", "messy", "read_ai", "too_large", "blocked", "failed"]),
+  status: z.enum(["found", "read", "no_text", "messy", "read_ai", "too_large", "blocked", "failed", "duplicate"]),
   items: z.number().int().min(0),
   bytes: z.number().nullable().optional(),
   pages: z.number().int().nullable().optional(),
   area: z.number().nullable().optional(),
   text: nstr.optional(),
   note: nstr.optional(),
+  fileName: nstr.optional(),
+  readAs: z.enum(["text", "picture"]).nullable().optional(),
 });
 
 export const crawlInfoSchema = z.object({

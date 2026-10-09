@@ -94,4 +94,28 @@ describe("readMenusWithAi", () => {
     const r = await readMenusWithAi(kb);
     expect(r.offerings.map((f) => f.value?.name)).toEqual(["Miso Soup"]);
   });
+
+  it("cachedOnly brings back menus already read, with no call and no quota", async () => {
+    const kb = kbWith(["sakana", "umami"]);
+    await readMenusWithAi(kbWith(["sakana"]));
+    state.calls = 0;
+    state.quota = false;
+    const r = await readMenusWithAi(kb, { cachedOnly: true });
+    expect(state.calls).toBe(0);
+    expect(r.read).toBe(1);
+    expect(r.offerings.every((f) => f.value?.group === "sakana")).toBe(true);
+  });
+
+  it("re-reads only the chosen menu, ignoring older answers when fresh", async () => {
+    const kb = kbWith(["sakana", "umami"]);
+    await readMenusWithAi(kb);
+    state.calls = 0;
+    const done = { ...kb, crawl: { ...kb.crawl, menuSources: kb.crawl.menuSources!.map((s) => ({ ...s, status: "read_ai" as const, readAs: "picture" as const })) } };
+    const r = await readMenusWithAi(done, { only: [`${SITE}/files/umami.pdf`], fresh: true });
+    // Same prompt version is still cached; "fresh" only skips answers from older versions
+    expect(state.calls).toBe(0);
+    expect(r.read).toBe(1);
+    expect(r.replaces).toEqual([`${SITE}/files/umami.pdf`]);
+  });
 });
+

@@ -10,7 +10,7 @@
  */
 import type { Confidence, KnowledgeBase, MenuSource } from "@/types/knowledge";
 import type { MenuItem, ParsedPrice } from "@/lib/scraper/menus/parse";
-import { parsePrice } from "@/lib/scraper/menus/parse";
+import { normalizeCents, parsePrice } from "@/lib/scraper/menus/parse";
 import { MENU_LIMITS } from "./config";
 import { valueKey } from "./field-tiers";
 import type { MenuOutput } from "./schemas";
@@ -31,7 +31,7 @@ const PICTURE: MenuSource["status"][] = ["no_text", "found"];
  * Brand pages before hub pages, then smaller PDFs; then images, ones named like a menu first, biggest first.
  * A PDF uses one unit per page (first 4 pages). A source that doesn't fit the units left is skipped for now.
  */
-export function pickMenuSources(kb: KnowledgeBase, cap = MENU_LIMITS.units): MenuPlan {
+export function pickMenuSources(kb: KnowledgeBase, cap = MENU_LIMITS.units, textCalls = MENU_LIMITS.textCalls): MenuPlan {
   const sources = kb.crawl.menuSources ?? [];
   const pdfs = sources
     .filter((s) => s.kind === "pdf" && PICTURE.includes(s.status))
@@ -53,7 +53,7 @@ export function pickMenuSources(kb: KnowledgeBase, cap = MENU_LIMITS.units): Men
     vision.push({ source, units });
     used += units;
   }
-  const text = messy.slice(0, MENU_LIMITS.textCalls);
+  const text = messy.slice(0, textCalls);
   return { vision, text, skipped: skipped + messy.length - text.length };
 }
 
@@ -108,7 +108,7 @@ export function itemsFromReader(out: MenuOutput, sourceText?: string | null): Re
  * anything without a digit (other than "Market price"/"MP") is dropped.
  */
 export function readPrice(raw: string | null): ParsedPrice | null {
-  const text = raw?.trim();
+  const text = raw ? normalizeCents(raw.trim()) : null;
   if (!text) return null;
   const parsed = parsePrice(text);
   if (parsed) return parsed;
@@ -122,12 +122,11 @@ export function offeringKey(name: string, group: string | null | undefined): str
   return valueKey(`${group ?? ""}|${name}`);
 }
 
-/** Drop items the owner removed before and items already in the knowledge base. */
+/**
+ * Drop items the owner removed before ("Wrong? Remove"). Items already in the knowledge base are NOT dropped:
+ * organizeMenus merges duplicates within a brand, keeping the priced and described one and citing both menus.
+ */
 export function freshItems<T extends { item: MenuItem }>(kb: KnowledgeBase, group: string | null, items: T[]): T[] {
   const dismissed = new Set((kb.dismissed ?? []).filter((d) => d.path === "offerings").map((d) => d.key));
-  const have = new Set(kb.offerings.flatMap((f) => (f.value ? [offeringKey(f.value.name, f.value.group)] : [])));
-  return items.filter((i) => {
-    const key = offeringKey(i.item.name, group);
-    return !dismissed.has(key) && !have.has(key);
-  });
+  return items.filter((i) => !dismissed.has(offeringKey(i.item.name, group)));
 }

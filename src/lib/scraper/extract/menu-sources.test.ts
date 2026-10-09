@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { emptyKnowledgeBase } from "@/lib/utils/knowledge";
 import { extractPage } from "./index";
 import { categorize } from "../discover";
-import { groupFromFileName } from "./menu-sources";
+import { cleanFileHint } from "../menus/brands";
 
 // Fictional restaurant group, two brands and a hub page.
 const SITE = "https://www.harborgroup.example";
@@ -69,9 +69,13 @@ describe("menu discovery", () => {
     expect(kb.crawl.menuSources?.[0]).toMatchObject({ group: "Sakana", foundOn: `${SITE}/sakana` });
   });
 
-  it("names a hub PDF from Wix's download name", () => {
-    expect(groupFromFileName("Captain 6 - Menu - 2026.pdf")).toBe("Captain 6");
-    expect(groupFromFileName("menu.pdf")).toBeNull();
+  it("reads a brand hint from download names, never from hashes or generic words", () => {
+    expect(cleanFileHint("Captain 6 - Menu - 2026.pdf")).toBe("Captain 6");
+    expect(cleanFileHint("harbormenu (2).pdf")).toBe("Harbor");
+    expect(cleanFileHint("sumo-menu-2026.pdf")).toBe("Sumo");
+    expect(cleanFileHint("menu.pdf")).toBeNull();
+    expect(cleanFileHint("Drinks")).toBeNull();
+    expect(cleanFileHint("e381d2_aab25048021a4ccbaca1363abe7b3619.pdf")).toBeNull();
   });
 });
 

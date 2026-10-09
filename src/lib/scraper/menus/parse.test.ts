@@ -14,6 +14,15 @@ describe("parsePrice", () => {
     expect(parsePrice("$10 - $15")).toMatchObject({ priceAmount: 10, pricingType: "range" });
   });
 
+  it("reads raised cents as cents", () => {
+    expect(parsePrice("$58⁹⁵")).toMatchObject({ priceAmount: 58.95, priceText: "$58.95" });
+    expect(parsePrice("$58 95")).toMatchObject({ priceAmount: 58.95, priceText: "$58.95" });
+    expect(parsePrice("$48^95")).toMatchObject({ priceAmount: 48.95 });
+    // No dollar sign, or not exactly two digits: left as printed
+    expect(parsePrice("58 95")).toBeNull();
+    expect(parsePrice("$58 950")).toBeNull();
+  });
+
   it("never guesses a market price", () => {
     expect(parsePrice("Market price")).toEqual({ pricingType: "unknown", priceText: "Market price", priceAmount: null, currency: null });
     expect(parsePrice("MP")).toMatchObject({ priceText: "Market price", priceAmount: null });
