@@ -18,25 +18,10 @@ import { Button } from "@/components/ui/Button";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { Input } from "@/components/ui/Input";
 import { Modal } from "@/components/ui/Modal";
+import { readPasscode, savePasscode } from "./passcode";
 
-const PASSCODE_KEY = "xenflo.aiPasscode";
 /** Fired by "Fill with AI" buttons elsewhere (Next to do); ResultsHeader opens this modal. */
 export const ENRICH_EVENT = "xenflo:enrich";
-// sessionStorage can throw (private mode, blocked storage): treat that as "nothing saved".
-const readPasscode = () => {
-  try {
-    return window.sessionStorage.getItem(PASSCODE_KEY) ?? "";
-  } catch {
-    return "";
-  }
-};
-const savePasscode = (value: string) => {
-  try {
-    window.sessionStorage.setItem(PASSCODE_KEY, value);
-  } catch {
-    // not saved; the user types it again next time
-  }
-};
 
 type Step = "start" | "running" | "review";
 

@@ -5,7 +5,7 @@
 */
 import type { KnowledgeBase, UploadRecord } from "@/types/knowledge";
 import type { KnowledgeSummary, VersionSummary } from "@/lib/db/types";
-import type { EnrichResult, EnrichStatus } from "@/types/enrichment";
+import type { EnrichResult, EnrichStatus, MenuReadResult } from "@/types/enrichment";
 
 export interface ApiError {
   code: string;
@@ -125,6 +125,11 @@ export async function getVersion(id: string, version: number): Promise<ApiResult
 
 export function enrichStatus(): Promise<ApiResult<EnrichStatus>> {
   return get<EnrichStatus>("/api/enrich");
+}
+
+/** "Read menus with AI": new menu items and updated menu sources, merged by the caller. */
+export function readMenus(kb: KnowledgeBase, passcode: string): Promise<ApiResult<MenuReadResult>> {
+  return post<MenuReadResult>("/api/menus", { knowledgeBase: kb, passcode });
 }
 
 /** Ask for AI suggestions. Nothing is applied until the user accepts them. */

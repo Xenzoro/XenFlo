@@ -21,6 +21,9 @@ import { Menu } from "@/components/ui/Menu";
 import { tierOf } from "@/lib/ai/field-tiers";
 import { ENRICH_EVENT } from "../ai/EnrichModal";
 import { FIELD_LABELS, fieldName } from "../fieldLabels";
+import { groupOfferings } from "@/lib/scraper/menus/group";
+import { waitingForAi } from "@/lib/utils/offerings";
+import { priceRange } from "../offerings/fields";
 
 function healthLabel(score: number) {
   if (score >= 80) return { text: "Great", note: "Flo has plenty to work with." };
@@ -122,6 +125,8 @@ export function OverviewTab() {
         )}
       </Card>
 
+      {(kb.offerings.length > 0 || (kb.crawl.menuSources ?? []).some(waitingForAi)) && <OfferingsSummary />}
+
       {waiting.length > 0 && (
         <Card className="flex flex-wrap items-center gap-2 border-dashed p-4 text-sm lg:col-span-3">
           <Badge tone="purple">Waiting for AI</Badge>
@@ -159,5 +164,57 @@ function PreviewTile({ icon, label, text }: { icon: React.ReactNode; label: stri
       </p>
       <p className="mt-2 text-sm">{text}</p>
     </div>
+  );
+}
+
+/** What you sell at a glance: item count and price range per brand or location (Phase 10). */
+function OfferingsSummary() {
+  const { kb, setTab } = useKnowledge();
+  if (!kb) return null;
+  const groups = groupOfferings(kb.offerings);
+  const all = groups.reduce(
+    (acc, g) => ({
+      min: g.priceMin === null ? acc.min : acc.min === null ? g.priceMin : Math.min(acc.min, g.priceMin),
+      max: g.priceMax === null ? acc.max : acc.max === null ? g.priceMax : Math.max(acc.max, g.priceMax),
+    }),
+    { min: null as number | null, max: null as number | null },
+  );
+  const range = priceRange(all.min, all.max);
+  const named = groups.filter((g) => g.name);
+  const waiting = (kb.crawl.menuSources ?? []).filter(waitingForAi).length;
+
+  return (
+    <Card className="p-6 lg:col-span-3">
+      <div className="flex flex-wrap items-start justify-between gap-2">
+        <div>
+          <SectionLabel>What you sell</SectionLabel>
+          <h3 className="mt-1 font-bold">
+            {kb.offerings.length ? `${kb.offerings.length} item${kb.offerings.length === 1 ? "" : "s"}` : "No items yet"}
+            {named.length > 1 ? ` across ${named.length} brands` : ""}
+            {range ? <span className="font-normal text-muted"> · {range}</span> : null}
+          </h3>
+        </div>
+        <Button variant="secondary" size="sm" onClick={() => setTab("offerings")} icon={<ArrowRight className="size-3.5" />}>
+          See offerings
+        </Button>
+      </div>
+      {named.length > 1 && (
+        <ul className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+          {groups.map((g) => (
+            <li key={g.name ?? "_other"} className="flex items-center justify-between gap-2 rounded-2xl border border-border-soft bg-page px-3 py-2 text-sm">
+              <span className="min-w-0 truncate font-medium">{g.name ?? "Other items"}</span>
+              <span className="shrink-0 text-xs text-muted">
+                {g.count} · {priceRange(g.priceMin, g.priceMax) ?? "no prices"}
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
+      {waiting > 0 && (
+        <p className="mt-3 text-xs text-muted">
+          {waiting} more menu{waiting === 1 ? "" : "s"} found as pictures. Open Offerings to read them with AI.
+        </p>
+      )}
+    </Card>
   );
 }

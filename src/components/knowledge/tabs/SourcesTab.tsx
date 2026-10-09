@@ -14,6 +14,7 @@ import { formatDateTime } from "@/lib/utils/time";
 import { CrawlLog } from "../CrawlLog";
 import { UploadsList } from "../fallback/UploadsList";
 import { fieldName } from "../fieldLabels";
+import { MENU_STATUS_LABEL, waitingForAi } from "@/lib/utils/offerings";
 
 const CONSENT_METHOD = {
   checkbox_upload: "ticked the permission box before uploading files",
@@ -67,6 +68,45 @@ export function SourcesTab({ onDigDeeper, digging }: { onDigDeeper: () => void; 
           ))}
         </ul>
       </SectionCard>
+
+      {(kb.crawl.menuSources ?? []).length > 0 && (
+        <SectionCard title="Menus and price lists" subtitle="PDFs and images the crawl found, and what came of each" className="lg:col-span-2">
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[560px] text-left text-sm">
+              <thead className="text-[11px] uppercase tracking-wider text-subtle">
+                <tr>
+                  <th className="py-1.5 pr-3 font-semibold">Menu</th>
+                  <th className="py-1.5 pr-3 font-semibold">Kind</th>
+                  <th className="py-1.5 pr-3 font-semibold">Found on</th>
+                  <th className="py-1.5 pr-3 font-semibold">Status</th>
+                  <th className="py-1.5 text-right font-semibold">Items</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border-soft">
+                {(kb.crawl.menuSources ?? []).map((m) => (
+                  <tr key={m.url}>
+                    <td className="max-w-[16rem] truncate py-2 pr-3">
+                      <a href={m.url} target="_blank" rel="noopener noreferrer" className="hover:text-primary" title={m.note ?? m.url}>
+                        {m.group ?? m.label ?? "Menu"}
+                      </a>
+                    </td>
+                    <td className="py-2 pr-3 text-muted">
+                      {m.kind === "pdf" ? "PDF" : "Image"}
+                      {m.pages ? ` · ${m.pages} p` : ""}
+                      {m.bytes ? ` · ${(m.bytes / 1_048_576).toFixed(1)} MB` : ""}
+                    </td>
+                    <td className="py-2 pr-3 text-muted">{new URL(m.foundOn).pathname}</td>
+                    <td className="py-2 pr-3">
+                      <Badge tone={m.status === "read" || m.status === "read_ai" ? "green" : waitingForAi(m) ? "purple" : "amber"}>{MENU_STATUS_LABEL[m.status]}</Badge>
+                    </td>
+                    <td className="py-2 text-right tabular-nums">{m.items}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </SectionCard>
+      )}
 
       <SectionCard title="Completeness" subtitle={`Score ${kb.completeness.score} of 100: each field is worth points`}>
         <ul className="max-h-96 space-y-1 overflow-y-auto text-sm">

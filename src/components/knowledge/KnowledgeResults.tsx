@@ -22,6 +22,7 @@ import { OverviewTab } from "./tabs/OverviewTab";
 import { PeopleTab } from "./tabs/PeopleTab";
 import { RawJsonTab } from "./tabs/RawJsonTab";
 import { SourcesTab } from "./tabs/SourcesTab";
+import { offeringsFirst } from "@/lib/utils/offerings";
 
 const BASIC_TABS: TabItem<TabKey>[] = [
   { key: "overview", label: "Overview" },
@@ -54,6 +55,8 @@ export function KnowledgeResults({
   onNotify: (message: string) => void;
 }) {
   const { kb, advanced, tab, setTab } = useKnowledge();
+  // When offerings are the core of the business (menus found, or food, drink or retail), Offerings comes right after Overview
+  const basic = kb && offeringsFirst(kb) ? [BASIC_TABS[0], BASIC_TABS[5], ...BASIC_TABS.slice(1, 5)] : BASIC_TABS;
   const [addingInfo, setAddingInfo] = useState(false);
 
   // Turning Advanced view off while on an advanced tab falls back to Overview
@@ -70,7 +73,7 @@ export function KnowledgeResults({
       <LowScoreBanner onDigDeeper={onDigDeeper} digging={digging} onAddInfo={() => setAddingInfo(true)} />
       <AddInfoModal open={addingInfo} onClose={() => setAddingInfo(false)} onDone={onNotify} />
       <div data-tour="tabs">
-        <Tabs items={advanced ? [...BASIC_TABS, ...POWER_TABS] : BASIC_TABS} active={tab} onChange={setTab} />
+        <Tabs items={advanced ? [...basic, ...POWER_TABS] : basic} active={tab} onChange={setTab} />
       </div>
       <AnimatePresence mode="wait">
         <motion.div key={tab} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }} transition={{ duration: 0.18 }}>
