@@ -45,10 +45,14 @@ npm run dev                   # http://localhost:3000 → redirects to /knowledg
 | `NEXT_PUBLIC_SUPABASE_URL` | yes, to save | Supabase → Project Settings → API |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | yes, to save | The public key. It can read and write nothing on its own (no anon policies). |
 | `SUPABASE_SERVICE_ROLE_KEY` | yes, to save | Server-only secret key. Used only in API routes and never sent to the browser. |
-| `OPENAI_API_KEY` | no | Reserved for live AI enrichment (not wired in yet, see [AI](#ai-enrichment-and-prompts)). |
+| `OPENAI_API_KEY` | no | Enables live AI enrichment. Without it, Enrich with AI gives labeled preview suggestions. |
+| `AI_PASSCODE` | no, but needed for live AI | Passcode people type to use live AI. **Live AI stays off until this is set**, so a deploy can't run up costs by accident. |
+| `AI_MODEL_TEXT` | no | Text model (default `gpt-5.4-mini`) |
+| `AI_MODEL_VISION` | no | Vision model for logos, hero images and screenshots (default `gpt-5.4-mini`) |
+| `AI_DAILY_LIMIT` | no | Live AI runs allowed per day across the whole site (default `20`; cached results don't count) |
 | `SCRAPER_USER_AGENT` | no | Overrides the default `XenFloBot/1.0` User-Agent. |
 
-Scraping works without Supabase. Saving and the `/knowledge/view` page return a clear "not configured" error until the keys are set.
+Scraping and preview enrichment work without Supabase or OpenAI. Saving and the `/knowledge/view` page return a clear "not configured" error until the Supabase keys are set.
 
 ### Database
 
@@ -57,7 +61,29 @@ Run the migrations in `supabase/migrations/` in order, with the Supabase CLI (`s
 1. `20261009120000_knowledge_schema.sql`: tables, indexes, RLS policies, and the save/version functions
 2. `20261009130000_version_conflict_code.sql`: returns HTTP 409 when someone saved a newer version
 3. `20261009140000_revoke_rls_auto_enable.sql`: clears a Supabase security advisor warning (safe to run anywhere)
-4. `20261010120000_uploads_and_scrape_consent.sql`: private `uploads` storage bucket and owner-consented scrapes
+4. `20261009165731_ai_enrichment.sql`: AI result cache and the daily AI cap
+5. `20261010120000_uploads_and_scrape_consent.sql`: private `uploads` storage bucket and owner-consented scrapes
+
+### Deploy to Vercel
+
+1. **Import** the GitHub repo in Vercel (framework: Next.js; the defaults are fine).
+2. **Environment variables** (Project → Settings → Environment Variables):
+
+   | Variable | Production | Preview |
+   |---|---|---|
+   | `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` | ✓ | ✓ |
+   | `SUPABASE_SERVICE_ROLE_KEY` | ✓ (mark Sensitive) | ✓ (Sensitive) |
+   | `OPENAI_API_KEY` | ✓ (Sensitive) | leave empty, so preview deploys use preview mode |
+   | `AI_PASSCODE` | ✓ (Sensitive; share only with reviewers) | leave empty |
+   | `AI_DAILY_LIMIT` | `20` | - |
+   | `AI_MODEL_TEXT`, `AI_MODEL_VISION` | optional | optional |
+
+   `NEXT_PUBLIC_*` values are public by design (the anon key can't read anything because there are no anon RLS policies). Everything else stays on the server.
+3. **Database:** run the migrations above on the Supabase project those keys point to.
+4. **Deploy.** The scrape, Dig deeper and enrich routes set `maxDuration = 60`, which fits the Hobby plan. A scrape stops starting new pages after 30 seconds, and each AI call times out after 25 seconds.
+5. **Smoke test:** scrape a site, save it, open `/knowledge/view`, then run Enrich with AI with and without the passcode.
+
+Changing an environment variable needs a redeploy to take effect.
 
 ### Checks
 
@@ -78,7 +104,8 @@ npm run build
 - **Tabs, simple by default:**
   - **Overview:** Knowledge Health gauge (0–100), "Next to do" cards with point gains ("Add your founding year +5"), and a Content Kit preview.
   - **Company, Customers, Brand, People, Offerings:** every field editable inline. Empty fields show dashed "+ Add" pills.
-  - **Brand:** colors split into **Primary** (top 3) and **Secondary**, shown as swatches; logos as images (white logos automatically get a dark background, with a light/dark toggle, and duplicates are grouped); fonts rendered in their own face; social icons.
+  - **Enrich with AI:** suggestions for the pitch, writing style, ideal customer, Content Kit, art style and logo brand names. You accept or reject each one (see [AI](#ai-enrichment-and-prompts)).
+- **Brand:** colors split into **Primary** (top 3) and **Secondary**, shown as swatches; logos as images (white logos automatically get a dark background, with a light/dark toggle, and duplicates are grouped); fonts rendered in their own face; social icons.
   - **People:** team members are kept separate from customers and partners, so testimonial authors never end up on the team.
 - **Advanced view** (toggle, top right) adds **Insights**, **Content Kit**, **Sources** (pages crawled, crawl log, per-field sources, completeness breakdown, Dig deeper) and **Raw JSON** (copy and download). Every field also gets a confidence badge: Scraped, Inferred, AI preview, AI, User edited or Missing.
 - **Dig deeper** crawls more of the pages found, up to 30 in total. **Add info yourself** lets the owner paste text or upload files to fill empty fields without overwriting what's there.
@@ -153,7 +180,7 @@ Every value is stored as `{ value, source, confidence, updatedAt }`:
 | `scraped` | Scraped | Read directly from a page (`source` is its URL) |
 | `inferred` | Inferred | Derived by a rule from scraped data (a year from a copyright line, a name from a logo file) |
 | `ai_mock` | AI preview | Placeholder output that is clearly labeled; no API call |
-| `ai_live` | AI | Real model output (reserved; see below) |
+| `ai_live` | AI | Real model output the owner accepted (see [AI](#ai-enrichment-and-prompts)) |
 | `user_edited` | User edited | Typed or changed by the owner |
 | `missing` | Missing | Looked for and not found. It stays empty and is never guessed. |
 
@@ -183,31 +210,51 @@ Complete example outputs from real scrapes: **[data/examples/](data/examples/)**
 
 ## AI enrichment and prompts
 
-**XenFlo runs without any AI calls today.** Fields that need AI are left empty and marked Missing, never guessed:
-- pitch
-- writing style
-- ideal persona
-- art style
+**Enrich with AI** (a button next to Save, on `/knowledge` and in the Detailed view) suggests the fields that need judgment rather than reading. It never runs automatically.
 
-The Overview's Content Kit preview is built from templates using only facts already in the knowledge base. It carries an "AI preview" badge so it's never mistaken for real model output (`src/lib/ai/mockPreview.ts`).
-
-The enrichment prompts are **designed and versioned, but not wired in yet.** The plan:
-1. One `enrich()` function calls them server side when `OPENAI_API_KEY` is set.
-2. It falls back to the labeled mock on any failure or without a key.
-3. Screenshots uploaded in the fallback flow are stored, ready for the vision prompt.
-
-| Prompt | Fills |
+| Suggests | From |
 |---|---|
-| [company-pitch.v1](prompts/company-pitch.v1.md) | `company.pitch` |
-| [writing-style.v1](prompts/writing-style.v1.md) | `brand.writingStyle`, `contentKit.voiceGuide` |
-| [ideal-persona.v1](prompts/ideal-persona.v1.md) | `customers.idealPersona`, `customers.customerNeeds`, `customers.targetBuyers` |
-| [logo-vision.v1](prompts/logo-vision.v1.md) | `brand.artStyle`, `company.alternateNames`, color hints |
+| Pitch | [company-pitch.v1](prompts/company-pitch.v1.md) |
+| Writing style and voice guide | [writing-style.v1](prompts/writing-style.v1.md) |
+| Ideal customer, customer needs, target buyers | [ideal-persona.v1](prompts/ideal-persona.v1.md) |
+| Content pillars, social hooks, hashtags, email subjects, blog ideas | [content-kit.v1](prompts/content-kit.v1.md) |
+| Art style, brand names read from logos, facts from uploaded screenshots | [logo-vision.v1](prompts/logo-vision.v1.md) |
 
-Each prompt defines:
-- the model's role and the input format
-- a JSON output schema matching `src/types/knowledge.ts`
-- rules against inventing facts, and how to mark missing data
-- an example
+**How it works** (`src/lib/ai/enrich.ts`, the single entry point):
+1. The prompt files in `prompts/` are loaded at runtime (up to each file's Example section) and combined into **one text call**. The images go into **one vision call**. Both run in parallel through OpenAI's Responses API, using plain `fetch` and no SDK.
+2. The model must answer in a strict JSON schema built from Zod (`src/lib/ai/schemas.ts`). The reply is validated with the same Zod schema before it's used.
+3. **Nothing is applied automatically.** The owner sees every suggestion next to the current value and ticks the ones to keep. Accepted values are stored with `confidence: "ai_live"` and `source: "ai:<model>"`, and show an **AI** badge everywhere (not only in Advanced view).
+4. **Never invent facts.** The model only sees knowledge base fields, must return `null` when the facts don't support a field (shown as "Not enough facts for…"), and null answers never become suggestions. AI never overwrites a field the owner edited, and list suggestions only add new items.
+
+**Live vs preview mode**
+- **Live:** needs `OPENAI_API_KEY` **and** the right `AI_PASSCODE`, plus quota left today.
+- **Preview** (`ai_mock`, "AI preview" badge): template suggestions built only from facts already in the knowledge base. There are no templates for writing style, persona or art style, so those aren't suggested. Preview is used:
+  - with no key, or no passcode set on the server
+  - when the user picks "Use preview mode"
+  - when the daily cap is reached
+  - when both AI calls fail
+- **Fallbacks:** a wrong passcode is an error the user can fix rather than a silent switch. If only one call fails (timeout, bad reply), the other call's results are kept and a note explains what was skipped.
+
+**Limits** (`src/lib/ai/config.ts`)
+- **Calls:** one text call plus one image call per run; never automatic.
+- **Input:** capped at about 12,000 tokens. Facts go in priority order: core facts, about and founding story, offerings, testimonials, FAQs, then the rest. Lists are trimmed from the end when over budget.
+- **Output:** capped at 2,500 tokens per call. `reasoning.effort` is `none`, so the whole budget goes to the answer.
+- **Images:** at most 2. The best raster logo and the hero image are sent at `detail: "low"`. Screenshots waiting for AI (`needsAiFields`) go first, at `detail: "high"`, because menus and about pages are text-heavy. SVG logos are skipped (OpenAI can't read them).
+- **Cache:** results are cached in Supabase (`ai_enrichments`) by a hash of the prompt text, models and exact input. The same knowledge base version never pays twice, and cache hits don't count toward the cap.
+- **Daily cap:** `AI_DAILY_LIMIT` (default 20) live runs per day site-wide, enforced atomically in Postgres (`take_ai_quota`).
+- **Passcode:** `AI_PASSCODE`, compared in constant time. With no passcode configured, live AI is off.
+
+**Model comparison** (Apex Hosting, same input, text call only; vision stayed on mini):
+
+| | `gpt-5.4-mini` | `gpt-5.4` |
+|---|---|---|
+| Pitch | "We provide Minecraft server hosting with lag free hardware, 24/7 live chat support, free subdomain, and automated backups. Start your server and play with friends today." | "We provide Minecraft and game server hosting with lag free hardware, 24/7 live chat support, video guides, and server options for everything from basic servers to fully tailored setups. Start your server and play with friends today." |
+| Writing style | "The brand sounds direct, helpful, and gaming-focused. It uses short, simple phrases, second-person and we-language, and leans on practical benefits like support, speed, and easy setup rather than fancy wording." | "The voice is direct, feature-led, and supportive, with short benefit-focused phrases and clear how-to explanations. It speaks in second person and first person, uses gaming and hosting jargon comfortably, and often leans on upbeat calls to action and reassuring support language." |
+| Time / tokens | 6.5 s · 6,965 in / 607 out | 9.2 s · 6,965 in / 625 out |
+
+Both stayed within the facts. gpt-5.4 noticed that Apex hosts more than Minecraft and wrote a more specific persona; mini was faster and a little more generic. The default is `gpt-5.4-mini`; switching is one environment variable (`AI_MODEL_TEXT`).
+
+**Privacy note:** the demo's OpenAI project takes part in OpenAI's data sharing program, which keeps the demo's cost near zero. A production version would turn data sharing off, because owners may upload private information (screenshots, pasted documents). Requests are sent with `store: false` either way.
 
 Outside sources that could fill the gaps (Google Places, business registries, official social APIs) and what is and isn't allowed are covered in **[docs/enrichment.md](docs/enrichment.md)**.
 
@@ -258,11 +305,15 @@ Other results:
 - **Logos:** the duplicates (the same logo in the header and JSON-LD, the same icon as apple-touch-icon and favicon) now show once, with every place they were found.
 - **Weak spots it showed:**
   - **Offerings:** 42 were found, but many are page section headings ("Signs You Need Duct Services") rather than services.
-  - **Phones:** numbers from other Goettl locations, and the button text "CALL Now", get picked up.
-  - **Alternate names:** a photo's alt text ("Person holding a wrench…") became one.
   - **Founding story:** mixes Goettl's 1939 founding with "Keeping Las Vegas cool since 2012".
 
-  These are exactly the cases an AI cleanup pass or the owner's review would catch (see [data-quality](docs/data-quality.md)).
+  Cases like these are what the owner's review and AI cleanup are for (see [data-quality](docs/data-quality.md)).
+- **Fixed after testing: phones and alternate names.** This is a location page, and Goettl's `/locations` directory lists every branch's number. The scraper now keeps only valid phone numbers, prefers the number listed next to "Las Vegas, NV", and skips numbers next to other branches' addresses. Alt text only counts as a brand name when it names a logo, not when it describes a photo.
+
+  | | Before | After |
+  |---|---|---|
+  | Phones | (213) 317-2704, (844) 446-3885, **"CALL Now"**, 6025368852 (Phoenix), 5202145988 (Tucson), +1702-291-9893, +1210-405-6238 (San Antonio), 7377272107 (Austin) | (213) 317-2704 (on the Las Vegas page), **(702) 291-9893** (Las Vegas listing), (844) 446-3885 (company-wide) |
+  | Alternate names | Goettl - Since 1939 - Air Conditioning and Plumbing, Goettl Tech, **Person holding a wrench in front of the goettl**, Original Goettl Air Conditioning | Goettl Tech, Original Goettl Air Conditioning |
 
 ### Anime Boba Cafe (`animebobacafe.com`): blocked site, template placeholder staff
 - Its robots.txt asks AI crawlers (GPTBot, ClaudeBot and others) to stay out, so XenFlo stops and shows the blocked panel with the ownership checkbox and upload options. That is the demo of the consent flow. Its content was only used with the owner's permission.
@@ -281,8 +332,9 @@ Other results:
 
 **Limitations**
 - **No JavaScript rendering.** Sites that build everything in the browser (some React and Wix pages) return little text; XenFlo warns when the homepage has fewer than 30 words.
-- **No live AI yet.** Pitch, writing style, persona and art style stay Missing unless the owner fills them in.
-- **Heuristics misfire** on some layouts: section headings read as offerings, numbers from other locations read as phones, alt text read as names. Every value shows its source and confidence in Advanced view, so these are easy to spot and fix.
+- **AI is opt-in and capped.** Pitch, writing style, persona and art style stay Missing until the owner fills them in or accepts AI suggestions. The public demo needs a passcode for live AI and is limited to 20 runs a day.
+- **Vision can't read SVG logos** (Apex's logo is an SVG), so art style may come from the hero image instead. Screenshots can fill overview, founding story, phones and emails; offerings and people from screenshots aren't extracted yet.
+- **Heuristics misfire** on some layouts: for example, section headings read as offerings. Every value shows its source and confidence in Advanced view, so these are easy to spot and fix.
 - **Information inside images** (menus, logos with names, flyers) needs vision AI.
 - **Colors and fonts** come from the homepage's CSS only (inline styles plus up to 3 of the site's own stylesheets).
 - **No live progress:** the scrape API returns everything at the end, so the progress card shows the steps rather than each page as it finishes.
@@ -329,7 +381,7 @@ src/app/                pages (/knowledge, /knowledge/view) and API routes (scra
 src/components/         ui/, knowledge/ (workspace, tabs, fallback), view/, tour/
 src/lib/scraper/        fetch, robots, discover, crawl, styles, colors, score, extract/*
 src/lib/db/             Supabase data layer (the only code that talks to the database)
-src/lib/ai/             mock AI preview (enrich() goes here when wired)
+src/lib/ai/             enrich() entry point, prompt loading, schemas, OpenAI call, preview mode
 src/types/              knowledge.ts (source of truth) + knowledge.schema.ts (Zod)
 supabase/migrations/    SQL migrations
 prompts/                versioned enrichment prompts

@@ -2,34 +2,36 @@
 
 Versioned prompts for XenFlo's AI enrichment. Each file is one prompt; a change in behavior means a new version file (`company-pitch.v2.md`), so saved knowledge bases can record which version produced a value.
 
-**Status:** these are designed and ready, but **not wired into the app yet**. XenFlo currently runs with no AI calls. AI-only fields stay Missing, and the Content Kit preview is a clearly labeled template (`src/lib/ai/mockPreview.ts`).
-
-The plan:
-- **One entry point.** A single `src/lib/ai/enrich.ts` loads these files and runs them server side when `OPENAI_API_KEY` is set.
-- **Fallback.** On a missing key or any failure, it falls back to the labeled mock.
-- **Validation.** Every response is validated with Zod against the output schema below before anything is written.
+**Status: wired in.** `src/lib/ai/enrich.ts` is the single entry point, run only from the **Enrich with AI** button:
+- **Loading.** `src/lib/ai/prompts.ts` reads these files at runtime and keeps each one up to its `## Example` heading.
+- **Text call.** The four text prompts are combined into one system prompt for a single call.
+- **Vision call.** `logo-vision` drives a separate call for images.
+- **Validation.** The output schema is enforced with OpenAI structured outputs and re-checked with Zod (`src/lib/ai/schemas.ts`).
+- **Fallback.** With no key, no passcode, the daily cap reached, or any failure, the app returns labeled preview suggestions instead.
+- **Caching.** Editing a prompt file changes the cache key, so old cached answers aren't reused.
 
 | File | Fills (paths in `src/types/knowledge.ts`) | Model |
 |---|---|---|
 | [company-pitch.v1.md](company-pitch.v1.md) | `company.pitch` | text |
 | [writing-style.v1.md](writing-style.v1.md) | `brand.writingStyle`, `contentKit.voiceGuide` | text |
 | [ideal-persona.v1.md](ideal-persona.v1.md) | `customers.idealPersona`, `customers.customerNeeds`, `customers.targetBuyers` | text |
-| [logo-vision.v1.md](logo-vision.v1.md) | `brand.artStyle`, `company.alternateNames`, color hints | vision |
+| [content-kit.v1.md](content-kit.v1.md) | `contentKit.contentPillars`, `socialHooks`, `hashtags`, `emailSubjects`, `blogIdeas` | text |
+| [logo-vision.v1.md](logo-vision.v1.md) | `brand.artStyle`, `company.alternateNames` (from logos only), screenshot facts | vision |
 
 ## Rules shared by every prompt
 1. **Use only the input.** No outside knowledge about the company, even if the model "knows" it.
 2. **Never invent facts:** no years, numbers, awards, locations, prices, names or quotes that aren't in the input.
 3. **Missing means `null`.** When the input can't support a field, return `null` for it and name the reason in `missing`. Don't write something generic to fill the gap.
 4. **Output JSON only**, matching the schema exactly. No prose around it.
-5. **Cite evidence.** Each filled field lists the input paths it was based on (`basedOn`), so the Sources tab can show why.
+5. **Cite evidence.** The answer lists the input fields it was based on (`basedOn`), which travels with each suggestion so it can be traced.
 
 ## How the app stores results
-The model returns plain values. The app wraps each one in the usual `Field` shape:
+The model returns plain values, which become suggestions the owner accepts or rejects. Accepted ones are wrapped in the usual `Field` shape:
 
 ```ts
-{ value, source: "ai:<prompt-file>", confidence: "ai_live", updatedAt }
+{ value, source: "ai:<model>", confidence: "ai_live", updatedAt }
 ```
 
-- A `null` value is stored as `confidence: "missing"`.
-- Without a key, mock output is stored as `confidence: "ai_mock"` and shows the **AI preview** badge.
+- A `null` value is never suggested, so the field stays `confidence: "missing"`.
+- Preview output (no key or passcode, cap reached, or a failure) is stored as `confidence: "ai_mock"` and shows the **AI preview** badge.
 - A value the owner already edited (`user_edited`) is **never overwritten** by AI.

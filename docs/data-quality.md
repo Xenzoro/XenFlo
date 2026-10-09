@@ -16,9 +16,9 @@ Every value is a `Field`: `{ value, source, confidence, updatedAt }` (`src/types
 |---|---|---|---|
 | `user_edited` | User edited | The owner typed or changed it | Highest. Nothing automatic overwrites it. |
 | `scraped` | Scraped | Read directly from a page or its JSON-LD; `source` is the page URL | High, but heuristics can still misread a page (see §4) |
-| `ai_live` | AI | A real model produced it from scraped facts (reserved; not wired in yet) | Medium. Must cite its inputs. |
+| `ai_live` | AI | A real model suggested it from knowledge base facts and the owner accepted it | Medium. The model must cite its inputs (`basedOn`). |
 | `inferred` | Inferred | A rule derived it: a year from `© 2013`, a brand name from `Sumo Henderson_Logo.png`, an industry from a JSON-LD type | Medium-low |
-| `ai_mock` | AI preview | Template output with no API call | Example only, never a fact |
+| `ai_mock` | AI preview | Template output with no API call (preview mode), accepted by the owner | Built only from facts already present |
 | `missing` | Missing | We looked and found nothing | Shown as a dashed "+ Add" pill |
 
 **Which value wins** (`src/lib/scraper/merge.ts`): `user_edited > scraped > ai_live > inferred > ai_mock > missing`.
@@ -50,8 +50,8 @@ Fields that need judgment rather than reading (pitch, writing style, ideal perso
 | Homepage under 30 words (likely a JavaScript-only site) | Warning in the crawl log; the upload fallback is the way forward. |
 | Thin or image-only content | Low score banner, then Dig deeper or Add info yourself. |
 | Pasted text or uploaded HTML | Runs through the same extractors as a scrape and only fills empty fields, so nothing the owner already has is overwritten. |
-| Screenshots | Stored privately (Supabase Storage). Without live AI they can't be read, so the app asks the owner to paste the text instead. Each screenshot records the fields it should fill once vision AI is on (`needsAiFields`). |
-| No `OPENAI_API_KEY`, or an AI error | AI fields stay Missing. Previews are clearly labeled "AI preview". |
+| Screenshots | Stored privately (Supabase Storage). Enrich with AI sends screenshots waiting for AI (`needsAiFields`) to the vision call at high detail, and readable overview, story, phone and email facts come back as suggestions. Without live AI, the app asks the owner to paste the text instead. |
+| No `OPENAI_API_KEY` or passcode, daily cap reached, or both AI calls fail | Enrich with AI falls back to preview suggestions labeled "AI preview". If only one call fails, the other's results are kept with a note. |
 | Supabase not configured | Scraping still works. Save returns a clear "not configured" error, and the JSON can still be downloaded. |
 
 ## 4. How heuristics fail on real sites
@@ -93,8 +93,8 @@ Page builders often ship sections that are switched off with CSS (`display:none`
 | Misread | Example | Why | Fix |
 |---|---|---|---|
 | Section headings as offerings | Goettl: "Signs You Need Duct Services", "Schedule A Service Today" | Service pages use repeated heading + list blocks that look like offering cards | Owner removes them; ideas: require a price or CTA nearby, and drop question or "Schedule…" headings |
-| Phones from other locations, button text as a phone | Goettl Las Vegas: Arizona, Texas and California area codes, and "CALL Now" | Pages link to sister branches, and one `tel:` link holds button text instead of a number | Only accept `tel:` values that look like phone numbers; prefer numbers in the same area code as the address or page city |
-| Photo alt text as a brand name | Goettl: "Person holding a wrench in front of the goettl" | Logo-name clues accept any image with "goettl" in it | Only take names from images whose alt or filename looks like a logo, and limit the length |
+| Phones from other locations, button text as a phone | Goettl Las Vegas: Arizona, Texas and California area codes, and "CALL Now" | Pages link to sister branches, and one `tel:` link's text is a button label | **Fixed:** only valid US numbers are kept (formatted from the `tel:` digits when the link text isn't a number). On a `/location/<city>` page, numbers next to another branch's "City, ST 12345" are skipped, and the city's own listing is placed right after the page's numbers. |
+| Photo alt text as a brand name | Goettl: "Person holding a wrench in front of the goettl logo" | The alt text contained "logo", so the photo counted as a logo | **Fixed:** alt text only marks a logo when it names one; captions (more than 6 words, "person holding…", "in front of…") are never names, and alternate names are capped at 5 words |
 | Mixed founding facts | Goettl: founded 1939, but "Keeping Las Vegas cool since 2012" in the story | A national company's location page | Both are true in context. The source link shows which page said what, and AI cleanup or the owner can clarify. |
 | One category for everything | Apex: every game listed under "Minecraft Server Hosting" | Category taken from the nearest page title | Take the category from the offering's own heading or page |
 | Info only in images | Dragon Factory: menus, prices and restaurant names | Nothing to read in HTML | File name and alt clues recover brand names; vision AI or screenshots for the rest |

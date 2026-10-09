@@ -5,7 +5,8 @@ XenFlo stores knowledge bases in Supabase (Postgres). The app's only access path
 1. `supabase/migrations/20261009120000_knowledge_schema.sql`: tables, indexes, RLS and the write functions
 2. `20261009130000_version_conflict_code.sql`: version conflicts raise `PT409` (HTTP 409)
 3. `20261009140000_revoke_rls_auto_enable.sql`: revokes execute on Supabase's `rls_auto_enable()` helper from API roles
-4. `20261010120000_uploads_and_scrape_consent.sql`: `checkbox_scrape` consent method and the private `uploads` storage bucket
+4. `20261009165731_ai_enrichment.sql`: `ai_enrichments` cache and `ai_usage` daily cap for AI enrichment
+5. `20261010120000_uploads_and_scrape_consent.sql`: `checkbox_scrape` consent method and the private `uploads` storage bucket
 
 ## Overview
 
@@ -70,6 +71,17 @@ All primary keys are `uuid default gen_random_uuid()`. All timestamps are `times
 
 ### upload_consents
 `knowledge_base_id` (FK, cascade), `confirmed bool check (confirmed)`, `method text check in ('checkbox_upload','checkbox_paste','checkbox_scrape')` (`checkbox_scrape` = the owner allowed a scrape that robots.txt restricts), `consented_at`, `created_at`. `unique (knowledge_base_id, consented_at)` lets re-saving the same KB skip duplicate consent rows. This is the audit trail for "I own this business or have permission".
+
+### ai_enrichments and ai_usage (AI enrichment)
+Server-only tables: RLS is on with **no policies**, so only the secret key can touch them. The security advisor's "RLS enabled, no policy" notice is expected for these two.
+
+- **`ai_enrichments`:** the result cache.
+  - Columns: `cache_key text` PK, `knowledge_base_id uuid` (not a FK, since unsaved knowledge bases can be enriched too), `version int`, `models text`, `result jsonb`, `created_at`.
+  - The key is a sha256 of the prompt text, models and exact input, so the same knowledge base version never pays twice.
+- **`ai_usage`:** live runs per UTC day (`day date` PK, `count int`).
+  - `take_ai_quota(p_limit)` checks and increments it in one `insert … on conflict … where count < p_limit` statement, so two requests can't both take the last slot.
+  - `ai_quota_remaining(p_limit)` feeds the "N runs left today" hint.
+  - Execute on both is granted only to `service_role`.
 
 ## Indexes
 - **Search:** `pg_trgm` GIN indexes on `company_name`, `url` and `industry`, so `ILIKE '%term%'` stays fast as the table grows.

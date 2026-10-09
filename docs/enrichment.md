@@ -2,7 +2,7 @@
 
 A website is only one view of a business. Many small-business sites don't list a founding year, employee count, legal entity or full address, while their Google listing, state registration or Instagram does. This doc covers where XenFlo could fill those gaps, **what is and isn't allowed**, and which knowledge base fields each source fills.
 
-None of these are wired in yet. Today XenFlo uses the website (and owner-provided content) only.
+None of these outside sources are wired in yet. Today XenFlo uses the website, owner-provided content, and AI suggestions over those facts (see the README's AI section).
 
 ## Principles
 1. **Official APIs, used within their terms.** No HTML scraping of platforms that forbid it.
