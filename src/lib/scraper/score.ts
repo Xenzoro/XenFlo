@@ -50,7 +50,7 @@ export const FIELD_HINTS: Record<string, { categories: PageCategory[]; keywords?
   "contact.emails": { categories: ["contact"], keywords: /support|help/i },
   "contact.phones": { categories: ["contact", "locations"], keywords: /support|call/i },
   people: { categories: ["team", "about"], keywords: /founder|leadership|staff|meet/i },
-  offerings: { categories: ["pricing", "services", "products", "features"], keywords: /menu|plans?|packages?/i },
+  offerings: { categories: ["menu", "pricing", "services", "products", "features"], keywords: /menu|plans?|packages?/i },
   "insights.testimonials": { categories: ["testimonials"], keywords: /reviews?|stories|case/i },
   "insights.faqs": { categories: ["faq"], keywords: /help|questions|support/i },
   "insights.trustSignals": { categories: ["testimonials", "about"], keywords: /awards?|certif/i },

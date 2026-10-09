@@ -12,6 +12,7 @@ import { extractAbout } from "./about";
 import { extractTestimonials } from "./testimonials";
 import { extractPeople } from "./people";
 import { extractOfferings } from "./offerings";
+import { extractMenuSources } from "./menu-sources";
 import { extractCtas } from "./ctas";
 import { extractSignals } from "./signals";
 import { extractPress } from "./press";
@@ -60,6 +61,7 @@ export function extractPage(
   extractTestimonials(ctx);
   extractPeople(ctx);
   extractOfferings(ctx);
+  extractMenuSources(ctx);
   extractCtas(ctx);
   extractSignals(ctx);
   extractPress(ctx);

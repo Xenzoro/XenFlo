@@ -3,6 +3,8 @@ import type { Offering, PricingType } from "@/types/knowledge";
 import type { PageContext } from "./types";
 import { addItem, clean } from "../merge";
 import { textOf } from "./text";
+import { parseMenuLines } from "../menus/parse";
+import { pageGroup } from "./menu-sources";
 
 type El = ReturnType<CheerioAPI>;
 
@@ -18,8 +20,41 @@ const GENERIC = /faq|frequently|question|contact|newsletter|subscribe|footer|tes
  * 2. On services/products pages: a heading followed by a description paragraph.
  */
 export function extractOfferings(ctx: PageContext): void {
+  // A menu page laid out as lists or tables ("California Roll ... $8.95"): read it line by line.
+  // When that works, skip the price-card reader, which would take the section heading ("Rolls") as an item.
+  if (ctx.category === "menu" && extractMenuPage(ctx)) return;
   extractPriceCards(ctx);
   if (ctx.category === "services" || ctx.category === "products") extractServiceSections(ctx);
+}
+
+const MIN_MENU_ITEMS = 3;
+
+/** Priced lines on a menu page -> offerings, grouped by the brand the page is about. Returns false when it isn't a list menu. */
+function extractMenuPage(ctx: PageContext): boolean {
+  // Only priced items: unpriced short lines on a web page are often nav links and buttons.
+  const items = parseMenuLines(ctx.lines, { requirePrice: true });
+  if (items.length < MIN_MENU_ITEMS) return false;
+  const group = pageGroup(ctx);
+  for (const item of items) {
+    addItem(
+      ctx.kb.offerings,
+      {
+        name: item.name,
+        category: item.category,
+        description: item.description,
+        features: [],
+        pricingType: item.price?.pricingType ?? "unknown",
+        priceText: item.price?.priceText ?? null,
+        priceAmount: item.price?.priceAmount ?? null,
+        currency: item.price?.currency ?? null,
+        group,
+        sourceKind: "page",
+      },
+      ctx.url,
+      (v) => `${v.group ?? ""}|${v.name}`.toLowerCase(),
+    );
+  }
+  return true;
 }
 
 function extractPriceCards(ctx: PageContext): void {

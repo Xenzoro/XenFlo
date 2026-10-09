@@ -20,10 +20,12 @@ export interface DiscoveredLink {
 const CATEGORY_RULES: { category: PageCategory; score: number; pattern: RegExp }[] = [
   // Legal is checked first so "/terms-of-service" isn't mistaken for a services page.
   { category: "legal", score: 5, pattern: /\bprivacy|terms|legal|cookie|disclaimer|refund|tos\b/i },
+  // Menus and price lists hold the offerings, the most useful data for restaurants and shops (Phase 10).
+  { category: "menu", score: 95, pattern: /\bmenus?\b|\bfood\b|\bdrinks?\b|price[- ]?list|\bspecials\b|\bcatering\b/i },
   { category: "about", score: 100, pattern: /\babout|our[- ]story|who[- ]we[- ]are|company|history|mission/i },
   { category: "team", score: 90, pattern: /\bteam|staff|leadership|founders?|people|meet[- ]the/i },
   { category: "features", score: 80, pattern: /\bfeatures?|benefits|why[- ]us|why[- ]choose|how[- ]it[- ]works/i },
-  { category: "services", score: 85, pattern: /\bservices?|solutions?|what[- ]we[- ]do|treatments?|menu/i },
+  { category: "services", score: 85, pattern: /\bservices?|solutions?|what[- ]we[- ]do|treatments?/i },
   { category: "pricing", score: 85, pattern: /\bpricing|prices?|plans?|packages?|rates/i },
   { category: "products", score: 80, pattern: /\bproducts?|shop|store|catalog|collections?/i },
   { category: "faq", score: 75, pattern: /\bfaqs?\b|frequently[- ]asked|questions|help[- ]center|knowledge[- ]?base/i },
