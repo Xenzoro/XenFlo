@@ -109,6 +109,8 @@ npm run build
     - Any field can be marked **Not applicable**; it counts as complete.
     - With no head office, the main address card offers "Use one of your locations".
   - **Company, Customers, Brand, People, Offerings:** every field editable inline. Empty fields show dashed "+ Add" pills.
+  - **Offerings and menus:** for restaurants, cafes and shops (or any site where menus were found) the Offerings tab comes right after Overview, in a **menu view**. Items are grouped by brand or location (with its address, item count and price range), then by section. Each item shows its name, description, price and source ("from Sakana Sushi menu PDF", "read from menu image"). The view has search and collapsible groups. Service businesses keep the card view. See [menus](#menus-and-price-lists).
+  - **Read menus with AI:** one button on the Offerings tab reads picture menus (image PDFs and menu images), up to 8 pages per run. Already-read menus are cached and free.
   - **Enrich with AI:** suggestions for everything a person could tell from your site: industry, business model, customers, channels, funnels, themes, pitch, writing style, Content Kit, art style and offering categories.
   - Each suggestion comes with its evidence, and you accept or reject each one.
   - AI and inferred values carry a badge and a one-click "Wrong? Remove".
@@ -146,7 +148,7 @@ Everything runs server side in API routes (`src/app/api/scrape`), split into sma
 
 ### Priority, then adaptive crawl
 1. **Homepage** (10s timeout, redirects followed, non-200s handled). Its CSS is read for fonts and colors.
-2. **Discover** links from the nav, header, footer and body, plus `sitemap.xml` (from robots.txt or common locations). Each link is categorized (about, team, services, products, pricing, features, faq, testimonials, contact, locations, press, careers, blog, legal) and scored. Nav links rank higher; deep paths and blog posts rank lower.
+2. **Discover** links from the nav, header, footer and body, plus `sitemap.xml` (from robots.txt or common locations). Each link is categorized (menu, about, team, services, products, pricing, features, faq, testimonials, contact, locations, press, careers, blog, legal) and scored. Menu pages (`/menu`, `/food`, `/drinks`, price lists, specials, catering) rank just below About, so they make the first 15 pages. Nav links rank higher; deep paths and blog posts rank lower.
 3. **Priority pages:** the best page of each useful kind is crawled first.
 4. **Adaptive pages:** after each batch, XenFlo checks which important fields are still empty and picks pages likely to fill them. For example, if testimonials are missing it tries `/reviews`; if offerings are missing it tries `/pricing`, `/menu` or `/plans`. Pages are ranked by the completeness points they could add.
 5. **Limits:** **15 pages first**, then **up to 30 in total with Dig deeper**. There is a 30-second time budget, 2 requests at a time, and a 300ms pause between requests.
@@ -160,7 +162,8 @@ Everything runs server side in API routes (`src/app/api/scrape`), split into sma
 | `address` | US street addresses from page text (one line or split across `<br>`/block lines; units like `#105`, `Ste`, `Suite`, `Unit`), with Google/Apple Maps links and embeds as an inferred fallback. Sorted into main address and other locations. |
 | `contact` | emails, phones (preferring a location page's own number), contact page |
 | `social` | LinkedIn, Facebook, Instagram, X, YouTube, TikTok, Twitch, Discord, Pinterest |
-| `offerings` | product, service and plan cards with prices (fixed, starting at, range, subscription, quote, free) |
+| `offerings` | product, service and plan cards with prices (fixed, starting at, range, subscription, quote, free); on menu pages, list and table menus line by line |
+| `menu-sources` | menu PDF links and large menu images (for the menu pass and the AI menu reader); ordering, delivery and booking platforms (Toast, Square, Clover, DoorDash, Uber Eats, OpenTable…) as channels |
 | `people` | team cards (name, title, bio, photo), kept apart from testimonial authors |
 | `testimonials` | quote blocks, authors and ratings |
 | `ctas` | button and CTA text with links |
@@ -170,6 +173,33 @@ Everything runs server side in API routes (`src/app/api/scrape`), split into sma
 | `branding` | logos, fonts and brand colors (below) |
 
 Pasted text and uploaded HTML go through the same extractors (`/api/extract`).
+
+### Menus and price lists
+For restaurants and shops, the offerings usually live in PDFs and images, not HTML. Phase 10 handles them in three steps:
+1. **Found during the crawl** (`extract/menu-sources.ts`):
+   - **PDFs:** menu PDF links are recorded with the page that links them and the brand that page is about. The `SAKANA SUSHI` page title becomes "Sakana Sushi". When a hub page and a restaurant page link the same PDF, the restaurant page wins, because that's where its address is.
+   - **Images:** large images on menu pages, or images named like a menu, are recorded too. Stock photos, logos and site chrome are skipped.
+   - **Ordering platforms:** links to Toast, Square, Clover, menu11, DoorDash, Uber Eats, Grubhub, OpenTable, Resy and similar become **channels** ("Online ordering (Clover)", scraped, with the link as the source). Those platforms are never fetched.
+2. **Read after the crawl, without AI** (`menus/`):
+   - **Download:** menu PDFs are fetched with the same redirect and private-network checks as pages (`fetchBinary`).
+   - **Caps:** **20 MB** per PDF, the **first 4 pages**, **12 PDFs** per scrape, 2 at a time, in a **15 s** budget. The rest are read by Dig deeper.
+   - **Text:** [unpdf](https://github.com/unjs/unpdf), a serverless build of Mozilla's pdf.js (pure JavaScript, no native binaries, so it runs in Vercel functions), pulls out the text, and `parse.ts` turns clear priced lists into items.
+   - **What's left:** picture-only PDFs are marked for AI. PDFs with jumbled text are kept, trimmed, for AI to sort.
+   - **Locations:** each item is linked to the address found on the same page (`/sakana` → 3949 S Maryland Pkwy).
+3. **Read with AI on request** ("Read menus with AI", `/api/menus`, [menu-reader.v1](prompts/menu-reader.v1.md)):
+   - **Per run:** up to **8 pages or images** at high detail (a 2-page PDF counts as 2), plus up to 4 jumbled-text menus. Restaurant pages come before hub pages, then smaller files first.
+   - **Speed:** menus are read in parallel, and nothing new starts after 40 s.
+   - **Cost:** about $0.01 per page on gpt-5.4-mini, so at most about $0.09 per run.
+   - **Cache:** each menu is cached on its own, so a second run is free for menus already read and moves on to the rest.
+
+**Prices are never invented.**
+- **Heuristics:** a price comes only from the item's own lines. "STEP 2" or "Table 4" is not a price, and "Market price" keeps no amount.
+- **AI:** the model must copy prices as printed, or return null. A "price" with no number in it is dropped in code.
+- **Confidence:**
+  - Items from HTML or PDF text are **Scraped**.
+  - Items read from pictures are **AI**, with the file as evidence.
+  - AI-sorted text stays **Scraped** only if every name and price appears word for word in that text. Otherwise the item is **AI**, and a price that isn't in the text is removed.
+- **Wrong? Remove:** removing an item remembers it by brand + name, so it isn't added again.
 
 ### Heuristics worth knowing
 - **Brand colors are ranked by where they're used, not where they're defined.**
@@ -233,6 +263,8 @@ Complete example outputs from real scrapes: **[data/examples/](data/examples/)**
 | Art style, brand names read from logos, facts from uploaded screenshots | [logo-vision.v1](prompts/logo-vision.v1.md) |
 
 The earlier pitch, writing-style, ideal-persona and content-kit prompts were merged into understand-business; they stay in `prompts/` as reference.
+
+**Read menus with AI** is a separate button and route (`/api/menus`, [menu-reader.v1](prompts/menu-reader.v1.md)), so Enrich with AI stays text + vision only and fast. It uses the same passcode, cache and daily quota (one unit per run) and the same confidence rules. Read items are added directly with their AI badge and evidence instead of going through the review list. See [menus](#menus-and-price-lists).
 
 **Three tiers** (`src/lib/ai/field-tiers.ts`, enforced in code):
 - **Read facts** (contacts, addresses, CTAs, logos, colors…) are never overwritten.
@@ -327,7 +359,12 @@ What it found:
 
 **Locations:** each restaurant has its own page with one address under the opening hours. XenFlo files all 10 as **other locations**, including three suites in the same building. It leaves the main address empty, because the group's site doesn't name a head office.
 
-What it missed: offerings, people, testimonials and FAQs are empty. The menus, prices and most brand names live inside images. That's the clearest case for the vision prompt and the screenshot upload fallback.
+**Menus (Phase 10):**
+- **Found:** every restaurant page links a `menu` PDF (Wix `/_files/ugd/*.pdf`, which redirects to `filesusr.com`), for 22 distinct PDFs across the restaurant and hub pages. The default 15-page crawl finds 15 of them. Umami's `umami.menu11.com` ordering link is recorded as a channel.
+- **Without AI:** only 1 of the 21 PDFs tested has a text layer: the all-you-can-eat hot pot menu, an unpriced list that the heuristics mark for AI sorting. The rest are pictures saved as PDFs (Canva and Illustrator exports with outlined text). Kogi (34 MB), Hwaro 1 (43 MB), Captain 6 (70 MB) and one hub PDF (32 MB) are over the 20 MB cap and are listed with a link and an "upload a screenshot" hint.
+- **Result:** with no AI the Offerings tab honestly shows 0 items plus a "Menus not read yet" list. "Read menus with AI" reads them 8 pages at a time.
+
+What it still misses: people, testimonials and FAQs. They aren't on the site.
 
 ### Goettl Air Conditioning and Plumbing (`goettl.com/location/las-vegas/`): HVAC, a typical MoFlo customer
 **Completeness 60 · 15 pages · ~14s**
@@ -358,7 +395,8 @@ Other results:
   | Alternate names | Goettl - Since 1939 - Air Conditioning and Plumbing, Goettl Tech, **Person holding a wrench in front of the goettl**, Original Goettl Air Conditioning | Goettl Tech, Original Goettl Air Conditioning |
 
 ### Anime Boba Cafe (`animebobacafe.com`): blocked site, template placeholder staff
-- Its robots.txt asks AI crawlers (GPTBot, ClaudeBot and others) to stay out, so XenFlo stops and shows the blocked panel with the ownership checkbox and upload options. That is the demo of the consent flow. Its content was only used with the owner's permission.
+- **Update (October 9, 2026):** the site's robots.txt no longer restricts bots. It only asks for a 10-second crawl delay, which XenFlo respects (capped at 3 s per request for the demo). The site is now a single page: no menu (HTML, PDF or image) and no prices. Its Clover online ordering link is recorded as the channel "Online ordering (Clover)". The notes below describe the earlier version of the site.
+- Its robots.txt asked AI crawlers (GPTBot, ClaudeBot and others) to stay out, so XenFlo stops and shows the blocked panel with the ownership checkbox and upload options. That is the demo of the consent flow. Its content was only used with the owner's permission.
 - With permission, the scrape worked technically, but the About page lists **three staff profiles that appear to be template filler** on a real site. The scraper read them correctly; the content itself isn't real.
 - The site also still has WordPress demo pages (`/sample-page`, `/hello-world`) and WordPress default colors.
 - This is the motivating case for placeholder detection in [docs/data-quality.md](docs/data-quality.md).
@@ -377,7 +415,8 @@ Other results:
 - **AI is opt-in and capped.** Pitch, writing style, persona and art style stay Missing until the owner fills them in or accepts AI suggestions. The public demo needs a passcode for live AI and is limited to 20 runs a day.
 - **Vision can't read SVG logos** (Apex's logo is an SVG), so art style may come from the hero image instead. Screenshots can fill overview, founding story, phones and emails; offerings and people from screenshots aren't extracted yet.
 - **Heuristics misfire** on some layouts: for example, section headings read as offerings. Every value shows its source and confidence in Advanced view, so these are easy to spot and fix.
-- **Information inside images** (menus, logos with names, flyers) needs vision AI.
+- **Information inside images** (menus, logos with names, flyers) needs vision AI. Picture menus are read 8 pages per run with "Read menus with AI". PDFs over 20 MB are not downloaded; the owner can upload a screenshot instead. Only the first 4 pages of a PDF are read.
+- **Menus behind ordering platforms** (Toast, Clover, DoorDash…) are not read. XenFlo records the platform as a channel but never scrapes it.
 - **Colors and fonts** come from the homepage's CSS only (inline styles plus up to 3 of the site's own stylesheets).
 - **No live progress:** the scrape API returns everything at the end, so the progress card shows the steps rather than each page as it finishes.
 - **Re-scrape** can bring back items the owner deleted by hand.
@@ -453,11 +492,11 @@ Pulled from my running log, **[docs/improvements.md](docs/improvements.md)**, wh
 ## Project layout
 
 ```
-src/app/                pages (/knowledge, /knowledge/view) and API routes (scrape, extract, knowledge, uploads)
+src/app/                pages (/knowledge, /knowledge/view) and API routes (scrape, extract, knowledge, uploads, enrich, menus)
 src/components/         ui/, knowledge/ (workspace, tabs, fallback), view/, tour/
-src/lib/scraper/        fetch, robots, discover, crawl, styles, colors, score, extract/*
+src/lib/scraper/        fetch, robots, discover, crawl, styles, colors, score, extract/*, menus/ (PDF text, menu parser, grouping)
 src/lib/db/             Supabase data layer (the only code that talks to the database)
-src/lib/ai/             enrich() entry point, prompt loading, schemas, OpenAI call, preview mode
+src/lib/ai/             enrich() entry point, menu reader, prompt loading, schemas, OpenAI call, preview mode
 src/types/              knowledge.ts (source of truth) + knowledge.schema.ts (Zod)
 supabase/migrations/    SQL migrations
 prompts/                versioned enrichment prompts

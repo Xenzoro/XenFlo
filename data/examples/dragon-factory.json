@@ -1,97 +1,84 @@
 {
-  "id": "08e80f15-a8e2-4cbc-9473-6db55e5294d7",
+  "id": "09f7ff1e-8462-4250-811e-130ef352f5dd",
   "url": "https://www.dragonfactories.com/",
   "companyName": "DRAGON FACTORY",
-  "createdAt": "2026-10-09T18:09:14.545Z",
-  "updatedAt": "2026-10-09T18:09:20.667Z",
+  "createdAt": "2026-10-09T20:33:38.001Z",
+  "updatedAt": "2026-10-09T20:33:48.341Z",
   "version": 1,
   "company": {
     "name": {
       "value": "DRAGON FACTORY",
       "source": "https://www.dragonfactories.com/",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T18:09:15.344Z"
+      "updatedAt": "2026-10-09T20:33:38.662Z"
     },
     "overview": {
       "value": "Dragon Factory has become a staple of All you can eat sushi, all you can eat kbbq and all you can hot pot places all across the Las Vegas. We bring new innovative experiences and combine them with the traditional styles of foods you love.",
       "source": "https://www.dragonfactories.com/",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T18:09:15.344Z"
+      "updatedAt": "2026-10-09T20:33:38.662Z"
     },
     "website": {
       "value": "https://www.dragonfactories.com/",
       "source": "https://dragonfactories.com/",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T18:09:14.545Z"
+      "updatedAt": "2026-10-09T20:33:38.002Z"
     },
     "industry": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T18:09:14.545Z"
+      "updatedAt": "2026-10-09T20:33:38.002Z"
     },
     "businessModel": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T18:09:14.545Z"
+      "updatedAt": "2026-10-09T20:33:38.002Z"
     },
     "companyRole": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T18:09:14.545Z"
+      "updatedAt": "2026-10-09T20:33:38.002Z"
     },
     "yearFounded": {
       "value": 2013,
       "source": "https://www.dragonfactories.com/",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T18:09:15.345Z"
+      "updatedAt": "2026-10-09T20:33:38.665Z"
     },
     "legalEntityType": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T18:09:14.545Z"
+      "updatedAt": "2026-10-09T20:33:38.002Z"
     },
     "legalName": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T18:09:14.545Z"
+      "updatedAt": "2026-10-09T20:33:38.002Z"
     },
     "employeeCount": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T18:09:14.545Z"
+      "updatedAt": "2026-10-09T20:33:38.002Z"
     },
     "revenue": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T18:09:14.545Z"
+      "updatedAt": "2026-10-09T20:33:38.002Z"
     },
     "mainAddress": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T18:09:14.545Z"
+      "updatedAt": "2026-10-09T20:33:38.002Z"
     },
     "otherLocations": [
-      {
-        "value": {
-          "street": "7435 S Durango Dr",
-          "city": "Las Vegas",
-          "region": "NV",
-          "postalCode": "89113",
-          "country": "US",
-          "formatted": "7435 S Durango Dr, Las Vegas, NV 89113"
-        },
-        "source": "https://www.dragonfactories.com/mr-shota",
-        "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:17.230Z"
-      },
       {
         "value": {
           "street": "3949 S Maryland Pkwy",
@@ -103,7 +90,20 @@
         },
         "source": "https://www.dragonfactories.com/sakana",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:17.430Z"
+        "updatedAt": "2026-10-09T20:33:43.782Z"
+      },
+      {
+        "value": {
+          "street": "7435 S Durango Dr",
+          "city": "Las Vegas",
+          "region": "NV",
+          "postalCode": "89113",
+          "country": "US",
+          "formatted": "7435 S Durango Dr, Las Vegas, NV 89113"
+        },
+        "source": "https://www.dragonfactories.com/mr-shota",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T20:33:43.865Z"
       },
       {
         "value": {
@@ -116,7 +116,7 @@
         },
         "source": "https://www.dragonfactories.com/sushi-neko-1",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:17.745Z"
+        "updatedAt": "2026-10-09T20:33:44.269Z"
       },
       {
         "value": {
@@ -129,20 +129,7 @@
         },
         "source": "https://www.dragonfactories.com/umami",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:18.057Z"
-      },
-      {
-        "value": {
-          "street": "5115 W Spring Mountain Rd #121",
-          "city": "Las Vegas",
-          "region": "NV",
-          "postalCode": "89146",
-          "country": "US",
-          "formatted": "5115 W Spring Mountain Rd #121, Las Vegas, NV 89146"
-        },
-        "source": "https://www.dragonfactories.com/neko-supremo",
-        "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:18.646Z"
+        "updatedAt": "2026-10-09T20:33:44.366Z"
       },
       {
         "value": {
@@ -155,7 +142,20 @@
         },
         "source": "https://www.dragonfactories.com/hwaro1",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:18.856Z"
+        "updatedAt": "2026-10-09T20:33:44.848Z"
+      },
+      {
+        "value": {
+          "street": "5115 W Spring Mountain Rd #121",
+          "city": "Las Vegas",
+          "region": "NV",
+          "postalCode": "89146",
+          "country": "US",
+          "formatted": "5115 W Spring Mountain Rd #121, Las Vegas, NV 89146"
+        },
+        "source": "https://www.dragonfactories.com/neko-supremo",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T20:33:44.950Z"
       },
       {
         "value": {
@@ -168,7 +168,7 @@
         },
         "source": "https://www.dragonfactories.com/hwaro2",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:19.259Z"
+        "updatedAt": "2026-10-09T20:33:45.353Z"
       },
       {
         "value": {
@@ -181,20 +181,7 @@
         },
         "source": "https://www.dragonfactories.com/captain-6",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:19.595Z"
-      },
-      {
-        "value": {
-          "street": "1263 E Silverado Ranch Blvd",
-          "city": "Las Vegas",
-          "region": "NV",
-          "postalCode": "89183",
-          "country": "US",
-          "formatted": "1263 E Silverado Ranch Blvd, Las Vegas, NV 89183"
-        },
-        "source": "https://www.dragonfactories.com/kogi",
-        "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:20.152Z"
+        "updatedAt": "2026-10-09T20:33:45.478Z"
       },
       {
         "value": {
@@ -207,7 +194,20 @@
         },
         "source": "https://www.dragonfactories.com/neko-loco-sushi",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:20.337Z"
+        "updatedAt": "2026-10-09T20:33:45.972Z"
+      },
+      {
+        "value": {
+          "street": "1263 E Silverado Ranch Blvd",
+          "city": "Las Vegas",
+          "region": "NV",
+          "postalCode": "89183",
+          "country": "US",
+          "formatted": "1263 E Silverado Ranch Blvd, Las Vegas, NV 89183"
+        },
+        "source": "https://www.dragonfactories.com/kogi",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T20:33:46.043Z"
       }
     ],
     "serviceLocations": [],
@@ -216,62 +216,62 @@
         "value": "Neko Loco",
         "source": "https://www.dragonfactories.com/",
         "confidence": "inferred",
-        "updatedAt": "2026-10-09T18:09:15.378Z"
+        "updatedAt": "2026-10-09T20:33:38.707Z"
       },
       {
         "value": "Chojang",
         "source": "https://www.dragonfactories.com/",
         "confidence": "inferred",
-        "updatedAt": "2026-10-09T18:09:15.378Z"
+        "updatedAt": "2026-10-09T20:33:38.708Z"
       },
       {
         "value": "Sumo Hotpot",
         "source": "https://www.dragonfactories.com/",
         "confidence": "inferred",
-        "updatedAt": "2026-10-09T18:09:15.379Z"
+        "updatedAt": "2026-10-09T20:33:38.708Z"
       },
       {
         "value": "Sushi Sumo Decatur",
         "source": "https://www.dragonfactories.com/",
         "confidence": "inferred",
-        "updatedAt": "2026-10-09T18:09:15.379Z"
+        "updatedAt": "2026-10-09T20:33:38.708Z"
       },
       {
         "value": "Sumo Henderson",
         "source": "https://www.dragonfactories.com/",
         "confidence": "inferred",
-        "updatedAt": "2026-10-09T18:09:15.379Z"
+        "updatedAt": "2026-10-09T20:33:38.709Z"
       },
       {
         "value": "Omakase Sumo",
         "source": "https://www.dragonfactories.com/",
         "confidence": "inferred",
-        "updatedAt": "2026-10-09T18:09:15.379Z"
+        "updatedAt": "2026-10-09T20:33:38.709Z"
       },
       {
         "value": "Neko Hana",
         "source": "https://www.dragonfactories.com/",
         "confidence": "inferred",
-        "updatedAt": "2026-10-09T18:09:15.379Z"
+        "updatedAt": "2026-10-09T20:33:38.709Z"
       },
       {
         "value": "Umami",
         "source": "https://www.dragonfactories.com/umami",
         "confidence": "inferred",
-        "updatedAt": "2026-10-09T18:09:18.062Z"
+        "updatedAt": "2026-10-09T20:33:44.371Z"
       }
     ],
     "pitch": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T18:09:14.545Z"
+      "updatedAt": "2026-10-09T20:33:38.002Z"
     },
     "foundingStory": {
       "value": "Dragon Factory Company founded in 2013 has evolved from a cozy mom and pop shop named Sakana into a culinary powerhouse. With a foundation rooted in creativity and innovation, expanding our concept into a diverse portfolio of restaurants. Our journey from a single restaurant to a flourishing enterprise showcases our passion for food and unwavering commitment to reinventing the dining landscape.",
       "source": "https://www.dragonfactories.com/",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T18:09:15.362Z"
+      "updatedAt": "2026-10-09T20:33:38.682Z"
     }
   },
   "contact": {
@@ -280,7 +280,7 @@
         "value": "apply.dragonfactory@gmail.com",
         "source": "https://www.dragonfactories.com/apply-now",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:16.726Z"
+        "updatedAt": "2026-10-09T20:33:39.744Z"
       }
     ],
     "phones": [
@@ -288,14 +288,14 @@
         "value": "(725) 205-8505",
         "source": "https://www.dragonfactories.com/captain-6",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:19.596Z"
+        "updatedAt": "2026-10-09T20:33:45.479Z"
       }
     ],
     "contactPageUrl": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T18:09:14.545Z"
+      "updatedAt": "2026-10-09T20:33:38.002Z"
     }
   },
   "customers": {
@@ -305,16 +305,23 @@
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T18:09:14.545Z"
+      "updatedAt": "2026-10-09T20:33:38.002Z"
     },
     "industryGroupings": [],
     "industryOutlook": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T18:09:14.545Z"
+      "updatedAt": "2026-10-09T20:33:38.002Z"
     },
-    "channels": [],
+    "channels": [
+      {
+        "value": "Online ordering (Menu11)",
+        "source": "https://umami.menu11.com/",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T20:33:44.369Z"
+      }
+    ],
     "funnels": [],
     "ctas": [
       {
@@ -324,16 +331,16 @@
         },
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:15.368Z"
+        "updatedAt": "2026-10-09T20:33:38.694Z"
       },
       {
         "value": {
           "text": "learn more",
-          "url": "https://www.dragonfactories.com/sakana"
+          "url": "https://www.dragonfactories.com/hwaro1"
         },
-        "source": "https://www.dragonfactories.com/ayce-sushi",
+        "source": "https://www.dragonfactories.com/ayce-kbbq",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:15.898Z"
+        "updatedAt": "2026-10-09T20:33:39.120Z"
       },
       {
         "value": {
@@ -342,7 +349,7 @@
         },
         "source": "https://www.dragonfactories.com/umami",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:18.060Z"
+        "updatedAt": "2026-10-09T20:33:44.370Z"
       }
     ],
     "suppliersPartners": [
@@ -353,7 +360,7 @@
         },
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:15.500Z"
+        "updatedAt": "2026-10-09T20:33:38.832Z"
       },
       {
         "value": {
@@ -362,7 +369,7 @@
         },
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:15.502Z"
+        "updatedAt": "2026-10-09T20:33:38.834Z"
       }
     ]
   },
@@ -371,32 +378,32 @@
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T18:09:14.545Z"
+      "updatedAt": "2026-10-09T20:33:38.002Z"
     },
     "artStyle": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T18:09:14.545Z"
+      "updatedAt": "2026-10-09T20:33:38.002Z"
     },
     "fonts": [
       {
         "value": "Avenir LT",
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:15.382Z"
+        "updatedAt": "2026-10-09T20:33:38.713Z"
       },
       {
         "value": "Barlow",
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:15.382Z"
+        "updatedAt": "2026-10-09T20:33:38.713Z"
       },
       {
         "value": "Barlow Medium",
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:15.382Z"
+        "updatedAt": "2026-10-09T20:33:38.713Z"
       }
     ],
     "colors": [
@@ -404,37 +411,37 @@
         "value": "#2b5672",
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:15.492Z"
+        "updatedAt": "2026-10-09T20:33:38.823Z"
       },
       {
         "value": "#c6a47e",
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:15.492Z"
+        "updatedAt": "2026-10-09T20:33:38.823Z"
       },
       {
         "value": "#e03939",
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:15.492Z"
+        "updatedAt": "2026-10-09T20:33:38.823Z"
       },
       {
         "value": "#e3cfb9",
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:15.492Z"
+        "updatedAt": "2026-10-09T20:33:38.823Z"
       },
       {
         "value": "#41bbb3",
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:15.492Z"
+        "updatedAt": "2026-10-09T20:33:38.823Z"
       },
       {
         "value": "#0088cb",
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:15.492Z"
+        "updatedAt": "2026-10-09T20:33:38.823Z"
       }
     ],
     "logos": [
@@ -446,7 +453,7 @@
         },
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:15.375Z"
+        "updatedAt": "2026-10-09T20:33:38.699Z"
       },
       {
         "value": {
@@ -456,7 +463,7 @@
         },
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:15.377Z"
+        "updatedAt": "2026-10-09T20:33:38.705Z"
       },
       {
         "value": {
@@ -466,7 +473,7 @@
         },
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:15.377Z"
+        "updatedAt": "2026-10-09T20:33:38.705Z"
       },
       {
         "value": {
@@ -476,7 +483,7 @@
         },
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:15.377Z"
+        "updatedAt": "2026-10-09T20:33:38.706Z"
       },
       {
         "value": {
@@ -486,7 +493,7 @@
         },
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:15.377Z"
+        "updatedAt": "2026-10-09T20:33:38.706Z"
       },
       {
         "value": {
@@ -496,7 +503,7 @@
         },
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:15.377Z"
+        "updatedAt": "2026-10-09T20:33:38.706Z"
       },
       {
         "value": {
@@ -506,7 +513,7 @@
         },
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:15.378Z"
+        "updatedAt": "2026-10-09T20:33:38.706Z"
       },
       {
         "value": {
@@ -516,7 +523,7 @@
         },
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:15.378Z"
+        "updatedAt": "2026-10-09T20:33:38.707Z"
       }
     ],
     "socialLinks": [
@@ -527,7 +534,7 @@
         },
         "source": "https://www.dragonfactories.com/captain-6",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T18:09:19.596Z"
+        "updatedAt": "2026-10-09T20:33:45.478Z"
       }
     ]
   },
@@ -543,7 +550,8 @@
     "pressMentions": [],
     "communityValues": [],
     "legalLinks": [],
-    "positioningSignals": []
+    "positioningSignals": [],
+    "seasonalMessaging": []
   },
   "contentKit": {
     "contentPillars": [],
@@ -555,7 +563,7 @@
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T18:09:14.545Z"
+      "updatedAt": "2026-10-09T20:33:38.002Z"
     }
   },
   "completeness": {
@@ -576,9 +584,9 @@
     ]
   },
   "crawl": {
-    "startedAt": "2026-10-09T18:09:14.545Z",
-    "finishedAt": "2026-10-09T18:09:20.667Z",
-    "durationMs": 5982,
+    "startedAt": "2026-10-09T20:33:38.001Z",
+    "finishedAt": "2026-10-09T20:33:48.341Z",
+    "durationMs": 10181,
     "robotsAllowed": true,
     "pendingUrls": [
       "https://www.dragonfactories.com/chojang-house",
@@ -595,270 +603,612 @@
         "category": "home",
         "status": 200,
         "title": "DRAGON FACTORY LAS VEGAS | ALL YOU CAN EAT KBBQ | ALL YOU CAN EAT SUSHI | ALL YOU CAN EAT HOT POT",
-        "fetchedAt": "2026-10-09T18:09:15.503Z",
-        "durationMs": 226,
-        "error": null
-      },
-      {
-        "url": "https://www.dragonfactories.com/ayce-sushi",
-        "category": "other",
-        "status": 200,
-        "title": "ALL YOU CAN EAT SUSHI | DRAGON FACTORY",
-        "fetchedAt": "2026-10-09T18:09:15.911Z",
-        "durationMs": 126,
-        "error": null
+        "fetchedAt": "2026-10-09T20:33:38.835Z",
+        "durationMs": 222,
+        "error": null,
+        "metaDescription": "Dragon Factory has become a staple of All you can eat sushi, all you can eat kbbq and all you can hot pot places all across the Las Vegas. We bring new innovative experiences and combine them with the traditional styles of foods you love.",
+        "headings": [
+          "Restaurants",
+          "about us.",
+          "join our team"
+        ],
+        "imageAlts": [
+          "Dragonfactory",
+          "Neko Loco",
+          "Chojang",
+          "E381d2 D52f5ecb203d45f88c50dc9557f3d86c~Mv2 Jpg",
+          "Sumo Hotpot",
+          "Sushi Sumo Decatur",
+          "Sumo Henderson",
+          "Omakase Sumo",
+          "Neko Hana",
+          "Hwaro Korean Bbq (2)"
+        ]
       },
       {
         "url": "https://www.dragonfactories.com/ayce-kbbq",
         "category": "other",
         "status": 200,
         "title": "ALL YOU CAN EAT KBBQ | DRAGON FACTORY",
-        "fetchedAt": "2026-10-09T18:09:16.079Z",
-        "durationMs": 304,
-        "error": null
+        "fetchedAt": "2026-10-09T20:33:39.134Z",
+        "durationMs": 95,
+        "error": null,
+        "metaDescription": "ragon Factory's journey began with Hwaro 1, which underwent renovations and menu innovations over the years, now offering a fusion of BBQ and sushi delights. As Hwaro 1 expanded, Hwaro 2 emerged, specializing in traditional Korean BBQ. Today, Kogi and Captain 6 provide a diverse array of Korean BBQ experiences, including all-you-can-eat hot pot, classic Korean BBQ, and mouthwatering seafood boils.",
+        "headings": [
+          "KBBQ",
+          "join our team"
+        ],
+        "imageAlts": [
+          "Dragonfactory",
+          "Hwarocoverphoto",
+          "Hwaro2 Exterior",
+          "Kogi",
+          "CAPTAIN6"
+        ]
+      },
+      {
+        "url": "https://www.dragonfactories.com/ayce-sushi",
+        "category": "other",
+        "status": 200,
+        "title": "ALL YOU CAN EAT SUSHI | DRAGON FACTORY",
+        "fetchedAt": "2026-10-09T20:33:39.248Z",
+        "durationMs": 196,
+        "error": null,
+        "metaDescription": "Dragon Factory originated with its flagship store, Sakana, and has since bloomed into a collection of all-you-can-eat sushi restaurants including Sushi Neko, Sushi Supremo, Umami, and Mr. Shota, offering a diverse range of sushi dining experiences.",
+        "headings": [
+          "SUSHI",
+          "Sumo Henderson",
+          "Sushi Sumo Decatur",
+          "join our team"
+        ],
+        "imageAlts": [
+          "Dragonfactory",
+          "Sanaka Lasvegas",
+          "Umami Lasvegas",
+          "Mrshota Interior",
+          "DSC00723",
+          "Sushineko",
+          "Sumosushivegas",
+          "DSC05125"
+        ]
       },
       {
         "url": "https://www.dragonfactories.com/ayce-hotpot",
         "category": "other",
         "status": 200,
         "title": "ALL YOU CAN EAT HOTPOT | DRAGON FACTORY",
-        "fetchedAt": "2026-10-09T18:09:16.462Z",
-        "durationMs": 87,
-        "error": null
+        "fetchedAt": "2026-10-09T20:33:39.602Z",
+        "durationMs": 101,
+        "error": null,
+        "metaDescription": "At Nabe, we specialize in the ultimate all-you-can-eat experience featuring hot pot and sushi, complemented by a delectable selection of appetizers. Dive into a customizable feast with various broth options to elevate your dining adventure and savor the best of both worlds in one unforgettable meal.",
+        "headings": [
+          "HOTPOT",
+          "menu",
+          "join our team"
+        ],
+        "imageAlts": [
+          "Dragonfactory",
+          "Sumo Hotpot",
+          "Nabehotpot"
+        ]
       },
       {
         "url": "https://www.dragonfactories.com/apply-now",
         "category": "other",
         "status": 200,
         "title": "APPLY NOW | DRAGON FACTORY",
-        "fetchedAt": "2026-10-09T18:09:16.741Z",
-        "durationMs": 108,
-        "error": null
-      },
-      {
-        "url": "https://www.dragonfactories.com/mr-shota",
-        "category": "services",
-        "status": 200,
-        "title": "MR.SHOTA | ALL YOU CAN EAT SUSHI",
-        "fetchedAt": "2026-10-09T18:09:17.242Z",
-        "durationMs": 74,
-        "error": null
+        "fetchedAt": "2026-10-09T20:33:39.757Z",
+        "durationMs": 88,
+        "error": null,
+        "metaDescription": "Join us at Dragon Factory, where all generations are welcome to apply and work together! Simply fill out the form below, and we'll reach out to you promptly. Embrace diversity and be a part of our team today!",
+        "headings": [
+          "Work for us!",
+          "Join us at Dragon Factory, where all generations are welcome to apply and work together! Simply fill out the form below,"
+        ],
+        "imageAlts": [
+          "Dragonfactory",
+          "Dragonfactory Employees"
+        ]
       },
       {
         "url": "https://www.dragonfactories.com/sakana",
         "category": "other",
         "status": 200,
         "title": "SAKANA SUSHI | ALL YOU CAN EAT SUSHI",
-        "fetchedAt": "2026-10-09T18:09:17.457Z",
-        "durationMs": 214,
-        "error": null
+        "fetchedAt": "2026-10-09T20:33:43.806Z",
+        "durationMs": 75,
+        "error": null,
+        "metaDescription": "Sakana Sushi is a popular all-you-can-eat sushi spot near the Las Vegas Strip and UNLV. Known for its fresh fish, wide variety of rolls, and great value, it’s a local favorite for quality sushi in a casual setting.",
+        "headings": [
+          "Sakana Las Vegas",
+          "Monday - Sunday 11:00 AM - 12:00 AM LAST CALL: 11:30 PM 3949 S Maryland Pkwy, Las Vegas, NV 89119"
+        ],
+        "imageAlts": [
+          "Dragonfactory",
+          "Sanaka Lasvegas"
+        ]
+      },
+      {
+        "url": "https://www.dragonfactories.com/mr-shota",
+        "category": "menu",
+        "status": 200,
+        "title": "MR.SHOTA | ALL YOU CAN EAT SUSHI",
+        "fetchedAt": "2026-10-09T20:33:43.880Z",
+        "durationMs": 172,
+        "error": null,
+        "metaDescription": "Mr. Shota in southwest Las Vegas offers all-you-can-eat sushi with a stylish ambiance, lunch specials, and a late-night happy hour. Great quality and value make it a local favorite.",
+        "headings": [
+          "Mr. Shota Las Vegas",
+          "MONDAY - SUNDAY: 11:00 AM - 12:00 AM LAST CALL: 11:0 0 PM 7435 S Durango Dr, Las Vegas, NV 89113"
+        ],
+        "imageAlts": [
+          "Dragonfactory",
+          "Mrshota Interior"
+        ]
       },
       {
         "url": "https://www.dragonfactories.com/sushi-neko-1",
         "category": "other",
         "status": 200,
         "title": "SUSHI NEKO | DRAGON FACTORY",
-        "fetchedAt": "2026-10-09T18:09:17.759Z",
-        "durationMs": 73,
-        "error": null
+        "fetchedAt": "2026-10-09T20:33:44.282Z",
+        "durationMs": 107,
+        "error": null,
+        "metaDescription": null,
+        "headings": [
+          "Sushi Neko",
+          "MONDAY TO SUNDAY 11:00 AM - 12:00 AM LAST CALL: 11 :3 0 PM 5115 W Spring Mountain Rd #117, Las Vegas, NV 89146"
+        ],
+        "imageAlts": [
+          "Dragonfactory",
+          "Sushineko"
+        ]
       },
       {
         "url": "https://www.dragonfactories.com/umami",
         "category": "other",
         "status": 200,
         "title": "UMAMI | ALL YOU CAN EAT SUSHI",
-        "fetchedAt": "2026-10-09T18:09:18.075Z",
-        "durationMs": 116,
-        "error": null
-      },
-      {
-        "url": "https://www.dragonfactories.com/neko-supremo",
-        "category": "other",
-        "status": 200,
-        "title": "NEKO SUPREMO | DRAGON FACTORY",
-        "fetchedAt": "2026-10-09T18:09:18.664Z",
-        "durationMs": 90,
-        "error": null
+        "fetchedAt": "2026-10-09T20:33:44.390Z",
+        "durationMs": 119,
+        "error": null,
+        "metaDescription": "Umami Sushi in northwest Las Vegas (Centennial/Summerlin area) offers all-you-can-eat sushi with great quality and value. Enjoy fresh rolls, nigiri, and appetizers in a modern, casual setting—no reservations needed.",
+        "headings": [
+          "Umami Sushi Las Vegas",
+          "MONDAY TO SUNDAY 11:00 AM - 12:00 AM LAST CALL: 11:3 0 PM 6640 N Durango Dr #180, Las Vegas, NV 89149"
+        ],
+        "imageAlts": [
+          "Dragonfactory",
+          "Umami Lasvegas",
+          "Umami"
+        ]
       },
       {
         "url": "https://www.dragonfactories.com/hwaro1",
         "category": "other",
         "status": 200,
         "title": "HWARO 1 AYCE KBBQ & SUSHI",
-        "fetchedAt": "2026-10-09T18:09:18.891Z",
-        "durationMs": 302,
-        "error": null
+        "fetchedAt": "2026-10-09T20:33:44.875Z",
+        "durationMs": 96,
+        "error": null,
+        "metaDescription": "Hwaro 1 offers the best all-you-can-eat KBBQ and sushi on Spring Mountain in Las Vegas! Premium meats, fresh sushi, and an unbeatable dining experience.",
+        "headings": [
+          "Hwaro 1 Las Vegas",
+          "MONDAY TO SUNDAY 11:30 AM - 3:00 AM * LAST CALL: 2:00 AM 5030 Spring Mountain Rd, Las Vegas, NV 89146"
+        ],
+        "imageAlts": [
+          "Dragonfactory",
+          "DSC09744"
+        ]
+      },
+      {
+        "url": "https://www.dragonfactories.com/neko-supremo",
+        "category": "other",
+        "status": 200,
+        "title": "NEKO SUPREMO | DRAGON FACTORY",
+        "fetchedAt": "2026-10-09T20:33:44.967Z",
+        "durationMs": 190,
+        "error": null,
+        "metaDescription": null,
+        "headings": [
+          "Neko Supremo",
+          "MONDAY TO THURSDAY 12:00 PM - 1:00 AM LAST CALL: 12:30 AM FRIDAY TO SUNDAY 12:00 PM - 2:00 AM LAST CALL: 1:3 0 AM 5115 W"
+        ],
+        "imageAlts": [
+          "Dragonfactory",
+          "DSC03006"
+        ]
       },
       {
         "url": "https://www.dragonfactories.com/hwaro2",
         "category": "other",
         "status": 200,
         "title": "HWARO 2 AYCE KBBQ IN LAS VEGAS",
-        "fetchedAt": "2026-10-09T18:09:19.277Z",
-        "durationMs": 137,
-        "error": null
+        "fetchedAt": "2026-10-09T20:33:45.370Z",
+        "durationMs": 104,
+        "error": null,
+        "metaDescription": "Hwaro 2 serves authentic all-you-can-eat KBBQ on Spring Mountain in Las Vegas, featuring premium meats, traditional flavors, and a true Korean BBQ experience.",
+        "headings": [
+          "Hwaro 2 Las Vegas",
+          "MONDAY TO SUNDAY 11:30 AM - 3:00 AM LAST CALL: 2:00 AM 3 650 S Decatur Blvd #24-25, Las Vegas, NV 89103"
+        ],
+        "imageAlts": [
+          "Dragonfactory",
+          "Hwaro2 Exterior"
+        ]
       },
       {
         "url": "https://www.dragonfactories.com/captain-6",
         "category": "other",
         "status": 200,
         "title": "CAPTAIN 6 | DRAGON FACTORY",
-        "fetchedAt": "2026-10-09T18:09:19.634Z",
-        "durationMs": 123,
-        "error": null
-      },
-      {
-        "url": "https://www.dragonfactories.com/kogi",
-        "category": "other",
-        "status": 200,
-        "title": "KOGI | DRAGON FACTORY",
-        "fetchedAt": "2026-10-09T18:09:20.170Z",
-        "durationMs": 86,
-        "error": null
+        "fetchedAt": "2026-10-09T20:33:45.520Z",
+        "durationMs": 116,
+        "error": null,
+        "metaDescription": null,
+        "headings": [
+          "Captain 6 | AYCE KBBQ & HOTPOT",
+          "MONDAY TO SUNDAY 11:30 AM -3:00 AM LAST CALL: 2:00 A M 5416 Spring Mountain Rd #104, Las Vegas, NV 89146 Call us: (725) ",
+          "Follow us on Instagram"
+        ],
+        "imageAlts": [
+          "Dragonfactory",
+          "CAPTAIN6",
+          "With jalapeño or without jalapeño?",
+          "Perfectly grilled tomahawk @captain6lv",
+          "Happy Labor Day! We’re open!",
+          "Enjoy AYCE KBBQ with us!",
+          "Who’s ready AYCE KBBQ and Hotpot!"
+        ]
       },
       {
         "url": "https://www.dragonfactories.com/neko-loco-sushi",
         "category": "other",
         "status": 200,
         "title": "NEKO LOCO SUSHI | DRAGON FACTORY",
-        "fetchedAt": "2026-10-09T18:09:20.367Z",
-        "durationMs": 237,
-        "error": null
+        "fetchedAt": "2026-10-09T20:33:45.985Z",
+        "durationMs": 96,
+        "error": null,
+        "metaDescription": "Your New Go-To for Affordable All-You-Can-Eat Sushi in Las Vegas. Neko Loco Sushi.",
+        "headings": [
+          "Neko Loco Sushi",
+          "SOFT OPENING: JULY 4TH TEMPORARY OPERATION HOURS: MONDAY - SUNDAY 4 PM - 12 AM LAST CALL 11:30PM 5115 W Spring Mountain "
+        ],
+        "imageAlts": [
+          "Dragonfactory",
+          "Neko Loco"
+        ]
+      },
+      {
+        "url": "https://www.dragonfactories.com/kogi",
+        "category": "other",
+        "status": 200,
+        "title": "KOGI | DRAGON FACTORY",
+        "fetchedAt": "2026-10-09T20:33:46.055Z",
+        "durationMs": 168,
+        "error": null,
+        "metaDescription": null,
+        "headings": [
+          "Kogi Korean BBQ & Seafood Hot Pot",
+          "MONDAY TO SUNDAY 11:30 AM -1:00 AM LAST CALL: 12:30 AM 1263 E Silverado Ranch Blvd, Las Vegas, NV 89183"
+        ],
+        "imageAlts": [
+          "Dragonfactory",
+          "Kogi"
+        ]
       }
     ],
     "log": [
       {
-        "at": "2026-10-09T18:09:14.545Z",
+        "at": "2026-10-09T20:33:38.002Z",
         "level": "info",
         "message": "Checking robots.txt"
       },
       {
-        "at": "2026-10-09T18:09:14.685Z",
+        "at": "2026-10-09T20:33:38.160Z",
         "level": "info",
         "message": "Fetching homepage https://dragonfactories.com/"
       },
       {
-        "at": "2026-10-09T18:09:14.911Z",
+        "at": "2026-10-09T20:33:38.382Z",
         "level": "info",
         "message": "Reading styles for fonts and colors"
       },
       {
-        "at": "2026-10-09T18:09:15.503Z",
+        "at": "2026-10-09T20:33:38.835Z",
         "level": "info",
         "message": "Discovering pages"
       },
       {
-        "at": "2026-10-09T18:09:15.611Z",
+        "at": "2026-10-09T20:33:38.951Z",
         "level": "info",
         "message": "Found 21 linked pages and 22 sitemap entries"
       },
       {
-        "at": "2026-10-09T18:09:15.611Z",
+        "at": "2026-10-09T20:33:38.951Z",
         "level": "info",
         "message": "Crawling 0 priority pages"
       },
       {
-        "at": "2026-10-09T18:09:15.612Z",
+        "at": "2026-10-09T20:33:38.952Z",
         "level": "info",
         "message": "Checking other pages for missing info"
       },
       {
-        "at": "2026-10-09T18:09:15.612Z",
+        "at": "2026-10-09T20:33:38.952Z",
         "level": "info",
         "message": "Crawling 2 of 15: /ayce-kbbq"
       },
       {
-        "at": "2026-10-09T18:09:15.612Z",
+        "at": "2026-10-09T20:33:38.952Z",
         "level": "info",
         "message": "Crawling 3 of 15: /ayce-sushi"
       },
       {
-        "at": "2026-10-09T18:09:16.212Z",
+        "at": "2026-10-09T20:33:39.435Z",
         "level": "info",
         "message": "Crawling 4 of 15: /ayce-hotpot"
       },
       {
-        "at": "2026-10-09T18:09:16.463Z",
+        "at": "2026-10-09T20:33:39.603Z",
         "level": "info",
         "message": "Crawling 5 of 15: /apply-now"
       },
       {
-        "at": "2026-10-09T18:09:17.042Z",
+        "at": "2026-10-09T20:33:43.642Z",
         "level": "info",
-        "message": "Looking for: targetBuyers, offerings"
+        "message": "Looking for: offerings"
       },
       {
-        "at": "2026-10-09T18:09:17.042Z",
+        "at": "2026-10-09T20:33:43.642Z",
         "level": "info",
         "message": "Crawling 6 of 15: /mr-shota"
       },
       {
-        "at": "2026-10-09T18:09:17.043Z",
+        "at": "2026-10-09T20:33:43.643Z",
         "level": "info",
         "message": "Crawling 7 of 15: /sakana"
       },
       {
-        "at": "2026-10-09T18:09:17.542Z",
+        "at": "2026-10-09T20:33:44.107Z",
         "level": "info",
         "message": "Crawling 8 of 15: /sushi-neko-1"
       },
       {
-        "at": "2026-10-09T18:09:17.759Z",
+        "at": "2026-10-09T20:33:44.180Z",
         "level": "info",
         "message": "Crawling 9 of 15: /umami"
       },
       {
-        "at": "2026-10-09T18:09:18.376Z",
+        "at": "2026-10-09T20:33:44.691Z",
         "level": "info",
         "message": "Checking other pages for missing info"
       },
       {
-        "at": "2026-10-09T18:09:18.376Z",
+        "at": "2026-10-09T20:33:44.691Z",
         "level": "info",
         "message": "Crawling 10 of 15: /neko-supremo"
       },
       {
-        "at": "2026-10-09T18:09:18.376Z",
+        "at": "2026-10-09T20:33:44.691Z",
         "level": "info",
         "message": "Crawling 11 of 15: /hwaro1"
       },
       {
-        "at": "2026-10-09T18:09:18.965Z",
+        "at": "2026-10-09T20:33:45.176Z",
         "level": "info",
         "message": "Crawling 12 of 15: /hwaro2"
       },
       {
-        "at": "2026-10-09T18:09:19.286Z",
+        "at": "2026-10-09T20:33:45.268Z",
         "level": "info",
         "message": "Crawling 13 of 15: /captain-6"
       },
       {
-        "at": "2026-10-09T18:09:19.936Z",
+        "at": "2026-10-09T20:33:45.821Z",
         "level": "info",
         "message": "Checking other pages for missing info"
       },
       {
-        "at": "2026-10-09T18:09:19.936Z",
+        "at": "2026-10-09T20:33:45.821Z",
         "level": "info",
         "message": "Crawling 14 of 15: /kogi"
       },
       {
-        "at": "2026-10-09T18:09:19.937Z",
+        "at": "2026-10-09T20:33:45.821Z",
         "level": "info",
         "message": "Crawling 15 of 15: /neko-loco-sushi"
       },
       {
-        "at": "2026-10-09T18:09:20.667Z",
+        "at": "2026-10-09T20:33:46.356Z",
+        "level": "info",
+        "message": "Reading 12 menu PDFs"
+      },
+      {
+        "at": "2026-10-09T20:33:48.341Z",
+        "level": "warn",
+        "message": "3 menu PDFs left for \"Dig deeper\""
+      },
+      {
+        "at": "2026-10-09T20:33:48.341Z",
         "level": "info",
         "message": "Extracting and scoring"
       },
       {
-        "at": "2026-10-09T18:09:20.667Z",
+        "at": "2026-10-09T20:33:48.341Z",
         "level": "info",
         "message": "Done: 15 pages total, 7 more available, completeness 51"
+      }
+    ],
+    "menuSources": [
+      {
+        "url": "https://www.dragonfactories.com/_files/ugd/e381d2_e39c885f9f52403aa9ae2f27463ad581.pdf",
+        "kind": "pdf",
+        "foundOn": "https://www.dragonfactories.com/hwaro1",
+        "label": "menu",
+        "group": "Hwaro 1 Ayce Kbbq & Sushi",
+        "status": "too_large",
+        "items": 0,
+        "note": "The file is 43 MB, over the 20 MB limit. Upload a screenshot of it instead."
+      },
+      {
+        "url": "https://www.dragonfactories.com/_files/ugd/e381d2_8cce0cf8de2247b88e784afe5b88e44f.pdf",
+        "kind": "pdf",
+        "foundOn": "https://www.dragonfactories.com/ayce-kbbq",
+        "label": "menu",
+        "group": null,
+        "status": "no_text",
+        "items": 0,
+        "bytes": 13799129,
+        "pages": 2,
+        "note": "This menu is a picture. AI can read it."
+      },
+      {
+        "url": "https://www.dragonfactories.com/_files/ugd/e381d2_950824a5139b480180f0abca721416ea.pdf",
+        "kind": "pdf",
+        "foundOn": "https://www.dragonfactories.com/captain-6",
+        "label": "menu",
+        "group": "Captain 6",
+        "status": "too_large",
+        "items": 0,
+        "note": "The file is 70 MB, over the 20 MB limit. Upload a screenshot of it instead."
+      },
+      {
+        "url": "https://www.dragonfactories.com/_files/ugd/e381d2_4dc2027c503e47d48c628c220dbbbaff.pdf",
+        "kind": "pdf",
+        "foundOn": "https://www.dragonfactories.com/kogi",
+        "label": "menu",
+        "group": "Kogi",
+        "status": "too_large",
+        "items": 0,
+        "note": "The file is 34 MB, over the 20 MB limit. Upload a screenshot of it instead."
+      },
+      {
+        "url": "https://www.dragonfactories.com/_files/ugd/e381d2_eda6a438c9c44183921c20635d69140b.pdf",
+        "kind": "pdf",
+        "foundOn": "https://www.dragonfactories.com/sakana",
+        "label": "menu",
+        "group": "Sakana Sushi",
+        "status": "no_text",
+        "items": 0,
+        "bytes": 2782746,
+        "pages": 2,
+        "note": "This menu is a picture. AI can read it."
+      },
+      {
+        "url": "https://www.dragonfactories.com/_files/ugd/e381d2_277ff01fe017404c92ca6513c65c9a02.pdf",
+        "kind": "pdf",
+        "foundOn": "https://www.dragonfactories.com/umami",
+        "label": "menu",
+        "group": "Umami",
+        "status": "no_text",
+        "items": 0,
+        "bytes": 3355370,
+        "pages": 2,
+        "note": "This menu is a picture. AI can read it."
+      },
+      {
+        "url": "https://www.dragonfactories.com/_files/ugd/e381d2_3b0ee1859f7b4fc390b49040fe449ef4.pdf",
+        "kind": "pdf",
+        "foundOn": "https://www.dragonfactories.com/neko-supremo",
+        "label": "menu",
+        "group": "Neko Supremo",
+        "status": "no_text",
+        "items": 0,
+        "bytes": 1015599,
+        "pages": 2,
+        "note": "This menu is a picture. AI can read it."
+      },
+      {
+        "url": "https://www.dragonfactories.com/_files/ugd/e381d2_f3ec4b2599004e799fe42fd90931e796.pdf",
+        "kind": "pdf",
+        "foundOn": "https://www.dragonfactories.com/ayce-sushi",
+        "label": "menu",
+        "group": null,
+        "status": "too_large",
+        "items": 0,
+        "note": "The file is 32 MB, over the 20 MB limit. Upload a screenshot of it instead."
+      },
+      {
+        "url": "https://www.dragonfactories.com/_files/ugd/e381d2_469bada6eb5d424a887fcc0756a73985.pdf",
+        "kind": "pdf",
+        "foundOn": "https://www.dragonfactories.com/ayce-sushi",
+        "label": "menu",
+        "group": null,
+        "status": "no_text",
+        "items": 0,
+        "bytes": 853126,
+        "pages": 2,
+        "note": "This menu is a picture. AI can read it."
+      },
+      {
+        "url": "https://www.dragonfactories.com/_files/ugd/e381d2_aab25048021a4ccbaca1363abe7b3619.pdf",
+        "kind": "pdf",
+        "foundOn": "https://www.dragonfactories.com/ayce-hotpot",
+        "label": "Menu",
+        "group": null,
+        "status": "messy",
+        "items": 0,
+        "bytes": 614148,
+        "pages": 2,
+        "text": "AYCE RULES:\nOrder little by little – leftovers will be\ncharged $9.95/person.\nParties of 4 or more will be charged\nan additional 18% service fee.\nTime limit is 90 minutes.\nMinimum 2 AYCE per table.\nWeekends and Holidays:\nAll Day Price Only\nLUNCH\n$26.95 $34.95\nALL DAY\nKIDS UNDER 10 YEARS OLD\n3 FT and under eat for free\n3 FT – 4.5 FT Pricing:\nLunch $14.95\nAll Day $16.95\nAbove 4.5 FT: Full price\n*Angus Brisket\n*Angus Beef Belly\n*Premium Shoulder Tender\n*Premium Short Rib\n*Premium Ribeye\n*Premium Pork Belly\n*Boneless Lamb Shoulder\nSTEP 2\n“After choosing your broth\nand meat head to the\nbuffet and enjoy!”\n*Consuming raw or undercooked meats, poultry, seafood, shellfish, or eggs may increase\nyour risk of foodborne illness, especially if you have certain medical conditions.\nAppetizer\nSteamed Rice\nEdamame\nSpicy Garlic Edamame\nParmesan Edamame\nBulgogi Nachos\nShrimp Tempura\nChicken Karaage\nHoney Fried Chicken\nBaked Green Mussels\nDeep-fried Soft Shell crab\nKfc\nPang\nGyoza\nDynamite\nThe shit\nBulgogi\nTakoyaki\nEgg roll\nPork belly\nHawaiian Poke Bowl\nSalad\nSeaweed Salad\nAddicting Cucumber Salad\nHouse Salad\nCucumber Crab Salad\nLimit of 5 orders at a time.\nTuna*\nGarlic Tuna*\nSalmon*\nAlbacore*\n300 Albacore*\nSuper White Tuna*\nYellowtail*\nYuzu Yellowtail*\nTruffle Yellowtail*\nYuzu Salmon*\nTruffle Salmon*\nSalmon Carpaccio*\nYellowtail Carpaccio*\nAlbacore Carpaccio*\nKorean Sashimi Rice Bowl*\nSeafood Salad*\nTowering Sashimi*\nDeep Fried Buttered Scallop*\nSeared Bluefin Tuna\nCreamy Sashimi Bowl\nSOY PAPER\nNo Name Hand Roll* SOY PAPER\nIn: Shrimp Tempura, Eel, Salmon,\nSpicy Mayo, Eel Sauce, Crunch\nHand Rolls\nCalifornia Hand Roll\nPhiladelphia Hand Roll*\nAlaska Hand Roll*\nBatman Burrito*\nSpicy Tuna, Spicy Crab, Shrimp Tempura,\nYumyum, Spicy Mayo\nTRY SPICY!\nTRY SPICY!",
+        "note": "Text found, but not laid out clearly enough to sort without AI."
+      },
+      {
+        "url": "https://www.dragonfactories.com/_files/ugd/e381d2_b6464b37eee545ee9be753c2917d48c4.pdf",
+        "kind": "pdf",
+        "foundOn": "https://www.dragonfactories.com/mr-shota",
+        "label": "menu",
+        "group": "Mr.Shota",
+        "status": "no_text",
+        "items": 0,
+        "bytes": 1045441,
+        "pages": 2,
+        "note": "This menu is a picture. AI can read it."
+      },
+      {
+        "url": "https://www.dragonfactories.com/_files/ugd/e381d2_f166aeb53f55425ba0c54f0e0b8e516f.pdf",
+        "kind": "pdf",
+        "foundOn": "https://www.dragonfactories.com/sushi-neko-1",
+        "label": "menu",
+        "group": "Sushi Neko",
+        "status": "no_text",
+        "items": 0,
+        "bytes": 1062871,
+        "pages": 2,
+        "note": "This menu is a picture. AI can read it."
+      },
+      {
+        "url": "https://www.dragonfactories.com/_files/ugd/e381d2_b477a989c65e425dbcf8c8da857d0345.pdf",
+        "kind": "pdf",
+        "foundOn": "https://www.dragonfactories.com/neko-supremo",
+        "label": "Drinks",
+        "group": "Neko Supremo",
+        "status": "found",
+        "items": 0
+      },
+      {
+        "url": "https://www.dragonfactories.com/_files/ugd/e381d2_393d29e17d254cfb8939d46febf0c345.pdf",
+        "kind": "pdf",
+        "foundOn": "https://www.dragonfactories.com/hwaro2",
+        "label": "menu",
+        "group": "Hwaro 2 Ayce Kbbq In Las Vegas",
+        "status": "found",
+        "items": 0
+      },
+      {
+        "url": "https://www.dragonfactories.com/_files/ugd/e381d2_f3f78907b2004c9e98b61607b2b77b53.pdf",
+        "kind": "pdf",
+        "foundOn": "https://www.dragonfactories.com/neko-loco-sushi",
+        "label": "menu",
+        "group": "Neko Loco Sushi",
+        "status": "found",
+        "items": 0
       }
     ]
   },
   "consent": null,
-  "uploads": []
+  "uploads": [],
+  "dismissed": [],
+  "notApplicable": []
 }

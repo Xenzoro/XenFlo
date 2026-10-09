@@ -44,6 +44,24 @@ Every item has an id, so the model's evidence can be checked. Records scraped be
 
 Runs are capped per day, and cached per knowledge base version.
 
+### Reading menus (Phase 10)
+
+Restaurants keep their offerings in menus, and menus usually come as PDFs or images. **Read menus with AI** has its own button (Offerings tab) and route (`/api/menus`), separate from Enrich with AI, so the text and vision call stays fast.
+
+- **What it reads:**
+  - picture-only menu PDFs (sent to the model as files)
+  - menu images (high detail)
+  - PDF text too jumbled for the heuristics
+  Text PDFs are read for free during the scrape with unpdf; no AI is used for their text.
+- **Cap and order:** up to **8 pages or images per run** (a 2-page PDF counts as 2), plus up to 4 jumbled-text menus. Restaurant pages come before hub pages, then smaller files; for images, ones named like a menu come first, then the biggest. The note says how many are left: "Run again to read the next batch".
+- **Time:** all menus in a run are read in parallel, and nothing new starts after 40 s. Whatever finished is returned, within the route's 60 s.
+- **Cache:** each menu is cached on its own, keyed by prompt, model and file URL (plus the text for jumbled-text menus). A second run costs nothing for menus already read and doesn't need quota if everything is cached.
+- **Quota:** one unit of the daily live-AI cap per run, with the same passcode as Enrich with AI.
+- **Prompt:** [menu-reader.v1](../prompts/menu-reader.v1.md): copy items as printed, never estimate a price, skip house rules and notices.
+- **Confidence:** see [data-quality.md](data-quality.md) §1d.
+
+**Cost** (gpt-5.4-mini, third-party list prices): a high-detail menu page is about 2.5k input tokens, and the items read are 1–2k output tokens. That's about **$0.01 per page**, so **at most about $0.09 per run** at the cap of 8.
+
 ## Principles
 1. **Official APIs, used within their terms.** No HTML scraping of platforms that forbid it.
 2. **The owner's permission for the owner's accounts.** Connecting Instagram or Google Business Profile happens through the platform's own login (OAuth), and the owner can disconnect anytime. This fits MoFlo: the customer *is* the business owner.
@@ -114,7 +132,7 @@ Which outside sources could fill the fields websites most often leave empty (fro
 | `insights.trustSignals` | Reviews live on Google and Yelp, not the site | Google Places, Yelp, Google Business Profile |
 | `brand.writingStyle` / `contentKit.*` | Sites are short; the real voice lives on social | Instagram, TikTok, YouTube (via the writing-style prompt) |
 | `brand.logos` / `brand.colors` | Image-only or theme-default sites | Brandfetch (cross-check), logo-vision prompt |
-| `offerings` (Dragon Factory) | Menus are images | Owner uploads plus vision AI, Google Business Profile menu links |
+| `offerings` (Dragon Factory) | Menus are picture PDFs | Read menus with AI (today), owner uploads; later Google Business Profile menu links or the ordering platform's official API with the owner's permission (Toast, Square, Clover) |
 
 ## Order of operations (suggested)
 1. Scrape the website (today's XenFlo).

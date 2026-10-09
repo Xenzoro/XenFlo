@@ -68,6 +68,30 @@ For every tier 2 field, the model returns a value, a confidence (`high` / `mediu
 - **Not applicable:** any "Next to do" field can be marked N/A (`kb.notApplicable`). It counts as complete in the health score and stops showing in Next to do. Undo it from Sources → Completeness.
 - **Main address with no head office:** when the main address is empty but other locations were found (a restaurant group), the card offers "Use one of your locations" or "Not applicable (no head office)".
 
+## 1d. Menus and offerings (Phase 10)
+
+Offerings are the most valuable data for restaurants and shops, and the easiest place to slip in a wrong price. The rules:
+
+| Where the item came from | Confidence | Evidence shown |
+|---|---|---|
+| HTML menu page (lists, tables) | Scraped | the page |
+| Menu PDF with a text layer, read by the heuristics | Scraped | the PDF |
+| PDF text too jumbled for the heuristics, sorted by AI | **Scraped** only if every name, price, description and section appears word for word in that text; otherwise **AI** | the PDF |
+| Picture menu (image-only PDF or menu image), read by AI | AI | the PDF or image URL and the page it was found on |
+| Added or edited by the owner | User edited | none |
+
+- **Prices are never invented.**
+  - **Heuristics:** a price is copied only from the item's own lines. "STEP 2", "Table 4" and "Suite 104" are not prices, and "Market price" / "MP" keep their text with no amount.
+  - **AI:** the model is told to copy prices exactly as printed or return null. In code, a "price" with no number is dropped, and for AI-sorted text any price whose numbers aren't in the text is dropped.
+- **Category stays tier 2.** A section heading read by AI ("Hand Rolls") carries its own AI badge, like any AI-suggested category.
+- **Brand and location** come from the page the menu was found on: its title gives the brand, and the address on the same page gives the location. A PDF found only on a hub page ("All you can eat sushi") has no brand unless its file name names one (Wix's `dn=Captain+6+-+Menu+-+2026.pdf`).
+- **Wrong? Remove** on a menu item removes it and remembers it as brand + name (`kb.dismissed`, path `offerings`), so "Read menus with AI" never adds it back. The same item under another brand is a different item.
+- **What isn't read:**
+  - PDFs over 20 MB (listed with a link and a screenshot hint)
+  - pages past the first 4 of a PDF
+  - files robots.txt disallows
+  - ordering platforms (Toast, Clover, DoorDash…). Those are recorded only as channels and never fetched.
+
 ## 2. Handling incomplete data
 
 **The Knowledge Health score** (`src/lib/scraper/score.ts`):
@@ -92,6 +116,7 @@ Fields that need judgment rather than reading (tier 2) are never filled during t
 | Homepage under 30 words (likely a JavaScript-only site) | Warning in the crawl log; the upload fallback is the way forward. |
 | Thin or image-only content | Low score banner, then Dig deeper or Add info yourself. |
 | Pasted text or uploaded HTML | Runs through the same extractors as a scrape and only fills empty fields, so nothing the owner already has is overwritten. |
+| Menus in PDFs and images | PDFs are downloaded after the crawl (20 MB, 4 pages, 12 PDFs, 15 s) and their text is read with unpdf. Picture-only menus wait in "Menus not read yet" for **Read menus with AI** (8 pages per run, cached per menu). Without live AI, the owner sees the list with links and can add items by hand. |
 | Screenshots | Stored privately (Supabase Storage). Enrich with AI sends screenshots waiting for AI (`needsAiFields`) to the vision call at high detail, and readable overview, story, phone and email facts come back as suggestions. Without live AI, the app asks the owner to paste the text instead. |
 | No `OPENAI_API_KEY` or passcode, daily cap reached, or both AI calls fail | Enrich with AI falls back to preview suggestions labeled "AI preview". If only one call fails, the other's results are kept with a note. |
 | Supabase not configured | Scraping still works. Save returns a clear "not configured" error, and the JSON can still be downloaded. |
@@ -139,7 +164,8 @@ Page builders often ship sections that are switched off with CSS (`display:none`
 | Photo alt text as a brand name | Goettl: "Person holding a wrench in front of the goettl logo" | The alt text contained "logo", so the photo counted as a logo | **Fixed:** alt text only marks a logo when it names one; captions (more than 6 words, "person holding…", "in front of…") are never names, and alternate names are capped at 5 words |
 | Mixed founding facts | Goettl: founded 1939, but "Keeping Las Vegas cool since 2012" in the story | A national company's location page | Both are true in context. The source link shows which page said what, and AI cleanup or the owner can clarify. |
 | One category for everything | Apex: every game listed under "Minecraft Server Hosting" | Category taken from the nearest page title | Take the category from the offering's own heading or page |
-| Info only in images | Dragon Factory: menus, prices and restaurant names | Nothing to read in HTML | File name and alt clues recover brand names; vision AI or screenshots for the rest |
+| Info only in images | Dragon Factory: menus, prices and restaurant names | Nothing to read in HTML; 20 of the 21 menu PDFs tested are pictures with no text layer | File name and alt clues recover brand names. **Phase 10:** menu PDFs are found and linked to their brand and address, and "Read menus with AI" reads the picture menus 8 pages at a time |
+| Unpriced all-you-can-eat lists | Dragon Factory hot pot menu: dishes listed under "Appetizer", "Salad", "Hand Rolls" with no prices, mixed with house rules ("Time limit is 90 minutes") | Without prices, a dish line looks like any short line | Marked "needs sorting" instead of guessing; AI sorts it with the word-for-word check |
 | Duplicate logos | Goettl: the same logo in the header and JSON-LD, and the same icon as apple-touch-icon and favicon | Each source is recorded separately | The Brand tab groups identical images and lists every place each was found |
 
 ## 5. How AI or the owner fixes problems
