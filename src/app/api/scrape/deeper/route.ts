@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { digDeeper } from "@/lib/scraper";
-import { errorResponse } from "@/lib/scraper/http";
+import { badRequest, errorResponse } from "@/lib/utils/http";
 import { knowledgeBaseSchema } from "@/types/knowledge.schema";
 
 export const runtime = "nodejs";
@@ -17,10 +17,7 @@ const bodySchema = z.object({ knowledgeBase: knowledgeBaseSchema });
 export async function POST(request: Request) {
   const parsed = bodySchema.safeParse(await request.json().catch(() => null));
   if (!parsed.success) {
-    return NextResponse.json(
-      { error: { code: "INVALID_REQUEST", message: "Send JSON like { \"knowledgeBase\": { ... } } from a previous scrape." } },
-      { status: 400 },
-    );
+    return badRequest("INVALID_REQUEST", "Send JSON like { \"knowledgeBase\": { ... } } from a previous scrape.");
   }
 
   try {

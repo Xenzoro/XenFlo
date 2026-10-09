@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { scrapeSite } from "@/lib/scraper";
-import { errorResponse } from "@/lib/scraper/http";
+import { badRequest, errorResponse } from "@/lib/utils/http";
 import { knowledgeBaseSchema } from "@/types/knowledge.schema";
 
 // Cheerio and long-running fetches need the Node runtime, not Edge.
@@ -17,10 +17,7 @@ const bodySchema = z.object({
 export async function POST(request: Request) {
   const parsed = bodySchema.safeParse(await request.json().catch(() => null));
   if (!parsed.success) {
-    return NextResponse.json(
-      { error: { code: "INVALID_URL", message: "Send JSON like { \"url\": \"example.com\" }." } },
-      { status: 400 },
-    );
+    return badRequest("INVALID_URL", "Send JSON like { \"url\": \"example.com\" }.");
   }
 
   try {
