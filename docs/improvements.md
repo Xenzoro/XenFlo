@@ -15,6 +15,10 @@ Status key: **Fixed** · **Planned** · **Idea**
 | Two parallel fetches could push the crawl past the 30 page limit | Phase 2 testing | Fixed in Phase 2 |
 | Progress during a scrape shows step names, not live progress, because the API returns everything at the end | Phase 4 | Idea: stream crawl events to the UI so the progress card shows real pages as they finish |
 | No sitemap at any common location | Apex Hosting | Handled: discovery falls back to links only |
+| Site asked for a 10 second Crawl-delay in robots.txt, but the scraper caps waits at 3 seconds | Anime Boba Cafe (Phase 4) | Design choice: delays are capped at 3 seconds so a scrape finishes in seconds, not minutes. The scraper still crawls slowly and politely (2 at a time, small page cap) and never retries aggressively. |
+| Every offering got the same category ("Minecraft Server Hosting"), even other games | Apex Hosting (Phase 4) | Idea: take the category from the offering's own page or heading, not the nearest page title |
+| Poppins never loaded because the font variable sat on `<body>` instead of `<html>` | Phase 4 | Fixed in Phase 4 |
+| Generic fonts slipped through as "Ui Sans Serif" because hyphens became spaces before filtering | Phase 4 | Fixed in Phase 4 |
 
 ## Data accuracy
 
@@ -68,6 +72,14 @@ These came from testing MoFlo Cloud's trial with my own site and Apex Hosting, a
 | Blog titles came out very technical and corporate, while Apex's real voice is a friendly gamer brand | Use testimonials and real customer language to calibrate writing style and audience |
 | Key People included customers quoted in testimonials | Separate team from customers (done in XenFlo) |
 | Gender inferred from names | Only fill when stated on the site, or mark clearly as inferred |
+
+## Saving and versions
+
+| Issue | Found on | Status |
+|---|---|---|
+| Re-scrape brings back items the owner deleted by hand, because the fresh crawl finds them again | Phase 5 | Idea: remember dismissed items per knowledge base and skip them on re-scrape |
+| Editing a scraped list item and then re-scraping shows both the old and the edited version | Phase 5 | Idea: track which scraped item an edit replaced, so the original isn't added back |
+| Re-scrapes don't create a crawl run record (only first saves do) | Phase 5 | Planned: small migration so updates from a re-scrape also record the crawl |
 
 ## Development environment
 
