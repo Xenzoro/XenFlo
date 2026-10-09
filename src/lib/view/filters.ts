@@ -74,8 +74,11 @@ export function toQuery(view: ViewState): string {
   return s ? `?${s}` : "";
 }
 
+/** The parts of the view that change which records the API returns. */
+export type ListQuery = Pick<ViewState, "q" | "industry" | "score" | "date" | "sort">;
+
 /** ViewState -> query params for GET /api/knowledge. */
-export function toApiParams(view: ViewState): Record<string, string> {
+export function toApiParams(view: ListQuery): Record<string, string> {
   const out: Record<string, string> = { sort: view.sort, limit: "100" };
   if (view.q.trim()) out.q = view.q.trim();
   if (view.industry) out.industry = view.industry;
@@ -87,6 +90,6 @@ export function toApiParams(view: ViewState): Record<string, string> {
   return out;
 }
 
-export function hasFilters(view: ViewState): boolean {
+export function hasFilters(view: ListQuery): boolean {
   return !!view.q.trim() || !!view.industry || view.score !== "all" || view.date !== "any";
 }

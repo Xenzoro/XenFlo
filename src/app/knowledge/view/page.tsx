@@ -1,22 +1,15 @@
-import Link from "next/link";
-import { Library } from "lucide-react";
-import { Card } from "@/components/ui/Card";
-import { EmptyState } from "@/components/ui/EmptyState";
+import { Suspense } from "react";
+import type { Metadata } from "next";
+import { SavedWorkspace } from "@/components/view/SavedWorkspace";
+import { ListSkeleton } from "@/components/view/ListSkeleton";
 
-// Placeholder until the management page is built (Phase 5).
+export const metadata: Metadata = { title: "Saved knowledge | XenFlo" };
+
 export default function SavedKnowledgePage() {
   return (
-    <Card className="p-6">
-      <EmptyState
-        icon={<Library className="size-8" />}
-        title="Saved knowledge bases are coming soon"
-        text="Your knowledge base was saved to the database. The page to browse, search and edit saved records is next."
-        action={
-          <Link href="/knowledge" className="text-sm font-medium text-primary hover:underline">
-            Back to Knowledge
-          </Link>
-        }
-      />
-    </Card>
+    // Suspense is required because the page reads its view from the URL with useSearchParams
+    <Suspense fallback={<ListSkeleton mode="card" />}>
+      <SavedWorkspace />
+    </Suspense>
   );
 }
