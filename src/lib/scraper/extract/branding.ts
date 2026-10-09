@@ -3,7 +3,7 @@ import type { PageContext } from "./types";
 import { addItem, clean } from "../merge";
 import { cleanUrl } from "../url";
 import { isNeutral, isPlatformDefault, isSimilar, parseColor } from "../colors";
-import { imageClue, titleCaseIfLower } from "./text";
+import { imageClue, isDescriptive, titleCaseIfLower } from "./text";
 import { meta } from "./meta";
 
 /*
@@ -53,11 +53,14 @@ function extractLogos(ctx: PageContext): void {
     const src = img.attr("src") ?? img.attr("data-src");
     const alt = img.attr("alt");
     // Look at the img and its wrapping link/div for "logo" hints.
-    const hints = [src, alt, img.attr("class"), img.attr("id"), img.parent().attr("class"), img.closest("a").attr("class")].join(" ");
-    if (NOT_OWN_LOGO.test(hints)) return;
+    const markup = [src, img.attr("class"), img.attr("id"), img.parent().attr("class"), img.closest("a").attr("class")].join(" ");
+    if (NOT_OWN_LOGO.test(`${markup} ${alt ?? ""}`)) return;
     const inHeader = img.closest("header, nav, [class*=header i], [id*=header i]").length > 0;
+    // Alt text alone only counts when it names a logo ("Acme logo"), not when it describes
+    // a photo that happens to show one ("Person holding a wrench in front of the logo").
+    const altSaysLogo = !!alt && LOGO_HINT.test(alt) && !isDescriptive(alt);
 
-    if (LOGO_HINT.test(hints)) {
+    if (LOGO_HINT.test(markup) || altSaysLogo) {
       // Logos on a partners page or under a "Partners"/"As seen on" heading belong to other companies.
       const sectionHeading = img.parents().slice(0, 5).toArray().map((a) => $(a).find("h2, h3").first().text()).join(" ");
       if (partnerPage || PARTNER_CONTEXT.test(sectionHeading)) {
@@ -84,7 +87,8 @@ function extractLogos(ctx: PageContext): void {
 }
 
 function addAlternateName(ctx: PageContext, clue: string | null): void {
-  if (!clue || clue.length < 4) return;
+  // Brand names are short; longer text is a tagline or a photo caption.
+  if (!clue || clue.length < 4 || isDescriptive(clue) || clue.split(/\s+/).length > 5) return;
   const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
   // On inner pages, only trust a logo name that matches the page itself
   // ("Neko Loco" logo on /neko-loco-sushi), so random images don't become brands.

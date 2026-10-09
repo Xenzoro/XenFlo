@@ -119,6 +119,20 @@ function cleanClue(text: string): string | null {
   return titleCaseIfLower(out);
 }
 
+/**
+ * True for alt text that describes a photo rather than naming something:
+ * "Person holding a wrench in front of the goettl logo". Such text is never a brand name.
+ */
+export function isDescriptive(text: string): boolean {
+  const t = text.trim();
+  const words = t.split(/\s+/).filter((w) => /\w/.test(w));
+  return (
+    words.length > 6 ||
+    /^(a|an|the|person|people|man|woman|men|women|team|photo|image|picture|close[- ]?up|view)\b/i.test(t) ||
+    /\b(holding|standing|sitting|wearing|smiling|working|posing|shaking hands|in front of|next to)\b/i.test(t)
+  );
+}
+
 /** "chojang" -> "Chojang"; leaves "McDonald's" or "SUSHI" alone. */
 export function titleCaseIfLower(text: string): string {
   return text === text.toLowerCase() ? text.replace(/\b[a-z]/g, (c) => c.toUpperCase()) : text;

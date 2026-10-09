@@ -1,122 +1,110 @@
 {
-  "id": "2b7f78ef-66f2-4348-8522-1cebebbd2502",
+  "id": "1023c8d6-9939-476e-b849-fbd070247161",
   "url": "https://www.goettl.com/location/las-vegas",
   "companyName": "Goettl Air Conditioning and Plumbing",
-  "createdAt": "2026-10-09T16:22:52.650Z",
-  "updatedAt": "2026-10-09T16:23:06.629Z",
+  "createdAt": "2026-10-09T16:53:09.367Z",
+  "updatedAt": "2026-10-09T16:53:22.074Z",
   "version": 1,
   "company": {
     "name": {
       "value": "Goettl Air Conditioning and Plumbing",
       "source": "https://www.goettl.com/location/las-vegas",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:22:53.155Z"
+      "updatedAt": "2026-10-09T16:53:09.925Z"
     },
     "overview": {
       "value": "At Goettl, our mission is clear: to deliver top-notch and fast HVAC and plumbing services to the Las Vegas community.",
       "source": "https://www.goettl.com/location/las-vegas",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:22:53.157Z"
+      "updatedAt": "2026-10-09T16:53:09.927Z"
     },
     "website": {
       "value": "https://www.goettl.com/location/las-vegas",
       "source": "https://www.goettl.com/location/las-vegas/",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:22:52.650Z"
+      "updatedAt": "2026-10-09T16:53:09.367Z"
     },
     "industry": {
       "value": "HVACBusiness",
       "source": "https://www.goettl.com/location/las-vegas",
       "confidence": "inferred",
-      "updatedAt": "2026-10-09T16:22:53.155Z"
+      "updatedAt": "2026-10-09T16:53:09.925Z"
     },
     "businessModel": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T16:22:52.650Z"
+      "updatedAt": "2026-10-09T16:53:09.367Z"
     },
     "companyRole": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T16:22:52.650Z"
+      "updatedAt": "2026-10-09T16:53:09.367Z"
     },
     "yearFounded": {
       "value": 1939,
       "source": "https://www.goettl.com/location/las-vegas",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:22:53.190Z"
+      "updatedAt": "2026-10-09T16:53:09.977Z"
     },
     "legalEntityType": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T16:22:52.650Z"
+      "updatedAt": "2026-10-09T16:53:09.367Z"
     },
     "legalName": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T16:22:52.650Z"
+      "updatedAt": "2026-10-09T16:53:09.367Z"
     },
     "employeeCount": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T16:22:52.650Z"
+      "updatedAt": "2026-10-09T16:53:09.367Z"
     },
     "revenue": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T16:22:52.650Z"
+      "updatedAt": "2026-10-09T16:53:09.367Z"
     },
     "mainAddress": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T16:22:52.650Z"
+      "updatedAt": "2026-10-09T16:53:09.367Z"
     },
     "otherLocations": [],
     "serviceLocations": [],
     "alternateNames": [
       {
-        "value": "Goettl - Since 1939 - Air Conditioning and Plumbing",
-        "source": "https://www.goettl.com/location/las-vegas",
-        "confidence": "inferred",
-        "updatedAt": "2026-10-09T16:22:53.307Z"
-      },
-      {
         "value": "Goettl Tech",
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "inferred",
-        "updatedAt": "2026-10-09T16:22:53.310Z"
-      },
-      {
-        "value": "Person holding a wrench in front of the goettl",
-        "source": "https://www.goettl.com/about-us",
-        "confidence": "inferred",
-        "updatedAt": "2026-10-09T16:22:54.416Z"
+        "updatedAt": "2026-10-09T16:53:10.107Z"
       },
       {
         "value": "Original Goettl Air Conditioning",
         "source": "https://www.goettl.com/the-goettl-story",
         "confidence": "inferred",
-        "updatedAt": "2026-10-09T16:23:02.374Z"
+        "updatedAt": "2026-10-09T16:53:17.660Z"
       }
     ],
     "pitch": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T16:22:52.650Z"
+      "updatedAt": "2026-10-09T16:53:09.367Z"
     },
     "foundingStory": {
       "value": "Keeping Las Vegas cool (and comfortable) since 2012. Our name may be hard to spell but we’re pretty easy to work with! When you want expert cooling, heating, and plumbing services, trust Goettl to do things the right way.",
       "source": "https://www.goettl.com/location/las-vegas",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:22:53.226Z"
+      "updatedAt": "2026-10-09T16:53:10.013Z"
     }
   },
   "contact": {
@@ -126,56 +114,26 @@
         "value": "(213) 317-2704",
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.188Z"
+        "updatedAt": "2026-10-09T16:53:09.964Z"
+      },
+      {
+        "value": "(702) 291-9893",
+        "source": "https://www.goettl.com/locations",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:53:12.894Z"
       },
       {
         "value": "(844) 446-3885",
-        "source": "https://www.goettl.com/plumbing/emergency-plumbing-services",
+        "source": "https://www.goettl.com/about-us",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:54.081Z"
-      },
-      {
-        "value": "CALL Now",
-        "source": "https://www.goettl.com/smart-sadie-membership",
-        "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:54.958Z"
-      },
-      {
-        "value": " 6025368852",
-        "source": "https://www.goettl.com/locations",
-        "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:55.863Z"
-      },
-      {
-        "value": "5202145988",
-        "source": "https://www.goettl.com/locations",
-        "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:55.863Z"
-      },
-      {
-        "value": "+1702-291-9893",
-        "source": "https://www.goettl.com/locations",
-        "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:55.863Z"
-      },
-      {
-        "value": "+1210-405-6238",
-        "source": "https://www.goettl.com/locations",
-        "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:55.863Z"
-      },
-      {
-        "value": "7377272107",
-        "source": "https://www.goettl.com/locations",
-        "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:55.863Z"
+        "updatedAt": "2026-10-09T16:53:11.260Z"
       }
     ],
     "contactPageUrl": {
       "value": "https://www.goettl.com/contact-us",
       "source": "https://www.goettl.com/contact-us",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:01.192Z"
+      "updatedAt": "2026-10-09T16:53:16.715Z"
     }
   },
   "customers": {
@@ -185,14 +143,14 @@
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T16:22:52.650Z"
+      "updatedAt": "2026-10-09T16:53:09.367Z"
     },
     "industryGroupings": [],
     "industryOutlook": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T16:22:52.650Z"
+      "updatedAt": "2026-10-09T16:53:09.367Z"
     },
     "channels": [],
     "funnels": [],
@@ -204,7 +162,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.283Z"
+        "updatedAt": "2026-10-09T16:53:10.073Z"
       },
       {
         "value": {
@@ -213,7 +171,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.283Z"
+        "updatedAt": "2026-10-09T16:53:10.073Z"
       },
       {
         "value": {
@@ -222,16 +180,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.283Z"
-      },
-      {
-        "value": {
-          "text": "Learn More About Goettl",
-          "url": "https://www.goettl.com/the-goettl-story"
-        },
-        "source": "https://www.goettl.com/plumbing/emergency-plumbing-services",
-        "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:54.115Z"
+        "updatedAt": "2026-10-09T16:53:10.073Z"
       },
       {
         "value": {
@@ -240,7 +189,16 @@
         },
         "source": "https://www.goettl.com/about-us",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:54.388Z"
+        "updatedAt": "2026-10-09T16:53:11.330Z"
+      },
+      {
+        "value": {
+          "text": "Learn More About Goettl",
+          "url": "https://www.goettl.com/the-goettl-story"
+        },
+        "source": "https://www.goettl.com/plumbing/emergency-plumbing-services",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:53:11.521Z"
       },
       {
         "value": {
@@ -249,7 +207,7 @@
         },
         "source": "https://www.goettl.com/smart-sadie-membership",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:55.014Z"
+        "updatedAt": "2026-10-09T16:53:12.234Z"
       },
       {
         "value": {
@@ -258,7 +216,7 @@
         },
         "source": "https://www.goettl.com/smart-sadie-membership",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:55.014Z"
+        "updatedAt": "2026-10-09T16:53:12.234Z"
       },
       {
         "value": {
@@ -267,7 +225,7 @@
         },
         "source": "https://www.goettl.com/smart-sadie-membership",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:55.014Z"
+        "updatedAt": "2026-10-09T16:53:12.234Z"
       },
       {
         "value": {
@@ -276,7 +234,7 @@
         },
         "source": "https://www.goettl.com/smart-sadie-membership",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:55.014Z"
+        "updatedAt": "2026-10-09T16:53:12.234Z"
       },
       {
         "value": {
@@ -285,7 +243,7 @@
         },
         "source": "https://www.goettl.com/locations",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:55.897Z"
+        "updatedAt": "2026-10-09T16:53:12.929Z"
       },
       {
         "value": {
@@ -294,7 +252,7 @@
         },
         "source": "https://www.goettl.com/plumbing/waterline-services",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:23:02.163Z"
+        "updatedAt": "2026-10-09T16:53:17.825Z"
       },
       {
         "value": {
@@ -303,7 +261,7 @@
         },
         "source": "https://www.goettl.com/expert-center/clean-air-and-water/debunking-5-common-water-myths-the-truth-about-drinking-water-contaminants",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:23:04.242Z"
+        "updatedAt": "2026-10-09T16:53:19.989Z"
       }
     ],
     "suppliersPartners": [
@@ -314,7 +272,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.338Z"
+        "updatedAt": "2026-10-09T16:53:10.140Z"
       },
       {
         "value": {
@@ -323,7 +281,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.338Z"
+        "updatedAt": "2026-10-09T16:53:10.140Z"
       },
       {
         "value": {
@@ -332,7 +290,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.339Z"
+        "updatedAt": "2026-10-09T16:53:10.141Z"
       },
       {
         "value": {
@@ -341,7 +299,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.339Z"
+        "updatedAt": "2026-10-09T16:53:10.141Z"
       },
       {
         "value": {
@@ -350,7 +308,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.339Z"
+        "updatedAt": "2026-10-09T16:53:10.141Z"
       }
     ]
   },
@@ -359,32 +317,32 @@
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T16:22:52.650Z"
+      "updatedAt": "2026-10-09T16:53:09.367Z"
     },
     "artStyle": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T16:22:52.650Z"
+      "updatedAt": "2026-10-09T16:53:09.367Z"
     },
     "fonts": [
       {
         "value": "Helserif",
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.315Z"
+        "updatedAt": "2026-10-09T16:53:10.114Z"
       },
       {
         "value": "Sofia Pro",
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.315Z"
+        "updatedAt": "2026-10-09T16:53:10.114Z"
       },
       {
         "value": "Superclarendon",
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.315Z"
+        "updatedAt": "2026-10-09T16:53:10.114Z"
       }
     ],
     "colors": [
@@ -392,37 +350,37 @@
         "value": "#003963",
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.322Z"
+        "updatedAt": "2026-10-09T16:53:10.123Z"
       },
       {
         "value": "#cd163f",
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.322Z"
+        "updatedAt": "2026-10-09T16:53:10.123Z"
       },
       {
         "value": "#acdcff",
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.322Z"
+        "updatedAt": "2026-10-09T16:53:10.123Z"
       },
       {
         "value": "#72b556",
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.322Z"
+        "updatedAt": "2026-10-09T16:53:10.123Z"
       },
       {
         "value": "#2b6cb0",
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.322Z"
+        "updatedAt": "2026-10-09T16:53:10.123Z"
       },
       {
         "value": "#44d62c",
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.322Z"
+        "updatedAt": "2026-10-09T16:53:10.123Z"
       }
     ],
     "logos": [
@@ -434,7 +392,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.307Z"
+        "updatedAt": "2026-10-09T16:53:10.103Z"
       },
       {
         "value": {
@@ -444,7 +402,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.307Z"
+        "updatedAt": "2026-10-09T16:53:10.103Z"
       },
       {
         "value": {
@@ -454,7 +412,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.310Z"
+        "updatedAt": "2026-10-09T16:53:10.107Z"
       },
       {
         "value": {
@@ -464,7 +422,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.155Z"
+        "updatedAt": "2026-10-09T16:53:09.925Z"
       },
       {
         "value": {
@@ -474,7 +432,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.312Z"
+        "updatedAt": "2026-10-09T16:53:10.110Z"
       },
       {
         "value": {
@@ -484,7 +442,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.313Z"
+        "updatedAt": "2026-10-09T16:53:10.111Z"
       },
       {
         "value": {
@@ -494,7 +452,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.313Z"
+        "updatedAt": "2026-10-09T16:53:10.112Z"
       }
     ],
     "socialLinks": [
@@ -505,7 +463,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.155Z"
+        "updatedAt": "2026-10-09T16:53:09.925Z"
       },
       {
         "value": {
@@ -514,7 +472,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.155Z"
+        "updatedAt": "2026-10-09T16:53:09.925Z"
       },
       {
         "value": {
@@ -523,7 +481,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.155Z"
+        "updatedAt": "2026-10-09T16:53:09.925Z"
       },
       {
         "value": {
@@ -532,7 +490,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.155Z"
+        "updatedAt": "2026-10-09T16:53:09.925Z"
       },
       {
         "value": {
@@ -541,7 +499,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.155Z"
+        "updatedAt": "2026-10-09T16:53:09.925Z"
       },
       {
         "value": {
@@ -550,7 +508,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.185Z"
+        "updatedAt": "2026-10-09T16:53:09.961Z"
       },
       {
         "value": {
@@ -559,7 +517,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.185Z"
+        "updatedAt": "2026-10-09T16:53:09.961Z"
       },
       {
         "value": {
@@ -568,7 +526,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.185Z"
+        "updatedAt": "2026-10-09T16:53:09.961Z"
       },
       {
         "value": {
@@ -577,7 +535,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.185Z"
+        "updatedAt": "2026-10-09T16:53:09.961Z"
       },
       {
         "value": {
@@ -586,7 +544,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.186Z"
+        "updatedAt": "2026-10-09T16:53:09.962Z"
       },
       {
         "value": {
@@ -595,7 +553,7 @@
         },
         "source": "https://www.goettl.com/smart-sadie-membership",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:54.956Z"
+        "updatedAt": "2026-10-09T16:53:12.171Z"
       },
       {
         "value": {
@@ -604,7 +562,7 @@
         },
         "source": "https://www.goettl.com/expert-center/clean-air-and-water/debunking-5-common-water-myths-the-truth-about-drinking-water-contaminants",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:23:04.140Z"
+        "updatedAt": "2026-10-09T16:53:19.886Z"
       }
     ]
   },
@@ -632,7 +590,7 @@
       },
       "source": "https://www.goettl.com/plumbing/emergency-plumbing-services",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:22:54.106Z"
+      "updatedAt": "2026-10-09T16:53:11.512Z"
     },
     {
       "value": {
@@ -656,7 +614,7 @@
       },
       "source": "https://www.goettl.com/plumbing/emergency-plumbing-services",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:22:54.106Z"
+      "updatedAt": "2026-10-09T16:53:11.512Z"
     },
     {
       "value": {
@@ -679,7 +637,7 @@
       },
       "source": "https://www.goettl.com/plumbing/emergency-plumbing-services",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:22:54.107Z"
+      "updatedAt": "2026-10-09T16:53:11.512Z"
     },
     {
       "value": {
@@ -694,7 +652,7 @@
       },
       "source": "https://www.goettl.com/plumbing/emergency-plumbing-services",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:22:54.107Z"
+      "updatedAt": "2026-10-09T16:53:11.513Z"
     },
     {
       "value": {
@@ -717,7 +675,7 @@
       },
       "source": "https://www.goettl.com/smart-sadie-membership",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:22:54.997Z"
+      "updatedAt": "2026-10-09T16:53:12.217Z"
     },
     {
       "value": {
@@ -739,7 +697,7 @@
       },
       "source": "https://www.goettl.com/smart-sadie-membership",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:22:54.997Z"
+      "updatedAt": "2026-10-09T16:53:12.218Z"
     },
     {
       "value": {
@@ -765,7 +723,7 @@
       },
       "source": "https://www.goettl.com/smart-sadie-membership",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:22:54.998Z"
+      "updatedAt": "2026-10-09T16:53:12.218Z"
     },
     {
       "value": {
@@ -789,7 +747,7 @@
       },
       "source": "https://www.goettl.com/smart-sadie-membership",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:22:54.999Z"
+      "updatedAt": "2026-10-09T16:53:12.219Z"
     },
     {
       "value": {
@@ -804,7 +762,7 @@
       },
       "source": "https://www.goettl.com/smart-sadie-membership",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:22:55.002Z"
+      "updatedAt": "2026-10-09T16:53:12.222Z"
     },
     {
       "value": {
@@ -819,7 +777,7 @@
       },
       "source": "https://www.goettl.com/smart-sadie-membership",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:22:55.003Z"
+      "updatedAt": "2026-10-09T16:53:12.223Z"
     },
     {
       "value": {
@@ -834,7 +792,7 @@
       },
       "source": "https://www.goettl.com/smart-sadie-membership",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:22:55.003Z"
+      "updatedAt": "2026-10-09T16:53:12.224Z"
     },
     {
       "value": {
@@ -854,7 +812,7 @@
       },
       "source": "https://www.goettl.com/smart-sadie-membership",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:22:55.005Z"
+      "updatedAt": "2026-10-09T16:53:12.226Z"
     },
     {
       "value": {
@@ -869,7 +827,7 @@
       },
       "source": "https://www.goettl.com/plumbing/waterline-services",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:02.152Z"
+      "updatedAt": "2026-10-09T16:53:17.813Z"
     },
     {
       "value": {
@@ -884,7 +842,7 @@
       },
       "source": "https://www.goettl.com/plumbing/waterline-services",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:02.152Z"
+      "updatedAt": "2026-10-09T16:53:17.813Z"
     },
     {
       "value": {
@@ -903,7 +861,7 @@
       },
       "source": "https://www.goettl.com/plumbing/waterline-services",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:02.153Z"
+      "updatedAt": "2026-10-09T16:53:17.813Z"
     },
     {
       "value": {
@@ -922,7 +880,7 @@
       },
       "source": "https://www.goettl.com/plumbing/waterline-services",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:02.153Z"
+      "updatedAt": "2026-10-09T16:53:17.814Z"
     },
     {
       "value": {
@@ -941,7 +899,7 @@
       },
       "source": "https://www.goettl.com/plumbing/waterline-services",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:02.154Z"
+      "updatedAt": "2026-10-09T16:53:17.814Z"
     },
     {
       "value": {
@@ -956,7 +914,7 @@
       },
       "source": "https://www.goettl.com/plumbing/waterline-services",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:02.154Z"
+      "updatedAt": "2026-10-09T16:53:17.815Z"
     },
     {
       "value": {
@@ -971,7 +929,7 @@
       },
       "source": "https://www.goettl.com/plumbing/waterline-services",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:02.154Z"
+      "updatedAt": "2026-10-09T16:53:17.815Z"
     },
     {
       "value": {
@@ -986,7 +944,7 @@
       },
       "source": "https://www.goettl.com/plumbing/waterline-services",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:02.155Z"
+      "updatedAt": "2026-10-09T16:53:17.815Z"
     },
     {
       "value": {
@@ -1001,7 +959,7 @@
       },
       "source": "https://www.goettl.com/plumbing/waterline-services",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:02.155Z"
+      "updatedAt": "2026-10-09T16:53:17.816Z"
     },
     {
       "value": {
@@ -1016,7 +974,7 @@
       },
       "source": "https://www.goettl.com/plumbing/waterline-services",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:02.156Z"
+      "updatedAt": "2026-10-09T16:53:17.816Z"
     },
     {
       "value": {
@@ -1035,7 +993,7 @@
       },
       "source": "https://www.goettl.com/clean-air/duct-services",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:02.969Z"
+      "updatedAt": "2026-10-09T16:53:18.451Z"
     },
     {
       "value": {
@@ -1050,7 +1008,7 @@
       },
       "source": "https://www.goettl.com/clean-air/duct-services",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:02.970Z"
+      "updatedAt": "2026-10-09T16:53:18.451Z"
     },
     {
       "value": {
@@ -1065,7 +1023,7 @@
       },
       "source": "https://www.goettl.com/clean-air/duct-services",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:02.970Z"
+      "updatedAt": "2026-10-09T16:53:18.452Z"
     },
     {
       "value": {
@@ -1085,7 +1043,7 @@
       },
       "source": "https://www.goettl.com/clean-water/water-filtration-services",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:03.311Z"
+      "updatedAt": "2026-10-09T16:53:18.793Z"
     },
     {
       "value": {
@@ -1105,7 +1063,7 @@
       },
       "source": "https://www.goettl.com/clean-water/water-filtration-services",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:03.312Z"
+      "updatedAt": "2026-10-09T16:53:18.794Z"
     },
     {
       "value": {
@@ -1120,7 +1078,7 @@
       },
       "source": "https://www.goettl.com/clean-water/water-filtration-services",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:03.312Z"
+      "updatedAt": "2026-10-09T16:53:18.794Z"
     },
     {
       "value": {
@@ -1135,7 +1093,7 @@
       },
       "source": "https://www.goettl.com/clean-water/water-filtration-services",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:03.313Z"
+      "updatedAt": "2026-10-09T16:53:18.795Z"
     },
     {
       "value": {
@@ -1150,7 +1108,7 @@
       },
       "source": "https://www.goettl.com/never-a-service-fee",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:04.491Z"
+      "updatedAt": "2026-10-09T16:53:19.694Z"
     },
     {
       "value": {
@@ -1165,7 +1123,7 @@
       },
       "source": "https://www.goettl.com/never-a-service-fee",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:04.491Z"
+      "updatedAt": "2026-10-09T16:53:19.695Z"
     },
     {
       "value": {
@@ -1186,7 +1144,7 @@
       },
       "source": "https://www.goettl.com/plumbing/waterline-services/leak-detection",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:05.080Z"
+      "updatedAt": "2026-10-09T16:53:20.538Z"
     },
     {
       "value": {
@@ -1207,7 +1165,7 @@
       },
       "source": "https://www.goettl.com/plumbing/waterline-services/leak-detection",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:05.080Z"
+      "updatedAt": "2026-10-09T16:53:20.539Z"
     },
     {
       "value": {
@@ -1222,7 +1180,7 @@
       },
       "source": "https://www.goettl.com/plumbing/waterline-services/leak-detection",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:05.080Z"
+      "updatedAt": "2026-10-09T16:53:20.539Z"
     },
     {
       "value": {
@@ -1237,7 +1195,7 @@
       },
       "source": "https://www.goettl.com/plumbing/waterline-services/leak-detection",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:05.081Z"
+      "updatedAt": "2026-10-09T16:53:20.539Z"
     },
     {
       "value": {
@@ -1252,7 +1210,7 @@
       },
       "source": "https://www.goettl.com/clean-air/duct-services/duct-cleaning",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:05.413Z"
+      "updatedAt": "2026-10-09T16:53:20.884Z"
     },
     {
       "value": {
@@ -1267,7 +1225,7 @@
       },
       "source": "https://www.goettl.com/clean-air/duct-services/duct-cleaning",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:05.413Z"
+      "updatedAt": "2026-10-09T16:53:20.884Z"
     },
     {
       "value": {
@@ -1282,7 +1240,7 @@
       },
       "source": "https://www.goettl.com/clean-air/duct-services/duct-cleaning",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:05.414Z"
+      "updatedAt": "2026-10-09T16:53:20.885Z"
     },
     {
       "value": {
@@ -1297,7 +1255,7 @@
       },
       "source": "https://www.goettl.com/clean-air/duct-services/duct-cleaning",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:05.414Z"
+      "updatedAt": "2026-10-09T16:53:20.885Z"
     },
     {
       "value": {
@@ -1312,7 +1270,7 @@
       },
       "source": "https://www.goettl.com/clean-air/duct-services/duct-cleaning",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:05.414Z"
+      "updatedAt": "2026-10-09T16:53:20.885Z"
     },
     {
       "value": {
@@ -1327,7 +1285,7 @@
       },
       "source": "https://www.goettl.com/clean-air/duct-services/duct-replacement",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:06.277Z"
+      "updatedAt": "2026-10-09T16:53:21.724Z"
     },
     {
       "value": {
@@ -1342,7 +1300,7 @@
       },
       "source": "https://www.goettl.com/clean-air/duct-services/duct-replacement",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:23:06.278Z"
+      "updatedAt": "2026-10-09T16:53:21.725Z"
     }
   ],
   "insights": {
@@ -1353,61 +1311,61 @@
         "value": "2X Yearly Maintenance",
         "source": "https://www.goettl.com/smart-sadie-membership",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:55.035Z"
+        "updatedAt": "2026-10-09T16:53:12.256Z"
       },
       {
         "value": "Caught My Attic Leak",
         "source": "https://www.goettl.com/smart-sadie-membership",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:55.035Z"
+        "updatedAt": "2026-10-09T16:53:12.256Z"
       },
       {
         "value": "Finds Hidden Leak",
         "source": "https://www.goettl.com/smart-sadie-membership",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:55.035Z"
+        "updatedAt": "2026-10-09T16:53:12.256Z"
       },
       {
         "value": "Finds Hidden Problems",
         "source": "https://www.goettl.com/smart-sadie-membership",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:55.035Z"
+        "updatedAt": "2026-10-09T16:53:12.256Z"
       },
       {
         "value": "Home All Setup Now",
         "source": "https://www.goettl.com/smart-sadie-membership",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:55.035Z"
+        "updatedAt": "2026-10-09T16:53:12.256Z"
       },
       {
         "value": "Sensor Install Setup",
         "source": "https://www.goettl.com/smart-sadie-membership",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:55.035Z"
+        "updatedAt": "2026-10-09T16:53:12.256Z"
       },
       {
         "value": "Sadie App Explained",
         "source": "https://www.goettl.com/smart-sadie-membership",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:55.035Z"
+        "updatedAt": "2026-10-09T16:53:12.256Z"
       },
       {
         "value": "Sensors/App Installed",
         "source": "https://www.goettl.com/smart-sadie-membership",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:55.035Z"
+        "updatedAt": "2026-10-09T16:53:12.256Z"
       },
       {
         "value": "ESTABLISHED SINCE 1939",
         "source": "https://www.goettl.com/never-a-service-fee",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:23:04.524Z"
+        "updatedAt": "2026-10-09T16:53:19.731Z"
       },
       {
         "value": "FINANCING OPTIONS",
         "source": "https://www.goettl.com/never-a-service-fee",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:23:04.524Z"
+        "updatedAt": "2026-10-09T16:53:19.731Z"
       }
     ],
     "trustSignals": [
@@ -1418,7 +1376,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.305Z"
+        "updatedAt": "2026-10-09T16:53:10.098Z"
       },
       {
         "value": {
@@ -1427,7 +1385,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.305Z"
+        "updatedAt": "2026-10-09T16:53:10.098Z"
       },
       {
         "value": {
@@ -1436,7 +1394,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.305Z"
+        "updatedAt": "2026-10-09T16:53:10.098Z"
       },
       {
         "value": {
@@ -1445,7 +1403,7 @@
         },
         "source": "https://www.goettl.com/about-us",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:54.409Z"
+        "updatedAt": "2026-10-09T16:53:11.343Z"
       },
       {
         "value": {
@@ -1454,7 +1412,7 @@
         },
         "source": "https://www.goettl.com/about-us",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:54.409Z"
+        "updatedAt": "2026-10-09T16:53:11.344Z"
       },
       {
         "value": {
@@ -1463,7 +1421,7 @@
         },
         "source": "https://www.goettl.com/clean-air/duct-services",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:23:02.994Z"
+        "updatedAt": "2026-10-09T16:53:18.474Z"
       },
       {
         "value": {
@@ -1472,7 +1430,7 @@
         },
         "source": "https://www.goettl.com/clean-water/water-filtration-services",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:23:03.334Z"
+        "updatedAt": "2026-10-09T16:53:18.816Z"
       },
       {
         "value": {
@@ -1481,7 +1439,7 @@
         },
         "source": "https://www.goettl.com/clean-air/duct-services/duct-cleaning",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:23:05.438Z"
+        "updatedAt": "2026-10-09T16:53:20.906Z"
       },
       {
         "value": {
@@ -1490,7 +1448,7 @@
         },
         "source": "https://www.goettl.com/clean-air/duct-services/duct-replacement",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:23:06.298Z"
+        "updatedAt": "2026-10-09T16:53:21.746Z"
       }
     ],
     "contentThemes": [],
@@ -1499,61 +1457,61 @@
         "value": "Cannot be combined with other discounts, promotions or coupons.",
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.305Z"
+        "updatedAt": "2026-10-09T16:53:10.098Z"
       },
       {
         "value": "5% discount for first responders",
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.305Z"
+        "updatedAt": "2026-10-09T16:53:10.098Z"
       },
       {
         "value": "Eligible first responders receive a 5% discount on services*.",
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.305Z"
+        "updatedAt": "2026-10-09T16:53:10.098Z"
       },
       {
         "value": "5% discount for senior citizens",
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.305Z"
+        "updatedAt": "2026-10-09T16:53:10.098Z"
       },
       {
         "value": "Customers aged 65 and older receive a 5% discount on services*.",
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.305Z"
+        "updatedAt": "2026-10-09T16:53:10.098Z"
       },
       {
         "value": "5% off for active military & veterans",
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.305Z"
+        "updatedAt": "2026-10-09T16:53:10.098Z"
       },
       {
         "value": "Active-duty military and veterans receive a 5% discount on services*.",
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.305Z"
+        "updatedAt": "2026-10-09T16:53:10.098Z"
       },
       {
         "value": "10% off Repairs (Parts & Labor)",
         "source": "https://www.goettl.com/smart-sadie-membership",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:55.034Z"
+        "updatedAt": "2026-10-09T16:53:12.255Z"
       },
       {
         "value": "10% Off All Repairs (Parts & Labor)",
         "source": "https://www.goettl.com/smart-sadie-membership",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:55.034Z"
+        "updatedAt": "2026-10-09T16:53:12.255Z"
       },
       {
         "value": "Credits may not be combined with other member discounts or promotions.",
         "source": "https://www.goettl.com/smart-sadie-membership",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:55.034Z"
+        "updatedAt": "2026-10-09T16:53:12.255Z"
       }
     ],
     "pressMentions": [],
@@ -1566,7 +1524,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.190Z"
+        "updatedAt": "2026-10-09T16:53:09.977Z"
       },
       {
         "value": {
@@ -1575,7 +1533,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.190Z"
+        "updatedAt": "2026-10-09T16:53:09.977Z"
       },
       {
         "value": {
@@ -1584,16 +1542,7 @@
         },
         "source": "https://www.goettl.com/location/las-vegas",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:53.190Z"
-      },
-      {
-        "value": {
-          "label": "Cookie Preferences",
-          "url": "https://www.goettl.com/plumbing/emergency-plumbing-services"
-        },
-        "source": "https://www.goettl.com/plumbing/emergency-plumbing-services",
-        "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:54.083Z"
+        "updatedAt": "2026-10-09T16:53:09.977Z"
       },
       {
         "value": {
@@ -1602,7 +1551,16 @@
         },
         "source": "https://www.goettl.com/about-us",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:54.274Z"
+        "updatedAt": "2026-10-09T16:53:11.271Z"
+      },
+      {
+        "value": {
+          "label": "Cookie Preferences",
+          "url": "https://www.goettl.com/plumbing/emergency-plumbing-services"
+        },
+        "source": "https://www.goettl.com/plumbing/emergency-plumbing-services",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:53:11.487Z"
       },
       {
         "value": {
@@ -1611,7 +1569,7 @@
         },
         "source": "https://www.goettl.com/smart-sadie-membership",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:54.960Z"
+        "updatedAt": "2026-10-09T16:53:12.183Z"
       },
       {
         "value": {
@@ -1620,7 +1578,7 @@
         },
         "source": "https://www.goettl.com/locations",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:55.865Z"
+        "updatedAt": "2026-10-09T16:53:12.896Z"
       },
       {
         "value": {
@@ -1629,16 +1587,7 @@
         },
         "source": "https://www.goettl.com/contact-us",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:23:01.193Z"
-      },
-      {
-        "value": {
-          "label": "Cookie Preferences",
-          "url": "https://www.goettl.com/plumbing/waterline-services"
-        },
-        "source": "https://www.goettl.com/plumbing/waterline-services",
-        "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:23:02.125Z"
+        "updatedAt": "2026-10-09T16:53:16.716Z"
       },
       {
         "value": {
@@ -1647,7 +1596,16 @@
         },
         "source": "https://www.goettl.com/the-goettl-story",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:23:02.297Z"
+        "updatedAt": "2026-10-09T16:53:17.594Z"
+      },
+      {
+        "value": {
+          "label": "Cookie Preferences",
+          "url": "https://www.goettl.com/plumbing/waterline-services"
+        },
+        "source": "https://www.goettl.com/plumbing/waterline-services",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:53:17.789Z"
       },
       {
         "value": {
@@ -1656,7 +1614,7 @@
         },
         "source": "https://www.goettl.com/clean-air/duct-services",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:23:02.941Z"
+        "updatedAt": "2026-10-09T16:53:18.426Z"
       },
       {
         "value": {
@@ -1665,16 +1623,7 @@
         },
         "source": "https://www.goettl.com/clean-water/water-filtration-services",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:23:03.286Z"
-      },
-      {
-        "value": {
-          "label": "Cookie Preferences",
-          "url": "https://www.goettl.com/expert-center/clean-air-and-water/debunking-5-common-water-myths-the-truth-about-drinking-water-contaminants"
-        },
-        "source": "https://www.goettl.com/expert-center/clean-air-and-water/debunking-5-common-water-myths-the-truth-about-drinking-water-contaminants",
-        "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:23:04.146Z"
+        "updatedAt": "2026-10-09T16:53:18.770Z"
       },
       {
         "value": {
@@ -1683,7 +1632,16 @@
         },
         "source": "https://www.goettl.com/never-a-service-fee",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:23:04.435Z"
+        "updatedAt": "2026-10-09T16:53:19.646Z"
+      },
+      {
+        "value": {
+          "label": "Cookie Preferences",
+          "url": "https://www.goettl.com/expert-center/clean-air-and-water/debunking-5-common-water-myths-the-truth-about-drinking-water-contaminants"
+        },
+        "source": "https://www.goettl.com/expert-center/clean-air-and-water/debunking-5-common-water-myths-the-truth-about-drinking-water-contaminants",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T16:53:19.899Z"
       },
       {
         "value": {
@@ -1692,7 +1650,7 @@
         },
         "source": "https://www.goettl.com/plumbing/waterline-services/leak-detection",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:23:05.057Z"
+        "updatedAt": "2026-10-09T16:53:20.516Z"
       },
       {
         "value": {
@@ -1701,7 +1659,7 @@
         },
         "source": "https://www.goettl.com/clean-air/duct-services/duct-cleaning",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:23:05.390Z"
+        "updatedAt": "2026-10-09T16:53:20.860Z"
       },
       {
         "value": {
@@ -1710,7 +1668,7 @@
         },
         "source": "https://www.goettl.com/clean-air/duct-services/duct-replacement",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:23:06.255Z"
+        "updatedAt": "2026-10-09T16:53:21.702Z"
       }
     ],
     "positioningSignals": []
@@ -1725,7 +1683,7 @@
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T16:22:52.650Z"
+      "updatedAt": "2026-10-09T16:53:09.367Z"
     }
   },
   "completeness": {
@@ -1744,9 +1702,9 @@
     ]
   },
   "crawl": {
-    "startedAt": "2026-10-09T16:22:52.650Z",
-    "finishedAt": "2026-10-09T16:23:06.629Z",
-    "durationMs": 13876,
+    "startedAt": "2026-10-09T16:53:09.367Z",
+    "finishedAt": "2026-10-09T16:53:22.074Z",
+    "durationMs": 12598,
     "robotsAllowed": true,
     "pendingUrls": [
       "https://www.goettl.com/clean-air/duct-services/duct-inspection",
@@ -1906,17 +1864,8 @@
         "category": "home",
         "status": 200,
         "title": "Las Vegas Air Conditioning, Plumbing & Heating Services | Goettl",
-        "fetchedAt": "2026-10-09T16:22:53.340Z",
-        "durationMs": 187,
-        "error": null
-      },
-      {
-        "url": "https://www.goettl.com/plumbing/emergency-plumbing-services",
-        "category": "services",
-        "status": 200,
-        "title": "Emergency Plumbing Services | Goettl Air Conditioning & Plumbing",
-        "fetchedAt": "2026-10-09T16:22:54.148Z",
-        "durationMs": 365,
+        "fetchedAt": "2026-10-09T16:53:10.142Z",
+        "durationMs": 204,
         "error": null
       },
       {
@@ -1924,8 +1873,17 @@
         "category": "about",
         "status": 200,
         "title": "Learn About Goettl Air Conditioning",
-        "fetchedAt": "2026-10-09T16:22:54.436Z",
-        "durationMs": 550,
+        "fetchedAt": "2026-10-09T16:53:11.363Z",
+        "durationMs": 192,
+        "error": null
+      },
+      {
+        "url": "https://www.goettl.com/plumbing/emergency-plumbing-services",
+        "category": "services",
+        "status": 200,
+        "title": "Emergency Plumbing Services | Goettl Air Conditioning & Plumbing",
+        "fetchedAt": "2026-10-09T16:53:11.552Z",
+        "durationMs": 421,
         "error": null
       },
       {
@@ -1933,8 +1891,8 @@
         "category": "features",
         "status": 200,
         "title": "Smart Sadie Membership: Whole-Home Maintenance Plan",
-        "fetchedAt": "2026-10-09T16:22:55.060Z",
-        "durationMs": 375,
+        "fetchedAt": "2026-10-09T16:53:12.278Z",
+        "durationMs": 357,
         "error": null
       },
       {
@@ -1942,8 +1900,8 @@
         "category": "locations",
         "status": 200,
         "title": "View Goettl's locations for Air Conditioning, Plumbing & Heating Services",
-        "fetchedAt": "2026-10-09T16:22:55.939Z",
-        "durationMs": 391,
+        "fetchedAt": "2026-10-09T16:53:12.962Z",
+        "durationMs": 197,
         "error": null
       },
       {
@@ -1951,17 +1909,8 @@
         "category": "contact",
         "status": 200,
         "title": "Contact Us for Professional Plumbing Services Today",
-        "fetchedAt": "2026-10-09T16:23:01.255Z",
-        "durationMs": 6361,
-        "error": null
-      },
-      {
-        "url": "https://www.goettl.com/plumbing/waterline-services",
-        "category": "services",
-        "status": 200,
-        "title": "Professional Waterline Services - Repair, Replacement & Installation | Goettl Air Conditioning & Plumbing",
-        "fetchedAt": "2026-10-09T16:23:02.198Z",
-        "durationMs": 410,
+        "fetchedAt": "2026-10-09T16:53:16.778Z",
+        "durationMs": 4760,
         "error": null
       },
       {
@@ -1969,8 +1918,17 @@
         "category": "about",
         "status": 200,
         "title": "Learn the Story Behind Goettl",
-        "fetchedAt": "2026-10-09T16:23:02.390Z",
-        "durationMs": 647,
+        "fetchedAt": "2026-10-09T16:53:17.676Z",
+        "durationMs": 405,
+        "error": null
+      },
+      {
+        "url": "https://www.goettl.com/plumbing/waterline-services",
+        "category": "services",
+        "status": 200,
+        "title": "Professional Waterline Services - Repair, Replacement & Installation | Goettl Air Conditioning & Plumbing",
+        "fetchedAt": "2026-10-09T16:53:17.856Z",
+        "durationMs": 599,
         "error": null
       },
       {
@@ -1978,8 +1936,8 @@
         "category": "services",
         "status": 200,
         "title": "Professional Duct Services by Goettl Plumbing & HVAC Experts",
-        "fetchedAt": "2026-10-09T16:23:03.017Z",
-        "durationMs": 336,
+        "fetchedAt": "2026-10-09T16:53:18.493Z",
+        "durationMs": 340,
         "error": null
       },
       {
@@ -1987,17 +1945,8 @@
         "category": "services",
         "status": 200,
         "title": "Water Filtration Services | Goettl Plumbing Experts",
-        "fetchedAt": "2026-10-09T16:23:03.356Z",
-        "durationMs": 504,
-        "error": null
-      },
-      {
-        "url": "https://www.goettl.com/expert-center/clean-air-and-water/debunking-5-common-water-myths-the-truth-about-drinking-water-contaminants",
-        "category": "about",
-        "status": 200,
-        "title": "The Truth About Drinking Water Contaminants",
-        "fetchedAt": "2026-10-09T16:23:04.296Z",
-        "durationMs": 351,
+        "fetchedAt": "2026-10-09T16:53:18.833Z",
+        "durationMs": 509,
         "error": null
       },
       {
@@ -2005,8 +1954,17 @@
         "category": "services",
         "status": 200,
         "title": "$0 Service Fee. Period. On Every Call | We waive the $89 service fee for everybody. Let us come out to your home to give you an honest professional assessment of your situation at no cost to you. Paying for a company to come out to your home just to inspect what you already know is not working properly doesn’t seem right to us.",
-        "fetchedAt": "2026-10-09T16:23:04.551Z",
-        "durationMs": 647,
+        "fetchedAt": "2026-10-09T16:53:19.755Z",
+        "durationMs": 369,
+        "error": null
+      },
+      {
+        "url": "https://www.goettl.com/expert-center/clean-air-and-water/debunking-5-common-water-myths-the-truth-about-drinking-water-contaminants",
+        "category": "about",
+        "status": 200,
+        "title": "The Truth About Drinking Water Contaminants",
+        "fetchedAt": "2026-10-09T16:53:20.038Z",
+        "durationMs": 629,
         "error": null
       },
       {
@@ -2014,8 +1972,8 @@
         "category": "services",
         "status": 200,
         "title": "Comprehensive Water Leak Detection Services for Homeowners | Goettl Air Conditioning & Plumbing",
-        "fetchedAt": "2026-10-09T16:23:05.121Z",
-        "durationMs": 352,
+        "fetchedAt": "2026-10-09T16:53:20.579Z",
+        "durationMs": 351,
         "error": null
       },
       {
@@ -2023,8 +1981,8 @@
         "category": "services",
         "status": 200,
         "title": "Professional Duct Cleaning Services | Goettl Air Conditioning & Plumbing",
-        "fetchedAt": "2026-10-09T16:23:05.459Z",
-        "durationMs": 432,
+        "fetchedAt": "2026-10-09T16:53:20.924Z",
+        "durationMs": 412,
         "error": null
       },
       {
@@ -2032,134 +1990,134 @@
         "category": "services",
         "status": 200,
         "title": "Expert Duct Replacement Services | Goettl Air Conditioning & Plumbing",
-        "fetchedAt": "2026-10-09T16:23:06.318Z",
-        "durationMs": 384,
+        "fetchedAt": "2026-10-09T16:53:21.764Z",
+        "durationMs": 366,
         "error": null
       }
     ],
     "log": [
       {
-        "at": "2026-10-09T16:22:52.650Z",
+        "at": "2026-10-09T16:53:09.367Z",
         "level": "info",
         "message": "Checking robots.txt"
       },
       {
-        "at": "2026-10-09T16:22:52.753Z",
+        "at": "2026-10-09T16:53:09.476Z",
         "level": "info",
         "message": "Fetching homepage https://www.goettl.com/location/las-vegas/"
       },
       {
-        "at": "2026-10-09T16:22:52.940Z",
+        "at": "2026-10-09T16:53:09.680Z",
         "level": "info",
         "message": "Reading styles for fonts and colors"
       },
       {
-        "at": "2026-10-09T16:22:53.340Z",
+        "at": "2026-10-09T16:53:10.142Z",
         "level": "info",
         "message": "Discovering pages"
       },
       {
-        "at": "2026-10-09T16:22:53.618Z",
+        "at": "2026-10-09T16:53:10.960Z",
         "level": "info",
         "message": "Found 226 linked pages and 269 sitemap entries"
       },
       {
-        "at": "2026-10-09T16:22:53.619Z",
+        "at": "2026-10-09T16:53:10.961Z",
         "level": "info",
         "message": "Crawling 5 priority pages"
       },
       {
-        "at": "2026-10-09T16:22:53.619Z",
+        "at": "2026-10-09T16:53:10.961Z",
         "level": "info",
         "message": "Crawling 2 of 15: /about-us"
       },
       {
-        "at": "2026-10-09T16:22:53.620Z",
+        "at": "2026-10-09T16:53:10.962Z",
         "level": "info",
         "message": "Crawling 3 of 15: /plumbing/emergency-plumbing-services"
       },
       {
-        "at": "2026-10-09T16:22:54.461Z",
+        "at": "2026-10-09T16:53:11.675Z",
         "level": "info",
         "message": "Crawling 4 of 15: /smart-sadie-membership"
       },
       {
-        "at": "2026-10-09T16:22:54.750Z",
+        "at": "2026-10-09T16:53:11.863Z",
         "level": "info",
         "message": "Crawling 5 of 15: /contact-us"
       },
       {
-        "at": "2026-10-09T16:22:55.372Z",
+        "at": "2026-10-09T16:53:12.589Z",
         "level": "info",
         "message": "Crawling 6 of 15: /locations"
       },
       {
-        "at": "2026-10-09T16:23:01.566Z",
+        "at": "2026-10-09T16:53:17.091Z",
         "level": "info",
         "message": "Looking for: mainAddress, targetBuyers, people"
       },
       {
-        "at": "2026-10-09T16:23:01.566Z",
+        "at": "2026-10-09T16:53:17.092Z",
         "level": "info",
         "message": "Crawling 7 of 15: /the-goettl-story"
       },
       {
-        "at": "2026-10-09T16:23:01.567Z",
+        "at": "2026-10-09T16:53:17.093Z",
         "level": "info",
         "message": "Crawling 8 of 15: /plumbing/waterline-services"
       },
       {
-        "at": "2026-10-09T16:23:02.508Z",
+        "at": "2026-10-09T16:53:17.987Z",
         "level": "info",
         "message": "Crawling 9 of 15: /clean-air/duct-services"
       },
       {
-        "at": "2026-10-09T16:23:02.700Z",
+        "at": "2026-10-09T16:53:18.167Z",
         "level": "info",
         "message": "Crawling 10 of 15: /clean-water/water-filtration-services"
       },
       {
-        "at": "2026-10-09T16:23:03.668Z",
+        "at": "2026-10-09T16:53:19.144Z",
         "level": "info",
         "message": "Looking for: mainAddress, targetBuyers, people"
       },
       {
-        "at": "2026-10-09T16:23:03.669Z",
+        "at": "2026-10-09T16:53:19.145Z",
         "level": "info",
         "message": "Crawling 11 of 15: /expert-center/clean-air-and-water/debunking-5-common-water-myths-the-truth-about-drinking-water-contaminants"
       },
       {
-        "at": "2026-10-09T16:23:03.669Z",
+        "at": "2026-10-09T16:53:19.146Z",
         "level": "info",
         "message": "Crawling 12 of 15: /never-a-service-fee"
       },
       {
-        "at": "2026-10-09T16:23:04.608Z",
+        "at": "2026-10-09T16:53:20.066Z",
         "level": "info",
         "message": "Crawling 13 of 15: /plumbing/waterline-services/leak-detection"
       },
       {
-        "at": "2026-10-09T16:23:04.863Z",
+        "at": "2026-10-09T16:53:20.350Z",
         "level": "info",
         "message": "Crawling 14 of 15: /clean-air/duct-services/duct-cleaning"
       },
       {
-        "at": "2026-10-09T16:23:05.771Z",
+        "at": "2026-10-09T16:53:21.236Z",
         "level": "info",
         "message": "Looking for: mainAddress, targetBuyers"
       },
       {
-        "at": "2026-10-09T16:23:05.771Z",
+        "at": "2026-10-09T16:53:21.236Z",
         "level": "info",
         "message": "Crawling 15 of 15: /clean-air/duct-services/duct-replacement"
       },
       {
-        "at": "2026-10-09T16:23:06.629Z",
+        "at": "2026-10-09T16:53:22.074Z",
         "level": "info",
         "message": "Extracting and scoring"
       },
       {
-        "at": "2026-10-09T16:23:06.629Z",
+        "at": "2026-10-09T16:53:22.074Z",
         "level": "info",
         "message": "Done: 15 pages total, 150 more available, completeness 60"
       }
