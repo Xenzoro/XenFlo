@@ -26,10 +26,12 @@ export const aiConfig = {
   },
 };
 
-// Budgets from the brief: ~12k tokens in, ~2.5k out, 2 images, 25s per call.
+// Budgets: ~16k tokens in (system prompt + page evidence), ~3.5k out, 2 images, 25s per call.
+// Phase 9 raised them from 12k/2.5k: the text call now reads every crawled page's headings
+// and answers ~25 fields with evidence. Worst case is about $0.03 per run on gpt-5.4-mini.
 export const LIMITS = {
-  inputTokens: 12_000,
-  outputTokens: 2_500,
+  inputTokens: 16_000,
+  outputTokens: 3_500,
   images: 2,
   timeoutMs: 25_000,
 };

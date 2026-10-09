@@ -14,11 +14,24 @@ export interface Suggestion {
   value: unknown;
   /** true when `path` is a list: accepted values are added as new items */
   list: boolean;
-  confidence: "ai_live" | "ai_mock";
-  /** Where this came from: "ai:gpt-5.4-mini" or "ai:preview" */
+  /** ai_live = real model, ai_mock = template preview, inferred = keyword/CTA heuristics */
+  confidence: "ai_live" | "ai_mock" | "inferred";
+  /** Where this came from: "ai:gpt-5.4-mini", "ai:preview" or "heuristic" */
   source: string;
-  /** Input fields the model said it used (live mode only) */
+  /** The evidence behind it, readable: "/sakana: Sakana Las Vegas…" or a short quote */
   basedOn: string[];
+  /** For per-offering category suggestions: which offering (path is "offerings.<index>.category") */
+  offering?: { index: number; name: string };
+  /** Dismissal identity when the value alone isn't enough (offering categories: name + category) */
+  dismissKey?: string;
+}
+
+/** A field the AI looked at but couldn't support well enough to suggest. */
+export interface NotEnough {
+  path: string;
+  label: string;
+  confidence: "high" | "medium" | "low";
+  reason: string;
 }
 
 export interface EnrichResult {
@@ -30,6 +43,10 @@ export interface EnrichResult {
   suggestions: Suggestion[];
   /** Fields the AI couldn't fill from the facts it had */
   missing: string[];
+  /** Fields left empty because the evidence wasn't strong enough, with the reason */
+  notEnough: NotEnough[];
+  /** One-line hint, e.g. "Re-scrape for better results." for records scraped before page evidence existed */
+  hint: string | null;
   /** Why we fell back to preview mode, or other notes for the user */
   notes: string[];
   /** Live runs left today (null when unknown) */

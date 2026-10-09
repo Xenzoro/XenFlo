@@ -7,30 +7,48 @@ import { z } from "zod";
 
 const text = z.string();
 const list = z.array(z.string());
+const confidence = z.enum(["high", "medium", "low"]);
 
+/** One scalar answer with its confidence, cited evidence and (when not high) the reason. */
+const scalar = z.object({ value: text.nullable(), confidence, evidence: list, reason: text.nullable() });
+/** One list answer, same shape. */
+const many = z.object({ values: list, confidence, evidence: list, reason: text.nullable() });
+
+/** prompts/understand-business.v1.md: every tier 2 text field in one call. */
 export const textOutputSchema = z.object({
-  pitch: text.nullable(),
-  writingStyle: text.nullable(),
-  voiceGuide: z
-    .object({
-      wordsToUse: list,
-      wordsToAvoid: list,
-      dos: list,
-      donts: list,
-    })
-    .nullable(),
-  idealPersona: text.nullable(),
-  customerNeeds: list,
-  targetBuyers: list,
-  contentPillars: list,
-  socialHooks: list,
-  hashtags: list,
-  emailSubjects: list,
-  blogIdeas: list,
-  basedOn: list,
-  missing: list,
+  industry: scalar,
+  businessModel: scalar,
+  companyRole: scalar,
+  industryOutlook: scalar,
+  pitch: scalar,
+  writingStyle: scalar,
+  idealPersona: scalar,
+  industryGroupings: many,
+  serviceLocations: many,
+  targetBuyers: many,
+  customerNeeds: many,
+  channels: many,
+  funnels: many,
+  contentThemes: many,
+  positioningSignals: many,
+  communityValues: many,
+  seasonalMessaging: many,
+  contentPillars: many,
+  socialHooks: many,
+  hashtags: many,
+  emailSubjects: many,
+  blogIdeas: many,
+  voiceGuide: z.object({
+    value: z.object({ wordsToUse: list, wordsToAvoid: list, dos: list, donts: list }).nullable(),
+    confidence,
+    evidence: list,
+    reason: text.nullable(),
+  }),
+  offeringCategories: z.array(z.object({ offering: text, category: text, confidence, evidence: list })),
 });
 export type TextOutput = z.infer<typeof textOutputSchema>;
+export type ScalarAnswer = z.infer<typeof scalar>;
+export type ListAnswer = z.infer<typeof many>;
 
 /** Screenshot facts may only fill simple text fields (see SCREENSHOT_PATHS in input.ts). */
 export const visionOutputSchema = z.object({

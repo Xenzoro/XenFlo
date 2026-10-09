@@ -1,54 +1,12 @@
 /**
- * Builds what the model sees, from knowledge base fields only (never raw pages).
- * Text input is capped at ~12k tokens: the most useful facts go first, and the long lists
- * (offerings, testimonials, FAQs...) are trimmed from the end until it fits.
- * Images are capped at 2: screenshots waiting for AI first, then the logo, then the hero.
+ * Images for the vision call, capped at 2: screenshots waiting for AI first, then the logo,
+ * then the hero. (The text call's input is built in evidence.ts.)
  */
 import type { KnowledgeBase } from "@/types/knowledge";
 import { signedUploadUrl } from "@/lib/db/storage";
 import { LIMITS } from "./config";
 
 const vals = <T>(list: { value: T | null }[]): T[] => list.flatMap((f) => (f.value === null ? [] : [f.value]));
-const short = (s: string | null | undefined, max = 600) => (s ? (s.length > max ? `${s.slice(0, max)}…` : s) : null);
-/** Rough token count: ~4 characters per token for English text. */
-export const estimateTokens = (text: string) => Math.ceil(text.length / 4);
-
-export function buildTextInput(kb: KnowledgeBase): Record<string, unknown> {
-  const c = kb.company;
-  const input = {
-    // 1. Core facts
-    companyName: kb.companyName,
-    overview: short(c.overview.value, 1200),
-    industry: c.industry.value,
-    city: c.mainAddress.value?.city ?? null,
-    serviceLocations: vals(c.serviceLocations),
-    yearFounded: c.yearFounded.value,
-    // 2. About
-    foundingStory: short(c.foundingStory.value, 1500),
-    // 3. Services and products
-    offerings: vals(kb.offerings).map((o) => ({ name: o.name, category: o.category, priceText: o.priceText, description: short(o.description, 200) })),
-    differentiators: vals(kb.insights.differentiators),
-    // 4. What customers say
-    testimonials: vals(kb.insights.testimonials).map((t) => ({ quote: short(t.quote, 400), author: t.author, company: t.company })),
-    // 5. Questions customers ask
-    faqs: vals(kb.insights.faqs).map((f) => ({ question: f.question, answer: short(f.answer, 400) })),
-    // 6. Everything else
-    trustSignals: vals(kb.insights.trustSignals),
-    promotions: vals(kb.insights.promotions),
-    contentThemes: vals(kb.insights.contentThemes),
-    ctas: vals(kb.customers.ctas).map((c) => c.text),
-    existingTargetBuyers: vals(kb.customers.targetBuyers),
-  };
-
-  // Trim the lowest-priority lists first, one item at a time, until we're under budget.
-  const trimOrder = ["ctas", "contentThemes", "trustSignals", "faqs", "testimonials", "offerings", "differentiators"] as const;
-  const budget = LIMITS.inputTokens - 4_000; // leave room for the system prompt (~4k tokens)
-  for (const key of trimOrder) {
-    const list = input[key] as unknown[];
-    while (list.length > 0 && estimateTokens(JSON.stringify(input)) > budget) list.pop();
-  }
-  return input;
-}
 
 // ---------- Images ----------
 

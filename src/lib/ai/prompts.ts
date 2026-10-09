@@ -7,7 +7,8 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
-export const TEXT_PROMPTS = ["company-pitch.v1", "writing-style.v1", "ideal-persona.v1", "content-kit.v1"] as const;
+// One text call: understand-business.v1 merged the earlier pitch, persona, content-kit and writing-style briefs.
+export const TEXT_PROMPTS = ["understand-business.v1"] as const;
 export const VISION_PROMPT = "logo-vision.v1";
 
 const cache = new Map<string, string>();
@@ -26,7 +27,7 @@ const SHARED_RULES = `You enrich a small business's knowledge base for a marketi
 Rules for every field:
 1. Use only the input. No outside knowledge about the company, even if you think you know it.
 2. Never invent facts: no years, numbers, awards, locations, prices, names or quotes that aren't in the input.
-3. When the input can't support a field, return null (or an empty list) and add the field name to "missing". Don't write something generic to fill the gap.
+3. When the input can't support a field, return null (or an empty list) and say why ("reason", or "missing" where the schema has it). Don't write something generic to fill the gap.
 4. Answer with one JSON object that matches the schema exactly.`;
 
 /** System prompt for the single text call: shared rules, then each field's prompt file. */
@@ -34,10 +35,7 @@ export function textSystemPrompt(): string {
   const sections = TEXT_PROMPTS.map((name) => `----- ${name} -----\n${load(name)}`);
   return `${SHARED_RULES}
 
-You will fill several fields at once. Each section below is the full brief for some of them.
-Return ONE JSON object combining all of their outputs, using the top-level keys in the response schema.
-Ignore each section's own "basedOn"/"missing" keys and use the shared top-level "basedOn" and "missing" instead.
-The input is one JSON object of knowledge base facts; each section reads the keys it lists.
+Return ONE JSON object with exactly the top-level keys in the response schema.
 
 ${sections.join("\n\n")}`;
 }
