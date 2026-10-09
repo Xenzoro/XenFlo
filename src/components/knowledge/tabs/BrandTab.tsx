@@ -3,16 +3,31 @@
 /** Brand: colors as swatches, logos as images (on a dark backdrop when they're white), fonts in their own face, social links as icons. */
 import type { Logo, SocialLink } from "@/types/knowledge";
 import { useList } from "@/context/KnowledgeContext";
-import { SectionCard } from "@/components/ui/Card";
+import { SectionCard, SectionLabel } from "@/components/ui/Card";
 import { EditableField } from "@/components/ui/EditableField";
 import { EditableList } from "@/components/ui/EditableList";
 import { RecordList } from "@/components/ui/RecordList";
 import { PLATFORM_COLOR, PLATFORM_LABEL, SocialIcon, detectPlatform } from "@/components/ui/SocialIcon";
+import { logoKey } from "@/lib/utils/logo";
 import { FontPreview } from "../FontPreview";
 import { LogoPreview } from "../LogoPreview";
 
 const validHex = (t: string) => (/^#?[0-9a-f]{6}$|^#?[0-9a-f]{3}$/i.test(t) ? null : "Use a hex color like #2563eb.");
 const toHex = (t: string) => (t.startsWith("#") ? t : `#${t}`).toLowerCase();
+const PRIMARY_COUNT = 3;
+// Shared by the Primary and Secondary lists (both edit brand.colors)
+const colorListProps = {
+  addLabel: "color",
+  placeholder: "#2563eb",
+  validate: validHex,
+  parse: toHex,
+  render: (hex: string) => (
+    <span className="inline-flex items-center gap-1.5 font-mono">
+      <span className="size-3.5 rounded-full border border-black/10" style={{ background: hex }} />
+      {hex}
+    </span>
+  ),
+};
 
 export function BrandTab() {
   const colors = useList<string>("brand.colors");
@@ -27,19 +42,16 @@ export function BrandTab() {
             {colors.map((c, i) => c.value && <div key={i} className="flex-1" style={{ background: c.value }} title={c.value} />)}
           </div>
         )}
-        <EditableList
-          path="brand.colors"
-          addLabel="color"
-          placeholder="#2563eb"
-          validate={validHex}
-          parse={toHex}
-          render={(hex) => (
-            <span className="inline-flex items-center gap-1.5 font-mono">
-              <span className="size-3.5 rounded-full border border-black/10" style={{ background: hex }} />
-              {hex}
-            </span>
-          )}
-        />
+        {/* Colors are ranked by use (buttons, header, links), so the first three are the main brand colors */}
+        <SectionLabel className="mb-2">Primary</SectionLabel>
+        <EditableList path="brand.colors" canAdd={colors.length < PRIMARY_COUNT} filter={(_, i) => i < PRIMARY_COUNT} {...colorListProps} />
+        {colors.length >= PRIMARY_COUNT && (
+          <>
+            <SectionLabel className="mb-2 mt-4">Secondary</SectionLabel>
+            <EditableList path="brand.colors" filter={(_, i) => i >= PRIMARY_COUNT} {...colorListProps} />
+          </>
+        )}
+        <p className="mt-3 text-[11px] text-subtle">Ranked by how much your site uses them on buttons, headers and links.</p>
       </SectionCard>
 
       <SectionCard title="Logos" subtitle="Found in your header, social tags and favicon">
@@ -52,10 +64,12 @@ export function BrandTab() {
             { key: "url", label: "Image URL", required: true, placeholder: "https://…/logo.png" },
             { key: "alt", label: "Description" },
           ]}
-          render={(logo) => (
+          // The same image is often found several times (header, JSON-LD, favicon): show it once
+          groupBy={(logo) => logoKey(logo.url)}
+          render={(logo, group) => (
             <div>
               <LogoPreview url={logo.url} alt={logo.alt} />
-              <p className="mt-2 truncate text-xs text-muted">{logo.kind}</p>
+              <p className="mt-2 text-xs text-muted">{[...new Set(group.map((l) => l.kind))].join(" · ")}</p>
             </div>
           )}
         />

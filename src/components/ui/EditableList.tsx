@@ -26,6 +26,10 @@ export interface EditableListProps<T> {
   validate?: (text: string) => string | null;
   /** Custom rendering of an item (the text is still what gets edited) */
   render?: (value: T) => React.ReactNode;
+  /** Show only some items (e.g. the first 3 colors). Indexes still refer to the full list. */
+  filter?: (value: T, index: number) => boolean;
+  /** Hide the "+ Add" pill (when another list on the same path owns adding) */
+  canAdd?: boolean;
 }
 
 export function EditableList<T = string>({
@@ -38,6 +42,8 @@ export function EditableList<T = string>({
   parse = (text) => text as unknown as T,
   validate,
   render,
+  filter,
+  canAdd = true,
 }: EditableListProps<T>) {
   const items = useList<T>(path);
   const { addItem, updateItem, removeItem, advanced, busy } = useKnowledge();
@@ -92,7 +98,7 @@ export function EditableList<T = string>({
       <ul className={cn(variant === "chips" ? "flex flex-wrap items-center gap-2" : "space-y-1.5")}>
         <AnimatePresence initial={false}>
           {items.map((item, i) =>
-            item.value === null ? null : (
+            item.value === null || (filter && !filter(item.value, i)) ? null : (
               <motion.li
                 key={`${i}-${format(item.value)}`}
                 // Staggered entrance: each item appears ~40ms after the previous one
@@ -118,9 +124,11 @@ export function EditableList<T = string>({
             ),
           )}
         </AnimatePresence>
-        <li className={cn(variant === "rows" && "pt-1")}>
-          {editing === "new" ? editor : <AddPill label={addLabel} onClick={() => start("new")} disabled={busy} />}
-        </li>
+        {canAdd && (
+          <li className={cn(variant === "rows" && "pt-1")}>
+            {editing === "new" ? editor : <AddPill label={addLabel} onClick={() => start("new")} disabled={busy} />}
+          </li>
+        )}
       </ul>
     </div>
   );

@@ -4,6 +4,8 @@
   A list of object records (people, offerings, testimonials, FAQs...) shown as cards.
   Each card renders with `render`; the pencil swaps it for a RecordForm, × removes it.
   Adding opens an empty RecordForm built from `blank`.
+  With `groupBy`, items that share a key show as one card (e.g. the same logo found in
+  several places); removing that card removes every item in the group.
 */
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -25,16 +27,20 @@ export function RecordList<T extends object>({
   emptyText,
   columns = 1,
   filter,
+  groupBy,
 }: {
   path: string;
   fields: FormField[];
   blank: T;
-  render: (value: T) => React.ReactNode;
+  /** `group` holds every value sharing this card's `groupBy` key (just [value] without grouping) */
+  render: (value: T, group: T[]) => React.ReactNode;
   addLabel?: string;
   emptyText?: string;
   columns?: 1 | 2 | 3;
   /** Show only some items (e.g. team vs customers). Indexes still refer to the full list. */
   filter?: (value: T) => boolean;
+  /** Items with the same key show once; the first one is the card that gets edited. */
+  groupBy?: (value: T) => string;
 }) {
   const all = useList<T>(path);
   const { addItem, updateItem, removeItem, advanced, busy } = useKnowledge();
@@ -45,14 +51,28 @@ export function RecordList<T extends object>({
     .map((item, index) => ({ item, index }))
     .filter((x): x is { item: Field<T> & { value: T }; index: number } => x.item.value !== null && (!filter || filter(x.item.value)));
 
+  // Group by key: each group remembers all its indexes so one remove clears the whole group.
+  const groups = new Map<string, { item: Field<T> & { value: T }; index: number; members: number[]; values: T[] }>();
+  shown.forEach(({ item, index }) => {
+    const key = groupBy ? groupBy(item.value) : String(index);
+    const group = groups.get(key);
+    if (group) {
+      group.members.push(index);
+      group.values.push(item.value);
+    } else groups.set(key, { item, index, members: [index], values: [item.value] });
+  });
+  const cards = [...groups.values()];
+  // Highest index first, so removing one item doesn't shift the indexes of the rest.
+  const removeGroup = (members: number[]) => [...members].sort((a, b) => b - a).forEach((i) => removeItem(path, i));
+
   const grid = columns === 3 ? "sm:grid-cols-2 lg:grid-cols-3" : columns === 2 ? "sm:grid-cols-2" : "";
 
   return (
     <div data-field={path}>
-      {shown.length === 0 && editing !== "new" && emptyText && <p className="mb-3 text-sm text-muted">{emptyText}</p>}
+      {cards.length === 0 && editing !== "new" && emptyText && <p className="mb-3 text-sm text-muted">{emptyText}</p>}
       <div className={cn("grid grid-cols-1 gap-3", grid)}>
         <AnimatePresence initial={false}>
-          {shown.map(({ item, index }, i) => (
+          {cards.map(({ item, index, members, values }, i) => (
             <motion.div
               key={`${index}-${item.updatedAt}`}
               initial={{ opacity: 0, y: -6 }}
@@ -76,11 +96,11 @@ export function RecordList<T extends object>({
                       <IconButton label="Edit" onClick={() => setEditing(index)} disabled={busy}>
                         <Pencil className="size-3.5" />
                       </IconButton>
-                      <IconButton label="Remove" onClick={() => removeItem(path, index)} disabled={busy} danger>
+                      <IconButton label="Remove" onClick={() => removeGroup(members)} disabled={busy} danger>
                         <X className="size-3.5" />
                       </IconButton>
                     </div>
-                    {render(item.value)}
+                    {render(item.value, values)}
                     {advanced && (
                       <div className="mt-3">
                         <ConfidenceBadge confidence={item.confidence} source={item.source} />
