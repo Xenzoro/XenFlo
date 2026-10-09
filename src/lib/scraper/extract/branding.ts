@@ -182,7 +182,9 @@ function cleanFontName(raw: string): string | null {
     .replace(/[-_]+/g, " ")
     .replace(/\s+/g, " ")
     .trim();
-  if (!name || name.length > 40 || name.startsWith("var(") || GENERIC_FONTS.test(name) || ICON_FONTS.test(name)) return null;
+  // Hyphens became spaces above, so also test the hyphenated form ("ui sans serif" -> "ui-sans-serif").
+  const generic = GENERIC_FONTS.test(name) || GENERIC_FONTS.test(name.replace(/ /g, "-"));
+  if (!name || name.length > 40 || name.startsWith("var(") || generic || ICON_FONTS.test(name)) return null;
   // Generated/hashed names like "__Inter_a1b2c3" or Wix "wfont_e381d2_..." aren't readable font names.
   if (/^__|wfont_|^[a-f0-9]{6,}/i.test(name)) return null;
   return titleCaseIfLower(name).replace(/\bLt\b/, "LT");
