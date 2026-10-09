@@ -10,14 +10,18 @@ A knowledge base is only useful if Flo can trust it. A wrong fact is worse than 
 
 ## 1. Confidence levels
 
-Every value is a `Field`: `{ value, source, confidence, updatedAt }` (`src/types/knowledge.ts`). In Advanced view, each field shows its confidence as a badge, and the source link is one click away.
+Every value is a `Field`: `{ value, source, confidence, updatedAt, evidence? }` (`src/types/knowledge.ts`). In Advanced view, each field shows its confidence as a badge, and the source link is one click away.
+
+**AI, AI preview and Inferred values always show their badge**, not only in Advanced view:
+- The badge's tooltip lists what the value is based on (`evidence`).
+- A **"Wrong? Remove"** button sits next to the badge (see §1c).
 
 | Confidence | Badge | Set when | Trust |
 |---|---|---|---|
 | `user_edited` | User edited | The owner typed or changed it | Highest. Nothing automatic overwrites it. |
 | `scraped` | Scraped | Read directly from a page or its JSON-LD; `source` is the page URL | High, but heuristics can still misread a page (see §4) |
-| `ai_live` | AI | A real model suggested it from knowledge base facts and the owner accepted it | Medium. The model must cite its inputs (`basedOn`). |
-| `inferred` | Inferred | A rule derived it: a year from `© 2013`, a brand name from `Sumo Henderson_Logo.png`, an industry from a JSON-LD type | Medium-low |
+| `ai_live` | AI | A real model suggested it, it passed the confidence bar (§1b), and the owner accepted it | Medium. Every value carries the evidence it was based on. |
+| `inferred` | Inferred | A rule derived it: a year from `© 2013`, a brand name from `Sumo Henderson_Logo.png`, an industry from a JSON-LD type, or the preview-mode keyword and CTA heuristics (2 evidence items required) | Medium-low |
 | `ai_mock` | AI preview | Template output with no API call (preview mode), accepted by the owner | Built only from facts already present |
 | `missing` | Missing | We looked and found nothing | Shown as a dashed "+ Add" pill |
 
@@ -25,6 +29,44 @@ Every value is a `Field`: `{ value, source, confidence, updatedAt }` (`src/types
 - A scraped value replaces an inferred one; an inferred value never replaces a scraped one.
 - For equal confidence, the first value found wins. The homepage and JSON-LD are read first, so the site's own structured data beats text deeper in the site.
 - List items are de-duplicated with a per-list key: lowercased name, normalized URL, or the hex value for colors.
+
+## 1a. Three tiers: what AI may fill
+
+Every field is in exactly one tier, in `src/lib/ai/field-tiers.ts`. A test fails if a field is added without a tier. The rules are enforced in code (`filterByTier`), not only in the prompt.
+
+| Tier | Fields | AI may… |
+|---|---|---|
+| **1 Read** (stated facts) | name, overview, website, year founded, founding story, main address, other locations, alternate names, emails, phones, CTAs, partners and tools, logos, colors, fonts, social links, offerings (name, price, features), testimonial quotes, FAQs, differentiators, trust signals, promotions, press, legal links | **Never overwrite.** It can fill an empty one only if the value appears word for word in the evidence (a screenshot or logo text). |
+| **2 Inferred** (obvious to a person reading the site) | industry, industry groupings, industry outlook, business model, company role, service locations, target buyers, customer needs, ideal persona, channels, funnels, content themes, positioning, community and values, seasonal messaging, writing style, art style, pitch, offering categories, the Content Kit | Suggest, only at high confidence with evidence (§1b). |
+| **3 Never guessed** | team members (all of `people`), people's names, titles and gender, testimonial authors and their companies, employee count, revenue, legal entity, legal name | **Never.** Any suggestion for these paths is dropped. They stay empty unless the site states them. In "Next to do" they say "Add it yourself", never "Fill with AI". |
+
+## 1b. The confidence bar
+
+For every tier 2 field, the model returns a value, a confidence (`high` / `medium` / `low`), its evidence, and a reason when it isn't high. The code then decides (`src/lib/ai/confidence.ts`):
+
+- **Real evidence only.** A citation counts only if it's an item id that exists in the input, or a quote that actually appears in it. Made-up citations are ignored.
+- **Facts** (industry, business model, channels, funnels, buyers, needs, themes, positioning, values, seasonal messaging, offering categories) need `high` **and** at least **2 real evidence items**, or 1 direct quote that contains the value.
+  - Example: "Sakana" + "Neko Loco Sushi" + an overview mentioning sushi → Sushi.
+- **Generated fields** (pitch, writing style, voice guide, ideal persona, Content Kit) are written, not looked up. They need at least **1 real evidence item** and confidence `high` or `medium`, so a good pitch isn't lost just because it's new writing.
+- **Everything else** (medium or low facts, highs with one weak citation, answers like "N/A") is not suggested. The review modal lists it under **"Not enough evidence"** with the reason, so the owner knows why the field is still empty.
+- **No guessing:** unsure means null, and numbers and dates are never invented.
+
+**Measured on the four test sites** (live, gpt-5.4-mini):
+- 20–22 field suggestions per site (Apex also gets per-offering category suggestions), with no tier 1 overwrites and no tier 3 suggestions.
+- Typically held back:
+  - industry outlook: none of the sites discusses its market
+  - seasonal messaging
+  - Goettl's channels: walk-in was implied but not stated
+
+## 1c. "Wrong? Remove", dismissals and Not applicable
+
+- **Wrong? Remove:**
+  - One click clears an AI or inferred value back to Missing (or removes the list item), with no confirm.
+  - The value is remembered in `kb.dismissed` (path + normalized value), so the next enrichment run won't suggest it again.
+  - The same record is meant for re-scrape dismissals later.
+- **Editing** an AI value makes it `user_edited`: the badge disappears and AI never replaces it.
+- **Not applicable:** any "Next to do" field can be marked N/A (`kb.notApplicable`). It counts as complete in the health score and stops showing in Next to do. Undo it from Sources → Completeness.
+- **Main address with no head office:** when the main address is empty but other locations were found (a restaurant group), the card offers "Use one of your locations" or "Not applicable (no head office)".
 
 ## 2. Handling incomplete data
 
@@ -39,7 +81,7 @@ Every value is a `Field`: `{ value, source, confidence, updatedAt }` (`src/types
 | **Next to do cards** | The Overview shows the most valuable missing fields with their points ("Add your founding year +5"). Clicking one jumps to the field and highlights it. |
 | **Low score banner** | Below 70, a banner offers **Dig deeper** (crawl more of the pages found, up to 30 total) or **Add info yourself** (paste text, upload an HTML file or screenshots). |
 
-Fields that need judgment rather than reading (pitch, writing style, ideal persona, art style) are never filled by rules. They stay Missing until the owner writes them or AI enrichment runs (see `prompts/`).
+Fields that need judgment rather than reading (tier 2) are never filled during the scrape. They stay Missing until the owner writes them or accepts suggestions from Enrich with AI (live AI, or the keyword and CTA heuristics in preview mode).
 
 ## 3. Fallbacks
 
@@ -103,7 +145,7 @@ Page builders often ship sections that are switched off with CSS (`display:none`
 ## 5. How AI or the owner fixes problems
 
 - **The owner is the final authority.** Every field is editable inline. Edits become `user_edited`, and AI never overwrites them. Advanced view shows each value's source page, so a wrong value can be traced and corrected.
-- **AI cleans up; it doesn't invent.** The prompts in `prompts/` only rewrite or summarize facts already in the knowledge base. They must cite the inputs they used (`basedOn`) and return `null` plus a `missing` reason rather than guess. Planned AI checks:
+- **AI cleans up; it doesn't invent.** The prompts in `prompts/` only summarize what the site's pages say. Every answer cites its evidence, passes the confidence bar (§1b) and the tier rules (§1a), or stays empty with a reason. Planned AI checks:
   - rewrite a mashed-together hero overview into one clean sentence
   - flag likely placeholder staff
   - confirm a logo is real before describing its art style; a blank gray image must return "missing", not "no discernible style"

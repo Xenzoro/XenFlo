@@ -105,8 +105,14 @@ npm run build
 - **Clear errors** for an invalid URL, timeout, unreachable site, robots.txt block, AI-crawler restriction, and no readable content.
 - **Tabs, simple by default:**
   - **Overview:** Knowledge Health gauge (0–100), "Next to do" cards with point gains ("Add your founding year +5"), and a Content Kit preview.
+    - Inferred fields offer "Fill with AI"; never-guessed ones (team, legal entity) only "Add it yourself".
+    - Any field can be marked **Not applicable**; it counts as complete.
+    - With no head office, the main address card offers "Use one of your locations".
   - **Company, Customers, Brand, People, Offerings:** every field editable inline. Empty fields show dashed "+ Add" pills.
-  - **Enrich with AI:** suggestions for the pitch, writing style, ideal customer, Content Kit, art style and logo brand names. You accept or reject each one (see [AI](#ai-enrichment-and-prompts)).
+  - **Enrich with AI:** suggestions for everything a person could tell from your site: industry, business model, customers, channels, funnels, themes, pitch, writing style, Content Kit, art style and offering categories.
+  - Each suggestion comes with its evidence, and you accept or reject each one.
+  - AI and inferred values carry a badge and a one-click "Wrong? Remove".
+  - See [AI](#ai-enrichment-and-prompts).
 - **Brand:** colors split into **Primary** (top 3) and **Secondary**, shown as swatches; logos as images (white logos automatically get a dark background, with a light/dark toggle, and duplicates are grouped); fonts rendered in their own face; social icons.
   - **People:** team members are kept separate from customers and partners, so testimonial authors never end up on the team.
 - **Advanced view** (toggle, top right) adds **Insights**, **Content Kit**, **Sources** (pages crawled, crawl log, per-field sources, completeness breakdown, Dig deeper) and **Raw JSON** (copy and download). Every field also gets a confidence badge: Scraped, Inferred, AI preview, AI, User edited or Missing.
@@ -219,25 +225,48 @@ Complete example outputs from real scrapes: **[data/examples/](data/examples/)**
 
 ## AI enrichment and prompts
 
-**Enrich with AI** (a button next to Save, on `/knowledge` and in the Detailed view) suggests the fields that need judgment rather than reading. It never runs automatically.
+**Enrich with AI** (a button next to Save, on `/knowledge` and in the Detailed view, and "Fill with AI" on Next to do cards) fills every field a person could confidently fill by reading the site, and nothing more. It never runs automatically.
 
 | Suggests | From |
 |---|---|
-| Pitch | [company-pitch.v1](prompts/company-pitch.v1.md) |
-| Writing style and voice guide | [writing-style.v1](prompts/writing-style.v1.md) |
-| Ideal customer, customer needs, target buyers | [ideal-persona.v1](prompts/ideal-persona.v1.md) |
-| Content pillars, social hooks, hashtags, email subjects, blog ideas | [content-kit.v1](prompts/content-kit.v1.md) |
+| Industry, groupings, outlook, business model, company role, service locations, buyers, needs, ideal customer, channels, funnels, themes, positioning, community and values, seasonal messaging, pitch, writing style, voice guide, Content Kit, offering categories | [understand-business.v1](prompts/understand-business.v1.md) |
 | Art style, brand names read from logos, facts from uploaded screenshots | [logo-vision.v1](prompts/logo-vision.v1.md) |
 
+The earlier pitch, writing-style, ideal-persona and content-kit prompts were merged into understand-business; they stay in `prompts/` as reference.
+
+**Three tiers** (`src/lib/ai/field-tiers.ts`, enforced in code):
+- **Read facts** (contacts, addresses, CTAs, logos, colors…) are never overwritten.
+- **Inferred fields** are suggested with evidence.
+- **Never guessed:** people, testimonial authors, employee count, revenue, legal entity and legal name are dropped from every suggestion.
+
+**Confidence bar:**
+- **Facts** need high confidence and 2 real evidence items (or a quote containing the value).
+- **Generated writing** (pitch, style, Content Kit) needs at least 1.
+- **Everything else** is listed in the review as "Not enough evidence", with the reason.
+
+Details: [docs/data-quality.md](docs/data-quality.md).
+
+**Measured on the four test sites:**
+- **Before:** after scraping plus the old enrichment, 11 of 19 tier 2 fields were still empty on every site.
+- **After:** each site gets 20–22 suggestions, with nothing in tier 3 and no read facts overwritten. What stays empty is mostly industry outlook and seasonal messaging, which none of these sites talks about.
+
 **How it works** (`src/lib/ai/enrich.ts`, the single entry point):
-1. The prompt files in `prompts/` are loaded at runtime (up to each file's Example section) and combined into **one text call**. The images go into **one vision call**. Both run in parallel through OpenAI's Responses API, using plain `fetch` and no SDK.
+1. **The input is page evidence, not just fields:** every crawled page's title, meta description and headings (captured during the crawl), plus locations, offerings, CTA text with link targets, testimonial text without names, and alt text (`src/lib/ai/evidence.ts`). The prompt is loaded from `prompts/` at runtime. There's **one text call** and **one vision call**, run in parallel through OpenAI's Responses API, using plain `fetch` and no SDK.
 2. The model must answer in a strict JSON schema built from Zod (`src/lib/ai/schemas.ts`). The reply is validated with the same Zod schema before it's used.
-3. **Nothing is applied automatically.** The owner sees every suggestion next to the current value and ticks the ones to keep. Accepted values are stored with `confidence: "ai_live"` and `source: "ai:<model>"`, and show an **AI** badge everywhere (not only in Advanced view).
-4. **Never invent facts.** The model only sees knowledge base fields, must return `null` when the facts don't support a field (shown as "Not enough facts for…"), and null answers never become suggestions. AI never overwrites a field the owner edited, and list suggestions only add new items.
+3. **Nothing is applied automatically.**
+   - The owner sees every suggestion, with its evidence, next to the current value, and ticks the ones to keep. Per-offering category fixes are a separate opt-in group.
+   - Accepted values keep `ai_live` and their evidence, and show an **AI** badge with a "Wrong? Remove" button everywhere.
+   - Removing a value clears it and remembers it, so it isn't suggested again; editing it makes it the owner's.
+4. **Never invent facts.** Unknown stays null. AI never overwrites what the owner edited, and fields marked Not applicable are skipped.
 
 **Live vs preview mode**
 - **Live:** needs `OPENAI_API_KEY` **and** the right `AI_PASSCODE`, plus quota left today.
-- **Preview** (`ai_mock`, "AI preview" badge): template suggestions built only from facts already in the knowledge base. There are no templates for writing style, persona or art style, so those aren't suggested. Preview is used:
+- **Preview:**
+  - a free heuristic pass ("Inferred": industry from a keyword map, channels and funnels from CTA patterns, business model hints; same 2-evidence rule)
+  - plus template suggestions built only from facts already in the knowledge base ("AI preview")
+  - writing style, persona and art style aren't suggested
+
+  Preview is used:
   - with no key, or no passcode set on the server
   - when the user picks "Use preview mode"
   - when the daily cap is reached
@@ -246,14 +275,15 @@ Complete example outputs from real scrapes: **[data/examples/](data/examples/)**
 
 **Limits** (`src/lib/ai/config.ts`)
 - **Calls:** one text call plus one image call per run; never automatic.
-- **Input:** capped at about 12,000 tokens. Facts go in priority order: core facts, about and founding story, offerings, testimonials, FAQs, then the rest. Lists are trimmed from the end when over budget.
-- **Output:** capped at 2,500 tokens per call. `reasoning.effort` is `none`, so the whole budget goes to the answer.
+- **Input:** capped at about 16,000 tokens, prompt included. Evidence goes in priority order: the business in its own words, every page's title/meta/headings, brands and locations, CTAs, testimonial text, FAQs, then the rest. Real runs used 4k–12k.
+- **Output:** capped at 3,500 tokens per call (real runs: 1.2k–2.6k). `reasoning.effort` is `none`, so the whole budget goes to the answer.
+- **Cost per run** (third-party list prices): about $0.02–0.03 on gpt-5.4-mini, or about $0.08 with gpt-5.4 for the text call.
 - **Images:** at most 2. The best raster logo and the hero image are sent at `detail: "low"`. Screenshots waiting for AI (`needsAiFields`) go first, at `detail: "high"`, because menus and about pages are text-heavy. SVG logos are skipped (OpenAI can't read them).
 - **Cache:** results are cached in Supabase (`ai_enrichments`) by a hash of the prompt text, models and exact input. The same knowledge base version never pays twice, and cache hits don't count toward the cap.
 - **Daily cap:** `AI_DAILY_LIMIT` (default 20) live runs per day site-wide, enforced atomically in Postgres (`take_ai_quota`).
 - **Passcode:** `AI_PASSCODE`, compared in constant time. With no passcode configured, live AI is off.
 
-**Model comparison** (Apex Hosting, same input, text call only; vision stayed on mini):
+**Model comparison** (Apex Hosting, same input, text call only; vision stayed on mini; run with the earlier pre-Phase 9 prompts):
 
 | | `gpt-5.4-mini` | `gpt-5.4` |
 |---|---|---|

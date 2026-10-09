@@ -2,7 +2,47 @@
 
 A website is only one view of a business. Many small-business sites don't list a founding year, employee count, legal entity or full address, while their Google listing, state registration or Instagram does. This doc covers where XenFlo could fill those gaps, **what is and isn't allowed**, and which knowledge base fields each source fills.
 
-None of these outside sources are wired in yet. Today XenFlo uses the website, owner-provided content, and AI suggestions over those facts (see the README's AI section).
+None of these outside sources are wired in yet. Today XenFlo uses the website, owner-provided content, and AI suggestions over those facts (next section).
+
+## Today: understanding the business from its own site
+
+**Enrich with AI** (a button; it never runs automatically) asks a model to write down what a person would conclude from reading the site. For example, "a group of all-you-can-eat sushi, Korean BBQ and hot pot restaurants in Las Vegas", which Dragon Factory never writes as a label.
+
+**Evidence input** (`src/lib/ai/evidence.ts`): more than the knowledge base fields, trimmed to a fixed budget (about 16k input tokens including the prompt), highest value first:
+1. Overview, founding story, company name.
+2. Every crawled page's title, meta description and h1–h3 headings, captured during the crawl.
+3. Sub-brand names, locations (city/state), offering names and categories.
+4. CTA texts **with their link targets** (`"order online" → clover.com/...`).
+5. Testimonial text **without names**, then FAQs.
+6. Differentiators, trust signals, promotions, image alt text and logo file names, tools and partners.
+
+Every item has an id, so the model's evidence can be checked. Records scraped before page evidence existed get the hint "Re-scrape for better results."
+
+**Rules** (details in [data-quality.md](data-quality.md) §1a–1c):
+- **Three tiers:**
+  - read facts are never overwritten
+  - inferred fields are suggested with evidence
+  - people, legal entity, legal name, employee count and revenue are never guessed (dropped in code)
+- **Confidence bar:**
+  - facts need high confidence and 2 real evidence items
+  - generated writing (pitch, style, Content Kit) needs at least 1
+  - everything else is listed as "Not enough evidence" with the reason
+- **The owner decides:** every suggestion is reviewed; edits become `user_edited`, and "Wrong? Remove" is remembered.
+
+**Without a key or passcode (preview mode):** a free heuristic pass (`src/lib/ai/heuristics.ts`):
+- **Industry and groupings** from a keyword map (sushi, KBBQ, hot pot, boba, HVAC, plumbing, game server hosting…).
+- **Channels and funnels** from CTA patterns ("order online" → online ordering, "book now" → online booking, "apply now" → hiring, "get a quote" → quote request).
+- **Business model hints:** bookings plus locations → B2C, local; monthly plans with no location → Subscription.
+- The same 2-evidence rule applies, and results are marked "Inferred".
+
+**Cost** (third-party list prices; check OpenAI's pricing page):
+
+| | per run |
+|---|---|
+| gpt-5.4-mini | about $0.02–0.03, depending on site size |
+| gpt-5.4 (text call) | about $0.08 |
+
+Runs are capped per day, and cached per knowledge base version.
 
 ## Principles
 1. **Official APIs, used within their terms.** No HTML scraping of platforms that forbid it.

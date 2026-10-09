@@ -4,7 +4,7 @@ Versioned prompts for XenFlo's AI enrichment. Each file is one prompt; a change 
 
 **Status: wired in.** `src/lib/ai/enrich.ts` is the single entry point, run only from the **Enrich with AI** button:
 - **Loading.** `src/lib/ai/prompts.ts` reads these files at runtime and keeps each one up to its `## Example` heading.
-- **Text call.** The four text prompts are combined into one system prompt for a single call.
+- **Text call.** [understand-business.v1](understand-business.v1.md) is the single text prompt (since Phase 9). It reads page evidence and returns every tier 2 field with confidence, evidence and reason. The earlier company-pitch, writing-style, ideal-persona and content-kit prompts were merged into it; they stay here as reference for how each field was first specified.
 - **Vision call.** `logo-vision` drives a separate call for images.
 - **Validation.** The output schema is enforced with OpenAI structured outputs and re-checked with Zod (`src/lib/ai/schemas.ts`).
 - **Fallback.** With no key, no passcode, the daily cap reached, or any failure, the app returns labeled preview suggestions instead.
@@ -12,10 +12,11 @@ Versioned prompts for XenFlo's AI enrichment. Each file is one prompt; a change 
 
 | File | Fills (paths in `src/types/knowledge.ts`) | Model |
 |---|---|---|
-| [company-pitch.v1.md](company-pitch.v1.md) | `company.pitch` | text |
-| [writing-style.v1.md](writing-style.v1.md) | `brand.writingStyle`, `contentKit.voiceGuide` | text |
-| [ideal-persona.v1.md](ideal-persona.v1.md) | `customers.idealPersona`, `customers.customerNeeds`, `customers.targetBuyers` | text |
-| [content-kit.v1.md](content-kit.v1.md) | `contentKit.contentPillars`, `socialHooks`, `hashtags`, `emailSubjects`, `blogIdeas` | text |
+| [understand-business.v1.md](understand-business.v1.md) | **in use:** all tier 2 text fields (industry, business model, company role, customers, channels, funnels, themes, positioning, values, seasonal messaging, pitch, writing style, voice guide, Content Kit, offering categories) | text |
+| [company-pitch.v1.md](company-pitch.v1.md) | `company.pitch` (merged into understand-business) | reference |
+| [writing-style.v1.md](writing-style.v1.md) | `brand.writingStyle`, `contentKit.voiceGuide` (merged) | reference |
+| [ideal-persona.v1.md](ideal-persona.v1.md) | `customers.idealPersona`, `customers.customerNeeds`, `customers.targetBuyers` (merged) | reference |
+| [content-kit.v1.md](content-kit.v1.md) | `contentKit.contentPillars`, `socialHooks`, `hashtags`, `emailSubjects`, `blogIdeas` (merged) | reference |
 | [logo-vision.v1.md](logo-vision.v1.md) | `brand.artStyle`, `company.alternateNames` (from logos only), screenshot facts | vision |
 
 ## Rules shared by every prompt
@@ -23,7 +24,7 @@ Versioned prompts for XenFlo's AI enrichment. Each file is one prompt; a change 
 2. **Never invent facts:** no years, numbers, awards, locations, prices, names or quotes that aren't in the input.
 3. **Missing means `null`.** When the input can't support a field, return `null` for it and name the reason in `missing`. Don't write something generic to fill the gap.
 4. **Output JSON only**, matching the schema exactly. No prose around it.
-5. **Cite evidence.** The answer lists the input fields it was based on (`basedOn`), which travels with each suggestion so it can be traced.
+5. **Cite evidence and pass the bar.** Answers cite evidence ids or quotes from the input. In code, facts need high confidence plus 2 real evidence items, generated writing needs 1, and tier 3 fields (people, legal entity, legal name, employee count, revenue) are always dropped. See `src/lib/ai/confidence.ts` and `src/lib/ai/field-tiers.ts`.
 
 ## How the app stores results
 The model returns plain values, which become suggestions the owner accepts or rejects. Accepted ones are wrapped in the usual `Field` shape:
