@@ -27,7 +27,8 @@ export function useKnowledgeActions(opts: { linkToSaved?: boolean; onSaved?: (kb
     if (!kb) return;
     setSaving(true);
     setBusy(true); // pause editing while the request runs
-    const res = await saveKnowledge(kb, saved);
+    // New records get the database's "Initial save" note; later saves are labeled "Edited"
+    const res = await saveKnowledge(kb, saved, saved ? "Edited" : undefined);
     setSaving(false);
     setBusy(false);
     if (res.error) return showError(res.error.code);
