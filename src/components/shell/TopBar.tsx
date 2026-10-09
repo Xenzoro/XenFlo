@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Sparkles } from "lucide-react";
+import { TourLink } from "@/components/tour/TourLink";
 
 /** Top bar with the app name, like MoFlo Cloud's header. */
 export function TopBar() {
@@ -13,7 +14,10 @@ export function TopBar() {
           Xen<span className="text-primary">Flo</span>
         </span>
       </Link>
-      <span className="rounded-full border border-border px-3 py-1 text-xs font-medium text-muted">Demo workspace</span>
+      <div className="flex items-center gap-2">
+        <TourLink />
+        <span className="rounded-full border border-border px-3 py-1 text-xs font-medium text-muted">Demo workspace</span>
+      </div>
     </header>
   );
 }

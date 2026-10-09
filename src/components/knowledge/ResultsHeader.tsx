@@ -25,8 +25,10 @@ export function ResultsHeader({ onSave, saving }: { onSave: () => void; saving: 
         </p>
       </div>
       <div className="flex items-center justify-between gap-4 sm:justify-end">
-        <Toggle checked={advanced} onChange={setAdvanced} label="Advanced view" />
-        <span data-tour="save">
+        <span data-tour="advanced" className="rounded-full">
+          <Toggle checked={advanced} onChange={setAdvanced} label="Advanced view" />
+        </span>
+        <span data-tour="save" className="rounded-full">
           <Button onClick={onSave} loading={saving} disabled={busy || (!dirty && !!saved)} icon={<Save className="size-4" />}>
             {saved && !dirty ? "Saved" : "Save"}
           </Button>

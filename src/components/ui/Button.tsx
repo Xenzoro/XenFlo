@@ -17,7 +17,8 @@ const SIZES: Record<Size, string> = {
   md: "h-10 px-5 text-sm gap-2",
 };
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+// ComponentProps (not ButtonHTMLAttributes) includes `ref`, which React 19 passes as a normal prop
+export interface ButtonProps extends React.ComponentProps<"button"> {
   variant?: Variant;
   size?: Size;
   /** Shows a spinner and disables the button */

@@ -5,7 +5,7 @@
   With ?id=<uuid> it opens a saved knowledge base for editing instead of scraping.
   Save / Dig deeper live in useKnowledgeActions; the knowledge base itself in KnowledgeContext.
 */
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
@@ -24,6 +24,9 @@ import { ScrapeBar } from "./ScrapeBar";
 import { ScrapeErrorCard } from "./ScrapeErrorCard";
 import { ScrapeProgress } from "./ScrapeProgress";
 import { useKnowledgeActions } from "./useKnowledgeActions";
+import { Tour } from "@/components/tour/Tour";
+import { TOUR_EVENT, isTourDone, markTourDone } from "@/components/tour/tourStorage";
+import type { TourStep } from "@/components/tour/tourSteps";
 
 // "opening" = loading a saved record from ?id=
 type Status = "idle" | "loading" | "opening" | "error" | "done";
@@ -89,6 +92,26 @@ export function KnowledgeWorkspace() {
   }
 
   const showResults = status === "done" && kb;
+
+  // Tour: opens by itself the first time results appear, or from "Take a tour" anytime
+  const [touring, setTouring] = useState(false);
+  useEffect(() => {
+    const start = () => setTouring(true);
+    window.addEventListener(TOUR_EVENT, start);
+    return () => window.removeEventListener(TOUR_EVENT, start);
+  }, []);
+  const hasResults = !!showResults; // a boolean, so edits to the KB don't re-run this
+  useEffect(() => {
+    if (!hasResults || isTourDone()) return;
+    const t = window.setTimeout(() => setTouring(true), 700); // let the results animate in first
+    return () => window.clearTimeout(t);
+  }, [hasResults]);
+  const endTour = useCallback(() => {
+    markTourDone();
+    setTouring(false);
+  }, []);
+  const prepareStep = useCallback((step: TourStep) => step.id === "health" && setTab("overview"), [setTab]);
+
   const blocked = status === "error" && error && BLOCKED_CODES.has(error.code);
 
   return (
@@ -150,6 +173,7 @@ export function KnowledgeWorkspace() {
 
       <FooterNote />
       <Toast toast={actions.toast} onClose={actions.closeToast} />
+      <Tour open={touring} hasResults={hasResults} onBeforeStep={prepareStep} onClose={endTour} />
     </div>
   );
 }
