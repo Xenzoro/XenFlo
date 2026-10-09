@@ -24,11 +24,11 @@ Status key: **Fixed** · **Planned** · **Idea**
 
 | Issue | Found on | Status |
 |---|---|---|
-| **Placeholder staff scraped as real people.** The About page lists three team members (Akira Yamamoto, Sakura Tanaka, Kenji Nakamura) who appear to be template filler. The scraper read them correctly, but the content itself isn't real. | Anime Boba Cafe | Idea: placeholder detection (see below) |
+| **Placeholder staff scraped as real people.** The About page lists three staff profiles that appear to be template filler. The scraper read them correctly, but the content itself isn't real. | Anime Boba Cafe | Idea: placeholder detection (see below) |
 | **Leftover WordPress demo pages** (`/sample-page`, `/hello-world`, `/category/uncategorized`) are a strong sign the site was never fully cleaned up after setup | Anime Boba Cafe | Idea: if found, flag the whole knowledge base "may contain template content, please review" |
 | Hidden page sections (switched off with CSS) could be scraped even though visitors never see them | General | Idea: skip elements hidden with `display:none`, `hidden`, or `aria-hidden` |
 | No check that a scraped value actually appears on its source page | General | Idea: verification pass after extraction; anything not found on its source page is dropped or marked unverified |
-| Testimonial authors and real team members can get mixed up | Seen in MoFlo's NightOwl profile | Fixed in Phase 2: authors are tagged `customer_partner`, never `team` |
+| Testimonial authors and real team members can get mixed up | Seen in a sample knowledge profile | Fixed in Phase 2: authors are tagged `customer_partner`, never `team` |
 
 ## Branding
 
@@ -50,7 +50,7 @@ Status key: **Fixed** · **Planned** · **Idea**
 | Library default color reported as brand color (Swiper's `#007aff`) | Apex Hosting (Phase 2) | Fixed in Phase 2: bundled library stylesheets are skipped |
 | "Apple System" listed as a font; it's the device's built in system font | Anime Boba Cafe | Idea: add to the system font filter (alongside Arial, Segoe UI, system-ui) |
 | Unresolved CSS variables and icon fonts listed as fonts (`var(--font-family)`, `ETmodules`) | MoFlo's sample profiles | Fixed in Phase 2: variables resolved, icon fonts filtered |
-| Art style described from a blank gray image ("no discernible art style") | MoFlo's Account IT profile | Idea: check an image is a real logo before sending it to vision AI |
+| Art style described from a blank gray image ("no discernible art style") | a sample knowledge profile | Idea: check an image is a real logo before sending it to vision AI |
 
 ## Links and contact
 
@@ -75,7 +75,7 @@ Status key: **Fixed** · **Planned** · **Idea**
 
 ## Observations from MoFlo's own Knowledge feature
 
-These came from testing MoFlo Cloud's trial with my own site and Apex Hosting, and from the sample profiles in Knowledge_Outputs.pdf. Framed as improvement ideas.
+These came from testing an existing knowledge feature with my own site and Apex Hosting, and from sample profiles. Framed as improvement ideas.
 
 | Observation | Idea |
 |---|---|

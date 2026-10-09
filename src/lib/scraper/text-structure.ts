@@ -8,7 +8,7 @@
     - review sections: lines like  "Great service!" - Jenna R.
     - service/menu/pricing sections: lines like  Full Groom - $65. Bath, haircut...
     - team sections: lines like  Maria Ortega - Owner and lead groomer
-    - a US-style street address anywhere:  4120 Sunset Road, Suite 6, Henderson, NV 89014
+    - a US-style street address anywhere:  123 Example Avenue, Suite 100, Springfield, NV 89000
     - web addresses become links, so social profiles are picked up like on a real page
   Everything comes from the user's own words; nothing is guessed or invented.
 */

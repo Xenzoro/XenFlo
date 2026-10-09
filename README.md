@@ -318,7 +318,7 @@ Other results:
 
 ### Anime Boba Cafe (`animebobacafe.com`): blocked site, template placeholder staff
 - Its robots.txt asks AI crawlers (GPTBot, ClaudeBot and others) to stay out, so XenFlo stops and shows the blocked panel with the ownership checkbox and upload options. That is the demo of the consent flow. Its content was only used with the owner's permission.
-- With permission, the scrape worked technically, but the About page lists three staff members (Akira Yamamoto, Sakura Tanaka, Kenji Nakamura) who appear to be **template filler on a real site**. The scraper read them correctly; the content itself isn't real.
+- With permission, the scrape worked technically, but the About page lists **three staff profiles that appear to be template filler** on a real site. The scraper read them correctly; the content itself isn't real.
 - The site also still has WordPress demo pages (`/sample-page`, `/hello-world`) and WordPress default colors.
 - This is the motivating case for placeholder detection in [docs/data-quality.md](docs/data-quality.md).
 

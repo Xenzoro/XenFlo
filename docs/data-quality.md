@@ -59,7 +59,7 @@ Fields that need judgment rather than reading (pitch, writing style, ideal perso
 Testing on real small-business sites showed the scraper usually reads the page **correctly**, but the page itself can be wrong, stale or made for someone else. These are the failure modes we've seen, and who fixes each one.
 
 ### Placeholder staff (template content on a real site)
-**Seen on:** Anime Boba Cafe. The About page lists Akira Yamamoto, Sakura Tanaka and Kenji Nakamura, three "team members" who appear to be filler from the site template. The scraper extracted them perfectly, and they would have ended up in Flo's posts as real staff.
+**Seen on:** Anime Boba Cafe. The About page lists three staff profiles that appear to be template filler. The scraper extracted them perfectly, and they would have ended up in Flo's posts as real staff.
 
 The same site still had WordPress demo pages (`/sample-page`, `/hello-world`, `/category/uncategorized`), a strong sign the template was never fully cleaned up.
 
