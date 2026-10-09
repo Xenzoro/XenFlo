@@ -117,5 +117,16 @@ describe("readMenusWithAi", () => {
     expect(r.read).toBe(1);
     expect(r.replaces).toEqual([`${SITE}/files/umami.pdf`]);
   });
+
+  it("names a menu that couldn't be read again, and replaces nothing", async () => {
+    const kb = kbWith(["sakana"]);
+    const done = { ...kb, crawl: { ...kb.crawl, menuSources: kb.crawl.menuSources!.map((s) => ({ ...s, status: "read_ai" as const, readAs: "picture" as const })) } };
+    state.quota = false;
+    const r = await readMenusWithAi(done, { only: [`${SITE}/files/sakana.pdf`], fresh: true });
+    expect(state.calls).toBe(0);
+    expect(r.mode).toBe("unavailable");
+    expect(r.replaces).toEqual([]);
+    expect(r.notes).toContain("sakana wasn't read again: today's live AI limit is used up. Its current items are unchanged.");
+  });
 });
 

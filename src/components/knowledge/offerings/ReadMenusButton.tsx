@@ -14,6 +14,7 @@ import { enrichStatus, readMenus } from "@/lib/api/client";
 import { friendlyError } from "@/lib/api/messages";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import { cn } from "@/lib/utils/cn";
 import { readPasscode, savePasscode } from "../ai/passcode";
 
 /** `only`: read just these menus again with the current prompt (a brand's "Read again with AI"). */
@@ -25,6 +26,8 @@ export function ReadMenusButton({ waiting, only, label = "Read menus with AI", c
   const [running, setRunning] = useState(false);
   const [elapsed, setElapsed] = useState(0);
   const [notes, setNotes] = useState<string[]>([]);
+  // The run didn't do what was asked (no live AI left, or a chosen menu wasn't read again): notes show as a warning
+  const [warn, setWarn] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -60,6 +63,7 @@ export function ReadMenusButton({ waiting, only, label = "Read menus with AI", c
     setAsking(false);
     applyMenuResult(res.data);
     setNotes(res.data.notes);
+    setWarn(res.data.mode === "unavailable" || (!!only && (res.data.replaces?.length ?? 0) < only.length));
   }
 
   function start() {
@@ -109,7 +113,7 @@ export function ReadMenusButton({ waiting, only, label = "Read menus with AI", c
       )}
       {error && <p className="text-xs text-danger">{error}</p>}
       {notes.length > 0 && (
-        <ul className="space-y-0.5 text-xs text-muted">
+        <ul className={cn("space-y-0.5 text-xs", warn ? "rounded-xl bg-warning-soft px-3 py-2 font-medium text-warning" : "text-muted")} role={warn ? "alert" : undefined}>
           {notes.map((n) => (
             <li key={n}>{n}</li>
           ))}

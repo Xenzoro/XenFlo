@@ -75,16 +75,18 @@ export async function readMenusWithAi(kb: KnowledgeBase, opts: { cachedOnly?: bo
   let cachedCount = 0;
   let late = 0;
   let failed = 0;
+  // Menus the owner asked to read again that couldn't start (no quota left, or out of time)
+  const notReread: string[] = [];
 
   await Promise.all(
     jobs.map(async (job, i) => {
       const source = structuredClone(job.source);
       let out = cached[i];
       if (out) cachedCount++;
-      else if (!quota) return;
+      else if (!quota) return void notReread.push(menuName(source));
       else if (Date.now() - started > MENU_LIMITS.deadlineMs) {
         late++;
-        return;
+        return void notReread.push(menuName(source));
       }
       try {
         let items: ReadItem[];
@@ -120,6 +122,11 @@ export async function readMenusWithAi(kb: KnowledgeBase, opts: { cachedOnly?: bo
   );
 
   const remaining = plan.skipped + jobs.length - read;
+  // "Read again with AI" that didn't happen: say so by name, so it doesn't look like the AI ignored the menu
+  if (opts.only?.length && notReread.length) {
+    const why = quota ? "it didn't start in time" : "today's live AI limit is used up";
+    notes.push(`${notReread.join(", ")} wasn't read again: ${why}. Its current items are unchanged.`);
+  }
   if (!quota) notes.push(`Today's live AI limit (${limit} runs) is used up${cachedCount ? `; ${cachedCount} menu${s(cachedCount)} came from earlier runs` : ""}. It resets at midnight UTC.`);
   if (read) notes.push(`Read ${read} menu${s(read)}${cachedCount ? ` (${cachedCount} from earlier runs, free)` : ""} and added ${added.length} item${s(added.length)}.`);
   if (late) notes.push(`${late} menu${s(late)} didn't start in time.`);
@@ -208,6 +215,11 @@ function toField(kb: KnowledgeBase, { item, confidence }: ReadItem, source: Menu
 }
 
 const s = (n: number) => (n === 1 ? "" : "s");
+
+/** "Neko Hana Omakase", or the file name when the menu has no brand */
+function menuName(source: MenuSource): string {
+  return source.group ?? source.fileName ?? source.label ?? "This menu";
+}
 
 function hash(value: unknown): string {
   return createHash("sha256").update(JSON.stringify(value ?? null)).digest("hex");
