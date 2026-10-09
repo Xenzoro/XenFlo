@@ -15,6 +15,7 @@ import type { Suggestion } from "@/types/enrichment";
 import { scoreCompleteness } from "@/lib/scraper/score";
 import { field, missing } from "@/lib/utils/knowledge";
 import { getAt, setAt } from "@/lib/utils/path";
+import { applySuggestionsTo, dismissIn } from "@/lib/ai/apply";
 import { useNavGuard } from "./NavGuardContext";
 
 export type TabKey =
@@ -52,8 +53,14 @@ interface KnowledgeState {
   removeItem: (path: string, index: number) => void;
   /** Open the tab that holds `path`, scroll to it and flash it */
   jumpTo: (path: string) => void;
-  /** Write AI suggestions the owner accepted, keeping their AI confidence and source */
+  /** Write AI suggestions the owner accepted, keeping their AI confidence, source and evidence */
   applySuggestions: (suggestions: Suggestion[]) => void;
+  /** "Wrong? Remove": clear an AI/inferred value (or list item at `index`) and remember not to suggest it again */
+  dismissValue: (path: string, index?: number) => void;
+  /** Mark a field "Not applicable" (counts as complete) or undo it */
+  setNotApplicable: (path: string, on: boolean) => void;
+  /** Main address is empty: promote one of the other locations to main */
+  promoteLocation: (index: number) => void;
 }
 
 const KnowledgeContext = createContext<KnowledgeState | null>(null);
@@ -148,19 +155,30 @@ export function KnowledgeProvider({ children, initial }: { children: React.React
     [edit],
   );
 
-  // Accepted AI suggestions keep ai_live / ai_mock (not user_edited), so they show an AI badge.
-  // List suggestions add new items; scalar ones replace the field. Unsaved until Save.
-  const applySuggestions = useCallback(
-    (suggestions: Suggestion[]) =>
-      edit((k) =>
-        suggestions.reduce((acc, s) => {
-          if (!s.list) return setAt(acc, s.path, field(s.value, s.source, s.confidence));
-          const list = (getAt(acc, s.path) as Field<unknown>[]) ?? [];
-          const have = new Set(list.map((f) => String(f.value).toLowerCase()));
-          const added = (s.value as string[]).filter((v) => !have.has(v.toLowerCase())).map((v) => field(v, s.source, s.confidence));
-          return setAt(acc, s.path, [...list, ...added]);
-        }, k),
-      ),
+  // Accepted AI suggestions keep their AI/inferred confidence and evidence; "Wrong? Remove" clears a
+  // value and remembers it (pure functions in src/lib/ai/apply.ts). Unsaved until Save.
+  const applySuggestions = useCallback((suggestions: Suggestion[]) => edit((k) => applySuggestionsTo(k, suggestions)), [edit]);
+  const dismissValue = useCallback((path: string, index?: number) => edit((k) => dismissIn(k, path, index)), [edit]);
+
+  const setNotApplicable = useCallback(
+    (path: string, on: boolean) =>
+      edit((k) => {
+        const current = new Set(k.notApplicable ?? []);
+        if (on) current.add(path);
+        else current.delete(path);
+        return { ...k, notApplicable: [...current] };
+      }),
+    [edit],
+  );
+
+  const promoteLocation = useCallback(
+    (index: number) =>
+      edit((k) => {
+        const loc = k.company.otherLocations[index];
+        if (!loc?.value) return k;
+        const next = setAt(k, "company.mainAddress", field(loc.value, "user", "user_edited"));
+        return setAt(next, "company.otherLocations", k.company.otherLocations.filter((_, i) => i !== index));
+      }),
     [edit],
   );
 
@@ -198,8 +216,11 @@ export function KnowledgeProvider({ children, initial }: { children: React.React
       removeItem,
       jumpTo,
       applySuggestions,
+      dismissValue,
+      setNotApplicable,
+      promoteLocation,
     }),
-    [kb, loadKb, saved, markSaved, dirty, advanced, tab, busy, setFieldValue, addItem, updateItem, removeItem, jumpTo, applySuggestions],
+    [kb, loadKb, saved, markSaved, dirty, advanced, tab, busy, setFieldValue, addItem, updateItem, removeItem, jumpTo, applySuggestions, dismissValue, setNotApplicable, promoteLocation],
   );
 
   return <KnowledgeContext.Provider value={value}>{children}</KnowledgeContext.Provider>;

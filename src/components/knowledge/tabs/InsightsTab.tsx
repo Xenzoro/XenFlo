@@ -102,8 +102,12 @@ export function InsightsTab() {
         <EditableList path="insights.contentThemes" addLabel="theme" />
       </SectionCard>
 
-      <SectionCard title="Promotions" subtitle="Deals and seasonal messaging">
+      <SectionCard title="Promotions" subtitle="Deals and offers stated on your site">
         <EditableList path="insights.promotions" variant="rows" addLabel="promotion" />
+      </SectionCard>
+
+      <SectionCard title="Seasonal messaging" subtitle="Seasonal or recurring campaigns (e.g. summer tune-ups, holiday hours)">
+        <EditableList path="insights.seasonalMessaging" variant="rows" addLabel="seasonal message" />
       </SectionCard>
 
       <SectionCard title="Community and values" subtitle="Causes, values and community work">

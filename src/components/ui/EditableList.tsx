@@ -10,7 +10,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { useKnowledge, useList } from "@/context/KnowledgeContext";
 import { cn } from "@/lib/utils/cn";
-import { ConfidenceBadge, isAi } from "./Badge";
+import { isAi } from "./Badge";
+import { AiValueTag } from "./AiValueTag";
 import { Input } from "./Input";
 import { AddPill } from "./Pill";
 
@@ -46,7 +47,7 @@ export function EditableList<T = string>({
   canAdd = true,
 }: EditableListProps<T>) {
   const items = useList<T>(path);
-  const { addItem, updateItem, removeItem, advanced, busy } = useKnowledge();
+  const { addItem, updateItem, removeItem, dismissValue, advanced, busy } = useKnowledge();
   // Index being edited, "new" while adding, null when idle
   const [editing, setEditing] = useState<number | "new" | null>(null);
   const [draft, setDraft] = useState("");
@@ -115,7 +116,11 @@ export function EditableList<T = string>({
                     onEdit={() => start(i)}
                     onRemove={() => removeItem(path, i)}
                     disabled={busy}
-                    badge={advanced || isAi(item.confidence) ? <ConfidenceBadge confidence={item.confidence} source={item.source} /> : null}
+                    badge={
+                      advanced || isAi(item.confidence) ? (
+                        <AiValueTag confidence={item.confidence} source={item.source} evidence={item.evidence} onRemove={() => dismissValue(path, i)} disabled={busy} />
+                      ) : null
+                    }
                   >
                     {render ? render(item.value) : format(item.value)}
                   </Item>

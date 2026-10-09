@@ -3,11 +3,13 @@
 /*
   Overview: a mini dashboard.
   - Knowledge Health gauge (the completeness score), styled like MoFlo's Brand Power
-  - "Next to do" cards: the highest-value missing fields, each jumping to where you fill it in
+  - "Next to do" cards: the highest-value missing fields. Inferred fields (tier 2) offer "Fill with AI";
+    never-guessed ones (tier 3: people, legal entity) only "Add it yourself". Any can be marked
+    "Not applicable", which counts as complete.
   - Content Kit preview: mock examples of what Flo could write, clearly labeled
 */
 import { motion } from "framer-motion";
-import { ArrowRight, FileText, Mail, MessageSquare, PartyPopper } from "lucide-react";
+import { ArrowRight, ChevronDown, FileText, Mail, MapPin, MessageSquare, PartyPopper, Sparkles } from "lucide-react";
 import { useKnowledge } from "@/context/KnowledgeContext";
 import { SCORE_CHECKS } from "@/lib/scraper/score";
 import { mockContentPreview } from "@/lib/ai/mockPreview";
@@ -15,6 +17,9 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Card, SectionLabel } from "@/components/ui/Card";
 import { Gauge } from "@/components/ui/Gauge";
+import { Menu } from "@/components/ui/Menu";
+import { tierOf } from "@/lib/ai/field-tiers";
+import { ENRICH_EVENT } from "../ai/EnrichModal";
 import { FIELD_LABELS, fieldName } from "../fieldLabels";
 
 function healthLabel(score: number) {
@@ -24,7 +29,7 @@ function healthLabel(score: number) {
 }
 
 export function OverviewTab() {
-  const { kb, jumpTo } = useKnowledge();
+  const { kb, jumpTo, setNotApplicable, promoteLocation, busy } = useKnowledge();
   if (!kb) return null;
 
   const { score, missing } = kb.completeness;
@@ -81,9 +86,35 @@ export function OverviewTab() {
                     <p className="text-sm font-medium">{FIELD_LABELS[t.path]?.todo ?? t.path}</p>
                     <Badge tone="green">+{t.weight}</Badge>
                   </div>
-                  <Button variant="secondary" size="sm" className="self-start" onClick={() => jumpTo(t.path)} icon={<ArrowRight className="size-3.5" />}>
-                    Add it
-                  </Button>
+                  <div className="flex flex-wrap items-center gap-2">
+                    {tierOf(t.path) === 2 && (
+                      <Button size="sm" onClick={() => window.dispatchEvent(new Event(ENRICH_EVENT))} disabled={busy} icon={<Sparkles className="size-3.5" />}>
+                        Fill with AI
+                      </Button>
+                    )}
+                    {t.path === "company.mainAddress" && kb.company.otherLocations.length > 0 ? (
+                      // No head office found, but the site lists locations: pick one, or say there's none
+                      <Menu
+                        label="Use one of your locations"
+                        align="left"
+                        items={kb.company.otherLocations.flatMap((f, i) =>
+                          f.value ? [{ label: f.value.formatted, icon: <MapPin className="size-3.5" />, onSelect: () => promoteLocation(i) }] : [],
+                        )}
+                        trigger={(p) => (
+                          <button {...p} type="button" disabled={busy} className="inline-flex items-center gap-1 rounded-full border border-border px-3 py-1 text-xs font-medium hover:border-primary/40">
+                            Use one of your locations <ChevronDown className="size-3" />
+                          </button>
+                        )}
+                      />
+                    ) : (
+                      <Button variant="secondary" size="sm" onClick={() => jumpTo(t.path)} icon={<ArrowRight className="size-3.5" />}>
+                        {tierOf(t.path) === 3 ? "Add it yourself" : "Add it"}
+                      </Button>
+                    )}
+                    <button type="button" onClick={() => setNotApplicable(t.path, true)} disabled={busy} className="text-xs text-subtle hover:text-ink hover:underline">
+                      {t.path === "company.mainAddress" ? "Not applicable (no head office)" : "Not applicable"}
+                    </button>
+                  </div>
                 </Card>
               </motion.div>
             ))}

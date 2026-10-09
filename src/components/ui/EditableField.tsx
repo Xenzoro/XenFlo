@@ -9,7 +9,8 @@ import { useState } from "react";
 import { Pencil } from "lucide-react";
 import { useField, useKnowledge } from "@/context/KnowledgeContext";
 import { cn } from "@/lib/utils/cn";
-import { ConfidenceBadge, isAi } from "./Badge";
+import { isAi } from "./Badge";
+import { AiValueTag } from "./AiValueTag";
 import { Input, TextArea } from "./Input";
 import { AddPill } from "./Pill";
 
@@ -46,13 +47,19 @@ export function EditableField<T = string>({
   valueClassName,
 }: EditableFieldProps<T>) {
   const f = useField<T>(path);
-  const { setField, advanced, busy } = useKnowledge();
+  const { setField, dismissValue, advanced, busy } = useKnowledge();
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState("");
   const [error, setError] = useState<string | null>(null);
 
   const value = f?.value ?? null;
-  const badge = f && (advanced || isAi(f.confidence)) ? <ConfidenceBadge confidence={f.confidence} source={f.source} /> : null;
+  // AI and inferred values always show their badge and a "Wrong? Remove" button
+  const badge =
+    f && f.value !== null && (advanced || isAi(f.confidence)) ? (
+      <AiValueTag confidence={f.confidence} source={f.source} evidence={f.evidence} onRemove={() => dismissValue(path)} disabled={busy} />
+    ) : f && advanced ? (
+      <AiValueTag confidence={f.confidence} source={f.source} />
+    ) : null;
 
   function start() {
     if (busy) return;
@@ -115,23 +122,25 @@ export function EditableField<T = string>({
           {!label && badge}
         </span>
       ) : (
-        <button
-          type="button"
-          onClick={start}
-          disabled={busy}
-          aria-label={label ? `${label}: ${format(value)}. Click to edit` : undefined}
-          className={cn(
-            "group -mx-2 flex w-[calc(100%+1rem)] items-start gap-2 rounded-lg px-2 py-1 text-left transition-colors hover:bg-page disabled:cursor-default",
-            // No class-merging library, so the default size only applies when the caller doesn't set one
-            valueClassName ?? "text-sm",
-          )}
-        >
-          <span className="min-w-0 flex-1 whitespace-pre-line break-words">
-            {display ? display(value) : format(value)}
-            {!label && badge && <span className="ml-2 inline-block align-middle">{badge}</span>}
-          </span>
-          <Pencil className="mt-0.5 size-3.5 shrink-0 text-subtle opacity-0 transition-opacity group-hover:opacity-100" />
-        </button>
+        <div className="-mx-2 flex items-start gap-2">
+          <button
+            type="button"
+            onClick={start}
+            disabled={busy}
+            aria-label={label ? `${label}: ${format(value)}. Click to edit` : undefined}
+            className={cn(
+              "group flex min-w-0 flex-1 items-start gap-2 rounded-lg px-2 py-1 text-left transition-colors hover:bg-page disabled:cursor-default",
+              // No class-merging library, so the default size only applies when the caller doesn't set one
+              valueClassName ?? "text-sm",
+            )}
+          >
+            <span className="min-w-0 flex-1 whitespace-pre-line break-words">
+              {display ? display(value) : format(value)}
+            </span>
+            <Pencil className="mt-0.5 size-3.5 shrink-0 text-subtle opacity-0 transition-opacity group-hover:opacity-100" />
+          </button>
+          {!label && badge && <span className="mt-1.5 pr-2">{badge}</span>}
+        </div>
       )}
     </div>
   );

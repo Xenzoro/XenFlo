@@ -13,7 +13,8 @@ import { Pencil, X } from "lucide-react";
 import type { Field } from "@/types/knowledge";
 import { useKnowledge, useList } from "@/context/KnowledgeContext";
 import { cn } from "@/lib/utils/cn";
-import { ConfidenceBadge, isAi } from "./Badge";
+import { isAi } from "./Badge";
+import { AiValueTag } from "./AiValueTag";
 import { Card } from "./Card";
 import { AddPill } from "./Pill";
 import { RecordForm, type FormField } from "./RecordForm";
@@ -43,7 +44,7 @@ export function RecordList<T extends object>({
   groupBy?: (value: T) => string;
 }) {
   const all = useList<T>(path);
-  const { addItem, updateItem, removeItem, advanced, busy } = useKnowledge();
+  const { addItem, updateItem, removeItem, dismissValue, advanced, busy } = useKnowledge();
   const [editing, setEditing] = useState<number | "new" | null>(null);
 
   // Keep each item's real index so edits and removes hit the right one after filtering
@@ -103,7 +104,7 @@ export function RecordList<T extends object>({
                     {render(item.value, values)}
                     {(advanced || isAi(item.confidence)) && (
                       <div className="mt-3">
-                        <ConfidenceBadge confidence={item.confidence} source={item.source} />
+                        <AiValueTag confidence={item.confidence} source={item.source} evidence={item.evidence} onRemove={() => dismissValue(path, index)} disabled={busy} />
                       </div>
                     )}
                   </>

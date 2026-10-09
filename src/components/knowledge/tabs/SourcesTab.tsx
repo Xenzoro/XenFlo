@@ -25,7 +25,7 @@ const CONSENT_METHOD = {
 const HARD_MAX_PAGES = 30;
 
 export function SourcesTab({ onDigDeeper, digging }: { onDigDeeper: () => void; digging: boolean }) {
-  const { kb, jumpTo, busy } = useKnowledge();
+  const { kb, jumpTo, setNotApplicable, busy } = useKnowledge();
   if (!kb) return null;
 
   const pages = kb.crawl.pages;
@@ -72,10 +72,19 @@ export function SourcesTab({ onDigDeeper, digging }: { onDigDeeper: () => void; 
         <ul className="max-h-96 space-y-1 overflow-y-auto text-sm">
           {SCORE_CHECKS.map((c) => {
             const filled = !kb.completeness.missing.includes(c.path);
+            const na = (kb.notApplicable ?? []).includes(c.path);
             return (
               <li key={c.path} className="flex items-center gap-2">
                 {filled ? <Check className="size-4 text-success" /> : <X className="size-4 text-subtle" />}
-                {filled ? (
+                {na ? (
+                  <span className="flex flex-1 items-center gap-2">
+                    {fieldName(c.path)}
+                    <span className="rounded-full bg-page px-2 py-0.5 text-[10px] font-semibold text-muted">N/A</span>
+                    <button type="button" onClick={() => setNotApplicable(c.path, false)} disabled={busy} className="text-xs text-primary hover:underline">
+                      Undo
+                    </button>
+                  </span>
+                ) : filled ? (
                   <span className="flex-1">{fieldName(c.path)}</span>
                 ) : (
                   <button type="button" onClick={() => jumpTo(c.path)} className="flex-1 text-left text-muted hover:text-primary">

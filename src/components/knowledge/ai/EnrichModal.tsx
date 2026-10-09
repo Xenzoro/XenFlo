@@ -20,6 +20,8 @@ import { Input } from "@/components/ui/Input";
 import { Modal } from "@/components/ui/Modal";
 
 const PASSCODE_KEY = "xenflo.aiPasscode";
+/** Fired by "Fill with AI" buttons elsewhere (Next to do); ResultsHeader opens this modal. */
+export const ENRICH_EVENT = "xenflo:enrich";
 // sessionStorage can throw (private mode, blocked storage): treat that as "nothing saved".
 const readPasscode = () => {
   try {
@@ -80,7 +82,7 @@ export function EnrichModal({ open, onClose }: { open: boolean; onClose: () => v
     if (!preview) savePasscode(passcode.trim());
     setResult(res.data);
     // Pre-tick list additions and empty fields; replacing something already there is opt-in.
-    setChosen(new Set(res.data.suggestions.flatMap((s, i) => (s.list || isEmptyAt(kb, s.path) ? [i] : []))));
+    setChosen(new Set(res.data.suggestions.flatMap((s, i) => (s.list || isEmptyAt(kb, s) ? [i] : []))));
     setStep("review");
   }
 
@@ -93,6 +95,10 @@ export function EnrichModal({ open, onClose }: { open: boolean; onClose: () => v
   }
 
   const live = !!status?.liveAvailable;
+  // Field suggestions first; per-offering category suggestions get their own group
+  const indexed = (result?.suggestions ?? []).map((s, i) => ({ s, i }));
+  const fields = indexed.filter((x) => !x.s.offering);
+  const categories = indexed.filter((x) => x.s.offering);
   const toggle = (i: number, on: boolean) =>
     setChosen((prev) => {
       const next = new Set(prev);
@@ -125,7 +131,8 @@ export function EnrichModal({ open, onClose }: { open: boolean; onClose: () => v
       {step === "start" && (
         <div className="mt-5 space-y-4">
           <p className="text-sm">
-            Suggestions for your pitch, writing style, ideal customer, Content Kit, art style and brand names. You review each one before anything changes.
+            Flo reads your pages and suggests what a person would conclude from them: industry, business model, customers, channels, themes, your pitch,
+            writing style and Content Kit. Only well-supported answers are suggested, and you review each one before anything changes.
           </p>
           {live ? (
             <form
@@ -192,6 +199,7 @@ export function EnrichModal({ open, onClose }: { open: boolean; onClose: () => v
             <Badge tone="purple">{result.mode === "live" ? "AI" : "AI preview"}</Badge>
             {result.mode === "live" && <span className="text-xs text-subtle">{result.models.text}{result.cached ? " · saved result, no new AI call" : ""}</span>}
           </div>
+          {result.hint && <p className="mt-2 text-xs font-medium text-primary">{result.hint}</p>}
           {result.notes.length > 0 && (
             <div className="mt-3 space-y-1 rounded-xl border border-warning/30 bg-warning-soft p-3 text-xs">
               {result.notes.map((n) => (
@@ -217,29 +225,38 @@ export function EnrichModal({ open, onClose }: { open: boolean; onClose: () => v
                   </button>
                 </span>
               </div>
-              <ul className="mt-2 space-y-2">
-                {result.suggestions.map((s, i) => (
-                  <li key={`${s.path}-${i}`}>
-                    <label
-                      className={`flex cursor-pointer gap-3 rounded-2xl border p-3 transition-colors ${chosen.has(i) ? "border-primary bg-primary-soft/40" : "border-border hover:bg-page"}`}
+              <SuggestionList items={fields} chosen={chosen} toggle={toggle} kb={kb} />
+              {categories.length > 0 && (
+                <div className="mt-4">
+                  <div className="flex items-center justify-between text-xs">
+                    {/* Replacing scraped categories is opt-in: none are ticked until the owner chooses */}
+                    <span className="font-semibold uppercase tracking-wider text-subtle">Offering categories ({categories.length})</span>
+                    <button
+                      type="button"
+                      className="font-medium text-primary hover:underline"
+                      onClick={() => setChosen((prev) => new Set([...prev, ...categories.map((c) => c.i)]))}
                     >
-                      <span className="pt-0.5">
-                        <Checkbox checked={chosen.has(i)} onChange={(on) => toggle(i, on)} label={`Use suggested ${s.label}`} />
-                      </span>
-                      <span className="min-w-0 flex-1">
-                        <span className="text-xs font-semibold uppercase tracking-wider text-subtle">{s.label}</span>
-                        <SuggestedValue s={s} />
-                        <CurrentValue kb={kb} s={s} />
-                      </span>
-                    </label>
-                  </li>
-                ))}
-              </ul>
+                      Select these
+                    </button>
+                  </div>
+                  <SuggestionList items={categories} chosen={chosen} toggle={toggle} kb={kb} />
+                </div>
+              )}
             </>
           )}
 
-          {result.missing.length > 0 && result.mode === "live" && (
-            <p className="mt-3 text-xs text-subtle">Not enough facts for: {result.missing.join(", ")}. These stay empty rather than guessed.</p>
+          {result.notEnough.length > 0 && (
+            <details className="mt-4 rounded-2xl border border-border p-3 text-xs">
+              <summary className="cursor-pointer font-semibold">Not enough evidence ({result.notEnough.length})</summary>
+              <p className="mt-1 text-subtle">These stay empty rather than guessed. Add them yourself if you know the answer.</p>
+              <ul className="mt-2 space-y-1">
+                {result.notEnough.map((n) => (
+                  <li key={n.path}>
+                    <span className="font-medium">{n.label}</span> <span className="text-subtle">({n.confidence} confidence)</span>: {n.reason}
+                  </li>
+                ))}
+              </ul>
+            </details>
           )}
 
           <div className="mt-5 flex flex-wrap justify-end gap-2">
@@ -291,16 +308,51 @@ function SuggestedValue({ s }: { s: Suggestion }) {
   return <span className="mt-1 block text-sm">{String(s.value)}</span>;
 }
 
+type Kb = NonNullable<ReturnType<typeof useKnowledge>["kb"]>;
+
+function SuggestionList({ items, chosen, toggle, kb }: { items: { s: Suggestion; i: number }[]; chosen: Set<number>; toggle: (i: number, on: boolean) => void; kb: Kb }) {
+  return (
+    <ul className="mt-2 space-y-2">
+      {items.map(({ s, i }) => (
+        <li key={`${s.path}-${i}`}>
+          <label
+            className={`flex cursor-pointer gap-3 rounded-2xl border p-3 transition-colors ${chosen.has(i) ? "border-primary bg-primary-soft/40" : "border-border hover:bg-page"}`}
+          >
+            <span className="pt-0.5">
+              <Checkbox checked={chosen.has(i)} onChange={(on) => toggle(i, on)} label={`Use suggested ${s.label}`} />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="flex flex-wrap items-center gap-2">
+                <span className="text-xs font-semibold uppercase tracking-wider text-subtle">{s.label}</span>
+                {s.confidence === "inferred" && <Badge tone="amber">Inferred</Badge>}
+              </span>
+              <SuggestedValue s={s} />
+              <CurrentValue kb={kb} s={s} />
+              {s.basedOn.length > 0 && (
+                <span className="mt-1.5 block text-[11px] text-subtle">
+                  Based on: {s.basedOn.slice(0, 3).join(" · ")}
+                  {s.basedOn.length > 3 && ` · +${s.basedOn.length - 3} more`}
+                </span>
+              )}
+            </span>
+          </label>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 /** What's there now, so the owner knows what a scalar suggestion would replace. */
-function CurrentValue({ kb, s }: { kb: NonNullable<ReturnType<typeof useKnowledge>["kb"]>; s: Suggestion }) {
-  if (s.list || isEmptyAt(kb, s.path)) return null;
-  const current = (getAt(kb, s.path) as Field<unknown>).value;
+function CurrentValue({ kb, s }: { kb: Kb; s: Suggestion }) {
+  if (s.list || isEmptyAt(kb, s)) return null;
+  const current = s.offering ? kb.offerings[s.offering.index]?.value?.category : (getAt(kb, s.path) as Field<unknown>).value;
   const text = typeof current === "string" ? current : JSON.stringify(current);
   return <span className="mt-1.5 block truncate text-xs text-subtle">Replaces: {text}</span>;
 }
 
-function isEmptyAt(kb: object, path: string): boolean {
-  const at = getAt(kb, path) as Field<unknown> | Field<unknown>[] | undefined;
+function isEmptyAt(kb: Kb, s: Suggestion): boolean {
+  if (s.offering) return !kb.offerings[s.offering.index]?.value?.category;
+  const at = getAt(kb, s.path) as Field<unknown> | Field<unknown>[] | undefined;
   if (Array.isArray(at)) return at.length === 0;
   return !at || at.value === null;
 }

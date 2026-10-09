@@ -60,8 +60,10 @@ export const FIELD_HINTS: Record<string, { categories: PageCategory[]; keywords?
 export function scoreCompleteness(kb: KnowledgeBase): Completeness {
   let score = 0;
   const missing: string[] = [];
+  // "Not applicable" fields (marked by the owner, e.g. no head office) count as complete
+  const na = new Set(kb.notApplicable ?? []);
   for (const check of SCORE_CHECKS) {
-    if (check.filled(kb)) score += check.weight;
+    if (check.filled(kb) || na.has(check.path)) score += check.weight;
     else missing.push(check.path);
   }
   return { score: Math.min(100, score), missing };

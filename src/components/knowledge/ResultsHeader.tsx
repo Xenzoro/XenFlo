@@ -1,18 +1,24 @@
 "use client";
 
 /** Bar above the tabs: company name, live score, Advanced view toggle, Enrich with AI and Save. */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Save, Sparkles } from "lucide-react";
 import { useKnowledge } from "@/context/KnowledgeContext";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Toggle } from "@/components/ui/Toggle";
-import { EnrichModal } from "./ai/EnrichModal";
+import { ENRICH_EVENT, EnrichModal } from "./ai/EnrichModal";
 
 export function ResultsHeader({ onSave, saving }: { onSave: () => void; saving: boolean }) {
   const { kb, dirty, saved, advanced, setAdvanced, busy } = useKnowledge();
   const [enriching, setEnriching] = useState(false);
+  // "Fill with AI" on a Next to do card opens the same modal
+  useEffect(() => {
+    const open = () => setEnriching(true);
+    window.addEventListener(ENRICH_EVENT, open);
+    return () => window.removeEventListener(ENRICH_EVENT, open);
+  }, []);
   if (!kb) return null;
 
   return (

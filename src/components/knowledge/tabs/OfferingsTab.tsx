@@ -4,6 +4,8 @@
 import type { Offering, PricingType } from "@/types/knowledge";
 import type { FormField } from "@/components/ui/RecordForm";
 import { Badge } from "@/components/ui/Badge";
+import { AiValueTag } from "@/components/ui/AiValueTag";
+import { useKnowledge } from "@/context/KnowledgeContext";
 import { SectionCard } from "@/components/ui/Card";
 import { RecordList } from "@/components/ui/RecordList";
 
@@ -31,9 +33,23 @@ const FIELDS: FormField[] = [
 const BLANK: Offering = { name: "", category: null, description: null, features: [], pricingType: "unknown", priceText: null, priceAmount: null, currency: null };
 
 function OfferingCard({ o }: { o: Offering }) {
+  const { kb, dismissValue, busy } = useKnowledge();
+  const index = kb?.offerings.findIndex((f) => f.value === o) ?? -1;
+  // A category suggested by AI keeps its own badge (the rest of the offering was read from the site),
+  // until the owner edits the offering by hand.
+  const aiCategory = o.categoryConfidence && kb?.offerings[index]?.confidence !== "user_edited" ? o.categoryConfidence : null;
   return (
     <div className="flex h-full flex-col pr-14">
-      {o.category && <p className="text-[11px] font-semibold uppercase tracking-wider text-primary">{o.category}</p>}
+      {o.category && (
+        <p className="flex flex-wrap items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-primary">
+          {o.category}
+          {aiCategory && index >= 0 && (
+            <span className="normal-case tracking-normal">
+              <AiValueTag confidence={aiCategory} evidence={o.categoryEvidence} onRemove={() => dismissValue(`offerings.${index}.category`)} disabled={busy} />
+            </span>
+          )}
+        </p>
+      )}
       <p className="mt-0.5 font-semibold">{o.name}</p>
       {o.description && <p className="mt-1 line-clamp-3 text-xs text-muted">{o.description}</p>}
       {o.features.length > 0 && (

@@ -267,7 +267,7 @@ function fromVision(out: VisionOutput, images: ImageInput[], kb: KnowledgeBase, 
  * - never replace what the owner edited by hand; skip list items already there
  * - field tiers, dismissals and Not applicable (field-tiers.ts)
  */
-function guard(kb: KnowledgeBase, suggestions: Suggestion[]): Suggestion[] {
+export function guard(kb: KnowledgeBase, suggestions: Suggestion[]): Suggestion[] {
   const own = suggestions.flatMap((s) => {
     if (s.offering) {
       const f = kb.offerings[s.offering.index];

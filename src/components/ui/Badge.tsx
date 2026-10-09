@@ -37,14 +37,15 @@ const CONFIDENCE: Record<Confidence, { label: string; tone: Tone }> = {
   missing: { label: "Missing", tone: "gray" },
 };
 
-/** AI values always show their badge (not only in Advanced view), so nobody mistakes them for facts from the site. */
-export const isAi = (c: Confidence) => c === "ai_live" || c === "ai_mock";
+export { isAi } from "@/lib/utils/fields";
 
 /** Badge saying where a value came from. Shown on every field in Advanced view, and on AI values always. */
-export function ConfidenceBadge({ confidence, source }: { confidence: Confidence; source?: string | null }) {
+export function ConfidenceBadge({ confidence, source, evidence }: { confidence: Confidence; source?: string | null; evidence?: string[] }) {
   const { label, tone } = CONFIDENCE[confidence];
+  // Tooltip: what the value is based on (AI evidence), or where it was read
+  const title = evidence?.length ? `Based on:\n${evidence.map((e) => `• ${e}`).join("\n")}` : source ? `Source: ${source}` : undefined;
   return (
-    <span title={source ? `Source: ${source}` : undefined}>
+    <span title={title}>
       <Badge tone={tone}>{label}</Badge>
     </span>
   );
