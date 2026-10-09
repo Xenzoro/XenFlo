@@ -1,31 +1,30 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { scrapeSite } from "@/lib/scraper";
+import { digDeeper } from "@/lib/scraper";
 import { errorResponse } from "@/lib/scraper/http";
 import { knowledgeBaseSchema } from "@/types/knowledge.schema";
 
-// Cheerio and long-running fetches need the Node runtime, not Edge.
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
-const bodySchema = z.object({
-  url: z.string().min(1).max(2048),
-  maxPages: z.number().int().min(1).max(30).optional(),
-});
+const bodySchema = z.object({ knowledgeBase: knowledgeBaseSchema });
 
-/** POST { url } -> { knowledgeBase } or { error: { code, message } } */
+/**
+ * POST { knowledgeBase } -> { knowledgeBase }
+ * Continues a crawl from the knowledge base's saved pending links ("Dig deeper").
+ * The client sends the KB it has; once saving is wired up this can load it by id instead.
+ */
 export async function POST(request: Request) {
   const parsed = bodySchema.safeParse(await request.json().catch(() => null));
   if (!parsed.success) {
     return NextResponse.json(
-      { error: { code: "INVALID_URL", message: "Send JSON like { \"url\": \"example.com\" }." } },
+      { error: { code: "INVALID_REQUEST", message: "Send JSON like { \"knowledgeBase\": { ... } } from a previous scrape." } },
       { status: 400 },
     );
   }
 
   try {
-    const kb = await scrapeSite(parsed.data.url, { maxPages: parsed.data.maxPages });
-    // Validate our own output so schema drift shows up immediately during development.
+    const kb = await digDeeper(parsed.data.knowledgeBase);
     return NextResponse.json({ knowledgeBase: knowledgeBaseSchema.parse(kb) });
   } catch (err) {
     return errorResponse(err);

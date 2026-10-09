@@ -1,17 +1,20 @@
-import type { CrawledPage, CrawlLogEntry, KnowledgeBase, PageCategory } from "@/types/knowledge";
+import * as cheerio from "cheerio";
+import type { CrawlLogEntry, KnowledgeBase } from "@/types/knowledge";
 import { emptyKnowledgeBase } from "@/lib/utils/knowledge";
 import { ScrapeError } from "./errors";
 import { fetchPage, isHtml } from "./fetch";
 import { loadRobots } from "./robots";
-import { discoverFromSitemaps, discoverLinks, pickCrawlOrder, rankLinks } from "./discover";
+import { discoverFromSitemaps, discoverLinks, pickCrawlOrder, priorityLinks } from "./discover";
 import { extractPage } from "./extract";
 import { scoreCompleteness } from "./score";
-import { normalizeUrl } from "./url";
+import { collectCss } from "./styles";
+import { addToPool, crawlForMissing, crawlPages, linkFromUrl, outOfTime, pageRecord, type CrawlSession } from "./crawl";
+import { cleanUrl, normalizeUrl, pageKey } from "./url";
 
 export { ScrapeError } from "./errors";
 
 export interface ScrapeOptions {
-  /** Pages to crawl including the homepage (hard max 30) */
+  /** Pages to crawl including the homepage (capped at HARD_MAX_PAGES) */
   maxPages?: number;
   /** Overall time budget in ms; no new pages start after this */
   timeBudgetMs?: number;
@@ -22,35 +25,21 @@ export interface ScrapeOptions {
   onProgress?: (entry: CrawlLogEntry) => void;
 }
 
-const HARD_MAX_PAGES = 30;
+export const DEFAULT_MAX_PAGES = 15;
+export const HARD_MAX_PAGES = 30;
 const MIN_WORDS = 30; // below this the homepage is probably a JS-only shell
 
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-
 /**
- * Crawl a website and build a (partial) knowledge base from it.
- * Steps: normalize URL -> robots.txt -> homepage -> discover links -> crawl priority pages -> score.
+ * Crawl a website and build a knowledge base from it.
+ * 1. robots.txt  2. homepage + its CSS  3. discover links (nav + sitemap)
+ * 4. priority pages (best page per category)  5. adaptive pages for missing fields  6. score
  */
 export async function scrapeSite(input: string, options: ScrapeOptions = {}): Promise<KnowledgeBase> {
-  const {
-    maxPages = 8,
-    timeBudgetMs = 25_000,
-    concurrency = 2,
-    delayMs = 300,
-    onProgress,
-  } = options;
-  const pageCap = Math.min(maxPages, HARD_MAX_PAGES);
-  const started = Date.now();
-
   const startUrl = normalizeUrl(input);
   const kb = emptyKnowledgeBase(startUrl);
-  const log = (message: string, level: CrawlLogEntry["level"] = "info") => {
-    const entry = { at: new Date().toISOString(), level, message };
-    kb.crawl.log.push(entry);
-    onProgress?.(entry);
-  };
+  const maxPages = Math.min(options.maxPages ?? DEFAULT_MAX_PAGES, HARD_MAX_PAGES);
+  const log = makeLogger(kb, options.onProgress);
 
-  // 1. robots.txt
   log("Checking robots.txt");
   const robots = await loadRobots(startUrl);
   if (!robots.isAllowed(startUrl)) {
@@ -58,89 +47,127 @@ export async function scrapeSite(input: string, options: ScrapeOptions = {}): Pr
     log("robots.txt does not allow automated access", "error");
     throw new ScrapeError("BLOCKED_ROBOTS", "This site's robots.txt doesn't allow automated access.");
   }
-  // Respect a Crawl-delay if the site sets one (capped so the demo stays usable).
-  const politeDelay = Math.max(delayMs, Math.min((robots.crawlDelay ?? 0) * 1000, 3_000));
+  const session = newSession(kb, robots.isAllowed, robots.crawlDelay, options, log);
 
-  // 2. Homepage. A failure here fails the whole scrape.
+  // Homepage. A failure here fails the whole scrape.
   log(`Fetching homepage ${startUrl}`);
   const home = await fetchPage(startUrl);
-  if (!isHtml(home.contentType)) {
-    throw new ScrapeError("NO_CONTENT", "That address didn't return a web page.");
-  }
-  const homeUrl = home.url; // after redirects (e.g. http -> https, bare -> www)
+  if (!isHtml(home.contentType)) throw new ScrapeError("NO_CONTENT", "That address didn't return a web page.");
+  const homeUrl = cleanUrl(home.url, home.url) ?? startUrl; // after redirects (http -> https, bare -> www)
   kb.url = homeUrl;
   kb.company.website.value = homeUrl;
-  const homeResult = extractPage(home.body, homeUrl, "home", kb);
-  kb.crawl.pages.push(pageRecord(homeUrl, "home", home.status, homeResult.title, home.durationMs, null));
-  if (homeResult.wordCount < MIN_WORDS) {
-    log(`Homepage has very little readable text (${homeResult.wordCount} words)`, "warn");
-  }
+  session.visited.add(pageKey(startUrl));
+  session.visited.add(pageKey(homeUrl));
 
-  // 3. Discover pages from the homepage links and the sitemap.
+  log("Reading styles for fonts and colors");
+  const css = await collectCss(cheerio.load(home.body), homeUrl, robots.isAllowed);
+  const homeResult = extractPage(home.body, homeUrl, "home", kb, css);
+  kb.crawl.pages.push(pageRecord(homeUrl, "home", home.status, homeResult.title, home.durationMs, null));
+  if (homeResult.wordCount < MIN_WORDS) log(`Homepage has very little readable text (${homeResult.wordCount} words)`, "warn");
+
   log("Discovering pages");
   const navLinks = discoverLinks(homeResult.$, homeUrl);
   const sitemapLinks = await discoverFromSitemaps(homeUrl, robots.sitemaps);
-  const ranked = rankLinks(navLinks, sitemapLinks).filter((l) => robots.isAllowed(l.url));
+  addToPool(session, [...navLinks, ...sitemapLinks]);
   log(`Found ${navLinks.length} linked pages and ${sitemapLinks.length} sitemap entries`);
 
-  const visited = new Set([startUrl, homeUrl]);
-  const queue = pickCrawlOrder(ranked, visited).slice(0, pageCap - 1);
-  const total = queue.length;
+  // Priority pages: one of each useful kind (about, pricing, faq, contact...).
+  const priority = priorityLinks([...session.pool.values()].sort((a, b) => b.score - a.score), session.visited);
+  log(`Crawling ${priority.length} priority pages`);
+  await crawlPages(session, priority, maxPages);
 
-  // 4. Crawl with a small worker pool.
-  let done = 0;
-  const worker = async () => {
-    while (queue.length) {
-      if (Date.now() - started > timeBudgetMs) {
-        log("Time budget reached; stopping crawl", "warn");
-        return;
-      }
-      const link = queue.shift()!;
-      if (visited.has(link.url)) continue;
-      visited.add(link.url);
-      log(`Crawling ${++done} of ${total}: ${new URL(link.url).pathname}`);
-      try {
-        const page = await fetchPage(link.url);
-        if (!isHtml(page.contentType)) continue;
-        visited.add(page.url);
-        const result = extractPage(page.body, page.url, link.category, kb);
-        kb.crawl.pages.push(pageRecord(page.url, link.category, page.status, result.title, page.durationMs, null));
-      } catch (err) {
-        const message = err instanceof Error ? err.message : "Unknown error";
-        const status = err instanceof ScrapeError ? (err.status ?? null) : null;
-        kb.crawl.pages.push(pageRecord(link.url, link.category, status, null, 0, message));
-        log(`Failed ${link.url}: ${message}`, "warn");
-      }
-      await sleep(politeDelay);
-    }
-  };
-  await Promise.all(Array.from({ length: Math.max(1, concurrency) }, worker));
+  // Adaptive pages: only those likely to fill fields that are still empty.
+  await crawlForMissing(session, maxPages);
 
-  // 5. Wrap up: remember uncrawled pages for "Dig deeper", then score.
-  kb.crawl.pendingUrls = ranked.map((l) => l.url).filter((u) => !visited.has(u)).slice(0, 100);
-  log("Extracting and scoring");
-  kb.companyName = kb.company.name.value ?? new URL(homeUrl).hostname.replace(/^www\./, "");
-  kb.completeness = scoreCompleteness(kb);
-
-  const nothingFound =
-    homeResult.wordCount < MIN_WORDS && !kb.company.name.value && !kb.company.overview.value && kb.crawl.pages.length <= 1;
-  if (nothingFound) {
-    throw new ScrapeError("NO_CONTENT", "We couldn't find readable content on this site.");
-  }
-
-  kb.crawl.finishedAt = new Date().toISOString();
-  kb.crawl.durationMs = Date.now() - started;
-  log(`Done: ${kb.crawl.pages.length} pages in ${(kb.crawl.durationMs / 1000).toFixed(1)}s, completeness ${kb.completeness.score}`);
-  return kb;
+  return finish(session, () => {
+    const nothingFound =
+      homeResult.wordCount < MIN_WORDS && !kb.company.name.value && !kb.company.overview.value && kb.crawl.pages.length <= 1;
+    if (nothingFound) throw new ScrapeError("NO_CONTENT", "We couldn't find readable content on this site.");
+  });
 }
 
-function pageRecord(
-  url: string,
-  category: PageCategory,
-  status: number | null,
-  title: string | null,
-  durationMs: number,
-  error: string | null,
-): CrawledPage {
-  return { url, category, status, title, fetchedAt: new Date().toISOString(), durationMs, error };
+/**
+ * "Dig deeper": continue a previous crawl from its saved pending links, targeting
+ * missing fields first, then the best remaining pages, up to HARD_MAX_PAGES total.
+ */
+export async function digDeeper(previous: KnowledgeBase, options: ScrapeOptions = {}): Promise<KnowledgeBase> {
+  const kb: KnowledgeBase = structuredClone(previous);
+  const log = makeLogger(kb, options.onProgress);
+  const maxPages = Math.min(options.maxPages ?? HARD_MAX_PAGES, HARD_MAX_PAGES);
+
+  if (kb.crawl.pages.length >= maxPages) {
+    log(`Already crawled ${kb.crawl.pages.length} pages (the maximum)`, "warn");
+    return kb;
+  }
+  if (!kb.crawl.pendingUrls.length) {
+    log("No more pages left to crawl", "warn");
+    return kb;
+  }
+
+  log("Digging deeper: checking robots.txt");
+  const robots = await loadRobots(kb.url);
+  const session = newSession(kb, robots.isAllowed, robots.crawlDelay, options, log);
+  for (const page of kb.crawl.pages) session.visited.add(pageKey(page.url));
+  addToPool(session, kb.crawl.pendingUrls.map(linkFromUrl));
+  kb.crawl.finishedAt = null;
+
+  await crawlForMissing(session, maxPages);
+  if (kb.crawl.pages.length < maxPages && !outOfTime(session)) {
+    log("Crawling the best remaining pages");
+    await crawlPages(session, pickCrawlOrder([...session.pool.values()].sort((a, b) => b.score - a.score), session.visited), maxPages);
+  }
+  return finish(session);
+}
+
+function newSession(
+  kb: KnowledgeBase,
+  isAllowed: (url: string) => boolean,
+  crawlDelay: number | null,
+  options: ScrapeOptions,
+  log: CrawlSession["log"],
+): CrawlSession {
+  const delayMs = options.delayMs ?? 300;
+  return {
+    kb,
+    isAllowed,
+    visited: new Set(),
+    pool: new Map(),
+    started: Date.now(),
+    timeBudgetMs: options.timeBudgetMs ?? 30_000,
+    // Respect a Crawl-delay from robots.txt (capped so the demo stays usable).
+    delayMs: Math.max(delayMs, Math.min((crawlDelay ?? 0) * 1000, 3_000)),
+    concurrency: options.concurrency ?? 2,
+    log,
+  };
+}
+
+function makeLogger(kb: KnowledgeBase, onProgress?: ScrapeOptions["onProgress"]): CrawlSession["log"] {
+  return (message, level = "info") => {
+    const entry = { at: new Date().toISOString(), level, message };
+    kb.crawl.log.push(entry);
+    onProgress?.(entry);
+  };
+}
+
+/** Save leftover links for "Dig deeper", score, and stamp timings. */
+function finish(session: CrawlSession, check?: () => void): KnowledgeBase {
+  const { kb } = session;
+  if (outOfTime(session)) session.log("Time budget reached; stopping crawl", "warn");
+  kb.crawl.pendingUrls = [...session.pool.values()]
+    .sort((a, b) => b.score - a.score)
+    .map((l) => l.url)
+    .slice(0, 150);
+  session.log("Extracting and scoring");
+  kb.companyName = kb.company.name.value ?? new URL(kb.url).hostname.replace(/^www\./, "");
+  kb.completeness = scoreCompleteness(kb);
+  check?.();
+
+  const now = new Date();
+  kb.updatedAt = now.toISOString();
+  kb.crawl.finishedAt = now.toISOString();
+  kb.crawl.durationMs += Date.now() - session.started;
+  session.log(
+    `Done: ${kb.crawl.pages.length} pages total, ${kb.crawl.pendingUrls.length} more available, completeness ${kb.completeness.score}`,
+  );
+  return kb;
 }
