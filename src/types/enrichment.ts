@@ -3,6 +3,8 @@
  * The server proposes suggestions; nothing is applied until the owner accepts it.
  */
 
+import type { Field, MenuSource, Offering } from "./knowledge";
+
 export type EnrichMode = "live" | "mock";
 
 export interface Suggestion {
@@ -67,4 +69,22 @@ export interface EnrichStatus {
   remainingToday: number | null;
   textModel: string;
   visionModel: string;
+}
+
+/** "Read menus with AI" (/api/menus): new menu items and updated menu sources, merged by the client. */
+export interface MenuReadResult {
+  /** "live": AI ran (or every menu came from the cache). "unavailable": no key, no passcode or no quota left. */
+  mode: "live" | "unavailable";
+  /** New offerings to add (already filtered against dismissed and existing items) */
+  offerings: Field<Offering>[];
+  /** The menu sources this run touched, with their new status and item counts (matched by url) */
+  sources: MenuSource[];
+  /** Menus read this run, menus still waiting, and how many came from the cache (free) */
+  read: number;
+  remaining: number;
+  cachedCount: number;
+  notes: string[];
+  remainingToday: number | null;
+  /** Total tokens over this run's live calls */
+  usage?: { input: number; output: number; calls: number; ms: number };
 }

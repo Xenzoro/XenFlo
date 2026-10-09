@@ -69,6 +69,14 @@ export const visionOutputSchema = z.object({
 });
 export type VisionOutput = z.infer<typeof visionOutputSchema>;
 
+/** prompts/menu-reader.v1.md: one menu's items, copied as printed. */
+export const menuOutputSchema = z.object({
+  isMenu: z.boolean(),
+  items: z.array(z.object({ name: text, description: text.nullable(), price: text.nullable(), section: text.nullable() })),
+  unreadable: text.nullable(),
+});
+export type MenuOutput = z.infer<typeof menuOutputSchema>;
+
 /** Zod -> the JSON schema OpenAI's structured outputs expect (minus the $schema marker). */
 export function toOpenAiSchema(schema: z.ZodType): Record<string, unknown> {
   const json = z.toJSONSchema(schema) as Record<string, unknown>;

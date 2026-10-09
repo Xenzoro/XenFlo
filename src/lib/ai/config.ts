@@ -37,6 +37,22 @@ export const LIMITS = {
 };
 
 /**
+ * "Read menus with AI" (/api/menus, Phase 10). One run reads up to 8 menu pages or images at high
+ * detail (a 2-page PDF counts as 2), plus up to 4 menus whose text was too messy for the heuristics.
+ * Each page is roughly 2.5k tokens in and 1-2k out: about $0.01 on gpt-5.4-mini, so at most ~$0.09 per run.
+ * Every menu is cached on its own, so a second run is free for menus already read and moves on to the rest.
+ */
+export const MENU_LIMITS = {
+  units: 8,
+  textCalls: 4,
+  pagesPerPdf: 4,
+  outputTokens: 6_000,
+  callTimeoutMs: 35_000,
+  /** No new menu starts after this; whatever finished is returned (the route has 60 s) */
+  deadlineMs: 40_000,
+};
+
+/**
  * Live AI needs a key AND a passcode set on the server. Without a passcode
  * we stay in preview mode, so a deploy that forgot it can't run up costs.
  */

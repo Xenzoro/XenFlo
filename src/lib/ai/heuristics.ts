@@ -80,8 +80,11 @@ export function heuristicSuggestions(kb: KnowledgeBase, e: Evidence): Suggestion
     funnels.push(rule.funnel);
     channelHits.push(...hits);
   }
+  // "Online ordering" adds nothing when the scraper already recorded "Online ordering (Clover)"
+  const scraped = kb.customers.channels.map((c) => String(c.value ?? "").toLowerCase());
+  const newChannels = channels.filter((c) => !scraped.some((have) => have.startsWith(c.toLowerCase())));
+  if (newChannels.length) add("customers.channels", "Channels", newChannels, channelHits);
   if (channels.length) {
-    add("customers.channels", "Channels", channels, channelHits);
     add("customers.funnels", "Funnels", funnels, channelHits);
   }
 

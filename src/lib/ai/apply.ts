@@ -7,11 +7,12 @@
  * dismissIn: "Wrong? Remove". Clears the value (or list item) and records it in kb.dismissed, so
  *   filterByTier drops it from the next enrichment run. The same record can serve re-scrapes later.
  */
-import type { Field, KnowledgeBase } from "@/types/knowledge";
+import type { Field, KnowledgeBase, Offering } from "@/types/knowledge";
 import type { Suggestion } from "@/types/enrichment";
 import { field, missing } from "@/lib/utils/knowledge";
 import { getAt, setAt } from "@/lib/utils/path";
 import { valueKey } from "./field-tiers";
+import { offeringKey } from "./menus";
 
 export function applySuggestionsTo(kb: KnowledgeBase, suggestions: Suggestion[]): KnowledgeBase {
   return suggestions.reduce((acc, s) => {
@@ -53,5 +54,10 @@ export function dismissIn(kb: KnowledgeBase, path: string, index?: number): Know
   const list = (getAt(kb, path) as Field<unknown>[]) ?? [];
   const item = list[index];
   if (!item) return kb;
+  // Offerings are remembered by brand + name, so "Read menus with AI" won't add a removed item back
+  if (path === "offerings") {
+    const o = item.value as Offering | null;
+    if (o) return remember(setAt(kb, path, list.filter((_, i) => i !== index)), path, offeringKey(o.name, o.group));
+  }
   return remember(setAt(kb, path, list.filter((_, i) => i !== index)), path, valueKey(item.value));
 }

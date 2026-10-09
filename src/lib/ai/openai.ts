@@ -7,7 +7,11 @@ import type { z } from "zod";
 import { aiConfig, LIMITS } from "./config";
 import { toOpenAiSchema } from "./schemas";
 
-type Content = { type: "input_text"; text: string } | { type: "input_image"; image_url: string; detail: "low" | "high" };
+export type Content =
+  | { type: "input_text"; text: string }
+  | { type: "input_image"; image_url: string; detail: "low" | "high" }
+  // A whole PDF (menus): OpenAI reads its text and looks at each page as an image
+  | { type: "input_file"; filename: string; file_data: string };
 
 export interface CallResult<T> {
   data: T;
@@ -20,11 +24,14 @@ export async function callOpenAi<T>(opts: {
   content: Content[];
   schema: z.ZodType<T>;
   schemaName: string;
+  /** Defaults to LIMITS.outputTokens / LIMITS.timeoutMs */
+  maxOutputTokens?: number;
+  timeoutMs?: number;
 }): Promise<CallResult<T>> {
   const key = aiConfig.apiKey;
   if (!key) throw new Error("No OpenAI key");
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), LIMITS.timeoutMs);
+  const timer = setTimeout(() => controller.abort(), opts.timeoutMs ?? LIMITS.timeoutMs);
   try {
     const res = await fetch("https://api.openai.com/v1/responses", {
       method: "POST",
@@ -35,7 +42,7 @@ export async function callOpenAi<T>(opts: {
         // No hidden reasoning: reasoning tokens count toward max_output_tokens, and these are
         // summarize-and-format tasks where the whole budget should go to the answer.
         reasoning: { effort: "none" },
-        max_output_tokens: LIMITS.outputTokens,
+        max_output_tokens: opts.maxOutputTokens ?? LIMITS.outputTokens,
         store: false,
         input: [
           { role: "system", content: opts.system },

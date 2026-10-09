@@ -10,6 +10,8 @@ import path from "node:path";
 // One text call: understand-business.v1 merged the earlier pitch, persona, content-kit and writing-style briefs.
 export const TEXT_PROMPTS = ["understand-business.v1"] as const;
 export const VISION_PROMPT = "logo-vision.v1";
+// Phase 10: its own button and route (/api/menus), not part of Enrich with AI
+export const MENU_PROMPT = "menu-reader.v1";
 
 const cache = new Map<string, string>();
 
@@ -51,6 +53,14 @@ ${load(VISION_PROMPT)}
 Some images may be screenshots the owner uploaded (their "kind" is "screenshot"), each with the fields it should fill.
 For those, copy facts that are clearly readable into "screenshotFacts" as { "path", "value" }, using only the allowed paths
 listed for that screenshot. Copy text exactly; leave out anything you can't read with certainty.`;
+}
+
+/** System prompt for reading one menu (PDF, image or messy menu text). */
+export function menuSystemPrompt(): string {
+  return `${SHARED_RULES}
+
+----- ${MENU_PROMPT} -----
+${load(MENU_PROMPT)}`;
 }
 
 /** Recorded in the cache key, so editing a prompt version invalidates old results. */
