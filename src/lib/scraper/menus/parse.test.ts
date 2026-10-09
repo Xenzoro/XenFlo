@@ -93,6 +93,13 @@ describe("parseMenuLines", () => {
     expect(priced).toHaveLength(7);
   });
 
+  it("doesn't read step or table numbers as prices", () => {
+    const out = parseMenuLines(["Hot Pot", "STEP 2", "Beef Broth 4", "Combo 3"]);
+    expect(out.find((i) => i.name === "STEP 2")?.price ?? null).toBeNull();
+    expect(out.find((i) => i.name === "Combo 3")?.price ?? null).toBeNull();
+    expect(out.find((i) => i.name === "Beef Broth")?.price?.priceAmount).toBe(4);
+  });
+
   it("treats an ALL CAPS name with its price below as an item", () => {
     const out = parseMenuLines(["ROLLS", "CALIFORNIA ROLL", "$8.95", "DRAGON ROLL", "$13.95"]);
     expect(out.map((i) => [i.name, i.category, i.price?.priceAmount])).toEqual([

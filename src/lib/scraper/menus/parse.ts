@@ -45,6 +45,9 @@ const TRAILING_PRICE = /^(.*?[A-Za-z].*?)\s*(?:\.{2,}|…+|\s[-–|]\s|\s)\s*(\$
 // Menu section words, so "Appetizers" or "Hand Rolls" counts as a heading even in Title Case
 const SECTION_WORDS = /^(appetizers?|starters?|small plates|salads?|soups?|sides?|entrees?|entrées?|mains?|main courses?|noodles?|rice|ramen|rolls?|hand rolls?|special rolls?|signature rolls?|sushi|sashimi|nigiri|bowls?|sandwich(es)?|burgers?|tacos?|pizzas?|pastas?|desserts?|sweets|drinks?|beverages?|cocktails?|beer|wine|sake|coffee|teas?|milk teas?|smoothies|boba|toppings|kids( menu)?|lunch( specials)?|dinner|breakfast|brunch|specials?|combos?|platters?|hot pot|broths?|meats?|seafood|vegetables|veggies|add[- ]ons?|extras|services|packages|treatments)$/i;
 
+// Words followed by a plain number that isn't a price
+const NUMBERED = /\b(step|no\.?|number|table|suite|ste|unit|room|level|floor|minimum|min|max|limit|size|pack|pcs|pieces|day|week|year|option|combo|page)$/i;
+
 const isPriceOnly = (line: string) => parsePrice(line) !== null;
 const words = (line: string) => line.split(/\s+/).filter(Boolean);
 const isAllCaps = (line: string) => /[A-Z]/.test(line) && line === line.toUpperCase();
@@ -112,7 +115,9 @@ export function parseMenuLines(lines: string[], { requirePrice = false } = {}): 
     }
     heading = null;
     const priced = line.match(TRAILING_PRICE);
-    if (priced && looksLikeItem(cleanName(priced[1]))) {
+    // "STEP 2", "Table 4", "Suite 104": a number, not a price (only when it has no "$" or cents)
+    const notAPrice = priced && /^\d+$/.test(priced[2]) && NUMBERED.test(cleanName(priced[1]));
+    if (priced && !notAPrice && looksLikeItem(cleanName(priced[1]))) {
       current = { name: cleanName(priced[1]), description: null, category, price: parsePrice(priced[2]) };
       items.push(current);
       continue;
