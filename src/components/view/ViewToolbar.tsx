@@ -96,7 +96,8 @@ export function ViewToolbar({
         </div>
       </div>
 
-      <div className="flex flex-wrap items-center gap-2">
+      {/* One scrolling row on phones, wrapping on wider screens */}
+      <div className="-mx-3 flex items-center gap-2 overflow-x-auto px-3 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
         <FilterMenu label="Industry" icon={<Factory className="size-3.5" />} value={view.industry || "All industries"} active={!!view.industry} items={industryItems} />
         <FilterMenu label="Health" icon={<GaugeIcon className="size-3.5" />} value={SCORE_BANDS[view.score].label} active={view.score !== "all"} items={scoreItems} />
         <FilterMenu label="Updated" icon={<Calendar className="size-3.5" />} value={DATE_RANGES[view.date].label} active={view.date !== "any"} items={dateItems} />
@@ -108,7 +109,7 @@ export function ViewToolbar({
               setText("");
               setView({ q: "", industry: "", score: "all", date: "any" });
             }}
-            className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-medium text-muted hover:bg-page hover:text-ink"
+            className="inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-medium text-muted hover:bg-page hover:text-ink"
           >
             <X className="size-3.5" /> Clear filters
           </button>
@@ -131,7 +132,7 @@ function FilterMenu({ label, icon, value, active, items }: { label: string; icon
           type="button"
           {...props}
           className={cn(
-            "inline-flex max-w-full items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-colors",
+            "inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border px-3 py-1.5 text-xs font-medium transition-colors",
             active ? "border-primary bg-primary-soft text-primary" : "border-border bg-card text-ink hover:bg-page",
           )}
         >

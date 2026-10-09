@@ -3,9 +3,9 @@
 /*
   Dropdown menu. Items stagger in: each slides down and fades in ~40ms after the previous.
   Rendered in a portal with fixed positioning so it isn't clipped by scrolling containers
-  (like the table's horizontal scroll). Closes on outside click, Esc, scroll or resize.
+  (like the table's horizontal scroll). Follows its trigger on scroll; closes on outside click or Esc.
 */
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils/cn";
@@ -43,13 +43,24 @@ export function Menu({
   const menuRef = useRef<HTMLUListElement>(null);
 
   // Place the menu under the trigger, flipping up if it would run off the bottom
-  useLayoutEffect(() => {
-    if (!open || !triggerRef.current) return;
+  const place = useCallback(() => {
+    if (!triggerRef.current) return;
     const r = triggerRef.current.getBoundingClientRect();
     const height = items.length * 38 + 12;
     const top = r.bottom + height + 8 > window.innerHeight ? Math.max(8, r.top - height - 4) : r.bottom + 4;
-    setPos(align === "right" ? { top, right: window.innerWidth - r.right } : { top, left: r.left });
-  }, [open, align, items.length]);
+    // Keep the whole menu on screen (it's min-w-48 = 192px until it has rendered)
+    const width = menuRef.current?.offsetWidth ?? 192;
+    const maxLeft = window.innerWidth - width - 8;
+    if (align === "right") setPos({ top, right: Math.max(8, window.innerWidth - r.right) });
+    else setPos({ top, left: Math.max(8, Math.min(r.left, maxLeft)) });
+  }, [align, items.length]);
+
+  useLayoutEffect(() => {
+    if (!open) return;
+    place();
+    const raf = requestAnimationFrame(place); // again once the real width is known
+    return () => cancelAnimationFrame(raf);
+  }, [open, place]);
 
   useEffect(() => {
     if (!open) return;
@@ -61,15 +72,17 @@ export function Menu({
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && close();
     document.addEventListener("mousedown", onDown);
     document.addEventListener("keydown", onKey);
-    window.addEventListener("resize", close);
-    window.addEventListener("scroll", close, true);
+    // Follow the trigger when anything scrolls (closing instead broke tapping a pill
+    // inside a horizontal scroller on phones, since the tap itself scrolls it a little)
+    window.addEventListener("resize", place);
+    window.addEventListener("scroll", place, true);
     return () => {
       document.removeEventListener("mousedown", onDown);
       document.removeEventListener("keydown", onKey);
-      window.removeEventListener("resize", close);
-      window.removeEventListener("scroll", close, true);
+      window.removeEventListener("resize", place);
+      window.removeEventListener("scroll", place, true);
     };
-  }, [open]);
+  }, [open, place]);
 
   return (
     <>
