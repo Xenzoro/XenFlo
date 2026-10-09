@@ -1,0 +1,77 @@
+# Improvements Log
+
+A running list of issues found while building and testing XenFlo on real websites, plus ideas for making the knowledge base more trustworthy. Each entry notes where it was found and its status.
+
+Status key: **Fixed** · **Planned** · **Idea**
+
+---
+
+## Crawling
+
+| Issue | Found on | Status |
+|---|---|---|
+| Legal and careers pages were crawled before more useful pages like /features and /faq | Apex Hosting (Phase 1) | Fixed in Phase 2 (priority ranking) |
+| The same page could be crawled twice (`/pricing` vs `/pricing/`) | Apex Hosting (Phase 1) | Fixed in Phase 2 (`pageKey()` normalization) |
+| Two parallel fetches could push the crawl past the 30 page limit | Phase 2 testing | Fixed in Phase 2 |
+| Progress during a scrape shows step names, not live progress, because the API returns everything at the end | Phase 4 | Idea: stream crawl events to the UI so the progress card shows real pages as they finish |
+| No sitemap at any common location | Apex Hosting | Handled: discovery falls back to links only |
+
+## Data accuracy
+
+| Issue | Found on | Status |
+|---|---|---|
+| **Placeholder staff scraped as real people.** The About page lists three team members (Akira Yamamoto, Sakura Tanaka, Kenji Nakamura) who appear to be template filler. The scraper read them correctly, but the content itself isn't real. | Anime Boba Cafe | Idea: placeholder detection (see below) |
+| **Leftover WordPress demo pages** (`/sample-page`, `/hello-world`, `/category/uncategorized`) are a strong sign the site was never fully cleaned up after setup | Anime Boba Cafe | Idea: if found, flag the whole knowledge base "may contain template content, please review" |
+| Hidden page sections (switched off with CSS) could be scraped even though visitors never see them | General | Idea: skip elements hidden with `display:none`, `hidden`, or `aria-hidden` |
+| No check that a scraped value actually appears on its source page | General | Idea: verification pass after extraction; anything not found on its source page is dropped or marked unverified |
+| Testimonial authors and real team members can get mixed up | Seen in MoFlo's NightOwl profile | Fixed in Phase 2: authors are tagged `customer_partner`, never `team` |
+
+## Branding
+
+| Issue | Found on | Status |
+|---|---|---|
+| **Platform default colors reported as brand colors:** `#007cba` and `#005a87` (WordPress default blues), `#1da1f2` (Twitter blue), and WordPress palette oranges | Anime Boba Cafe | Idea: filter a list of known platform and library default colors |
+| Library default color reported as brand color (Swiper's `#007aff`) | Apex Hosting (Phase 2) | Fixed in Phase 2: bundled library stylesheets are skipped |
+| "Apple System" listed as a font; it's the device's built in system font | Anime Boba Cafe | Idea: add to the system font filter (alongside Arial, Segoe UI, system-ui) |
+| Unresolved CSS variables and icon fonts listed as fonts (`var(--font-family)`, `ETmodules`) | MoFlo's sample profiles | Fixed in Phase 2: variables resolved, icon fonts filtered |
+| Art style described from a blank gray image ("no discernible art style") | MoFlo's Account IT profile | Idea: check an image is a real logo before sending it to vision AI |
+
+## Links and contact
+
+| Issue | Found on | Status |
+|---|---|---|
+| Four "Privacy Policy" links that point back to the page they're on (the real link is probably `#`) | Anime Boba Cafe | Idea: skip links that resolve to the current page |
+| Address missing even though "Henderson" appears in the text | Anime Boba Cafe | Idea: smarter address detection (city and state patterns, Google Maps embeds, footer blocks) |
+
+## Content quality
+
+| Issue | Found on | Status |
+|---|---|---|
+| Overview mashes hero headings together ("Dive into the world of anime Sip, Play, and Enjoy...") | Anime Boba Cafe | Idea: AI cleanup pass that rewrites the overview from the extracted text |
+| Menus and prices live in images, so offerings come back empty | Dragon Factory | Idea: vision AI reads menu images (live AI mode) |
+| Restaurant brand names only exist as logo images | Dragon Factory | Partly fixed: cleaned image file names give sub brand names; vision AI would read the rest |
+
+## Ethics and permissions
+
+| Issue | Found on | Status |
+|---|---|---|
+| A site's robots.txt blocked specific AI crawlers (my research tool was blocked) but allowed XenFloBot, so the scrape was technically permitted | Anime Boba Cafe | Idea: instead of refusing outright, ask before continuing. When robots.txt restricts AI crawlers (or all bots), show a prompt: "This site limits automated or AI access. Are you the owner, or do you have the owner's permission?" with the same consent checkbox as the upload fallback. If confirmed, record the consent (who, when, method) with the knowledge base and continue; if not, offer manual entry instead. This respects the site's wishes while still serving real owners, who are MoFlo's actual customers. |
+
+## Observations from MoFlo's own Knowledge feature
+
+These came from testing MoFlo Cloud's trial with my own site and Apex Hosting, and from the sample profiles in Knowledge_Outputs.pdf. Framed as improvement ideas.
+
+| Observation | Idea |
+|---|---|
+| On a personal site, fields like founded, employees, and legal entity stay empty because the site doesn't list them | Enrichment from outside sources (state business registries, Google Business Profile, LinkedIn) |
+| After building Apex's knowledge base, Flo generated an email titled "Florida's gaming scene is booming," though Apex isn't a Florida business | Accurate service area detection; a business that serves customers online shouldn't get a single local voice location |
+| Blog titles came out very technical and corporate, while Apex's real voice is a friendly gamer brand | Use testimonials and real customer language to calibrate writing style and audience |
+| Key People included customers quoted in testimonials | Separate team from customers (done in XenFlo) |
+| Gender inferred from names | Only fill when stated on the site, or mark clearly as inferred |
+
+## Development environment
+
+| Issue | Status |
+|---|---|
+| Hydration warning in the browser caused by the Grammarly extension injecting attributes into `<body>` | Not an app bug. Optional: add `suppressHydrationWarning` to `<body>` |
+| Files getting Windows (CRLF) line endings in a Linux project | Fixed: `core.autocrlf input` and WebStorm set to LF |
