@@ -19,8 +19,9 @@ export function mockSuggestions(kb: KnowledgeBase): Suggestion[] {
   const name = kb.company.name.value || kb.companyName;
   const overview = kb.company.overview.value;
   // Pitch: the overview's first sentence, which the business wrote itself.
+  // Skipped when there's no clean sentence (hero text glued together reads badly as a pitch).
   const firstSentence = overview?.match(/^.+?[.!?](\s|$)/)?.[0].trim() ?? overview;
-  if (firstSentence) add("company.pitch", "Pitch", firstSentence, false);
+  if (firstSentence && firstSentence.length <= 160) add("company.pitch", "Pitch", firstSentence, false);
 
   const preview = mockContentPreview(kb);
   add("contentKit.emailSubjects", "Email subject ideas", [preview.emailSubject], true);

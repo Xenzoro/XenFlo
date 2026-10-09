@@ -69,15 +69,15 @@ What each field means:
 - `channels`: how customers reach or buy, from CTAs and links. Name the channel type ("Online ordering", "Phone", "Walk-in", "Online booking", "Ecommerce", "Discord community"), never the button label ("Book Now" → "Online booking").
 - `funnels`: steps the site pushes ("Book online → technician visit", "Free trial → paid plan"). Each step must appear in the evidence.
 - `contentThemes`: recurring topics on the site. `positioningSignals`: how it sets itself apart, or competitors it names. `communityValues`: values or community messaging it states. `seasonalMessaging`: seasonal or recurring campaigns it shows ("Summer AC tune-ups").
-- `pitch`: 1–2 sentences, at most 40 words, using only evidence.
-- `writingStyle` and `voiceGuide`: how the brand already sounds, from its own words (overview, headings, CTAs, FAQ answers), not from testimonials. `wordsToUse` must be copied from the evidence.
-- Content Kit: 3–5 items each. Hashtags start with `#`. Blog ideas come preferably from FAQ questions. Never invent offers or prices; a promotion may only be repeated exactly as given.
+- `pitch`: 1–2 sentences, at most 40 words, using only evidence. Write it the way the owner would say it ("we" or "you"), lead with what's most distinctive, and end with the site's own call to action when it has one.
+- `writingStyle` and `voiceGuide`: how the brand already sounds, from its own words (overview, headings, CTAs, FAQ answers), not from testimonials. `writingStyle.value` is 2–3 sentences describing the voice (tone, sentence length, point of view, habits); put the confidence only in `confidence`. `wordsToUse` must be copied from the evidence.
+- Content Kit: 4–5 items each. Hashtags start with `#` and include the brand's own name as a tag, plus its category and city when known. Social hooks are short, varied openers in the brand's voice. Blog ideas come preferably from FAQ questions. Never invent offers or prices; a promotion may only be repeated exactly as given.
 - `offeringCategories`:
   - `offeringCategoryTask` is `fill_missing`: give a category for offerings whose category is null.
   - `review_shared`: every offering shares one scraped category that may be too broad (e.g. every game listed as "Minecraft Server Hosting"). Give a better category per offering only where the offering's own name or page clearly shows it ("Valheim" → "Valheim server hosting").
   - `none`: return `[]`.
 
-Keep lists short (3–6 items) and reasons to one sentence, so the whole answer fits.
+Keep other lists short (3–6 items) and reasons to one sentence, so the whole answer fits.
 
 ## Missing data
 - Not enough evidence → `"value": null` / `"values": []`, with confidence `low` or `medium` and a `reason`.

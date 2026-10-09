@@ -40,8 +40,11 @@ const CTA_RULES: { pattern: RegExp; channel: string; funnel: string }[] = [
   { pattern: /get a quote|free (quote|estimate)|request a quote/i, channel: "Quote request", funnel: "Request a quote → follow-up" },
   { pattern: /\b(shop|buy|add to cart)\b/i, channel: "Ecommerce", funnel: "Browse → buy online" },
   { pattern: /get started|start (your|a) |sign up|free trial/i, channel: "Online sign-up", funnel: "Get started → sign up" },
-  { pattern: /\bcall\b/i, channel: "Phone", funnel: "Call → book a visit" },
+  // "call" alone matches "LAST CALL" in opening hours; only real call-to-action wording counts
+  { pattern: /\bcall (us|now|today|for|to)\b|\bcall any ?time\b|\bcall\s*\(?\d{3}/i, channel: "Phone", funnel: "Call → book a visit" },
 ];
+// Phone is only trusted from CTA buttons, never from page headings
+const CTA_ONLY = new Set(["Phone"]);
 
 const label = (i: EvidenceItem) => `${i.page ? `${i.page}: ` : ""}${i.text.length > 90 ? `${i.text.slice(0, 90)}…` : i.text}`;
 
@@ -59,7 +62,7 @@ export function heuristicSuggestions(kb: KnowledgeBase, e: Evidence): Suggestion
     for (const m of matches) byIndustry.set(m.k.industry, [...(byIndustry.get(m.k.industry) ?? []), ...m.hits]);
     const [industry, hits] = [...byIndustry.entries()].sort((a, b) => new Set(b[1]).size - new Set(a[1]).size)[0];
     add("company.industry", "Industry", industry, [...new Set(hits)]);
-    const groupings = [...new Set(matches.filter((m) => m.k.industry === industry && m.k.grouping !== "Restaurant").map((m) => m.k.grouping))];
+    const groupings = [...new Set(matches.filter((m) => m.k.industry === industry && m.k.grouping !== "Restaurant" && m.k.grouping !== industry).map((m) => m.k.grouping))];
     if (groupings.length) add("customers.industryGroupings", "Industry groupings", groupings, matches.flatMap((m) => m.hits));
   }
 
@@ -70,7 +73,7 @@ export function heuristicSuggestions(kb: KnowledgeBase, e: Evidence): Suggestion
   const funnels: string[] = [];
   const channelHits: EvidenceItem[] = [];
   for (const rule of CTA_RULES) {
-    const hits = [...ctas.filter((c) => rule.pattern.test(c.text)), ...pages.filter((p) => rule.pattern.test(p.text))];
+    const hits = [...ctas.filter((c) => rule.pattern.test(c.text)), ...(CTA_ONLY.has(rule.channel) ? [] : pages.filter((p) => rule.pattern.test(p.text)))];
     if (new Set(hits).size < 2) continue;
     if (rule.channel === "Phone" && !kb.contact.phones.length) continue;
     channels.push(rule.channel);
@@ -85,11 +88,12 @@ export function heuristicSuggestions(kb: KnowledgeBase, e: Evidence): Suggestion
   // Business model hints
   const hasLocation = !!kb.company.mainAddress.value || kb.company.otherLocations.length > 0;
   const localSales = channels.some((c) => c === "Online ordering" || c === "Online booking");
+  // A local business that takes orders or bookings is "B2C, local" even if it also sells a monthly
+  // membership (an HVAC maintenance plan); monthly plans without a location mean a subscription business.
   const monthly = e.items.filter((i) => /\/\s?mo\b|per month|monthly/i.test(i.text));
-  if (monthly.length >= 2) add("company.businessModel", "Business model", "Subscription", monthly);
-  else if (localSales && hasLocation) {
+  if (localSales && hasLocation) {
     const loc = e.items.filter((i) => i.kind.endsWith("location"));
     add("company.businessModel", "Business model", "B2C, local", [...channelHits.slice(0, 2), ...loc.slice(0, 2)]);
-  }
+  } else if (monthly.length >= 2 && !hasLocation) add("company.businessModel", "Business model", "Subscription", monthly);
   return out;
 }

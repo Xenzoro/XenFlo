@@ -176,7 +176,8 @@ function fromText(out: TextOutput, e: Evidence, inputLower: string, kb: Knowledg
     const empty = list ? values.length === 0 : value === null || value === undefined || isPlaceholder(value);
     if (empty) {
       // Asked but unanswered: tell the owner why the field stays empty
-      if (answer.reason) notEnough.push({ path, label, confidence: answer.confidence, reason: answer.reason });
+      const unusable = typeof value === "string" && value.trim() !== "";
+      if (answer.reason || unusable) notEnough.push({ path, label, confidence: answer.confidence, reason: answer.reason ?? "The AI didn't return a usable answer." });
       return;
     }
     const verdict = checkAnswer(path, answer, values, e, inputLower);
@@ -313,9 +314,12 @@ function sameCategory(current: string | null, suggested: string): boolean {
   return a === b || a.includes(b) || b.includes(a);
 }
 
-/** Models sometimes write "null" or "N/A" as text instead of a real null. */
+/**
+ * Models sometimes write "null" or "N/A" as text instead of a real null, or put the confidence
+ * word ("high") where the value belongs. None of those are answers.
+ */
 function isPlaceholder(value: unknown): boolean {
-  return typeof value === "string" && /^\s*(null|none|n\/?a|unknown|not available|-)?\s*$/i.test(value);
+  return typeof value === "string" && /^\s*(null|none|n\/?a|unknown|not available|-|high|medium|low)?\s*$/i.test(value);
 }
 
 /** Trim, drop empties, placeholders and duplicates, cap the length. */
