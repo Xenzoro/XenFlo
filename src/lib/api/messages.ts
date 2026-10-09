@@ -9,6 +9,7 @@ export interface FriendlyError {
 
 export const ERROR_MESSAGES: Record<string, FriendlyError> = {
   INVALID_URL: { title: "That address doesn't look right", text: "Check the spelling and try again, for example yourbusiness.com." },
+  PRIVATE_ADDRESS: { title: "That address isn't a public website", text: "XenFlo only reads public websites, not local or private network addresses." },
   TIMEOUT: { title: "The website took too long to answer", text: "It might be slow or busy right now. Try again in a minute." },
   UNREACHABLE: { title: "We couldn't reach that website", text: "Make sure the address is correct and the site is online." },
   BLOCKED_ROBOTS: { title: "This site limits automated access", text: "Its robots.txt file asks bots like ours not to read it, so we stopped." },

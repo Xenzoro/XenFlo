@@ -9,7 +9,7 @@ import { extractPage } from "./extract";
 import { scoreCompleteness } from "./score";
 import { collectCss } from "./styles";
 import { addToPool, crawlForMissing, crawlPages, linkFromUrl, outOfTime, pageRecord, type CrawlSession } from "./crawl";
-import { cleanUrl, normalizeUrl, pageKey } from "./url";
+import { cleanUrl, isSameDomain, normalizeUrl, pageKey } from "./url";
 
 export { ScrapeError } from "./errors";
 
@@ -142,7 +142,8 @@ export async function digDeeper(previous: KnowledgeBase, options: ScrapeOptions 
   const isAllowed = consented && !robots.isAllowed(kb.url) ? () => true : robots.isAllowed;
   const session = newSession(kb, isAllowed, robots.crawlDelay, options, log);
   for (const page of kb.crawl.pages) session.visited.add(pageKey(page.url));
-  addToPool(session, kb.crawl.pendingUrls.map(linkFromUrl));
+  // pendingUrls come back from the browser, so only trust ones on this company's own domain.
+  addToPool(session, kb.crawl.pendingUrls.filter((u) => isSameDomain(u, kb.url)).map(linkFromUrl));
   kb.crawl.finishedAt = null;
 
   await crawlForMissing(session, maxPages);

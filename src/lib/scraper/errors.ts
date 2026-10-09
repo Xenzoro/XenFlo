@@ -4,6 +4,7 @@
  */
 export type ScrapeErrorCode =
   | "INVALID_URL"
+  | "PRIVATE_ADDRESS" // localhost, a private network or cloud metadata (SSRF protection)
   | "TIMEOUT"
   | "UNREACHABLE"
   | "BLOCKED_ROBOTS" // robots.txt disallows us

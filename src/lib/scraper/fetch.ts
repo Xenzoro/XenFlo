@@ -1,4 +1,5 @@
 import { ScrapeError } from "./errors";
+import { assertPublicUrl } from "./safety";
 
 export const USER_AGENT = process.env.SCRAPER_USER_AGENT || "XenFloBot/1.0 (knowledge base builder)";
 
@@ -14,10 +15,12 @@ export interface FetchResult {
 const BOT_CHALLENGE = /<title>(Just a moment\.\.\.|Attention Required|Access denied|Pardon Our Interruption)|challenges\.cloudflare\.com\/cdn-cgi|_Incapsula_Resource/i;
 
 const MAX_BODY_CHARS = 3_000_000; // ignore anything past ~3MB of HTML
+const MAX_REDIRECTS = 5;
 
 /**
- * Fetch a URL with a timeout. Follows redirects.
- * Throws ScrapeError for timeouts, network failures and non-2xx responses.
+ * Fetch a URL with a timeout. Follows up to 5 redirects itself (not fetch's automatic
+ * redirect), so every hop is checked: no localhost, private networks or cloud metadata (safety.ts).
+ * Throws ScrapeError for blocked addresses, timeouts, network failures and non-2xx responses.
  */
 export async function fetchPage(
   url: string,
@@ -28,16 +31,26 @@ export async function fetchPage(
   const timer = setTimeout(() => controller.abort(), timeoutMs);
 
   try {
-    const res = await fetch(url, {
-      redirect: "follow",
-      signal: controller.signal,
-      headers: {
-        "User-Agent": USER_AGENT,
-        Accept: accept,
-        "Accept-Language": "en-US,en;q=0.9",
-      },
-      cache: "no-store",
-    });
+    let current = url;
+    let res: Response;
+    for (let hop = 0; ; hop++) {
+      await assertPublicUrl(current);
+      res = await fetch(current, {
+        redirect: "manual",
+        signal: controller.signal,
+        headers: {
+          "User-Agent": USER_AGENT,
+          Accept: accept,
+          "Accept-Language": "en-US,en;q=0.9",
+        },
+        cache: "no-store",
+      });
+      const location = res.headers.get("location");
+      if (res.status < 300 || res.status >= 400 || !location) break;
+      if (hop >= MAX_REDIRECTS) throw new ScrapeError("HTTP_ERROR", "The site redirected too many times.", res.status);
+      await res.body?.cancel(); // we only need the Location header
+      current = new URL(location, current).toString(); // relative redirects resolve against the current URL
+    }
 
     if (res.status === 401 || res.status === 403 || res.status === 429) {
       throw new ScrapeError(
@@ -56,7 +69,7 @@ export async function fetchPage(
       throw new ScrapeError("BLOCKED_ACCESS", "The site is protected by a bot check.", res.status);
     }
     return {
-      url: res.url || url,
+      url: current,
       status: res.status,
       contentType: res.headers.get("content-type") ?? "",
       body,

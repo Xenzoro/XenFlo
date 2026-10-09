@@ -21,6 +21,7 @@ This is my take on MoFlo's "MoKnowledge" feature for the MoFlo Builder Challenge
 - [AI enrichment and prompts](#ai-enrichment-and-prompts)
 - [Testing on real sites](#testing-on-real-sites)
 - [Assumptions and limitations](#assumptions-and-limitations)
+- [Security](#security)
 - [How AI tools were used](#how-ai-tools-were-used)
 - [Ideas I'd love to build with the team](#ideas-id-love-to-build-with-the-team)
 - [Project layout](#project-layout)
@@ -341,6 +342,40 @@ Other results:
 - **Re-scrape** can bring back items the owner deleted by hand.
 
 ---
+
+## Security
+
+### The scraper only reads public websites (SSRF protection)
+Users choose the URL, and the sites they point at choose where to redirect. Without a guard, the server could be turned against itself, the local network or cloud metadata (`169.254.169.254`). `src/lib/scraper/safety.ts` blocks that:
+
+1. **Address checks on every request.** Before *every* request, including robots.txt, sitemaps, stylesheets and inner pages, the URL must:
+   - use http or https on the standard ports (80/443), with no username or password
+   - not be an IP literal or a hostname like `localhost`, `*.local` or `*.internal`
+   - resolve in DNS **only** to public addresses
+2. **What counts as private.** Loopback, RFC 1918 private ranges, carrier-grade NAT, link-local (cloud metadata), multicast, documentation and reserved ranges, IPv6 unique-local and link-local, and IPv4 hidden inside IPv6 (`::ffff:127.0.0.1`, NAT64). If a name has several addresses and any one is private, the request is refused.
+3. **Redirects are followed by hand** (`redirect: "manual"`, at most 5 hops). Every hop goes through the same check, so a public site can't bounce the scraper to `http://127.0.0.1` or the metadata endpoint.
+4. **Dig deeper only follows URLs on the company's own domain.** The list of pages left to crawl comes back from the browser, so it isn't trusted.
+
+Blocked addresses return `PRIVATE_ADDRESS` ("That address isn't a public website").
+
+Tested by asking it to scrape the following, all refused:
+- `localtest.me` and `127.0.0.1.nip.io`, which resolve to 127.0.0.1
+- `10.0.0.1.nip.io` and `169.254.169.254.nip.io`
+- an httpbin redirect to `http://127.0.0.1/` and to the metadata URL
+- `example.com:8080`
+- a Dig deeper request with private URLs planted in its page list
+
+Normal sites, including http→https and bare→www redirects, still work.
+
+**Known gap:** the DNS check and the actual connection resolve the name separately, so a DNS-rebinding attacker with a very short TTL could, in theory, answer differently the second time. Closing that fully means pinning the connection to the checked IP with a custom HTTP agent (the `undici` package), or running the scraper in an isolated network with no route to private ranges, which serverless hosting like Vercel largely already is.
+
+### Other protections
+- **Secrets stay on the server:** the Supabase secret key and the OpenAI key are only read in API routes. The browser only ever sees the public Supabase URL and anon key, and the anon key can't read anything (no anon RLS policies).
+- **Database access:** RLS is on for every table; AI cache and quota tables are server-only; Postgres functions have execute revoked from `anon`.
+- **Uploads:** screenshots go to a private bucket with type and size limits (PNG/JPG/WebP, 5 MB), and are shown through 1-hour signed URLs.
+- **AI costs:** live AI needs a passcode (compared in constant time), runs only from a button, and is capped per day in Postgres.
+- **Polite crawling:** robots.txt is respected unless the owner gives consent, which is recorded. The User-Agent is honest, and page caps, time budgets and crawl delays apply.
+- **Input validation:** every API body is validated with Zod, and pasted text and files have size limits.
 
 ## How AI tools were used
 

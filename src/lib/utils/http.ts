@@ -9,6 +9,7 @@ import { DbError, type DbErrorCode } from "@/lib/db/errors";
 
 const SCRAPE_STATUS: Record<ScrapeErrorCode, number> = {
   INVALID_URL: 400,
+  PRIVATE_ADDRESS: 400,
   BLOCKED_ROBOTS: 403,
   BLOCKED_ACCESS: 403,
   ROBOTS_AI_RESTRICTED: 403,
