@@ -6,16 +6,12 @@
   - In lists, user_edited items are appended unless the fresh list already has an equal value.
   - Only the content sections are merged; crawl info and the score come from the fresh scrape.
 */
-import type { Field, KnowledgeBase } from "@/types/knowledge";
+import type { KnowledgeBase } from "@/types/knowledge";
 import { scoreCompleteness } from "@/lib/scraper/score";
+import { forEachField, isField, isPlainObject } from "./fields";
 
 const CONTENT_KEYS = ["company", "contact", "customers", "brand", "people", "offerings", "insights", "contentKit"] as const;
 
-function isField(x: unknown): x is Field<unknown> {
-  return typeof x === "object" && x !== null && "value" in x && "confidence" in x && "updatedAt" in x;
-}
-
-const isPlainObject = (x: unknown): x is Record<string, unknown> => typeof x === "object" && x !== null && !Array.isArray(x);
 const valueKey = (v: unknown) => JSON.stringify(v).toLowerCase();
 
 /** Recursively overlay user edits from `prev` onto `fresh`. */
@@ -53,14 +49,6 @@ export function keepUserEdits(fresh: KnowledgeBase, previous: KnowledgeBase): Kn
 /** How many user-edited values a knowledge base has (shown in the re-scrape confirm). */
 export function countUserEdits(kb: KnowledgeBase): number {
   let count = 0;
-  const walk = (x: unknown) => {
-    if (isField(x)) {
-      if (x.confidence === "user_edited") count++;
-      return;
-    }
-    if (Array.isArray(x)) x.forEach(walk);
-    else if (isPlainObject(x)) Object.values(x).forEach(walk);
-  };
-  CONTENT_KEYS.forEach((k) => walk(kb[k]));
+  CONTENT_KEYS.forEach((k) => forEachField(kb[k], (f) => f.confidence === "user_edited" && count++));
   return count;
 }

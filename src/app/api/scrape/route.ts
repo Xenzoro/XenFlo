@@ -11,9 +11,11 @@ export const maxDuration = 60;
 const bodySchema = z.object({
   url: z.string().min(1).max(2048),
   maxPages: z.number().int().min(1).max(30).optional(),
+  /** The user ticked "I own this business or have permission..." after a robots.txt block */
+  ownerConsent: z.literal(true).optional(),
 });
 
-/** POST { url } -> { knowledgeBase } or { error: { code, message } } */
+/** POST { url, ownerConsent? } -> { knowledgeBase } or { error: { code, message } } */
 export async function POST(request: Request) {
   const parsed = bodySchema.safeParse(await request.json().catch(() => null));
   if (!parsed.success) {
@@ -21,7 +23,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    const kb = await scrapeSite(parsed.data.url, { maxPages: parsed.data.maxPages });
+    const kb = await scrapeSite(parsed.data.url, { maxPages: parsed.data.maxPages, ownerConsent: parsed.data.ownerConsent });
     // Validate our own output so schema drift shows up immediately during development.
     return NextResponse.json({ knowledgeBase: knowledgeBaseSchema.parse(kb) });
   } catch (err) {

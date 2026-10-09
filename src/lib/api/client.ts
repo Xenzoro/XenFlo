@@ -3,7 +3,7 @@
   { data } or { error: { code, message } } and never throws, so components
   can handle failures with a simple if.
 */
-import type { KnowledgeBase } from "@/types/knowledge";
+import type { KnowledgeBase, UploadRecord } from "@/types/knowledge";
 import type { KnowledgeSummary, VersionSummary } from "@/lib/db/types";
 
 export interface ApiError {
@@ -34,14 +34,51 @@ const get = <T>(url: string) => call<T>(url, { method: "GET" });
 
 type KbResponse = { knowledgeBase: KnowledgeBase };
 
-export async function scrapeUrl(url: string): Promise<ApiResult<KnowledgeBase>> {
-  const res = await post<KbResponse>("/api/scrape", { url });
+/** `ownerConsent`: the user confirmed ownership or permission after a robots.txt block. */
+export async function scrapeUrl(url: string, opts: { ownerConsent?: boolean } = {}): Promise<ApiResult<KnowledgeBase>> {
+  const res = await post<KbResponse>("/api/scrape", opts.ownerConsent ? { url, ownerConsent: true } : { url });
   return res.error ? res : { data: res.data.knowledgeBase };
 }
 
 export async function digDeeper(kb: KnowledgeBase): Promise<ApiResult<KnowledgeBase>> {
   const res = await post<KbResponse>("/api/scrape/deeper", { knowledgeBase: kb });
   return res.error ? res : { data: res.data.knowledgeBase };
+}
+
+/** Pasted text or an uploaded .txt/.html file -> knowledge (new, or added into `knowledgeBase`). */
+export async function extractContent(input: {
+  kind: "text" | "html";
+  content: string;
+  name: string;
+  url?: string;
+  knowledgeBase?: KnowledgeBase;
+  method: "checkbox_paste" | "checkbox_upload";
+}): Promise<ApiResult<KnowledgeBase>> {
+  const { method, ...rest } = input;
+  const res = await post<KbResponse>("/api/extract", { ...rest, consent: { confirmed: true, method } });
+  return res.error ? res : { data: res.data.knowledgeBase };
+}
+
+/** Store a screenshot. `needs` = field paths it should fill once AI can read it. */
+export async function uploadScreenshot(file: File, needs: string[]): Promise<ApiResult<{ upload: UploadRecord; url: string; aiAvailable: boolean }>> {
+  const form = new FormData();
+  form.set("file", file);
+  form.set("needs", needs.join(","));
+  form.set("consent", "true");
+  try {
+    // No JSON Content-Type here: the browser sets the multipart boundary itself
+    const res = await fetch("/api/uploads", { method: "POST", body: form, cache: "no-store" });
+    const body = await res.json().catch(() => null);
+    if (!res.ok) return { error: body?.error ?? { code: res.status === 413 ? "TOO_LARGE" : "INTERNAL", message: `Upload failed (${res.status}).` } };
+    return { data: body };
+  } catch {
+    return { error: { code: "NETWORK", message: "Couldn't reach the XenFlo server." } };
+  }
+}
+
+export async function signedUploadUrl(path: string): Promise<ApiResult<string>> {
+  const res = await get<{ url: string }>(`/api/uploads?${new URLSearchParams({ path })}`);
+  return res.error ? res : { data: res.data.url };
 }
 
 /**

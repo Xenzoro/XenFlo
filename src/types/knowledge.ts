@@ -260,7 +260,26 @@ export interface Completeness {
 export interface Consent {
   confirmed: true;
   timestamp: string;
-  method: "checkbox_upload" | "checkbox_paste";
+  /**
+   * checkbox_upload: files or screenshots, checkbox_paste: pasted text,
+   * checkbox_scrape: the owner allowed a scrape that robots.txt restricts
+   */
+  method: "checkbox_upload" | "checkbox_paste" | "checkbox_scrape";
+}
+
+/** Content the user added instead of (or on top of) scraping. */
+export interface UploadRecord {
+  id: string;
+  kind: "text" | "html" | "screenshot";
+  /** File name, or "pasted-text" */
+  name: string;
+  /** Bytes */
+  size: number;
+  /** Supabase Storage path for screenshots; null for text and HTML (their content is extracted, not kept) */
+  path: string | null;
+  uploadedAt: string;
+  /** Field paths this upload should fill once AI can read it (screenshots) */
+  needsAiFields: string[];
 }
 
 // ---------- The knowledge base ----------
@@ -283,4 +302,5 @@ export interface KnowledgeBase {
   completeness: Completeness;
   crawl: CrawlInfo;
   consent: Consent | null;
+  uploads: UploadRecord[];
 }

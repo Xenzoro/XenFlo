@@ -92,5 +92,6 @@ export function emptyKnowledgeBase(url: string): KnowledgeBase {
       log: [],
     },
     consent: null,
+    uploads: [],
   };
 }

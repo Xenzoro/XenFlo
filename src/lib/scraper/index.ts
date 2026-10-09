@@ -23,6 +23,11 @@ export interface ScrapeOptions {
   delayMs?: number;
   /** Called with each progress step (for a live progress UI later) */
   onProgress?: (entry: CrawlLogEntry) => void;
+  /**
+   * The user confirmed they own the business or have the owner's permission.
+   * Lets a scrape continue when robots.txt restricts bots or AI crawlers.
+   */
+  ownerConsent?: boolean;
 }
 
 export const DEFAULT_MAX_PAGES = 15;
@@ -42,12 +47,31 @@ export async function scrapeSite(input: string, options: ScrapeOptions = {}): Pr
 
   log("Checking robots.txt");
   const robots = await loadRobots(startUrl);
-  if (!robots.isAllowed(startUrl)) {
+  const blocked = !robots.isAllowed(startUrl);
+  const aiRestricted = robots.aiRestricted.length > 0;
+
+  // robots.txt limits us: stop and ask, unless the owner already said yes.
+  if (blocked && !options.ownerConsent) {
     kb.crawl.robotsAllowed = false;
     log("robots.txt does not allow automated access", "error");
     throw new ScrapeError("BLOCKED_ROBOTS", "This site's robots.txt doesn't allow automated access.");
   }
-  const session = newSession(kb, robots.isAllowed, robots.crawlDelay, options, log);
+  if (aiRestricted && !options.ownerConsent) {
+    log(`robots.txt restricts AI crawlers (${robots.aiRestricted.join(", ")})`, "error");
+    throw new ScrapeError(
+      "ROBOTS_AI_RESTRICTED",
+      `This site's robots.txt asks AI crawlers not to read it (${robots.aiRestricted.slice(0, 4).join(", ")}).`,
+    );
+  }
+  let isAllowed = robots.isAllowed;
+  if ((blocked || aiRestricted) && options.ownerConsent) {
+    // Record who allowed it and when; the crawl stays polite (honest User-Agent, crawl delay kept)
+    kb.consent = { confirmed: true, timestamp: new Date().toISOString(), method: "checkbox_scrape" };
+    kb.crawl.robotsAllowed = !blocked;
+    log("robots.txt limits bots; continuing with the owner's permission", "warn");
+    if (blocked) isAllowed = () => true;
+  }
+  const session = newSession(kb, isAllowed, robots.crawlDelay, options, log);
 
   // Homepage. A failure here fails the whole scrape.
   log(`Fetching homepage ${startUrl}`);
@@ -60,7 +84,7 @@ export async function scrapeSite(input: string, options: ScrapeOptions = {}): Pr
   session.visited.add(pageKey(homeUrl));
 
   log("Reading styles for fonts and colors");
-  const css = await collectCss(cheerio.load(home.body), homeUrl, robots.isAllowed);
+  const css = await collectCss(cheerio.load(home.body), homeUrl, isAllowed);
   const homeResult = extractPage(home.body, homeUrl, "home", kb, css);
   kb.crawl.pages.push(pageRecord(homeUrl, "home", home.status, homeResult.title, home.durationMs, null));
   if (homeResult.wordCount < MIN_WORDS) log(`Homepage has very little readable text (${homeResult.wordCount} words)`, "warn");
@@ -106,7 +130,17 @@ export async function digDeeper(previous: KnowledgeBase, options: ScrapeOptions 
 
   log("Digging deeper: checking robots.txt");
   const robots = await loadRobots(kb.url);
-  const session = newSession(kb, robots.isAllowed, robots.crawlDelay, options, log);
+  // Same rules as scrapeSite: a restricted site needs the owner's consent, which a
+  // consented scrape carries in kb.consent
+  const consented = kb.consent?.method === "checkbox_scrape" || !!options.ownerConsent;
+  if (!consented && !robots.isAllowed(kb.url)) {
+    throw new ScrapeError("BLOCKED_ROBOTS", "This site's robots.txt doesn't allow automated access.");
+  }
+  if (!consented && robots.aiRestricted.length) {
+    throw new ScrapeError("ROBOTS_AI_RESTRICTED", "This site's robots.txt asks AI crawlers not to read it.");
+  }
+  const isAllowed = consented && !robots.isAllowed(kb.url) ? () => true : robots.isAllowed;
+  const session = newSession(kb, isAllowed, robots.crawlDelay, options, log);
   for (const page of kb.crawl.pages) session.visited.add(pageKey(page.url));
   addToPool(session, kb.crawl.pendingUrls.map(linkFromUrl));
   kb.crawl.finishedAt = null;

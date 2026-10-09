@@ -64,7 +64,7 @@ All primary keys are `uuid default gen_random_uuid()`. All timestamps are `times
 `knowledge_base_id` (FK, cascade), `url`, `started_at`, `finished_at`, `duration_ms int`, `robots_allowed bool`, `page_count int`, `pages jsonb` (each page's URL, category, status, title, timing), `log jsonb` (the crawl log).
 
 ### upload_consents
-`knowledge_base_id` (FK, cascade), `confirmed bool check (confirmed)`, `method text check in ('checkbox_upload','checkbox_paste')`, `consented_at`, `created_at`. `unique (knowledge_base_id, consented_at)` lets re-saving the same KB skip duplicate consent rows. This is the audit trail for "I own this business or have permission".
+`knowledge_base_id` (FK, cascade), `confirmed bool check (confirmed)`, `method text check in ('checkbox_upload','checkbox_paste','checkbox_scrape')` (`checkbox_scrape` = the owner allowed a scrape that robots.txt restricts), `consented_at`, `created_at`. `unique (knowledge_base_id, consented_at)` lets re-saving the same KB skip duplicate consent rows. This is the audit trail for "I own this business or have permission".
 
 ## Indexes
 - **Search:** `pg_trgm` GIN indexes on `company_name`, `url` and `industry`, so `ILIKE '%term%'` stays fast as the table grows.
@@ -117,6 +117,9 @@ The policies are already in place.
 - The domain is unique per owner, not globally. Two different users can each build a KB for the same business, and RLS keeps them isolated.
 - **Teams (next step):** add `company_members(company_id, user_id, role text check in ('owner','editor','viewer'))`, and change the policies to `exists (select 1 from company_members m where m.company_id = … and m.user_id = (select auth.uid()))`, with role checks for writes. `owner_id` stays as the creator or billing owner.
 
+### Storage: `uploads` bucket
+Private bucket for upload-fallback screenshots (PNG/JPG/WebP, 5 MB max). The KB's `uploads` list stores each file's path; the browser only ever gets 1-hour signed URLs from the server. Storage RLS mirrors the tables: signed-in users can only touch objects under a folder named after their user id. The demo stores under `demo/` with the secret key.
+
 ## API
 | method | route | does |
 |---|---|---|
@@ -126,6 +129,9 @@ The policies are already in place.
 | PATCH | `/api/knowledge/[id]` | `{ knowledgeBase, expectedVersion?, note? }` → saved as the next version |
 | DELETE | `/api/knowledge/[id]` | delete with cascade |
 | GET | `/api/knowledge/[id]/versions` | `[{ version, completeness, note, createdAt }]`, newest first |
+| POST | `/api/extract` | pasted text / uploaded HTML + consent → `{ knowledgeBase }` (new, or added into a given KB) |
+| POST | `/api/uploads` | multipart screenshot + consent → stored privately, `{ upload, url, aiAvailable }` |
+| GET | `/api/uploads?path=` | fresh 1-hour signed URL for a stored screenshot |
 | GET | `/api/knowledge/[id]/versions/[version]` | that version's full snapshot → `{ knowledgeBase }` (restore = PATCH it back with a note) |
 
 Errors always come back as `{ error: { code, message } }`:

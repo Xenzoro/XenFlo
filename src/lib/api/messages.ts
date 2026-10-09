@@ -13,6 +13,10 @@ export const ERROR_MESSAGES: Record<string, FriendlyError> = {
   UNREACHABLE: { title: "We couldn't reach that website", text: "Make sure the address is correct and the site is online." },
   BLOCKED_ROBOTS: { title: "This site limits automated access", text: "Its robots.txt file asks bots like ours not to read it, so we stopped." },
   BLOCKED_ACCESS: { title: "This site blocked our request", text: "The website refused automated access (it may use bot protection)." },
+  ROBOTS_AI_RESTRICTED: { title: "This site limits AI tools", text: "Its robots.txt asks AI crawlers not to read it, so we stopped and are asking first." },
+  UNSUPPORTED_FILE: { title: "We can't read that file type", text: "Use a .txt or .html file, or PNG, JPG or WebP screenshots." },
+  TOO_LARGE: { title: "That's too big", text: "Text can be up to 200,000 characters and screenshots up to 5 MB each." },
+  CONSENT_REQUIRED: { title: "Please confirm permission first", text: "Tick the box to confirm you own this business or have the owner's permission." },
   HTTP_ERROR: { title: "The website returned an error", text: "The page didn't load properly. Try again, or check the address." },
   NO_CONTENT: { title: "We couldn't find readable content", text: "The site may be built in a way we can't read yet (for example, all text inside images)." },
   CONFLICT: { title: "Someone saved a newer version", text: "Reload the saved record to see the latest changes before saving again." },
@@ -28,4 +32,7 @@ export function friendlyError(code: string): FriendlyError {
 }
 
 /** Codes that should offer the upload fallback instead of a retry. */
-export const BLOCKED_CODES = new Set(["BLOCKED_ROBOTS", "BLOCKED_ACCESS"]);
+export const BLOCKED_CODES = new Set(["BLOCKED_ROBOTS", "BLOCKED_ACCESS", "ROBOTS_AI_RESTRICTED"]);
+
+/** Blocks the owner's permission can lift (robots.txt). A server refusing us (BLOCKED_ACCESS) can't be. */
+export const CONSENTABLE_CODES = new Set(["BLOCKED_ROBOTS", "ROBOTS_AI_RESTRICTED"]);

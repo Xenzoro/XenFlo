@@ -243,9 +243,23 @@ export const knowledgeBaseSchema = z.object({
     .object({
       confirmed: z.literal(true),
       timestamp: str,
-      method: z.enum(["checkbox_upload", "checkbox_paste"]),
+      method: z.enum(["checkbox_upload", "checkbox_paste", "checkbox_scrape"]),
     })
     .nullable(),
+  // Added in Phase 6; records saved earlier have no uploads key, so default to []
+  uploads: z
+    .array(
+      z.object({
+        id: str,
+        kind: z.enum(["text", "html", "screenshot"]),
+        name: str,
+        size: z.number().int().min(0),
+        path: nstr,
+        uploadedAt: str,
+        needsAiFields: z.array(str),
+      }),
+    )
+    .default([]),
 });
 
 // Compile-time guard: errors if the schema and the TS interface disagree in either direction.
