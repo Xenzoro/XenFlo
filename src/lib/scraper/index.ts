@@ -8,7 +8,7 @@ import { discoverFromSitemaps, discoverLinks, pickCrawlOrder, priorityLinks } fr
 import { extractPage } from "./extract";
 import { scoreCompleteness } from "./score";
 import { collectCss } from "./styles";
-import { addToPool, crawlForMissing, crawlPages, linkFromUrl, outOfTime, pageRecord, type CrawlSession } from "./crawl";
+import { addToPool, crawlForMissing, crawlLegalPage, crawlPages, linkFromUrl, outOfTime, pageRecord, type CrawlSession } from "./crawl";
 import { cleanUrl, isSameDomain, normalizeUrl, pageKey } from "./url";
 import { readMenus } from "./menus";
 
@@ -103,6 +103,8 @@ export async function scrapeSite(input: string, options: ScrapeOptions = {}): Pr
 
   // Adaptive pages: only those likely to fill fields that are still empty.
   await crawlForMissing(session, maxPages);
+  // One privacy / terms page for the legal name, when the footer didn't state it
+  await crawlLegalPage(session, HARD_MAX_PAGES);
   // Menu PDFs found on the way (has its own time budget)
   await readMenus(session);
 

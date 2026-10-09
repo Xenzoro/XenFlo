@@ -22,11 +22,16 @@ export function setField<T>(
   value: T | null | undefined,
   source: string,
   confidence: Confidence = "scraped",
+  /** Short quotes the value was read from, shown in the badge tooltip */
+  evidence?: string[],
 ): void {
   if (value === null || value === undefined) return;
   if (typeof value === "string" && !value.trim()) return;
   if (RANK[target.confidence] >= RANK[confidence]) return;
   Object.assign(target, field(value, source, confidence));
+  // Don't keep the evidence of the value being replaced
+  if (evidence?.length) target.evidence = evidence;
+  else delete target.evidence;
 }
 
 /**

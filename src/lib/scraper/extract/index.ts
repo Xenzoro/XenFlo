@@ -8,6 +8,7 @@ import { extractJsonLd } from "./jsonld";
 import { extractAddresses } from "./address";
 import { extractSocial } from "./social";
 import { extractContact } from "./contact";
+import { extractBusinessFacts } from "./business-facts";
 import { extractAbout } from "./about";
 import { extractTestimonials } from "./testimonials";
 import { extractPeople } from "./people";
@@ -56,6 +57,7 @@ export function extractPage(
   const { title } = extractMeta(ctx);
   extractSocial(ctx);
   extractContact(ctx);
+  extractBusinessFacts(ctx);
   extractAbout(ctx);
   // Testimonials before people, so quote authors are tagged customer_partner first.
   extractTestimonials(ctx);

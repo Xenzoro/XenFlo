@@ -116,6 +116,28 @@ export async function crawlForMissing(session: CrawlSession, maxTotalPages: numb
   }
 }
 
+// Legal pages worth reading for the business's legal name, best first (matched on the path, not the
+// link text, so "/blog/minecraft-survival-illegal-blocks" doesn't count)
+const LEGAL_PATHS = [/(?:^|[/-])privacy/i, /(?:^|[/-])terms/i, /(?:^|[/-])legal/i];
+
+/**
+ * Legal name or entity type still missing and no privacy / terms page crawled: read one, even
+ * past the page cap (it still counts as a crawled page, and never goes past `hardMax`).
+ * The pool only holds robots-allowed internal links, and fetchPage applies the usual SSRF checks.
+ */
+export async function crawlLegalPage(session: CrawlSession, hardMax: number): Promise<void> {
+  const { kb } = session;
+  if (kb.company.legalName.value !== null && kb.company.legalEntityType.value !== null) return;
+  if (kb.crawl.pages.some((p) => p.category === "legal") || kb.crawl.pages.length >= hardMax || outOfTime(session)) return;
+  const rank = (url: string) => LEGAL_PATHS.findIndex((re) => re.test(new URL(url).pathname));
+  const link = [...session.pool.values()]
+    .filter((l) => l.category === "legal" && rank(l.url) >= 0)
+    .sort((a, b) => rank(a.url) - rank(b.url))[0];
+  if (!link) return;
+  session.log("Checking the legal page for the business's legal name");
+  await crawlPages(session, [link], kb.crawl.pages.length + 1);
+}
+
 /**
  * Pages we can't categorize ("/sakana", "/umami" on a multi-brand site) might hold
  * anything, so shallow ones from the site's own nav get a small score: crawled only

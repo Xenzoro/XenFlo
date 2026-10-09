@@ -4,8 +4,9 @@
   Overview: a mini dashboard.
   - Knowledge Health gauge (the completeness score), styled like MoFlo's Brand Power
   - "Next to do" cards: the highest-value missing fields. Inferred fields (tier 2) offer "Fill with AI";
-    never-guessed ones (tier 3: people, legal entity) only "Add it yourself". Any can be marked
-    "Not applicable", which counts as complete.
+    never-guessed ones (tier 3: people, legal entity) only "Add it yourself"; the legal entity gets
+    one-tap quick picks instead. Any can be marked "Not applicable", which counts as complete.
+  - "Quick facts": unscored one-tap picks for employees and revenue while they're empty
   - Content Kit preview: mock examples of what Flo could write, clearly labeled
 */
 import { motion } from "framer-motion";
@@ -24,6 +25,7 @@ import { FIELD_LABELS, fieldName } from "../fieldLabels";
 import { groupOfferings } from "@/lib/scraper/menus/group";
 import { needsReview, waitingForAi } from "@/lib/utils/offerings";
 import { priceRange } from "../offerings/fields";
+import { QuickPicks } from "../QuickPicks";
 
 function healthLabel(score: number) {
   if (score >= 80) return { text: "Great", note: "Flo has plenty to work with." };
@@ -42,6 +44,15 @@ export function OverviewTab() {
     .sort((a, b) => b.weight - a.weight)
     .slice(0, 4);
   const preview = mockContentPreview(kb);
+  // Optional business facts (not in the score): one tap each while empty
+  const quickFacts = (
+    [
+      ["company.employeeCount", kb.company.employeeCount],
+      ["company.revenue", kb.company.revenue],
+    ] as const
+  )
+    .filter(([p, f]) => f.value === null && !(kb.notApplicable ?? []).includes(p))
+    .map(([p]) => p);
   // Screenshots marked as holding info that only vision AI can read
   const waiting = [...new Set((kb.uploads ?? []).flatMap((u) => u.needsAiFields))];
 
@@ -95,7 +106,10 @@ export function OverviewTab() {
                         Fill with AI
                       </Button>
                     )}
-                    {t.path === "company.mainAddress" && kb.company.otherLocations.length > 0 ? (
+                    {t.path === "company.legalEntityType" ? (
+                      // One tap; "Not sure" marks it Not applicable
+                      <QuickPicks path="company.legalEntityType" />
+                    ) : t.path === "company.mainAddress" && kb.company.otherLocations.length > 0 ? (
                       // No head office found, but the site lists locations: pick one, or say there's none
                       <Menu
                         label="Use one of your locations"
@@ -114,12 +128,25 @@ export function OverviewTab() {
                         {tierOf(t.path) === 3 ? "Add it yourself" : "Add it"}
                       </Button>
                     )}
-                    <button type="button" onClick={() => setNotApplicable(t.path, true)} disabled={busy} className="text-xs text-subtle hover:text-ink hover:underline">
-                      {t.path === "company.mainAddress" ? "Not applicable (no head office)" : "Not applicable"}
-                    </button>
+                    {t.path !== "company.legalEntityType" && (
+                      <button type="button" onClick={() => setNotApplicable(t.path, true)} disabled={busy} className="text-xs text-subtle hover:text-ink hover:underline">
+                        {t.path === "company.mainAddress" ? "Not applicable (no head office)" : "Not applicable"}
+                      </button>
+                    )}
                   </div>
                 </Card>
               </motion.div>
+            ))}
+          </div>
+        )}
+        {quickFacts.length > 0 && (
+          <div className="mt-5 space-y-3 border-t border-border-soft pt-4">
+            <p className="text-xs text-muted">Quick facts (optional, one tap each)</p>
+            {quickFacts.map((p) => (
+              <div key={p} className="flex flex-wrap items-center gap-2">
+                <span className="w-20 shrink-0 text-xs font-medium">{p === "company.employeeCount" ? "Employees" : "Revenue"}</span>
+                <QuickPicks path={p} />
+              </div>
             ))}
           </div>
         )}

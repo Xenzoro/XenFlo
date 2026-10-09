@@ -11,6 +11,7 @@ import { EditableField } from "@/components/ui/EditableField";
 import { EditableList } from "@/components/ui/EditableList";
 import { RecordLogo } from "@/components/view/RecordLogo";
 import { pickIconLogo } from "@/lib/utils/logo";
+import { QuickPicks } from "../QuickPicks";
 
 // Addresses are edited as one line of text; the split parts are cleared when the user rewrites it.
 const addressText = (a: Address) => a.formatted;
@@ -48,9 +49,19 @@ export function CompanyTab() {
         </div>
         <div className="mt-5 grid grid-cols-2 gap-4 border-t border-border-soft pt-5 md:grid-cols-4">
           <EditableField<number> path="company.yearFounded" label="Founded" kind="number" emptyLabel="year" validate={validYear} valueClassName="font-semibold" />
-          <EditableField path="company.legalEntityType" label="Legal entity" emptyLabel="type" placeholder="LLC, Inc…" valueClassName="font-semibold" />
-          <EditableField path="company.employeeCount" label="Employees" emptyLabel="count" placeholder="e.g. 11-50" valueClassName="font-semibold" />
-          <EditableField path="company.revenue" label="Revenue" emptyLabel="amount" placeholder="e.g. $1M-$5M" valueClassName="font-semibold" />
+          {/* Business facts: typed, or one tap on a quick pick. A scraped value shows its badge and quote. */}
+          <div>
+            <EditableField path="company.legalEntityType" label="Legal entity" emptyLabel="type" placeholder="LLC, Corporation…" valueClassName="font-semibold" alwaysBadge />
+            <QuickPicks path="company.legalEntityType" className="mt-2" />
+          </div>
+          <div>
+            <EditableField path="company.employeeCount" label="Employees" emptyLabel="count" placeholder="e.g. 11 to 50" valueClassName="font-semibold" alwaysBadge />
+            <QuickPicks path="company.employeeCount" className="mt-2" />
+          </div>
+          <div>
+            <EditableField path="company.revenue" label="Revenue" emptyLabel="amount" placeholder="e.g. $1M to $5M" valueClassName="font-semibold" alwaysBadge />
+            <QuickPicks path="company.revenue" className="mt-2" />
+          </div>
         </div>
       </Card>
 
@@ -68,7 +79,7 @@ export function CompanyTab() {
             <EditableField path="company.industry" label="Industry" emptyLabel="industry" />
             <EditableField path="company.businessModel" label="Business model" emptyLabel="model" placeholder="B2B, B2C…" />
             <EditableField path="company.companyRole" label="Company role" emptyLabel="role" placeholder="Service provider, retailer…" />
-            <EditableField path="company.legalName" label="Legal name" emptyLabel="legal name" />
+            <EditableField path="company.legalName" label="Legal name" emptyLabel="legal name" alwaysBadge />
           </div>
         </SectionCard>
 

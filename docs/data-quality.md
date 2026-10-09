@@ -38,7 +38,7 @@ Every field is in exactly one tier, in `src/lib/ai/field-tiers.ts`. A test fails
 |---|---|---|
 | **1 Read** (stated facts) | name, overview, website, year founded, founding story, main address, other locations, alternate names, emails, phones, CTAs, partners and tools, logos, colors, fonts, social links, offerings (name, price, features), testimonial quotes, FAQs, differentiators, trust signals, promotions, press, legal links | **Never overwrite.** It can fill an empty one only if the value appears word for word in the evidence (a screenshot or logo text). |
 | **2 Inferred** (obvious to a person reading the site) | industry, industry groupings, industry outlook, business model, company role, service locations, target buyers, customer needs, ideal persona, channels, funnels, content themes, positioning, community and values, seasonal messaging, writing style, art style, pitch, offering categories, the Content Kit | Suggest, only at high confidence with evidence (§1b). |
-| **3 Never guessed** | team members (all of `people`), people's names, titles and gender, testimonial authors and their companies, employee count, revenue, legal entity, legal name | **Never.** Any suggestion for these paths is dropped. They stay empty unless the site states them. In "Next to do" they say "Add it yourself", never "Fill with AI". |
+| **3 Never guessed** | team members (all of `people`), people's names, titles and gender, testimonial authors and their companies, employee count, revenue, legal entity, legal name | **Never.** Any suggestion for these paths is dropped. They stay empty unless the site states them (see 1e). In "Next to do" they say "Add it yourself" or offer quick picks, never "Fill with AI". |
 
 ## 1b. The confidence bar
 
@@ -95,6 +95,41 @@ Offerings are the most valuable data for restaurants and shops, and the easiest 
   - pages past the first 4 of a PDF
   - files robots.txt disallows
   - ordering platforms (Toast, Clover, DoorDash…). Those are recorded only as channels and never fetched.
+
+## 1e. Business facts: legal name, entity type, employees, revenue (Phase 11)
+
+These are tier 3: AI never guesses them. A wrong legal name or a made-up headcount is worse than an empty field, because it can end up in an email footer or a pitch. They come only from what the site states, or from the owner.
+
+**Where they come from, in order (first value wins):**
+
+1. **JSON-LD** (`legalName`, `numberOfEmployees`), when the site has it.
+2. **Footer copyright line:** "© 2013-2026 Apex Hosting LLC" or "Copyright 2025 Example Co, Inc."
+   - The suffix gives the entity type. The suffix map is in `src/lib/scraper/entity-suffixes.ts`: LLC → LLC; Inc / Corp → Corporation; LP / LLP → Partnership; PLLC → Professional LLC; PC → Professional corporation; Ltd → Limited company.
+   - **No suffix, no entity type.** "© 2026 by Dragon Factory" leaves it empty; we don't assume a sole proprietor.
+   - Site builder and theme names (Wix, WordPress, Squarespace, Kadence WP…) are ignored.
+3. **One legal page:** when the footer gave nothing, the crawl reads one privacy / terms page. If none made the first 15 pages, it fetches one extra; it counts as a crawled page and follows the same robots and SSRF rules.
+   - It accepts "operated by Example Co LLC" or "Example Co, LLC ("we", "us")".
+   - The name must share a word with the business name or domain. Privacy pages also name third parties ("Facebook, operated by Facebook Inc."), and those are skipped.
+4. **Employee count:** only a stated count, kept with its noun and scope:
+   - "168 HVAC & Plumbing Technicians" on the Las Vegas page → "168 technicians (Las Vegas)"
+   - "team of 200+ technicians" → "200+ technicians"
+   - A bare number ("Over 50") only when the noun is employees / staff / team members and the count isn't tied to one location.
+   - Never rounded, never turned into a range.
+5. **Revenue is never scraped and never AI.** Only the owner sets it.
+
+Every scraped value is marked Scraped. Its source is the page, and the quote it came from is kept as evidence. Business facts always show their badge, even outside Advanced view, so the owner can see where "LLC" came from.
+
+**Owner quick picks:** on the Company card, and in "Next to do" (entity type card plus an unscored "Quick facts" row for employees and revenue).
+- Entity: LLC / Corporation / Partnership / Sole proprietor / Nonprofit / Not sure
+- Employees: 1 to 10 / 11 to 50 / 51 to 200 / 201 to 500 / 500+
+- Revenue: Under $250k / $250k to $1M / $1M to $5M / $5M+ / Prefer not to say
+
+One tap stores the pick as User edited and replaces a scraped value. "Not sure" and "Prefer not to say" store nothing and mark the field Not applicable, so it stops asking. Tap again to undo.
+
+On the test sites:
+- Apex gets "Apex Hosting LLC" from its footer.
+- Goettl gets "Goettl Home Services, LLC" from its privacy page and "168 technicians (Las Vegas)" from its location page.
+- Dragon Factory and Anime Boba Cafe state no suffix or headcount, so they stay empty for the owner to fill.
 
 ## 2. Handling incomplete data
 

@@ -31,6 +31,8 @@ export interface EditableFieldProps<T> {
   display?: (value: T) => React.ReactNode;
   className?: string;
   valueClassName?: string;
+  /** Show the confidence badge outside Advanced view too (business facts: "Scraped" with its quote) */
+  alwaysBadge?: boolean;
 }
 
 export function EditableField<T = string>({
@@ -45,6 +47,7 @@ export function EditableField<T = string>({
   display,
   className,
   valueClassName,
+  alwaysBadge,
 }: EditableFieldProps<T>) {
   const f = useField<T>(path);
   const { setField, dismissValue, advanced, busy } = useKnowledge();
@@ -55,7 +58,7 @@ export function EditableField<T = string>({
   const value = f?.value ?? null;
   // AI and inferred values always show their badge and a "Wrong? Remove" button
   const badge =
-    f && f.value !== null && (advanced || isAi(f.confidence)) ? (
+    f && f.value !== null && (advanced || alwaysBadge || isAi(f.confidence)) ? (
       <AiValueTag confidence={f.confidence} source={f.source} evidence={f.evidence} onRemove={() => dismissValue(path)} disabled={busy} />
     ) : f && advanced ? (
       <AiValueTag confidence={f.confidence} source={f.source} />
