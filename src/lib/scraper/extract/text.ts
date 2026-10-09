@@ -8,15 +8,30 @@ import type { CheerioAPI } from "cheerio";
   scripts/styles. Extractors that read human text use that copy.
 */
 
-const SPACED = "p, div, li, td, th, dt, dd, h1, h2, h3, h4, h5, h6, span, a, button, label, strong, em, b, small, section, article, header, footer, blockquote, figcaption, cite";
+// Block elements end a line; inline elements just need a space so words don't glue together.
+const BLOCKS = "p, div, li, td, th, dt, dd, h1, h2, h3, h4, h5, h6, section, article, header, footer, blockquote, figcaption, address, tr";
+const INLINE = "span, a, button, label, strong, em, b, small, cite";
 
-/** A copy of the page with only visible content and spaces between elements. */
+/**
+ * A copy of the page with only visible content, spaces between inline elements and
+ * line breaks after <br> and block elements, so "street<br>city, ST 12345" stays two lines.
+ */
 export function readableDom(html: string): CheerioAPI {
   const $ = cheerio.load(html);
   $("script, style, noscript, svg, template, iframe, link, meta").remove();
-  $("br").replaceWith(" ");
-  $(SPACED).append(" ");
+  $("br").replaceWith("\n");
+  $(BLOCKS).append("\n");
+  $(INLINE).append(" ");
   return $;
+}
+
+/** The readable copy as trimmed lines, spaces collapsed within each line, blank lines dropped. */
+export function textLines($text: CheerioAPI): string[] {
+  return $text("body")
+    .text()
+    .split("\n")
+    .map((line) => line.replace(/\s+/g, " ").trim())
+    .filter(Boolean);
 }
 
 /** Element text with whitespace collapsed. */

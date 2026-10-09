@@ -90,6 +90,7 @@ Changing an environment variable needs a redeploy to take effect.
 
 ```bash
 npx tsc --noEmit   # type check
+npm test           # unit tests (Vitest)
 npm run lint
 npm run build
 ```
@@ -150,7 +151,8 @@ Everything runs server side in API routes (`src/app/api/scrape`), split into sma
 | `meta` | title, meta description, Open Graph and Twitter tags, `theme-color` |
 | `jsonld` | `ld+json`: Organization, LocalBusiness, Product, FAQPage, Review, Person |
 | `about` | overview, founding story, year founded |
-| `contact` | emails, phones, addresses, contact page |
+| `address` | US street addresses from page text (one line or split across `<br>`/block lines; units like `#105`, `Ste`, `Suite`, `Unit`), with Google/Apple Maps links and embeds as an inferred fallback. Sorted into main address and other locations. |
+| `contact` | emails, phones (preferring a location page's own number), contact page |
 | `social` | LinkedIn, Facebook, Instagram, X, YouTube, TikTok, Twitch, Discord, Pinterest |
 | `offerings` | product, service and plan cards with prices (fixed, starting at, range, subscription, quote, free) |
 | `people` | team cards (name, title, bio, photo), kept apart from testimonial authors |
@@ -171,6 +173,12 @@ Pasted text and uploaded HTML go through the same extractors (`/api/extract`).
 - **Logos:** an image with "logo" in its class, alt or src inside the header beats a JSON-LD logo, which beats an apple-touch-icon, an `og:image` or a favicon. Logos on "Partners" or "As seen on" sections are filed as partners instead.
 - **Names from images without AI:** cleaned file names and alt text give sub-brand names (`Sumo Henderson_Logo.png` → "Sumo Henderson").
 - **Fonts:** Google Fonts links weigh most; then `font-family` declarations with CSS variables resolved. Icon fonts (ETmodules, FontAwesome…), system fonts and hashed names are filtered out.
+- **Main address vs other locations:**
+  - On a location page (`/location/las-vegas`), that city's address is the main one.
+  - A page listing 3+ addresses is a branch directory: all of them go to other locations.
+  - The homepage, about, contact and locations pages can set the main address.
+  - Any other page (one restaurant of a group) adds an other location, so a group with no head office keeps the main address empty instead of guessing.
+  - A maps link holding only a place name ("Example Cafe") is never stored as an address.
 - **Year and legal entity** come from the copyright line and text patterns (`© 2013 Apex Hosting LLC`).
 
 ### Confidence levels
@@ -287,6 +295,8 @@ What it found:
 - **Story:** founding story and year (2013).
 - **Contact and brand:** a careers email, a phone number and Instagram. Wix font names were cleaned (`avenir-lt-w01_35-light1475496` → "Avenir LT"). Wix's own UI blue `#116dff` is now filtered out of the colors.
 
+**Locations:** each restaurant has its own page with one address under the opening hours. XenFlo files all 10 as **other locations**, including three suites in the same building. It leaves the main address empty, because the group's site doesn't name a head office.
+
 What it missed: offerings, people, testimonials and FAQs are empty. The menus, prices and most brand names live inside images. That's the clearest case for the vision prompt and the screenshot upload fallback.
 
 ### Goettl Air Conditioning and Plumbing (`goettl.com/location/las-vegas/`): HVAC, a typical MoFlo customer
@@ -309,6 +319,7 @@ Other results:
   - **Founding story:** mixes Goettl's 1939 founding with "Keeping Las Vegas cool since 2012".
 
   Cases like these are what the owner's review and AI cleanup are for (see [data-quality](docs/data-quality.md)).
+- **Addresses:** the main address is the Las Vegas branch (written across two lines: "6521 West Post Rd., Suite 1,<br>Las Vegas, NV 89118"). The other 5 branches listed on the page are kept as other locations.
 - **Fixed after testing: phones and alternate names.** This is a location page, and Goettl's `/locations` directory lists every branch's number. The scraper now keeps only valid phone numbers, prefers the number listed next to "Las Vegas, NV", and skips numbers next to other branches' addresses. Alt text only counts as a brand name when it names a logo, not when it describes a photo.
 
   | | Before | After |

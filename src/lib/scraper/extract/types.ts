@@ -9,6 +9,8 @@ export interface PageContext {
   $text: CheerioAPI;
   /** All visible text, whitespace collapsed */
   visibleText: string;
+  /** Visible text as lines (<br> and block elements end a line), for multi-line patterns like addresses */
+  lines: string[];
   url: string;
   category: PageCategory;
   /** The knowledge base being built; extractors write into it */

@@ -13,6 +13,8 @@
   Everything comes from the user's own words; nothing is guessed or invented.
 */
 
+import { findAddresses } from "./address";
+
 export interface TextSection {
   heading: string | null;
   lines: string[];
@@ -28,7 +30,6 @@ const TEAM_HEADING = /\b(team|staff|our people|meet (the|our)|leadership|founder
 const STORY_HEADING = /\b(our story|story|history|how we started|about us|who we are)\b/i;
 
 const PRICE = /\$\s?(\d{1,6}(?:,\d{3})*(?:\.\d{2})?)/;
-const ADDRESS = /\b\d{1,6}\s+[A-Za-z0-9 .'-]+?,\s*(?:(?:Suite|Ste\.?|Unit|Apt\.?|#)\s*[\w-]+,\s*)?[A-Za-z .'-]+,\s*[A-Z]{2}\s+\d{5}(?:-\d{4})?\b/;
 
 /** Split text into sections at blank lines; a heading-like first line names the section. */
 export function splitSections(text: string): TextSection[] {
@@ -110,8 +111,14 @@ export function textToHtml(text: string): string {
   const description = sections.find((s) => !s.heading && s.lines.length === 1 && s.lines[0].length >= 60)?.lines[0] ?? "";
 
   const graph: Record<string, unknown>[] = [];
-  const address = text.match(ADDRESS)?.[0];
-  if (address) graph.push({ "@type": "Organization", address });
+  // Same address parser as scraped pages (handles units, line breaks and a missing comma before the state)
+  const address = findAddresses(text.split(/\r?\n/))[0];
+  if (address) {
+    graph.push({
+      "@type": "Organization",
+      address: { "@type": "PostalAddress", streetAddress: address.street, addressLocality: address.city, addressRegion: address.region, postalCode: address.postalCode },
+    });
+  }
   for (const s of sections) {
     if (!s.heading) continue;
     if (FAQ_HEADING.test(s.heading)) {

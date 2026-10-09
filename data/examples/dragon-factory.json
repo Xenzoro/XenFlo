@@ -1,146 +1,277 @@
 {
-  "id": "4df07473-5bb1-418c-9332-e1e383b51b1a",
+  "id": "08e80f15-a8e2-4cbc-9473-6db55e5294d7",
   "url": "https://www.dragonfactories.com/",
   "companyName": "DRAGON FACTORY",
-  "createdAt": "2026-10-09T16:22:45.494Z",
-  "updatedAt": "2026-10-09T16:22:52.549Z",
+  "createdAt": "2026-10-09T18:09:14.545Z",
+  "updatedAt": "2026-10-09T18:09:20.667Z",
   "version": 1,
   "company": {
     "name": {
       "value": "DRAGON FACTORY",
       "source": "https://www.dragonfactories.com/",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:22:46.342Z"
+      "updatedAt": "2026-10-09T18:09:15.344Z"
     },
     "overview": {
       "value": "Dragon Factory has become a staple of All you can eat sushi, all you can eat kbbq and all you can hot pot places all across the Las Vegas. We bring new innovative experiences and combine them with the traditional styles of foods you love.",
       "source": "https://www.dragonfactories.com/",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:22:46.342Z"
+      "updatedAt": "2026-10-09T18:09:15.344Z"
     },
     "website": {
       "value": "https://www.dragonfactories.com/",
       "source": "https://dragonfactories.com/",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:22:45.494Z"
+      "updatedAt": "2026-10-09T18:09:14.545Z"
     },
     "industry": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T16:22:45.494Z"
+      "updatedAt": "2026-10-09T18:09:14.545Z"
     },
     "businessModel": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T16:22:45.494Z"
+      "updatedAt": "2026-10-09T18:09:14.545Z"
     },
     "companyRole": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T16:22:45.494Z"
+      "updatedAt": "2026-10-09T18:09:14.545Z"
     },
     "yearFounded": {
       "value": 2013,
       "source": "https://www.dragonfactories.com/",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:22:46.344Z"
+      "updatedAt": "2026-10-09T18:09:15.345Z"
     },
     "legalEntityType": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T16:22:45.494Z"
+      "updatedAt": "2026-10-09T18:09:14.545Z"
     },
     "legalName": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T16:22:45.494Z"
+      "updatedAt": "2026-10-09T18:09:14.545Z"
     },
     "employeeCount": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T16:22:45.494Z"
+      "updatedAt": "2026-10-09T18:09:14.545Z"
     },
     "revenue": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T16:22:45.494Z"
+      "updatedAt": "2026-10-09T18:09:14.545Z"
     },
     "mainAddress": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T16:22:45.494Z"
+      "updatedAt": "2026-10-09T18:09:14.545Z"
     },
-    "otherLocations": [],
+    "otherLocations": [
+      {
+        "value": {
+          "street": "7435 S Durango Dr",
+          "city": "Las Vegas",
+          "region": "NV",
+          "postalCode": "89113",
+          "country": "US",
+          "formatted": "7435 S Durango Dr, Las Vegas, NV 89113"
+        },
+        "source": "https://www.dragonfactories.com/mr-shota",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T18:09:17.230Z"
+      },
+      {
+        "value": {
+          "street": "3949 S Maryland Pkwy",
+          "city": "Las Vegas",
+          "region": "NV",
+          "postalCode": "89119",
+          "country": "US",
+          "formatted": "3949 S Maryland Pkwy, Las Vegas, NV 89119"
+        },
+        "source": "https://www.dragonfactories.com/sakana",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T18:09:17.430Z"
+      },
+      {
+        "value": {
+          "street": "5115 W Spring Mountain Rd #117",
+          "city": "Las Vegas",
+          "region": "NV",
+          "postalCode": "89146",
+          "country": "US",
+          "formatted": "5115 W Spring Mountain Rd #117, Las Vegas, NV 89146"
+        },
+        "source": "https://www.dragonfactories.com/sushi-neko-1",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T18:09:17.745Z"
+      },
+      {
+        "value": {
+          "street": "6640 N Durango Dr #180",
+          "city": "Las Vegas",
+          "region": "NV",
+          "postalCode": "89149",
+          "country": "US",
+          "formatted": "6640 N Durango Dr #180, Las Vegas, NV 89149"
+        },
+        "source": "https://www.dragonfactories.com/umami",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T18:09:18.057Z"
+      },
+      {
+        "value": {
+          "street": "5115 W Spring Mountain Rd #121",
+          "city": "Las Vegas",
+          "region": "NV",
+          "postalCode": "89146",
+          "country": "US",
+          "formatted": "5115 W Spring Mountain Rd #121, Las Vegas, NV 89146"
+        },
+        "source": "https://www.dragonfactories.com/neko-supremo",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T18:09:18.646Z"
+      },
+      {
+        "value": {
+          "street": "5030 Spring Mountain Rd",
+          "city": "Las Vegas",
+          "region": "NV",
+          "postalCode": "89146",
+          "country": "US",
+          "formatted": "5030 Spring Mountain Rd, Las Vegas, NV 89146"
+        },
+        "source": "https://www.dragonfactories.com/hwaro1",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T18:09:18.856Z"
+      },
+      {
+        "value": {
+          "street": "650 S Decatur Blvd #24-25",
+          "city": "Las Vegas",
+          "region": "NV",
+          "postalCode": "89103",
+          "country": "US",
+          "formatted": "650 S Decatur Blvd #24-25, Las Vegas, NV 89103"
+        },
+        "source": "https://www.dragonfactories.com/hwaro2",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T18:09:19.259Z"
+      },
+      {
+        "value": {
+          "street": "5416 Spring Mountain Rd #104",
+          "city": "Las Vegas",
+          "region": "NV",
+          "postalCode": "89146",
+          "country": "US",
+          "formatted": "5416 Spring Mountain Rd #104, Las Vegas, NV 89146"
+        },
+        "source": "https://www.dragonfactories.com/captain-6",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T18:09:19.595Z"
+      },
+      {
+        "value": {
+          "street": "1263 E Silverado Ranch Blvd",
+          "city": "Las Vegas",
+          "region": "NV",
+          "postalCode": "89183",
+          "country": "US",
+          "formatted": "1263 E Silverado Ranch Blvd, Las Vegas, NV 89183"
+        },
+        "source": "https://www.dragonfactories.com/kogi",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T18:09:20.152Z"
+      },
+      {
+        "value": {
+          "street": "5115 W Spring Mountain Rd #119",
+          "city": "Las Vegas",
+          "region": "NV",
+          "postalCode": "89146",
+          "country": "US",
+          "formatted": "5115 W Spring Mountain Rd #119, Las Vegas, NV 89146"
+        },
+        "source": "https://www.dragonfactories.com/neko-loco-sushi",
+        "confidence": "scraped",
+        "updatedAt": "2026-10-09T18:09:20.337Z"
+      }
+    ],
     "serviceLocations": [],
     "alternateNames": [
       {
         "value": "Neko Loco",
         "source": "https://www.dragonfactories.com/",
         "confidence": "inferred",
-        "updatedAt": "2026-10-09T16:22:46.368Z"
+        "updatedAt": "2026-10-09T18:09:15.378Z"
       },
       {
         "value": "Chojang",
         "source": "https://www.dragonfactories.com/",
         "confidence": "inferred",
-        "updatedAt": "2026-10-09T16:22:46.368Z"
+        "updatedAt": "2026-10-09T18:09:15.378Z"
       },
       {
         "value": "Sumo Hotpot",
         "source": "https://www.dragonfactories.com/",
         "confidence": "inferred",
-        "updatedAt": "2026-10-09T16:22:46.368Z"
+        "updatedAt": "2026-10-09T18:09:15.379Z"
       },
       {
         "value": "Sushi Sumo Decatur",
         "source": "https://www.dragonfactories.com/",
         "confidence": "inferred",
-        "updatedAt": "2026-10-09T16:22:46.369Z"
+        "updatedAt": "2026-10-09T18:09:15.379Z"
       },
       {
         "value": "Sumo Henderson",
         "source": "https://www.dragonfactories.com/",
         "confidence": "inferred",
-        "updatedAt": "2026-10-09T16:22:46.369Z"
+        "updatedAt": "2026-10-09T18:09:15.379Z"
       },
       {
         "value": "Omakase Sumo",
         "source": "https://www.dragonfactories.com/",
         "confidence": "inferred",
-        "updatedAt": "2026-10-09T16:22:46.369Z"
+        "updatedAt": "2026-10-09T18:09:15.379Z"
       },
       {
         "value": "Neko Hana",
         "source": "https://www.dragonfactories.com/",
         "confidence": "inferred",
-        "updatedAt": "2026-10-09T16:22:46.369Z"
+        "updatedAt": "2026-10-09T18:09:15.379Z"
       },
       {
         "value": "Umami",
         "source": "https://www.dragonfactories.com/umami",
         "confidence": "inferred",
-        "updatedAt": "2026-10-09T16:22:49.190Z"
+        "updatedAt": "2026-10-09T18:09:18.062Z"
       }
     ],
     "pitch": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T16:22:45.494Z"
+      "updatedAt": "2026-10-09T18:09:14.545Z"
     },
     "foundingStory": {
       "value": "Dragon Factory Company founded in 2013 has evolved from a cozy mom and pop shop named Sakana into a culinary powerhouse. With a foundation rooted in creativity and innovation, expanding our concept into a diverse portfolio of restaurants. Our journey from a single restaurant to a flourishing enterprise showcases our passion for food and unwavering commitment to reinventing the dining landscape.",
       "source": "https://www.dragonfactories.com/",
       "confidence": "scraped",
-      "updatedAt": "2026-10-09T16:22:46.356Z"
+      "updatedAt": "2026-10-09T18:09:15.362Z"
     }
   },
   "contact": {
@@ -149,7 +280,7 @@
         "value": "apply.dragonfactory@gmail.com",
         "source": "https://www.dragonfactories.com/apply-now",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:48.138Z"
+        "updatedAt": "2026-10-09T18:09:16.726Z"
       }
     ],
     "phones": [
@@ -157,14 +288,14 @@
         "value": "(725) 205-8505",
         "source": "https://www.dragonfactories.com/captain-6",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:51.589Z"
+        "updatedAt": "2026-10-09T18:09:19.596Z"
       }
     ],
     "contactPageUrl": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T16:22:45.494Z"
+      "updatedAt": "2026-10-09T18:09:14.545Z"
     }
   },
   "customers": {
@@ -174,14 +305,14 @@
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T16:22:45.494Z"
+      "updatedAt": "2026-10-09T18:09:14.545Z"
     },
     "industryGroupings": [],
     "industryOutlook": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T16:22:45.494Z"
+      "updatedAt": "2026-10-09T18:09:14.545Z"
     },
     "channels": [],
     "funnels": [],
@@ -193,16 +324,16 @@
         },
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:46.361Z"
+        "updatedAt": "2026-10-09T18:09:15.368Z"
       },
       {
         "value": {
           "text": "learn more",
-          "url": "https://www.dragonfactories.com/hwaro1"
+          "url": "https://www.dragonfactories.com/sakana"
         },
-        "source": "https://www.dragonfactories.com/ayce-kbbq",
+        "source": "https://www.dragonfactories.com/ayce-sushi",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:47.303Z"
+        "updatedAt": "2026-10-09T18:09:15.898Z"
       },
       {
         "value": {
@@ -211,7 +342,7 @@
         },
         "source": "https://www.dragonfactories.com/umami",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:49.188Z"
+        "updatedAt": "2026-10-09T18:09:18.060Z"
       }
     ],
     "suppliersPartners": [
@@ -222,7 +353,7 @@
         },
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:46.498Z"
+        "updatedAt": "2026-10-09T18:09:15.500Z"
       },
       {
         "value": {
@@ -231,7 +362,7 @@
         },
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:46.500Z"
+        "updatedAt": "2026-10-09T18:09:15.502Z"
       }
     ]
   },
@@ -240,32 +371,32 @@
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T16:22:45.494Z"
+      "updatedAt": "2026-10-09T18:09:14.545Z"
     },
     "artStyle": {
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T16:22:45.494Z"
+      "updatedAt": "2026-10-09T18:09:14.545Z"
     },
     "fonts": [
       {
         "value": "Avenir LT",
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:46.372Z"
+        "updatedAt": "2026-10-09T18:09:15.382Z"
       },
       {
         "value": "Barlow",
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:46.372Z"
+        "updatedAt": "2026-10-09T18:09:15.382Z"
       },
       {
         "value": "Barlow Medium",
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:46.372Z"
+        "updatedAt": "2026-10-09T18:09:15.382Z"
       }
     ],
     "colors": [
@@ -273,37 +404,37 @@
         "value": "#2b5672",
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:46.490Z"
+        "updatedAt": "2026-10-09T18:09:15.492Z"
       },
       {
         "value": "#c6a47e",
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:46.490Z"
+        "updatedAt": "2026-10-09T18:09:15.492Z"
       },
       {
         "value": "#e03939",
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:46.490Z"
+        "updatedAt": "2026-10-09T18:09:15.492Z"
       },
       {
         "value": "#e3cfb9",
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:46.490Z"
+        "updatedAt": "2026-10-09T18:09:15.492Z"
       },
       {
         "value": "#41bbb3",
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:46.490Z"
+        "updatedAt": "2026-10-09T18:09:15.492Z"
       },
       {
         "value": "#0088cb",
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:46.490Z"
+        "updatedAt": "2026-10-09T18:09:15.492Z"
       }
     ],
     "logos": [
@@ -315,7 +446,7 @@
         },
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:46.365Z"
+        "updatedAt": "2026-10-09T18:09:15.375Z"
       },
       {
         "value": {
@@ -325,7 +456,7 @@
         },
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:46.367Z"
+        "updatedAt": "2026-10-09T18:09:15.377Z"
       },
       {
         "value": {
@@ -335,7 +466,7 @@
         },
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:46.367Z"
+        "updatedAt": "2026-10-09T18:09:15.377Z"
       },
       {
         "value": {
@@ -345,7 +476,7 @@
         },
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:46.367Z"
+        "updatedAt": "2026-10-09T18:09:15.377Z"
       },
       {
         "value": {
@@ -355,7 +486,7 @@
         },
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:46.367Z"
+        "updatedAt": "2026-10-09T18:09:15.377Z"
       },
       {
         "value": {
@@ -365,7 +496,7 @@
         },
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:46.367Z"
+        "updatedAt": "2026-10-09T18:09:15.377Z"
       },
       {
         "value": {
@@ -375,7 +506,7 @@
         },
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:46.368Z"
+        "updatedAt": "2026-10-09T18:09:15.378Z"
       },
       {
         "value": {
@@ -385,7 +516,7 @@
         },
         "source": "https://www.dragonfactories.com/",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:46.368Z"
+        "updatedAt": "2026-10-09T18:09:15.378Z"
       }
     ],
     "socialLinks": [
@@ -396,7 +527,7 @@
         },
         "source": "https://www.dragonfactories.com/captain-6",
         "confidence": "scraped",
-        "updatedAt": "2026-10-09T16:22:51.589Z"
+        "updatedAt": "2026-10-09T18:09:19.596Z"
       }
     ]
   },
@@ -424,7 +555,7 @@
       "value": null,
       "source": null,
       "confidence": "missing",
-      "updatedAt": "2026-10-09T16:22:45.494Z"
+      "updatedAt": "2026-10-09T18:09:14.545Z"
     }
   },
   "completeness": {
@@ -445,9 +576,9 @@
     ]
   },
   "crawl": {
-    "startedAt": "2026-10-09T16:22:45.494Z",
-    "finishedAt": "2026-10-09T16:22:52.549Z",
-    "durationMs": 6803,
+    "startedAt": "2026-10-09T18:09:14.545Z",
+    "finishedAt": "2026-10-09T18:09:20.667Z",
+    "durationMs": 5982,
     "robotsAllowed": true,
     "pendingUrls": [
       "https://www.dragonfactories.com/chojang-house",
@@ -464,17 +595,8 @@
         "category": "home",
         "status": 200,
         "title": "DRAGON FACTORY LAS VEGAS | ALL YOU CAN EAT KBBQ | ALL YOU CAN EAT SUSHI | ALL YOU CAN EAT HOT POT",
-        "fetchedAt": "2026-10-09T16:22:46.501Z",
-        "durationMs": 331,
-        "error": null
-      },
-      {
-        "url": "https://www.dragonfactories.com/ayce-kbbq",
-        "category": "other",
-        "status": 200,
-        "title": "ALL YOU CAN EAT KBBQ | DRAGON FACTORY",
-        "fetchedAt": "2026-10-09T16:22:47.316Z",
-        "durationMs": 87,
+        "fetchedAt": "2026-10-09T18:09:15.503Z",
+        "durationMs": 226,
         "error": null
       },
       {
@@ -482,8 +604,17 @@
         "category": "other",
         "status": 200,
         "title": "ALL YOU CAN EAT SUSHI | DRAGON FACTORY",
-        "fetchedAt": "2026-10-09T16:22:47.432Z",
-        "durationMs": 185,
+        "fetchedAt": "2026-10-09T18:09:15.911Z",
+        "durationMs": 126,
+        "error": null
+      },
+      {
+        "url": "https://www.dragonfactories.com/ayce-kbbq",
+        "category": "other",
+        "status": 200,
+        "title": "ALL YOU CAN EAT KBBQ | DRAGON FACTORY",
+        "fetchedAt": "2026-10-09T18:09:16.079Z",
+        "durationMs": 304,
         "error": null
       },
       {
@@ -491,8 +622,8 @@
         "category": "other",
         "status": 200,
         "title": "ALL YOU CAN EAT HOTPOT | DRAGON FACTORY",
-        "fetchedAt": "2026-10-09T16:22:47.819Z",
-        "durationMs": 94,
+        "fetchedAt": "2026-10-09T18:09:16.462Z",
+        "durationMs": 87,
         "error": null
       },
       {
@@ -500,17 +631,8 @@
         "category": "other",
         "status": 200,
         "title": "APPLY NOW | DRAGON FACTORY",
-        "fetchedAt": "2026-10-09T16:22:48.151Z",
-        "durationMs": 255,
-        "error": null
-      },
-      {
-        "url": "https://www.dragonfactories.com/sakana",
-        "category": "other",
-        "status": 200,
-        "title": "SAKANA SUSHI | ALL YOU CAN EAT SUSHI",
-        "fetchedAt": "2026-10-09T16:22:48.622Z",
-        "durationMs": 77,
+        "fetchedAt": "2026-10-09T18:09:16.741Z",
+        "durationMs": 108,
         "error": null
       },
       {
@@ -518,8 +640,17 @@
         "category": "services",
         "status": 200,
         "title": "MR.SHOTA | ALL YOU CAN EAT SUSHI",
-        "fetchedAt": "2026-10-09T16:22:48.703Z",
-        "durationMs": 173,
+        "fetchedAt": "2026-10-09T18:09:17.242Z",
+        "durationMs": 74,
+        "error": null
+      },
+      {
+        "url": "https://www.dragonfactories.com/sakana",
+        "category": "other",
+        "status": 200,
+        "title": "SAKANA SUSHI | ALL YOU CAN EAT SUSHI",
+        "fetchedAt": "2026-10-09T18:09:17.457Z",
+        "durationMs": 214,
         "error": null
       },
       {
@@ -527,8 +658,8 @@
         "category": "other",
         "status": 200,
         "title": "SUSHI NEKO | DRAGON FACTORY",
-        "fetchedAt": "2026-10-09T16:22:49.074Z",
-        "durationMs": 85,
+        "fetchedAt": "2026-10-09T18:09:17.759Z",
+        "durationMs": 73,
         "error": null
       },
       {
@@ -536,8 +667,8 @@
         "category": "other",
         "status": 200,
         "title": "UMAMI | ALL YOU CAN EAT SUSHI",
-        "fetchedAt": "2026-10-09T16:22:49.209Z",
-        "durationMs": 122,
+        "fetchedAt": "2026-10-09T18:09:18.075Z",
+        "durationMs": 116,
         "error": null
       },
       {
@@ -545,8 +676,8 @@
         "category": "other",
         "status": 200,
         "title": "NEKO SUPREMO | DRAGON FACTORY",
-        "fetchedAt": "2026-10-09T16:22:49.737Z",
-        "durationMs": 111,
+        "fetchedAt": "2026-10-09T18:09:18.664Z",
+        "durationMs": 90,
         "error": null
       },
       {
@@ -554,8 +685,8 @@
         "category": "other",
         "status": 200,
         "title": "HWARO 1 AYCE KBBQ & SUSHI",
-        "fetchedAt": "2026-10-09T16:22:49.849Z",
-        "durationMs": 232,
+        "fetchedAt": "2026-10-09T18:09:18.891Z",
+        "durationMs": 302,
         "error": null
       },
       {
@@ -563,8 +694,8 @@
         "category": "other",
         "status": 200,
         "title": "HWARO 2 AYCE KBBQ IN LAS VEGAS",
-        "fetchedAt": "2026-10-09T16:22:50.222Z",
-        "durationMs": 92,
+        "fetchedAt": "2026-10-09T18:09:19.277Z",
+        "durationMs": 137,
         "error": null
       },
       {
@@ -572,8 +703,8 @@
         "category": "other",
         "status": 200,
         "title": "CAPTAIN 6 | DRAGON FACTORY",
-        "fetchedAt": "2026-10-09T16:22:51.624Z",
-        "durationMs": 1243,
+        "fetchedAt": "2026-10-09T18:09:19.634Z",
+        "durationMs": 123,
         "error": null
       },
       {
@@ -581,8 +712,8 @@
         "category": "other",
         "status": 200,
         "title": "KOGI | DRAGON FACTORY",
-        "fetchedAt": "2026-10-09T16:22:52.157Z",
-        "durationMs": 158,
+        "fetchedAt": "2026-10-09T18:09:20.170Z",
+        "durationMs": 86,
         "error": null
       },
       {
@@ -590,139 +721,139 @@
         "category": "other",
         "status": 200,
         "title": "NEKO LOCO SUSHI | DRAGON FACTORY",
-        "fetchedAt": "2026-10-09T16:22:52.249Z",
-        "durationMs": 238,
+        "fetchedAt": "2026-10-09T18:09:20.367Z",
+        "durationMs": 237,
         "error": null
       }
     ],
     "log": [
       {
-        "at": "2026-10-09T16:22:45.494Z",
+        "at": "2026-10-09T18:09:14.545Z",
         "level": "info",
         "message": "Checking robots.txt"
       },
       {
-        "at": "2026-10-09T16:22:45.746Z",
+        "at": "2026-10-09T18:09:14.685Z",
         "level": "info",
         "message": "Fetching homepage https://dragonfactories.com/"
       },
       {
-        "at": "2026-10-09T16:22:46.077Z",
+        "at": "2026-10-09T18:09:14.911Z",
         "level": "info",
         "message": "Reading styles for fonts and colors"
       },
       {
-        "at": "2026-10-09T16:22:46.501Z",
+        "at": "2026-10-09T18:09:15.503Z",
         "level": "info",
         "message": "Discovering pages"
       },
       {
-        "at": "2026-10-09T16:22:47.143Z",
+        "at": "2026-10-09T18:09:15.611Z",
         "level": "info",
         "message": "Found 21 linked pages and 22 sitemap entries"
       },
       {
-        "at": "2026-10-09T16:22:47.144Z",
+        "at": "2026-10-09T18:09:15.611Z",
         "level": "info",
         "message": "Crawling 0 priority pages"
       },
       {
-        "at": "2026-10-09T16:22:47.144Z",
+        "at": "2026-10-09T18:09:15.612Z",
         "level": "info",
         "message": "Checking other pages for missing info"
       },
       {
-        "at": "2026-10-09T16:22:47.144Z",
+        "at": "2026-10-09T18:09:15.612Z",
         "level": "info",
         "message": "Crawling 2 of 15: /ayce-kbbq"
       },
       {
-        "at": "2026-10-09T16:22:47.144Z",
+        "at": "2026-10-09T18:09:15.612Z",
         "level": "info",
         "message": "Crawling 3 of 15: /ayce-sushi"
       },
       {
-        "at": "2026-10-09T16:22:47.618Z",
+        "at": "2026-10-09T18:09:16.212Z",
         "level": "info",
         "message": "Crawling 4 of 15: /ayce-hotpot"
       },
       {
-        "at": "2026-10-09T16:22:47.820Z",
+        "at": "2026-10-09T18:09:16.463Z",
         "level": "info",
         "message": "Crawling 5 of 15: /apply-now"
       },
       {
-        "at": "2026-10-09T16:22:48.452Z",
+        "at": "2026-10-09T18:09:17.042Z",
         "level": "info",
         "message": "Looking for: targetBuyers, offerings"
       },
       {
-        "at": "2026-10-09T16:22:48.452Z",
+        "at": "2026-10-09T18:09:17.042Z",
         "level": "info",
         "message": "Crawling 6 of 15: /mr-shota"
       },
       {
-        "at": "2026-10-09T16:22:48.453Z",
+        "at": "2026-10-09T18:09:17.043Z",
         "level": "info",
         "message": "Crawling 7 of 15: /sakana"
       },
       {
-        "at": "2026-10-09T16:22:48.922Z",
+        "at": "2026-10-09T18:09:17.542Z",
         "level": "info",
         "message": "Crawling 8 of 15: /sushi-neko-1"
       },
       {
-        "at": "2026-10-09T16:22:49.004Z",
+        "at": "2026-10-09T18:09:17.759Z",
         "level": "info",
         "message": "Crawling 9 of 15: /umami"
       },
       {
-        "at": "2026-10-09T16:22:49.509Z",
+        "at": "2026-10-09T18:09:18.376Z",
         "level": "info",
         "message": "Checking other pages for missing info"
       },
       {
-        "at": "2026-10-09T16:22:49.509Z",
+        "at": "2026-10-09T18:09:18.376Z",
         "level": "info",
         "message": "Crawling 10 of 15: /neko-supremo"
       },
       {
-        "at": "2026-10-09T16:22:49.510Z",
+        "at": "2026-10-09T18:09:18.376Z",
         "level": "info",
         "message": "Crawling 11 of 15: /hwaro1"
       },
       {
-        "at": "2026-10-09T16:22:50.039Z",
+        "at": "2026-10-09T18:09:18.965Z",
         "level": "info",
         "message": "Crawling 12 of 15: /hwaro2"
       },
       {
-        "at": "2026-10-09T16:22:50.223Z",
+        "at": "2026-10-09T18:09:19.286Z",
         "level": "info",
         "message": "Crawling 13 of 15: /captain-6"
       },
       {
-        "at": "2026-10-09T16:22:51.925Z",
+        "at": "2026-10-09T18:09:19.936Z",
         "level": "info",
         "message": "Checking other pages for missing info"
       },
       {
-        "at": "2026-10-09T16:22:51.925Z",
+        "at": "2026-10-09T18:09:19.936Z",
         "level": "info",
         "message": "Crawling 14 of 15: /kogi"
       },
       {
-        "at": "2026-10-09T16:22:51.926Z",
+        "at": "2026-10-09T18:09:19.937Z",
         "level": "info",
         "message": "Crawling 15 of 15: /neko-loco-sushi"
       },
       {
-        "at": "2026-10-09T16:22:52.549Z",
+        "at": "2026-10-09T18:09:20.667Z",
         "level": "info",
         "message": "Extracting and scoring"
       },
       {
-        "at": "2026-10-09T16:22:52.549Z",
+        "at": "2026-10-09T18:09:20.667Z",
         "level": "info",
         "message": "Done: 15 pages total, 7 more available, completeness 51"
       }

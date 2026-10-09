@@ -2,9 +2,10 @@ import * as cheerio from "cheerio";
 import type { CheerioAPI } from "cheerio";
 import type { KnowledgeBase, PageCategory } from "@/types/knowledge";
 import type { PageContext } from "./types";
-import { readableDom } from "./text";
+import { readableDom, textLines } from "./text";
 import { extractMeta } from "./meta";
 import { extractJsonLd } from "./jsonld";
+import { extractAddresses } from "./address";
 import { extractSocial } from "./social";
 import { extractContact } from "./contact";
 import { extractAbout } from "./about";
@@ -38,10 +39,11 @@ export function extractPage(
   const $ = cheerio.load(html);
   const $text = readableDom(html);
   const visibleText = $text("body").text().replace(/\s+/g, " ").trim();
-  const ctx: PageContext = { $, $text, visibleText, url, category, kb, css };
+  const ctx: PageContext = { $, $text, visibleText, lines: textLines($text), url, category, kb, css };
 
   // Structured data first: it's the most trustworthy, and "first value wins".
   extractJsonLd(ctx);
+  extractAddresses(ctx); // after JSON-LD, so a structured address wins
   const { title } = extractMeta(ctx);
   extractSocial(ctx);
   extractContact(ctx);
