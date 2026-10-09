@@ -92,7 +92,17 @@ export interface Offering {
   /** Set when the category came from AI or a heuristic (the rest of the offering was read from the site) */
   categoryConfidence?: Confidence;
   categoryEvidence?: string[];
+  /** Brand or location this item belongs to on a multi-brand site, e.g. "Sakana Sushi" (Phase 10) */
+  group?: string | null;
+  /** Address of that brand's location, linked from the page the menu was found on */
+  location?: string | null;
+  /** What it was read from: a web page, a menu PDF, a menu image, or something the owner uploaded */
+  sourceKind?: OfferingSourceKind;
+  /** The page that linked the menu PDF or image (Field.source holds the PDF or image itself) */
+  foundOn?: string | null;
 }
+
+export type OfferingSourceKind = "page" | "pdf" | "image" | "upload";
 
 export interface Testimonial {
   quote: string;
@@ -228,6 +238,7 @@ export type PageCategory =
   | "careers"
   | "blog"
   | "legal"
+  | "menu"
   | "other";
 
 export interface CrawledPage {
@@ -246,6 +257,36 @@ export interface CrawledPage {
   imageAlts?: string[];
 }
 
+/**
+ * A menu or price list the crawl found outside plain HTML (Phase 10).
+ * found: not read yet. read: text read by the scraper. no_text: a picture-only PDF (needs AI to read).
+ * messy: text found but too jumbled for the heuristics (AI can structure it). read_ai: read by AI.
+ * too_large / blocked / failed: not readable, shown to the owner with the link.
+ */
+export type MenuSourceStatus = "found" | "read" | "no_text" | "messy" | "read_ai" | "too_large" | "blocked" | "failed";
+
+export interface MenuSource {
+  url: string;
+  kind: "pdf" | "image";
+  /** Page that links or shows it */
+  foundOn: string;
+  /** Link text or alt text ("menu", "Drinks") */
+  label: string | null;
+  /** Brand or location the page is about, when it's about one */
+  group: string | null;
+  status: MenuSourceStatus;
+  /** Items read from it so far */
+  items: number;
+  bytes?: number | null;
+  pages?: number | null;
+  /** Images: width x height, used to read the biggest first */
+  area?: number | null;
+  /** messy PDFs only: the text (trimmed), so AI can structure it later without downloading again */
+  text?: string | null;
+  /** Why it wasn't read, in plain words */
+  note?: string | null;
+}
+
 export interface CrawlLogEntry {
   at: string;
   level: "info" | "warn" | "error";
@@ -261,6 +302,8 @@ export interface CrawlInfo {
   pendingUrls: string[];
   pages: CrawledPage[];
   log: CrawlLogEntry[];
+  /** Menus and price lists in PDFs and images (absent on records scraped before Phase 10) */
+  menuSources?: MenuSource[];
 }
 
 export interface Completeness {

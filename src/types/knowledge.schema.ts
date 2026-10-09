@@ -80,6 +80,11 @@ export const offeringSchema = z.object({
   currency: nstr,
   categoryConfidence: confidenceSchema.optional(),
   categoryEvidence: z.array(str).optional(),
+  // Added in Phase 10; optional so records saved earlier still validate
+  group: nstr.optional(),
+  location: nstr.optional(),
+  sourceKind: z.enum(["page", "pdf", "image", "upload"]).optional(),
+  foundOn: nstr.optional(),
 });
 
 export const testimonialSchema = z.object({
@@ -195,8 +200,24 @@ export const pageCategorySchema = z.enum([
   "careers",
   "blog",
   "legal",
+  "menu",
   "other",
 ]);
+
+export const menuSourceSchema = z.object({
+  url: str,
+  kind: z.enum(["pdf", "image"]),
+  foundOn: str,
+  label: nstr,
+  group: nstr,
+  status: z.enum(["found", "read", "no_text", "messy", "read_ai", "too_large", "blocked", "failed"]),
+  items: z.number().int().min(0),
+  bytes: z.number().nullable().optional(),
+  pages: z.number().int().nullable().optional(),
+  area: z.number().nullable().optional(),
+  text: nstr.optional(),
+  note: nstr.optional(),
+});
 
 export const crawlInfoSchema = z.object({
   startedAt: str,
@@ -225,6 +246,7 @@ export const crawlInfoSchema = z.object({
       message: str,
     }),
   ),
+  menuSources: z.array(menuSourceSchema).optional(),
 });
 
 export const knowledgeBaseSchema = z.object({
