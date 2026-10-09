@@ -6,7 +6,7 @@ Versioned prompts for XenFlo's AI enrichment. Each file is one prompt; a change 
 - **Loading.** `src/lib/ai/prompts.ts` reads these files at runtime and keeps each one up to its `## Example` heading.
 - **Text call.** [understand-business.v1](understand-business.v1.md) is the single text prompt (since Phase 9). It reads page evidence and returns every tier 2 field with confidence, evidence and reason. The earlier company-pitch, writing-style, ideal-persona and content-kit prompts were merged into it; they stay here as reference for how each field was first specified.
 - **Vision call.** `logo-vision` drives a separate call for images.
-- **Menus (Phase 10).** [menu-reader.v1](menu-reader.v1.md) runs from its own **Read menus with AI** button (`src/lib/ai/read-menus.ts`, `/api/menus`), one call per menu, cached per menu.
+- **Menus (Phase 10).** [menu-reader.v2](menu-reader.v2.md) runs from its own **Read menus with AI** button (`src/lib/ai/read-menus.ts`, `/api/menus`), one call per menu, cached per menu.
 - **Validation.** The output schema is enforced with OpenAI structured outputs and re-checked with Zod (`src/lib/ai/schemas.ts`).
 - **Fallback.** With no key, no passcode, the daily cap reached, or any failure, the app returns labeled preview suggestions instead.
 - **Caching.** Editing a prompt file changes the cache key, so old cached answers aren't reused.
@@ -18,7 +18,8 @@ Versioned prompts for XenFlo's AI enrichment. Each file is one prompt; a change 
 | [writing-style.v1.md](writing-style.v1.md) | `brand.writingStyle`, `contentKit.voiceGuide` (merged) | reference |
 | [ideal-persona.v1.md](ideal-persona.v1.md) | `customers.idealPersona`, `customers.customerNeeds`, `customers.targetBuyers` (merged) | reference |
 | [content-kit.v1.md](content-kit.v1.md) | `contentKit.contentPillars`, `socialHooks`, `hashtags`, `emailSubjects`, `blogIdeas` (merged) | reference |
-| [menu-reader.v1.md](menu-reader.v1.md) | `offerings` (name, description, price as printed, section), from picture menus and jumbled PDF text | vision |
+| [menu-reader.v2.md](menu-reader.v2.md) | **in use:** `offerings` (name, description, price as printed, section), from picture menus and jumbled PDF text; headline packages and tiers with a price count as items | vision |
+| [menu-reader.v1.md](menu-reader.v1.md) | first version; its cached answers are still used until a menu is read again | reference |
 | [logo-vision.v1.md](logo-vision.v1.md) | `brand.artStyle`, `company.alternateNames` (from logos only), screenshot facts | vision |
 
 ## Rules shared by every prompt

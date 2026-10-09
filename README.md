@@ -186,11 +186,28 @@ For restaurants and shops, the offerings usually live in PDFs and images, not HT
    - **Text:** [unpdf](https://github.com/unjs/unpdf), a serverless build of Mozilla's pdf.js (pure JavaScript, no native binaries, so it runs in Vercel functions), pulls out the text, and `parse.ts` turns clear priced lists into items.
    - **What's left:** picture-only PDFs are marked for AI. PDFs with jumbled text are kept, trimmed, for AI to sort.
    - **Locations:** each item is linked to the address found on the same page (`/sakana` → 3949 S Maryland Pkwy).
-3. **Read with AI on request** ("Read menus with AI", `/api/menus`, [menu-reader.v1](prompts/menu-reader.v1.md)):
+3. **Read with AI on request** ("Read menus with AI", `/api/menus`, [menu-reader.v2](prompts/menu-reader.v2.md)):
    - **Per run:** up to **8 pages or images** at high detail (a 2-page PDF counts as 2), plus up to 4 jumbled-text menus. Restaurant pages come before hub pages, then smaller files first.
    - **Speed:** menus are read in parallel, and nothing new starts after 40 s.
    - **Cost:** about $0.01 per page on gpt-5.4-mini, so at most about $0.09 per run.
    - **Cache:** each menu is cached on its own, so a second run is free for menus already read and moves on to the rest.
+
+**One brand per menu, one copy per item** (`menus/organize.ts`, `menus/brands.ts`), run after the scrape and whenever menus are read:
+- **Brand names** come from each restaurant's page title, cleaned ("HWARO 2 AYCE KBBQ IN LAS VEGAS" → "Hwaro 2"). A title that is a known brand plus format words is snapped to the brand: "Neko Hana Omakase" → "Neko Hana", the logo shown on that page.
+- **A menu with no brand** (linked only from a hub page) gets one in this order:
+  1. its file name (`Content-Disposition` or Wix `dn=`) or link text equals one brand's **full** name ("nabemenu (2).pdf" → Nabe)
+  2. most of its items (60%+) are already on one brand's menu
+  3. otherwise it's named after itself ("All You Can Eat Hotpot Menu (PDF)"). Never an unnamed bucket.
+- **Full names only:** brands are never matched by part of a name. Neko, Neko Supremo, Neko Loco and Neko Hana are four restaurants.
+- **Text copies:** a text copy of a menu that AI already read from its picture is skipped. Items found only in the copy are kept, and the kept items cite both files.
+- **Duplicates:** within a brand, an item listed twice is kept once (the priced and described version), citing both menus.
+- **Every brand appears** in the menu view, even without a menu: "Menu not read yet" (with the link) or "No menu found online". The brand list comes from brand pages, menu groups, and brand names read from the homepage logo grid by the vision call (Enrich with AI).
+
+**Review before use.** Menu items read by AI start as unreviewed:
+- **Banner:** the menu view shows "Menus read by AI. Please review." with "X of Y menus reviewed". It can't be dismissed until every menu is reviewed.
+- **Mark as reviewed:** each brand has this button. It turns that brand's AI items into the owner's (badge **Reviewed**, with a timestamp). Editing an item also counts.
+- **Prices stay out of AI writing until reviewed:** unreviewed AI prices are flagged "needs review" on the Overview and are left out of every AI prompt.
+- **Read again with AI:** re-reads one brand's menu with the current prompt and replaces its earlier reading (the owner's edits stay).
 
 **Prices are never invented.**
 - **Heuristics:** a price comes only from the item's own lines. "STEP 2" or "Table 4" is not a price, and "Market price" keeps no amount.
@@ -264,7 +281,7 @@ Complete example outputs from real scrapes: **[data/examples/](data/examples/)**
 
 The earlier pitch, writing-style, ideal-persona and content-kit prompts were merged into understand-business; they stay in `prompts/` as reference.
 
-**Read menus with AI** is a separate button and route (`/api/menus`, [menu-reader.v1](prompts/menu-reader.v1.md)), so Enrich with AI stays text + vision only and fast. It uses the same passcode, cache and daily quota (one unit per run) and the same confidence rules. Read items are added directly with their AI badge and evidence instead of going through the review list. See [menus](#menus-and-price-lists).
+**Read menus with AI** is a separate button and route (`/api/menus`, [menu-reader.v2](prompts/menu-reader.v2.md)), so Enrich with AI stays text + vision only and fast. It uses the same passcode, cache and daily quota (one unit per run) and the same confidence rules. Read items are added directly with their AI badge and evidence instead of going through the review list. See [menus](#menus-and-price-lists).
 
 **Three tiers** (`src/lib/ai/field-tiers.ts`, enforced in code):
 - **Read facts** (contacts, addresses, CTAs, logos, colors…) are never overwritten.
@@ -363,6 +380,12 @@ What it found:
 - **Found:** every restaurant page links a `menu` PDF (Wix `/_files/ugd/*.pdf`, which redirects to `filesusr.com`), for 22 distinct PDFs across the restaurant and hub pages. The default 15-page crawl finds 15 of them. Umami's `umami.menu11.com` ordering link is recorded as a channel.
 - **Without AI:** only 1 of the 21 PDFs tested has a text layer: the all-you-can-eat hot pot menu, an unpriced list that the heuristics mark for AI sorting. The rest are pictures saved as PDFs (Canva and Illustrator exports with outlined text). Kogi (34 MB), Hwaro 1 (43 MB), Captain 6 (70 MB) and one hub PDF (32 MB) are over the 20 MB cap and are listed with a link and an "upload a screenshot" hint.
 - **Result:** with no AI the Offerings tab honestly shows 0 items plus a "Menus not read yet" list. "Read menus with AI" reads them 8 pages at a time.
+
+**After reading 5 menus with AI** (live run, then the organize fixes, re-checked from the cache at no cost):
+- **Before:** an ungrouped bucket of 56 items, with names taken from page titles: (none) 56, Sumo Sushi All You Can Eat 139, Nabe Ayce Hot Pot 97, Hwaro 2 Ayce Kbbq In Las Vegas 92, Neko Hana Omakase 32. 416 items in all.
+- **After:** Sumo Sushi 139, Nabe 100, Hwaro 2 92, Neko Hana 32. 363 items, nothing ungrouped.
+- **Why it changed:** the 56 items came from a text copy of Nabe's menu, linked only from the "All you can eat hot pot" hub page. Its file is named `nabemenu (2).pdf`, and 53 of its 56 items match Nabe's picture menu. The copy is skipped, and its 3 extra items (Premium Short Rib, Premium Ribeye, Addicting Cucumber Salad) were added to Nabe.
+- **Every restaurant is listed:** the other 12 show "Menu not read yet" or "Menu too large to read", with links.
 
 What it still misses: people, testimonials and FAQs. They aren't on the site.
 
