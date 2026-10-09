@@ -10,6 +10,7 @@ import { scoreCompleteness } from "./score";
 import { collectCss } from "./styles";
 import { addToPool, crawlForMissing, crawlPages, linkFromUrl, outOfTime, pageRecord, type CrawlSession } from "./crawl";
 import { cleanUrl, isSameDomain, normalizeUrl, pageKey } from "./url";
+import { readMenus } from "./menus";
 
 export { ScrapeError } from "./errors";
 
@@ -102,6 +103,8 @@ export async function scrapeSite(input: string, options: ScrapeOptions = {}): Pr
 
   // Adaptive pages: only those likely to fill fields that are still empty.
   await crawlForMissing(session, maxPages);
+  // Menu PDFs found on the way (has its own time budget)
+  await readMenus(session);
 
   return finish(session, () => {
     const nothingFound =
@@ -151,6 +154,7 @@ export async function digDeeper(previous: KnowledgeBase, options: ScrapeOptions 
     log("Crawling the best remaining pages");
     await crawlPages(session, pickCrawlOrder([...session.pool.values()].sort((a, b) => b.score - a.score), session.visited), maxPages);
   }
+  await readMenus(session);
   return finish(session);
 }
 
