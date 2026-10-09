@@ -26,6 +26,8 @@ export const FIELD_LABELS: Record<string, { name: string; todo: string }> = {
   "insights.testimonials": { name: "Testimonials", todo: "Add a customer testimonial" },
   "insights.faqs": { name: "FAQs", todo: "Add a frequently asked question" },
   "insights.trustSignals": { name: "Trust signals", todo: "Add an award, certification or rating" },
+  // Not scored, but screenshots can be marked as holding them
+  "brand.artStyle": { name: "Art style", todo: "Describe your art style" },
 };
 
 export function fieldName(path: string): string {

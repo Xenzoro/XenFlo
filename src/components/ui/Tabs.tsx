@@ -14,10 +14,23 @@ export interface TabItem<K extends string> {
  * Pill tabs. The blue background slides between tabs (shared layoutId).
  * Scrolls sideways on narrow screens instead of wrapping.
  */
-export function Tabs<K extends string>({ items, active, onChange }: { items: TabItem<K>[]; active: K; onChange: (key: K) => void }) {
+export function Tabs<K extends string>({
+  items,
+  active,
+  onChange,
+  layoutId = "tab-pill",
+  label,
+}: {
+  items: TabItem<K>[];
+  active: K;
+  onChange: (key: K) => void;
+  /** Give each Tabs on screen its own id, or the sliding pill jumps between them */
+  layoutId?: string;
+  label?: string;
+}) {
   return (
     <div className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0">
-      <div role="tablist" className="inline-flex gap-1 rounded-full border border-border bg-card p-1 shadow-card">
+      <div role="tablist" aria-label={label} className="inline-flex gap-1 rounded-full border border-border bg-card p-1 shadow-card">
         {items.map((tab) => (
           <button
             key={tab.key}
@@ -32,7 +45,7 @@ export function Tabs<K extends string>({ items, active, onChange }: { items: Tab
             )}
           >
             {active === tab.key && (
-              <motion.span layoutId="tab-pill" className="absolute inset-0 rounded-full bg-primary" transition={{ type: "spring", stiffness: 400, damping: 34 }} />
+              <motion.span layoutId={layoutId} className="absolute inset-0 rounded-full bg-primary" transition={{ type: "spring", stiffness: 400, damping: 34 }} />
             )}
             <span className="relative">{tab.label}</span>
             {tab.hint && <span className="relative ml-1 text-[10px] opacity-70">{tab.hint}</span>}

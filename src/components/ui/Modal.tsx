@@ -15,12 +15,15 @@ export function Modal({
   onClose,
   busy,
   labelledBy,
+  wide,
   children,
 }: {
   open: boolean;
   onClose: () => void;
   busy?: boolean;
   labelledBy?: string;
+  /** Wider panel for forms (e.g. Add info yourself) */
+  wide?: boolean;
   children: React.ReactNode;
 }) {
   useEffect(() => {
@@ -49,7 +52,7 @@ export function Modal({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 12 }}
             transition={{ type: "spring", stiffness: 380, damping: 30 }}
-            className="w-full max-w-md rounded-3xl bg-card p-6 shadow-xl"
+            className={`max-h-[calc(100dvh-2rem)] w-full overflow-y-auto rounded-3xl bg-card p-6 shadow-xl ${wide ? "max-w-2xl" : "max-w-md"}`}
           >
             {children}
           </motion.div>

@@ -101,7 +101,7 @@ Supabase: companies, knowledge_bases (versioned), knowledge_versions or JSONB sn
 - Hero card at top of the Company tab with company name and quick stats; two column section cards with uppercase title and small gray subtitle
 - Empty states: "+ year", "+ count", dashed "+ Add" pills; edit inline
 - Gauge rings for scores
-- Footer note: "Flo uses your Knowledge to create content that sounds like you. The more you add, the better your content gets."
+- Footer note: "Everything here powers Flo. The more complete your knowledge, the more your content sounds like you."
 - Animations (Framer Motion): staggered dropdown items (each item slides down and fades in ~40ms after the previous), modals fade and float in, first visit spotlight tour that dims the page and moves a blue glowing highlight smoothly between elements (scrape bar, tabs, health gauge, save)
 - Responsive down to phone width
 

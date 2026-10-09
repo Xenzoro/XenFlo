@@ -4,11 +4,13 @@
   The results area: header (name, health, Advanced toggle, Save), crawl summary,
   tabs and the active tab. Used by /knowledge after a scrape and by the Detailed view.
 */
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ADVANCED_TABS, useKnowledge, type TabKey } from "@/context/KnowledgeContext";
 import { Tabs, type TabItem } from "@/components/ui/Tabs";
 import { CrawlSummary } from "./CrawlSummary";
+import { AddInfoModal } from "./fallback/AddInfoModal";
+import { LowScoreBanner } from "./fallback/LowScoreBanner";
 import { ResultsHeader } from "./ResultsHeader";
 import { BrandTab } from "./tabs/BrandTab";
 import { CompanyTab } from "./tabs/CompanyTab";
@@ -42,13 +44,17 @@ export function KnowledgeResults({
   saving,
   onDigDeeper,
   digging,
+  onNotify,
 }: {
   onSave: () => void;
   saving: boolean;
   onDigDeeper: () => void;
   digging: boolean;
+  /** Report "Add info yourself" results (shown as a toast by the page) */
+  onNotify: (message: string) => void;
 }) {
   const { kb, advanced, tab, setTab } = useKnowledge();
+  const [addingInfo, setAddingInfo] = useState(false);
 
   // Turning Advanced view off while on an advanced tab falls back to Overview
   useEffect(() => {
@@ -61,6 +67,8 @@ export function KnowledgeResults({
     <div className="space-y-4">
       <ResultsHeader onSave={onSave} saving={saving} />
       {kb.crawl.pages.length > 0 && <CrawlSummary kb={kb} />}
+      <LowScoreBanner onDigDeeper={onDigDeeper} digging={digging} onAddInfo={() => setAddingInfo(true)} />
+      <AddInfoModal open={addingInfo} onClose={() => setAddingInfo(false)} onDone={onNotify} />
       <div data-tour="tabs">
         <Tabs items={advanced ? [...BASIC_TABS, ...POWER_TABS] : BASIC_TABS} active={tab} onChange={setTab} />
       </div>

@@ -15,7 +15,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Card, SectionLabel } from "@/components/ui/Card";
 import { Gauge } from "@/components/ui/Gauge";
-import { FIELD_LABELS } from "../fieldLabels";
+import { FIELD_LABELS, fieldName } from "../fieldLabels";
 
 function healthLabel(score: number) {
   if (score >= 80) return { text: "Great", note: "Flo has plenty to work with." };
@@ -34,6 +34,8 @@ export function OverviewTab() {
     .sort((a, b) => b.weight - a.weight)
     .slice(0, 4);
   const preview = mockContentPreview(kb);
+  // Screenshots marked as holding info that only vision AI can read
+  const waiting = [...new Set((kb.uploads ?? []).flatMap((u) => u.needsAiFields))];
 
   const stats = [
     { label: "Pages read", value: kb.crawl.pages.length },
@@ -88,6 +90,14 @@ export function OverviewTab() {
           </div>
         )}
       </Card>
+
+      {waiting.length > 0 && (
+        <Card className="flex flex-wrap items-center gap-2 border-dashed p-4 text-sm lg:col-span-3">
+          <Badge tone="purple">Waiting for AI</Badge>
+          <span className="text-muted">Your screenshots should fill:</span>
+          <span className="font-medium">{waiting.map(fieldName).join(", ")}</span>
+        </Card>
+      )}
 
       {/* Content Kit preview */}
       <Card className="p-6 lg:col-span-3">

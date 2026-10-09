@@ -97,7 +97,13 @@ function DetailedEditor({ onSaved }: { onSaved: () => void }) {
   const actions = useKnowledgeActions({ onSaved });
   return (
     <>
-      <KnowledgeResults onSave={actions.save} saving={actions.saving} onDigDeeper={actions.dig} digging={actions.digging} />
+      <KnowledgeResults
+        onSave={actions.save}
+        saving={actions.saving}
+        onDigDeeper={actions.dig}
+        digging={actions.digging}
+        onNotify={(text) => actions.setToast({ tone: "success", title: "Added your info", text })}
+      />
       <Toast toast={actions.toast} onClose={actions.closeToast} />
     </>
   );

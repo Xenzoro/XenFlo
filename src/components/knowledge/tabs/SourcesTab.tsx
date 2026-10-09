@@ -10,8 +10,16 @@ import { SCORE_CHECKS } from "@/lib/scraper/score";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { SectionCard } from "@/components/ui/Card";
+import { formatDateTime } from "@/lib/utils/time";
 import { CrawlLog } from "../CrawlLog";
+import { UploadsList } from "../fallback/UploadsList";
 import { fieldName } from "../fieldLabels";
+
+const CONSENT_METHOD = {
+  checkbox_upload: "ticked the permission box before uploading files",
+  checkbox_paste: "ticked the permission box before pasting content",
+  checkbox_scrape: "ticked the permission box to continue a scrape that robots.txt restricts",
+} as const;
 
 // Matches HARD_MAX_PAGES in src/lib/scraper/index.ts (not imported: that module pulls in server-only code)
 const HARD_MAX_PAGES = 30;
@@ -88,13 +96,17 @@ export function SourcesTab({ onDigDeeper, digging }: { onDigDeeper: () => void; 
         <CrawlLog log={kb.crawl.log} className="max-h-96" />
       </SectionCard>
 
-      <SectionCard title="Upload consent" subtitle="Records of permission to use uploaded content" className="lg:col-span-2">
+      <SectionCard title="Uploads" subtitle="Content you pasted or uploaded instead of scraping">
+        <UploadsList uploads={kb.uploads ?? []} />
+      </SectionCard>
+
+      <SectionCard title="Permission" subtitle="Record of the owner's permission to use this content">
         {kb.consent ? (
           <p className="text-sm">
-            Confirmed on {new Date(kb.consent.timestamp).toLocaleString()} via {kb.consent.method.replace("_", " ")}.
+            <span className="font-medium">Confirmed</span> on {formatDateTime(kb.consent.timestamp)}: {CONSENT_METHOD[kb.consent.method]}. Saved with the knowledge base.
           </p>
         ) : (
-          <p className="text-sm text-muted">No uploads yet, so no consent record.</p>
+          <p className="text-sm text-muted">No permission record needed yet (nothing uploaded, and robots.txt allowed the scrape).</p>
         )}
       </SectionCard>
     </div>

@@ -11,10 +11,14 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
 import { useKnowledge } from "@/context/KnowledgeContext";
 import { getKnowledge, scrapeUrl, type ApiError } from "@/lib/api/client";
+import { BLOCKED_CODES } from "@/lib/api/messages";
+import { emptyKnowledgeBase } from "@/lib/utils/knowledge";
 import { Card, SectionLabel } from "@/components/ui/Card";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { Toast } from "@/components/ui/Toast";
 import { FooterNote } from "./FooterNote";
+import { BlockedPanel } from "./fallback/BlockedPanel";
+import type { UploadResult } from "./fallback/UploadPanel";
 import { KnowledgeResults } from "./KnowledgeResults";
 import { ScrapeBar } from "./ScrapeBar";
 import { ScrapeErrorCard } from "./ScrapeErrorCard";
@@ -51,12 +55,12 @@ export function KnowledgeWorkspace() {
     });
   }, [openId, markSaved, setTab]);
 
-  async function scrape(target: string) {
-    if (dirty && !window.confirm("Start a new scrape? Your unsaved changes will be lost.")) return;
+  async function scrape(target: string, opts: { ownerConsent?: boolean } = {}) {
+    if (dirty && !opts.ownerConsent && !window.confirm("Start a new scrape? Your unsaved changes will be lost.")) return;
     setUrl(target);
     setStatus("loading");
     setError(null);
-    const res = await scrapeUrl(target);
+    const res = await scrapeUrl(target, opts);
     if (res.error) {
       setError(res.error);
       setStatus("error");
@@ -67,7 +71,25 @@ export function KnowledgeWorkspace() {
     setStatus("done");
   }
 
+  /** Content pasted or uploaded from the blocked screen becomes the knowledge base. */
+  function handleUploaded(result: UploadResult) {
+    loadKb(result.knowledgeBase);
+    setTab("overview");
+    setStatus("done");
+    actions.setToast({ tone: "success", title: "Knowledge base started", text: result.message });
+  }
+
+  /** "Add info manually": an empty knowledge base for this site, opened on the Company tab. */
+  function startManual() {
+    const blank = emptyKnowledgeBase(url || "https://uploaded.content/");
+    blank.crawl.finishedAt = blank.crawl.startedAt;
+    loadKb(blank);
+    setTab("company");
+    setStatus("done");
+  }
+
   const showResults = status === "done" && kb;
+  const blocked = status === "error" && error && BLOCKED_CODES.has(error.code);
 
   return (
     <div className="space-y-4">
@@ -102,10 +124,26 @@ export function KnowledgeWorkspace() {
           </motion.div>
         )}
         {status === "loading" && <ScrapeProgress key="loading" url={url} />}
-        {status === "error" && error && <ScrapeErrorCard key="error" error={error} onRetry={url ? () => scrape(url) : undefined} />}
+        {blocked && (
+          <BlockedPanel
+            key="blocked"
+            error={error}
+            url={url}
+            onContinue={() => scrape(url, { ownerConsent: true })}
+            onResult={handleUploaded}
+            onManual={startManual}
+          />
+        )}
+        {status === "error" && error && !blocked && <ScrapeErrorCard key="error" error={error} onRetry={url ? () => scrape(url) : undefined} />}
         {showResults && (
           <motion.div key="results" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-            <KnowledgeResults onSave={actions.save} saving={actions.saving} onDigDeeper={actions.dig} digging={actions.digging} />
+            <KnowledgeResults
+              onSave={actions.save}
+              saving={actions.saving}
+              onDigDeeper={actions.dig}
+              digging={actions.digging}
+              onNotify={(text) => actions.setToast({ tone: "success", title: "Added your info", text })}
+            />
           </motion.div>
         )}
       </AnimatePresence>
