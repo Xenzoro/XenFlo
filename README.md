@@ -516,23 +516,7 @@ I reviewed every change, ran the builds, and kept a running log of what broke on
 
 ## How I learned the codebase
 
-Building with an AI pair programmer only works if I can explain every file myself, so I studied the code chapter by chapter. The **[study guide](docs/understanding-xenflo/xenflo-study-guide.pdf)** walks from a pasted URL to a saved knowledge base, with diagrams, real code and check-yourself questions, and **[my handwritten notes](docs/understanding-xenflo/my-notes.pdf)** are what I wrote while working through it. Both are in [docs/understanding-xenflo/](docs/understanding-xenflo/), with a suggested reading order.
-
----
-
-## Ideas I'd love to build with the team
-
-Pulled from my running log, **[docs/improvements.md](docs/improvements.md)**, which has the full list with where each issue was found.
-
-- **Placeholder and template detection.** Flag demo pages (`/sample-page`, `/hello-world`), known template names and lorem ipsum, and mark the knowledge base "may contain template content, please review" instead of trusting it.
-- **A verification pass.** After extraction, check that each value actually appears on its source page. Anything that doesn't is dropped or marked unverified.
-- **Live crawl progress.** Stream crawl events so the progress card shows real pages as they finish.
-- **Vision AI for image-heavy sites.** Read menu images and logo names (Dragon Factory), and check that an image is a real logo before asking AI to describe its art style.
-- **Owner-friendly AI consent.** When robots.txt restricts AI crawlers, ask "Are you the owner?" instead of refusing, record the consent, and continue. (Built here; I'd love to refine it with real customers.)
-- **Accurate service areas.** An online business shouldn't get a single local voice. I saw MoFlo write "Florida's gaming scene is booming" for Apex, which isn't a Florida business.
-- **Voice from real customers.** Calibrate writing style and audience from testimonials and customer language, so a friendly gamer brand doesn't get corporate blog titles.
-- **Outside enrichment.** Use Google Places, state business registries and official social APIs to fill founded year, employees, legal entity and address (see [docs/enrichment.md](docs/enrichment.md)).
-- **Respect owner edits on re-scrape.** Remember dismissed and replaced items so a fresh crawl doesn't add them back.
+Building with an AI pair programmer only works if I can explain the design myself, so I studied the code chapter by chapter. The **[study guide](docs/understanding-xenflo/xenflo-study-guide.pdf)** walks from a pasted URL to a saved knowledge base, with diagrams, real code, and check-yourself questions, and **[my handwritten notes](docs/understanding-xenflo/my-notes.pdf)** are what I wrote while working through it. Both are in [docs/understanding-xenflo/](docs/understanding-xenflo/), with a suggested reading order.
 
 ---
 
