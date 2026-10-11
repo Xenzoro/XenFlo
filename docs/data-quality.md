@@ -140,7 +140,7 @@ On the test sites:
 
 | Mechanism | What it does |
 |---|---|
-| **Adaptive crawl** | While crawling, each missing field maps to the pages likely to hold it (`FIELD_HINTS`: missing FAQs → `/faq`, `/help`; missing team → `/team`, `/about`, `/meet`…). Pages are ranked by the points they could add. The first pass also reads every page in the site's nav and footer. Pages are classified by their headings when the URL says nothing ("/our-journey" with "Founded in 1998" is an about page), and each page's yield (new facts added) boosts the links found on or next to rich pages. Three zero-yield pages in a row move the rest of that kind to the back. |
+| **Adaptive crawl** | While crawling, each missing field maps to the pages likely to hold it (`FIELD_HINTS`: missing FAQs → `/faq`, `/help`; missing team → `/team`, `/about`, `/meet`…). Pages are ranked by the points they could add. The first pass reads one page of each useful kind, then every page in the site's navigation menu when it has 25 links or fewer. A scrape that starts on a branch page (`/location/las-vegas`) skips other branches' pages. Pages are classified by their headings when the URL says nothing ("/our-journey" with "Founded in 1998" is an about page), and each page's yield (new facts added) boosts the links found on or next to rich pages. Three zero-yield pages in a row move the rest of that kind to the back. |
 | **Next to do cards** | The Overview shows the most valuable missing fields with their points ("Add your founding year +5"). Clicking one jumps to the field and highlights it. |
 | **Low score banner** | Below 70, a banner offers **Dig deeper** (15 more pages per click, up to `MAX_CRAWL_PAGES`, default 200) or **Add info yourself** (paste text, upload an HTML file or screenshots). |
 

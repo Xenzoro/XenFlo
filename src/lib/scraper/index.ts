@@ -22,7 +22,7 @@ import {
 } from "./crawl";
 import { cleanUrl, isSameDomain, normalizeUrl, pageKey } from "./url";
 import { readMenus } from "./menus";
-import { FOCUS_AFTER, isFocusLink } from "./focus";
+import { FOCUS_AFTER, isFocusLink, locationScope } from "./focus";
 
 export { ScrapeError } from "./errors";
 
@@ -51,6 +51,11 @@ export const BATCH_PAGES = 15;
  * fills a missing field (Apex's /team is linked from the body, not the menu).
  */
 export const ADAPTIVE_RESERVE = 3;
+/**
+ * Navigation menus up to this size are read in full in the first pass. Bigger ones (Goettl's
+ * mega menu has 200+ links) say little about which pages matter, so keyword ranking decides.
+ */
+export const MAX_MENU_FIRST = 25;
 
 /** Total page cap across all Dig deeper clicks: MAX_CRAWL_PAGES from env (default 200, kept within 15 to 500). */
 export function maxCrawlPages(): number {
@@ -119,19 +124,35 @@ export async function scrapeSite(input: string, options: ScrapeOptions = {}): Pr
   kb.crawl.pages.push(pageRecord(homeUrl, "home", home.status, homeResult.title, home.durationMs, null, homeResult.evidence));
   if (homeResult.wordCount < MIN_WORDS) log(`Homepage has very little readable text (${homeResult.wordCount} words)`, "warn");
 
+  // Started on one branch's page: skip the other branches' pages (focus.ts locationScope)
+  const inScope = locationScope(homeUrl);
+  if (inScope) {
+    session.accept = inScope;
+    log(`Staying on ${new URL(homeUrl).pathname}: other locations' pages are skipped`);
+  }
+
   log("Discovering pages");
   const navLinks = discoverLinks(homeResult.$, homeUrl);
   const sitemapLinks = await discoverFromSitemaps(homeUrl, robots.sitemaps);
   addToPool(session, [...navLinks, ...sitemapLinks]);
   log(`Found ${navLinks.length} linked pages and ${sitemapLinks.length} sitemap entries`);
 
-  // First pass: one page of each useful kind (about, pricing, faq, contact...) plus every page the
-  // site lists in its own nav and footer, whatever it's called. Keywords and yield decide the order.
+  // First pass: one page of each useful kind (about, pricing, faq, contact...) first, then every
+  // page the site lists in its navigation menu (nav, header, footer), whatever it's called.
+  // Keywords and yield decide the order within each group.
+  const firstPassCap = Math.max(2, maxPages - ADAPTIVE_RESERVE);
   const pooled = [...session.pool.values()].sort((a, b) => b.score - a.score);
   const priority = priorityLinks(pooled, session.visited);
-  const menu = menuLinks(pooled, session.visited).filter((l) => !priority.includes(l));
-  log(`Crawling ${priority.length} priority pages and ${menu.length} more from the site's menu`);
-  await crawlRanked(session, [...priority, ...menu], Math.max(2, maxPages - ADAPTIVE_RESERVE));
+  const navMenu = menuLinks(pooled, session.visited);
+  log(`Crawling ${priority.length} priority pages`);
+  await crawlRanked(session, priority, firstPassCap);
+  if (navMenu.length <= MAX_MENU_FIRST) {
+    const rest = navMenu.filter((l) => !priority.includes(l));
+    if (rest.length) log(`Crawling ${rest.length} more pages from the site's navigation menu`);
+    await crawlRanked(session, rest, firstPassCap);
+  } else {
+    log(`Large navigation menu (${navMenu.length} links): ranking its pages by keywords`);
+  }
 
   // Adaptive pages: only those likely to fill fields that are still empty.
   await crawlForMissing(session, maxPages);
@@ -184,7 +205,8 @@ export async function digDeeper(previous: KnowledgeBase, options: ScrapeOptions 
   const isAllowed = consented && !robots.isAllowed(kb.url) ? () => true : robots.isAllowed;
   const session = newSession(kb, isAllowed, robots.crawlDelay, options, log);
   // Checked per link, so it also starts applying when this click crosses FOCUS_AFTER pages
-  session.accept = (link) => kb.crawl.pages.length < FOCUS_AFTER || isFocusLink(link, kb);
+  const inScope = locationScope(kb.url);
+  session.accept = (link) => (inScope?.(link) ?? true) && (kb.crawl.pages.length < FOCUS_AFTER || isFocusLink(link, kb));
   if (kb.crawl.pages.length >= FOCUS_AFTER) log("Past 30 pages: only menus, locations, services, pricing, about and contact pages");
   for (const page of kb.crawl.pages) session.visited.add(pageKey(page.url));
   // pendingUrls come back from the browser, so only trust ones on this company's own domain.

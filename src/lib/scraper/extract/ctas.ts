@@ -7,6 +7,9 @@ const BUTTONISH = /btn|button|cta/i;
 // Interface controls and cookie banners, not marketing calls to action.
 const NOT_CTA = /^(next|previous|prev|menu|close|open|toggle|search|submit|ok|cancel|back|more|play|pause|accept|accept all|decline|reject|reject all|allow|allow all|deny|got it|dismiss|skip|show more|show less|read less|en|english|×|x)$/i;
 const MAX_CTAS = 12;
+// File downloads (press kits, PDFs, images) aren't calls to action. Menu PDFs are picked up
+// separately by menu-sources.ts.
+const FILE_LINK = /\.(zip|rar|7z|pdf|docx?|xlsx?|pptx?|dmg|exe|pkg|apk|png|jpe?g|gif|svg|webp|mp4|mp3)$/i;
 // Real calls to action start with an action word ("Get a quote", "Order", "Start your server").
 const ACTION = /^(get|start|buy|order|book|schedule|call|contact|request|try|sign up|join|shop|view|see|learn|download|claim|subscribe|apply|reserve|explore|discover|create|choose|pick|deploy|launch|find|talk|chat|email|visit|register|donate|play|upgrade|build|grab|reach|message|text|check|compare|watch|let'?s)\b/i;
 
@@ -31,6 +34,7 @@ export function extractCtas(ctx: PageContext): void {
 
     const key = text.toLowerCase();
     const href = el.attr("href");
+    if (el.attr("download") !== undefined || isFileLink(href, url)) return;
     const entry = counts.get(key) ?? { text, url: href ? cleanUrl(href, url) : null, n: 0 };
     entry.n++;
     counts.set(key, entry);
@@ -40,5 +44,14 @@ export function extractCtas(ctx: PageContext): void {
   for (const cta of ranked) {
     if (kb.customers.ctas.length >= MAX_CTAS) break;
     addItem(kb.customers.ctas, { text: cta.text, url: cta.url }, url, (v) => v.text.toLowerCase());
+  }
+}
+
+function isFileLink(href: string | undefined, pageUrl: string): boolean {
+  if (!href) return false;
+  try {
+    return FILE_LINK.test(decodeURIComponent(new URL(href, pageUrl).pathname));
+  } catch {
+    return false;
   }
 }

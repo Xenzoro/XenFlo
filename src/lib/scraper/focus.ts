@@ -30,3 +30,21 @@ export function isFocusLink(link: Pick<DiscoveredLink, "url" | "category">, kb: 
   if (link.category === "other") return u.pathname.split("/").filter(Boolean).length <= 1;
   return false;
 }
+
+// First path segments that hold one page per branch: "/location/las-vegas", "/stores/henderson"
+const LOCATION_SECTIONS = /^(locations?|stores?|branch(es)?|offices?)$/i;
+
+/**
+ * A scrape that starts on one branch's page ("/location/las-vegas") is about that branch, so
+ * other branches' pages ("/location/reno-nevada/...") are skipped: their phones, service areas
+ * and ratings would be wrong for it. The locations index ("/locations") and the branch's own
+ * subpages are still crawled. Returns null when the start page isn't a branch page.
+ */
+export function locationScope(startUrl: string): ((link: Pick<DiscoveredLink, "url">) => boolean) | null {
+  const [section, slug] = new URL(startUrl).pathname.split("/").filter(Boolean);
+  if (!section || !slug || !LOCATION_SECTIONS.test(section)) return null;
+  return (link) => {
+    const [s, branch] = new URL(link.url).pathname.split("/").filter(Boolean);
+    return !(s?.toLowerCase() === section.toLowerCase() && branch && branch.toLowerCase() !== slug.toLowerCase());
+  };
+}
