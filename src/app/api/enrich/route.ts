@@ -7,8 +7,9 @@ import { badRequest, errorResponse } from "@/lib/utils/http";
 import { knowledgeBaseSchema } from "@/types/knowledge.schema";
 import type { EnrichStatus } from "@/types/enrichment";
 
-// Node runtime for crypto and the prompt files. Two OpenAI calls run in parallel (text 40s,
-// image 25s timeout), so 60s (the Vercel Hobby maximum without Fluid compute) is enough.
+// Node runtime for crypto and the prompt files. Two OpenAI calls run in parallel (text up to 55s,
+// images 25s). enrich() keeps the whole request inside a 57s deadline from arrival, so it always
+// answers within 60s (the Vercel Hobby maximum without Fluid compute).
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
@@ -32,6 +33,7 @@ const bodySchema = z.object({
 
 /** POST { knowledgeBase, passcode?, preview? } -> EnrichResult (suggestions to review; nothing is saved). */
 export async function POST(request: Request) {
+  const startedAt = Date.now(); // the deadline counts from here
   const parsed = bodySchema.safeParse(await request.json().catch(() => null));
   if (!parsed.success) return badRequest("INVALID_REQUEST", "Send JSON like { \"knowledgeBase\": {...}, \"passcode\": \"...\" }.");
   const kb = knowledgeBaseSchema.safeParse(parsed.data.knowledgeBase);
@@ -44,7 +46,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    return NextResponse.json(await enrich(kb.data, { preview: preview || !liveAvailable() }));
+    return NextResponse.json(await enrich(kb.data, { preview: preview || !liveAvailable(), startedAt }));
   } catch (err) {
     return errorResponse(err);
   }

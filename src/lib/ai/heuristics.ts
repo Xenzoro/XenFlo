@@ -100,3 +100,51 @@ export function heuristicSuggestions(kb: KnowledgeBase, e: Evidence): Suggestion
   } else if (monthly.length >= 2 && !hasLocation) add("company.businessModel", "Business model", "Subscription", monthly);
   return out;
 }
+
+const SERVICE_AREAS = "company.serviceLocations";
+/** "Las Vegas, NV" and "Las Vegas" are the same area */
+const cityOf = (area: string) => area.split(",")[0].trim().toLowerCase();
+
+/**
+ * Service areas from the cities in the scraped addresses, no AI: every Dragon location is in
+ * Las Vegas, so "Las Vegas, NV". Marked inferred, with the addresses as evidence. Cities already
+ * listed as service areas are skipped.
+ */
+export function serviceAreaSuggestion(kb: KnowledgeBase): Suggestion | null {
+  const addresses = [kb.company.mainAddress, ...kb.company.otherLocations].flatMap((f) => (f.value ? [f.value] : []));
+  const areas = new Map<string, string[]>(); // area -> addresses in it
+  for (const a of addresses) {
+    const city = a.city?.trim();
+    if (!city) continue;
+    const area = a.region?.trim() ? `${city}, ${a.region.trim()}` : city;
+    areas.set(area, [...(areas.get(area) ?? []), a.formatted]);
+  }
+  const listed = new Set(kb.company.serviceLocations.map((f) => cityOf(String(f.value ?? ""))));
+  const fresh = [...areas].filter(([area]) => !listed.has(cityOf(area)));
+  if (!fresh.length) return null;
+  return {
+    path: SERVICE_AREAS,
+    label: "Service areas (from your addresses)",
+    value: fresh.map(([area]) => area),
+    list: true,
+    confidence: "inferred",
+    source: "heuristic",
+    basedOn: fresh.flatMap(([, list]) => list).slice(0, 10),
+  };
+}
+
+/**
+ * Adds the address-based service areas to any suggestion list (live or preview). Other service
+ * area suggestions (AI, when the site names more areas) keep only the cities not derived here.
+ */
+export function withServiceAreas(kb: KnowledgeBase, suggestions: Suggestion[]): Suggestion[] {
+  const derived = serviceAreaSuggestion(kb);
+  if (!derived) return suggestions;
+  const cities = new Set((derived.value as string[]).map(cityOf));
+  const rest = suggestions.flatMap((s) => {
+    if (s.path !== SERVICE_AREAS || !s.list) return [s];
+    const more = (s.value as string[]).filter((v) => !cities.has(cityOf(v)));
+    return more.length ? [{ ...s, value: more }] : [];
+  });
+  return [derived, ...rest];
+}

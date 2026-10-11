@@ -1,8 +1,9 @@
 import { describe, expect, it } from "vitest";
+import { readFileSync } from "node:fs";
 import type { KnowledgeBase } from "@/types/knowledge";
 import { emptyKnowledgeBase, field } from "@/lib/utils/knowledge";
 import { buildEvidence } from "./evidence";
-import { heuristicSuggestions } from "./heuristics";
+import { heuristicSuggestions, serviceAreaSuggestion, withServiceAreas } from "./heuristics";
 
 const page = (path: string, title: string, headings: string[] = []) => ({
   url: `https://example.com${path}`,
@@ -53,5 +54,38 @@ describe("heuristicSuggestions", () => {
     const s = run(kb);
     expect(s["company.industry"]?.value).toBe("Game server hosting");
     expect(s["company.businessModel"]?.value).toBe("Subscription");
+  });
+});
+
+describe("service areas from scraped addresses", () => {
+  const fixture = (name: string): KnowledgeBase => JSON.parse(readFileSync(`data/examples/${name}.json`, "utf8"));
+
+  it("derives each city once, inferred, with the addresses as evidence (Dragon)", () => {
+    const kb = fixture("dragon-factory");
+    const s = serviceAreaSuggestion(kb)!;
+    expect(s.path).toBe("company.serviceLocations");
+    expect(s.confidence).toBe("inferred");
+    expect([...(s.value as string[])].sort()).toEqual(["Henderson, NV", "Las Vegas, NV"]);
+    expect(s.basedOn.length).toBeGreaterThan(0);
+    expect(s.basedOn.every((a) => /, (Las Vegas|Henderson), NV/.test(a))).toBe(true);
+  });
+
+  it("skips cities already listed as service areas (Goettl)", () => {
+    expect(serviceAreaSuggestion(fixture("goettl-las-vegas"))).toBeNull();
+  });
+
+  it("has nothing to derive without addresses", () => {
+    expect(serviceAreaSuggestion(emptyKnowledgeBase("https://example.com/"))).toBeNull();
+  });
+
+  it("keeps only the extra areas from other suggestions", () => {
+    const kb = fixture("dragon-factory");
+    const ai = { path: "company.serviceLocations", label: "Service locations", value: ["Las Vegas", "Summerlin"], list: true, confidence: "ai_live" as const, source: "ai:test", basedOn: ["p1"] };
+    const out = withServiceAreas(kb, [ai]);
+    expect(out).toHaveLength(2);
+    expect(out[0].source).toBe("heuristic");
+    expect(out[1].value).toEqual(["Summerlin"]);
+    // Nothing extra left: the AI suggestion goes away
+    expect(withServiceAreas(kb, [{ ...ai, value: ["las vegas, nv"] }])).toHaveLength(1);
   });
 });

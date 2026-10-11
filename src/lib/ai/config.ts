@@ -26,7 +26,7 @@ export const aiConfig = {
   },
 };
 
-// Budgets: ~16k tokens in (system prompt + page evidence), ~3.5k out, 2 images, 40s for the text call, 25s for images.
+// Budgets: ~16k tokens in (system prompt + page evidence), ~3.5k out, 2 images, text call up to 55s, images 25s, all within a 57s route deadline.
 // Phase 9 raised them from 12k/2.5k: the text call now reads every crawled page's headings
 // and answers ~25 fields with evidence. Worst case is about $0.03 per run on gpt-5.4-mini.
 export const LIMITS = {
@@ -37,10 +37,18 @@ export const LIMITS = {
   logoGrid: 12,
   timeoutMs: 25_000,
   /**
-   * The text call writes ~25 fields with evidence: 1.4-2.4k tokens, which took gpt-5.4 ~19-31 s.
-   * 40 s leaves room for that; it runs alongside the image call, inside the route's 60 s.
+   * The text call writes ~25 fields with evidence: 1.4-2.4k tokens. gpt-5.4 measured 28-34 s
+   * (gpt-5.4-mini ~10 s). It runs alongside the image call (~6 s) and is also cut at the deadline.
    */
-  textTimeoutMs: 40_000,
+  textTimeoutMs: 55_000,
+  /**
+   * The enrich route must answer inside Vercel's 60 s maxDuration. Everything runs inside this budget,
+   * counted from when the request arrives: picking images, cache and quota, both calls, cache write.
+   * The last 3 s are left for sending the response.
+   */
+  routeBudgetMs: 57_000,
+  /** Kept free after the calls for the cache write and the quota count (each capped at 1 s) */
+  afterCallsMs: 2_000,
 };
 
 /**

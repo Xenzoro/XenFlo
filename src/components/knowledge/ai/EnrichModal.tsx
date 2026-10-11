@@ -174,7 +174,14 @@ export function EnrichModal({ open, onClose }: { open: boolean; onClose: () => v
           {/* The two calls run at the same time, so both steps spin together. */}
           <ProgressRow text="Writing your pitch, style, ideal customer and Content Kit" />
           <ProgressRow text="Looking at your logo and images" />
-          <p className="text-xs text-subtle">{elapsed}s · usually under 15 seconds</p>
+          {/* Time-based, not real progress: it creeps toward the 55 s limit and never fills on its own */}
+          <div className="h-1.5 overflow-hidden rounded-full bg-primary-soft" aria-hidden="true">
+            <div className="h-full rounded-full bg-primary transition-[width] duration-500 ease-linear" style={{ width: `${Math.min(95, (elapsed / 55) * 100)}%` }} />
+          </div>
+          <p className="text-xs text-subtle">
+            <span aria-hidden="true" className="tabular-nums">{elapsed}s · </span>
+            {waitingNote(elapsed, status?.textModel)}
+          </p>
         </div>
       )}
 
@@ -256,6 +263,18 @@ export function EnrichModal({ open, onClose }: { open: boolean; onClose: () => v
       )}
     </Modal>
   );
+}
+
+/**
+ * What to say while waiting. The full text model (gpt-5.4) takes ~30-35 s on a big site and mini
+ * models ~10 s, so the expected time follows the model. Changes only a few times, so screen
+ * readers aren't flooded (the seconds counter is hidden from them).
+ */
+function waitingNote(elapsed: number, textModel?: string | null): string {
+  const usual = textModel && !/mini|nano/i.test(textModel) ? "usually 30 to 40 seconds" : "usually 10 to 20 seconds";
+  if (elapsed < 15) return `Flo is reading your whole site, ${usual}.`;
+  if (elapsed < 40) return "Still working. Bigger sites take longer, so keep this window open.";
+  return "Almost done. If time runs out, you'll still get everything that finished.";
 }
 
 function ProgressRow({ text }: { text: string }) {

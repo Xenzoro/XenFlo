@@ -9,6 +9,7 @@
  *   3. the owner: user-edited values, dismissed values and Not applicable fields are left alone
  * Preview mode (no key, no passcode, cap reached, both calls failed): keyword and CTA heuristics
  * ("inferred") plus labeled templates ("ai_mock"), through the same guards.
+ * Both modes add service areas derived from the scraped addresses (heuristics.ts, no AI).
  *
  * Nothing is written here: the owner accepts or rejects every suggestion.
  */
@@ -21,7 +22,7 @@ import { aiConfig, LIMITS, liveAvailable } from "./config";
 import { checkAnswer, type Answer } from "./confidence";
 import { buildEvidence, estimateTokens, evidencePayload, type Evidence } from "./evidence";
 import { filterByTier, valueKey } from "./field-tiers";
-import { heuristicSuggestions } from "./heuristics";
+import { heuristicSuggestions, withServiceAreas } from "./heuristics";
 import { pickImages, SCREENSHOT_PATHS, type ImageInput } from "./input";
 import { mockSuggestions } from "./mock";
 import { callOpenAi } from "./openai";
@@ -59,9 +60,15 @@ const LISTS: [keyof TextOutput, string, string][] = [
   ["blogIdeas", "contentKit.blogIdeas", "Blog ideas"],
 ];
 
-/** `preview`: skip live AI (the caller checked the passcode, or the user chose preview). */
-export async function enrich(kb: KnowledgeBase, opts: { preview?: boolean } = {}): Promise<EnrichResult> {
+/**
+ * `preview`: skip live AI (the caller checked the passcode, or the user chose preview).
+ * `startedAt`: when the request arrived, so the whole route fits Vercel's 60 s (LIMITS.routeBudgetMs).
+ */
+export async function enrich(kb: KnowledgeBase, opts: { preview?: boolean; startedAt?: number } = {}): Promise<EnrichResult> {
   const limit = aiConfig.dailyLimit;
+  // The calls must end by this time, leaving afterCallsMs for the cache write and quota count
+  const deadline = (opts.startedAt ?? Date.now()) + LIMITS.routeBudgetMs - LIMITS.afterCallsMs;
+  const timeLeft = (cap: number) => Math.max(0, Math.min(cap, deadline - Date.now()));
   const notes: string[] = [];
   const system = textSystemPrompt();
   // Evidence gets whatever the input budget leaves after the system prompt.
@@ -87,7 +94,7 @@ export async function enrich(kb: KnowledgeBase, opts: { preview?: boolean } = {}
   });
   const cached = await getCachedEnrichment<Omit<EnrichResult, "remainingToday" | "cached" | "hint">>(cacheKey);
   if (cached) {
-    return { ...cached, suggestions: guard(kb, cached.suggestions), hint, cached: true, remainingToday: await aiQuotaRemaining(limit) };
+    return { ...cached, suggestions: guard(kb, withServiceAreas(kb, cached.suggestions)), hint, cached: true, remainingToday: await within(aiQuotaRemaining(limit), 1_000, null) };
   }
 
   if (!(await takeAiQuota(limit))) {
@@ -96,8 +103,9 @@ export async function enrich(kb: KnowledgeBase, opts: { preview?: boolean } = {}
 
   // One text call and (if there are usable images) one image call, at the same time.
   const [textRun, visionRun] = await Promise.allSettled([
-    timed(() => runText(models.text, system, payload)),
-    images.length ? timed(() => runVision(models.vision, images)) : Promise.reject(new Error("no raster images")),
+    // Up to 55 s for text and 25 s for images, but never past the deadline (time spent on images, cache and quota counts)
+    timed(() => runText(models.text, system, payload, timeLeft(LIMITS.textTimeoutMs))),
+    images.length ? timed(() => runVision(models.vision, images, timeLeft(LIMITS.timeoutMs))) : Promise.reject(new Error("no raster images")),
   ]);
 
   const suggestions: Suggestion[] = [];
@@ -133,24 +141,25 @@ export async function enrich(kb: KnowledgeBase, opts: { preview?: boolean } = {}
   const result = { mode: "live" as const, models, suggestions, notEnough, missing: [...missing], notes, usage };
   // Only cache complete answers, so a timeout isn't remembered for this version forever.
   const complete = textRun.status === "fulfilled" && (visionRun.status === "fulfilled" || !images.length);
-  if (complete) await putCachedEnrichment(cacheKey, result, { knowledgeBaseId: kb.id, version: kb.version, models: `${models.text},${models.vision}` }).catch(() => {});
-  return { ...result, suggestions: guard(kb, suggestions), hint, cached: false, remainingToday: await aiQuotaRemaining(limit) };
+  // Each capped at 1 s (afterCallsMs): a slow database must not push the route past 60 s
+  if (complete) await within(putCachedEnrichment(cacheKey, result, { knowledgeBaseId: kb.id, version: kb.version, models: `${models.text},${models.vision}` }), 1_000, undefined);
+  return { ...result, suggestions: guard(kb, withServiceAreas(kb, suggestions)), hint, cached: false, remainingToday: await within(aiQuotaRemaining(limit), 1_000, null) };
 }
 
 // ---------- Calls ----------
 
-function runText(model: string, system: string, payload: string) {
+function runText(model: string, system: string, payload: string, timeoutMs: number) {
   return callOpenAi<TextOutput>({
     model,
     system,
     content: [{ type: "input_text", text: `Website evidence (JSON):\n${payload}` }],
     schema: textOutputSchema,
     schemaName: "understand_business",
-    timeoutMs: LIMITS.textTimeoutMs,
+    timeoutMs,
   });
 }
 
-function runVision(model: string, images: ImageInput[]) {
+function runVision(model: string, images: ImageInput[], timeoutMs: number) {
   return callOpenAi<VisionOutput>({
     model,
     system: visionSystemPrompt(),
@@ -160,6 +169,7 @@ function runVision(model: string, images: ImageInput[]) {
     ],
     schema: visionOutputSchema,
     schemaName: "logo_vision",
+    timeoutMs,
   });
 }
 
@@ -205,10 +215,9 @@ function fromText(out: TextOutput, e: Evidence, inputLower: string, kb: Knowledg
 
   // Per-offering categories: one suggestion each, never applied automatically.
   if (e.offeringCategoryTask !== "none") {
-    for (const c of out.offeringCategories) {
-      const o = e.offerings.find((x) => x.name.toLowerCase() === c.offering.trim().toLowerCase());
-      const current = o ? kb.offerings[o.index]?.value : null;
-      if (!o || !current || !c.category.trim() || sameCategory(current.category, c.category)) continue;
+    for (const { answer: c, offering: o } of matchOfferings(out.offeringCategories, e.offerings)) {
+      const current = kb.offerings[o.index]?.value;
+      if (!current || !c.category.trim() || sameCategory(current.category, c.category)) continue;
       // fill_missing means fill gaps: a model that re-categorizes offerings that already have one is ignored
       if (e.offeringCategoryTask === "fill_missing" && current.category) continue;
       const path = `offerings.${o.index}.category`;
@@ -228,6 +237,22 @@ function fromText(out: TextOutput, e: Evidence, inputLower: string, kb: Knowledg
     }
   }
   return { suggestions, notEnough };
+}
+
+/**
+ * The model answers by offering name, not index. A restaurant group repeats names across menus
+ * ("ALL DAY AYCE" on every brand's menu), so a repeated name goes to the next offering with that
+ * name not used yet, in the order they were sent. Each offering gets at most one answer.
+ */
+export function matchOfferings<A extends { offering: string }, O extends { index: number; name: string }>(answers: A[], offerings: O[]) {
+  const used = new Set<number>();
+  return answers.flatMap((answer) => {
+    const name = answer.offering.trim().toLowerCase();
+    const offering = offerings.find((o) => o.name.toLowerCase() === name && !used.has(o.index));
+    if (!offering) return []; // unknown name, or more answers than offerings with that name
+    used.add(offering.index);
+    return [{ answer, offering }];
+  });
 }
 
 const SCREENSHOT_LABELS: Record<string, string> = {
@@ -301,12 +326,13 @@ async function preview(kb: KnowledgeBase, evidence: Evidence, hint: string | nul
     mode: "mock",
     models: { text: null, vision: null },
     cached: false,
-    suggestions: guard(kb, [...heuristics, ...mockSuggestions(kb).filter((s) => !taken.has(s.path))]),
+    suggestions: guard(kb, withServiceAreas(kb, [...heuristics, ...mockSuggestions(kb).filter((s) => !taken.has(s.path))])),
     notEnough: [],
     missing: [],
     notes,
     hint,
-    remainingToday: aiConfig.apiKey ? await aiQuotaRemaining(aiConfig.dailyLimit).catch(() => null) : null,
+    // Capped too: preview also runs after live calls failed, late in the request
+    remainingToday: aiConfig.apiKey ? await within(aiQuotaRemaining(aiConfig.dailyLimit), 1_000, null) : null,
   };
 }
 
@@ -348,6 +374,15 @@ function hash(value: unknown): string {
 function logFailure(call: "text" | "vision", model: string, reason: unknown, payload: string | null) {
   const size = payload ? ` input≈${estimateTokens(payload)} tokens` : "";
   console.warn(`[enrich] ${call} call failed (${model}${size}): ${short(reason)}`);
+}
+
+/** `p`, or `fallback` if it fails or takes longer than `ms` (the route has a hard 60 s limit). */
+function within<T>(p: Promise<T>, ms: number, fallback: T): Promise<T> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const late = new Promise<T>((resolve) => {
+    timer = setTimeout(() => resolve(fallback), ms);
+  });
+  return Promise.race([p.catch(() => fallback), late]).finally(() => clearTimeout(timer));
 }
 
 /** Error message for the notes, without leaking anything sensitive (no keys are in these). */
