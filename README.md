@@ -35,7 +35,7 @@ This is my take on MoFlo's "MoKnowledge" feature for the MoFlo Builder Challenge
 
 ## Setup and run
 
-**Requirements:** Node 20+, npm, and a Supabase project (the free tier is fine).
+**Requirements:** Node 20+, npm, and a Supabase project.
 
 ```bash
 git clone <this repo> xenflo && cd xenflo
