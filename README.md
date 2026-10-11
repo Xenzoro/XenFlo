@@ -8,7 +8,7 @@ This is my take on MoFlo's "MoKnowledge" feature for the MoFlo Builder Challenge
 
 | Scrape and review | Brand tab | Saved knowledge bases |
 |---|---|---|
-| _screenshot: `docs/screenshots/knowledge.png`_ | _screenshot: `docs/screenshots/brand.png`_ | _screenshot: `docs/screenshots/view.png`_ |
+| ![Scrape results: Overview with the Knowledge Health gauge](docs/screenshots/knowledge.png) | ![Brand tab: colors, logos and fonts](docs/screenshots/brand.png) | ![Saved knowledge bases on /knowledge/view](docs/screenshots/view.png) |
 
 ## Demo video
 
@@ -96,7 +96,7 @@ Changing an environment variable needs a redeploy to take effect.
 
 ```bash
 npx tsc --noEmit   # type check
-npm test           # unit tests (Vitest, 168 tests)
+npm test           # unit tests (Vitest, 175 tests)
 npm run lint
 npm run build
 ```
@@ -149,7 +149,7 @@ Everything runs server side in API routes (`src/app/api/scrape`), split into sma
 2. **If robots.txt blocks XenFloBot**, or **asks AI crawlers to stay out** (GPTBot, ClaudeBot, CCBot, Google-Extended, PerplexityBot and 9 others), the scrape stops and shows a friendly panel. The owner can then either:
    - tick **"I own this business or have permission from the owner to use this website's content"** and continue, or
    - paste content or upload files instead.
-   _screenshot: `docs/screenshots/blocked-panel.png`_
+   ![Blocked panel with the ownership checkbox](docs/screenshots/blocked-panel.png)
 3. The consent is stored with the knowledge base (`confirmed: true`, timestamp, and method: `checkbox_scrape`, `checkbox_paste` or `checkbox_upload`), and in the `upload_consents` table when saved.
 4. Even with consent, the crawl stays polite: honest User-Agent, small page cap, and the site's Crawl-delay (capped at 3 seconds).
 
@@ -212,7 +212,7 @@ For restaurants and shops, the offerings usually live in PDFs and images, not HT
 - **Duplicates:** within a brand, an item listed twice is kept once (the priced and described version), citing both menus.
 - **Every brand appears** in the menu view, even without a menu: "Menu not read yet" (with the link) or "No menu found online". The brand list comes from brand pages, menu groups, and brand names read from the homepage logo grid by the vision call (Enrich with AI).
 
-_screenshot: `docs/screenshots/menu-view.png`_
+![Dragon Factory menu view, grouped by brand](docs/screenshots/menu-view.png)
 
 **Review before use.** Menu items read by AI start as unreviewed:
 - **Banner:** the menu view shows "Menus read by AI. Please review." with "X of Y menus reviewed". It can't be dismissed until every menu is reviewed.
@@ -323,7 +323,7 @@ Details: [docs/data-quality.md](docs/data-quality.md).
 
 | Waiting (gpt-5.4, about 30–40 s) | Reviewing suggestions |
 |---|---|
-| _screenshot: `docs/screenshots/enrich-progress.png`_ | _screenshot: `docs/screenshots/enrich-review.png`_ |
+| ![Enrich with AI while it runs, with the progress bar](docs/screenshots/enrich-progress.png) | ![Reviewing Enrich with AI suggestions with their evidence](docs/screenshots/enrich-review.png) |
 
 **Live vs preview mode**
 - **Live:** needs `OPENAI_API_KEY` **and** the right `AI_PASSCODE`, plus quota left today.
