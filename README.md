@@ -28,7 +28,6 @@ This is my take on MoFlo's "MoKnowledge" feature for the MoFlo Builder Challenge
 - [Security](#security)
 - [How AI tools were used](#how-ai-tools-were-used)
 - [How I learned the codebase](#how-i-learned-the-codebase)
-- [Ideas I'd love to build with the team](#ideas-id-love-to-build-with-the-team)
 - [Project layout](#project-layout)
 
 ---
