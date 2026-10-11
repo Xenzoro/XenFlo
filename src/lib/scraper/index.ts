@@ -4,11 +4,22 @@ import { emptyKnowledgeBase } from "@/lib/utils/knowledge";
 import { ScrapeError } from "./errors";
 import { fetchPage, isHtml } from "./fetch";
 import { loadRobots } from "./robots";
-import { discoverFromSitemaps, discoverLinks, pickCrawlOrder, priorityLinks } from "./discover";
+import { discoverFromSitemaps, discoverLinks, menuLinks, pickCrawlOrder, priorityLinks } from "./discover";
 import { extractPage } from "./extract";
 import { scoreCompleteness } from "./score";
 import { collectCss } from "./styles";
-import { addToPool, crawlForMissing, crawlLegalPage, crawlPages, linkFromUrl, outOfTime, pageRecord, type CrawlSession } from "./crawl";
+import {
+  addToPool,
+  crawlForMissing,
+  crawlLegalPage,
+  crawlPages,
+  crawlRanked,
+  emptyLearning,
+  linkFromUrl,
+  outOfTime,
+  pageRecord,
+  type CrawlSession,
+} from "./crawl";
 import { cleanUrl, isSameDomain, normalizeUrl, pageKey } from "./url";
 import { readMenus } from "./menus";
 import { FOCUS_AFTER, isFocusLink } from "./focus";
@@ -35,6 +46,11 @@ export interface ScrapeOptions {
 /** Pages in the first scrape, and pages added by each "Dig deeper" click */
 export const DEFAULT_MAX_PAGES = 15;
 export const BATCH_PAGES = 15;
+/**
+ * First-scrape pages kept for the adaptive pass, so a long nav can't crowd out a page that
+ * fills a missing field (Apex's /team is linked from the body, not the menu).
+ */
+export const ADAPTIVE_RESERVE = 3;
 
 /** Total page cap across all Dig deeper clicks: MAX_CRAWL_PAGES from env (default 200, kept within 15 to 500). */
 export function maxCrawlPages(): number {
@@ -50,7 +66,8 @@ const MIN_WORDS = 30; // below this the homepage is probably a JS-only shell
 /**
  * Crawl a website and build a knowledge base from it.
  * 1. robots.txt  2. homepage + its CSS  3. discover links (nav + sitemap)
- * 4. priority pages (best page per category)  5. adaptive pages for missing fields  6. score
+ * 4. first pass: priority pages (best page per category) + every page in the site's nav and footer
+ * 5. adaptive pages for missing fields  6. score
  */
 export async function scrapeSite(input: string, options: ScrapeOptions = {}): Promise<KnowledgeBase> {
   const startUrl = normalizeUrl(input);
@@ -108,10 +125,13 @@ export async function scrapeSite(input: string, options: ScrapeOptions = {}): Pr
   addToPool(session, [...navLinks, ...sitemapLinks]);
   log(`Found ${navLinks.length} linked pages and ${sitemapLinks.length} sitemap entries`);
 
-  // Priority pages: one of each useful kind (about, pricing, faq, contact...).
-  const priority = priorityLinks([...session.pool.values()].sort((a, b) => b.score - a.score), session.visited);
-  log(`Crawling ${priority.length} priority pages`);
-  await crawlPages(session, priority, maxPages);
+  // First pass: one page of each useful kind (about, pricing, faq, contact...) plus every page the
+  // site lists in its own nav and footer, whatever it's called. Keywords and yield decide the order.
+  const pooled = [...session.pool.values()].sort((a, b) => b.score - a.score);
+  const priority = priorityLinks(pooled, session.visited);
+  const menu = menuLinks(pooled, session.visited).filter((l) => !priority.includes(l));
+  log(`Crawling ${priority.length} priority pages and ${menu.length} more from the site's menu`);
+  await crawlRanked(session, [...priority, ...menu], Math.max(2, maxPages - ADAPTIVE_RESERVE));
 
   // Adaptive pages: only those likely to fill fields that are still empty.
   await crawlForMissing(session, maxPages);
@@ -199,6 +219,7 @@ function newSession(
     delayMs: Math.max(delayMs, Math.min((crawlDelay ?? 0) * 1000, 3_000)),
     concurrency: options.concurrency ?? 2,
     log,
+    learned: emptyLearning(),
   };
 }
 

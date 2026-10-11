@@ -257,6 +257,8 @@ export interface CrawledPage {
   headings?: string[];
   /** Image alt text and cleaned logo file names */
   imageAlts?: string[];
+  /** How many new facts (fields and list items) this page added; drives the yield-based crawl */
+  newFacts?: number;
 }
 
 /**

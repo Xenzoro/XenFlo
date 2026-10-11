@@ -240,6 +240,7 @@ export const crawlInfoSchema = z.object({
       metaDescription: nstr.optional(),
       headings: z.array(str).optional(),
       imageAlts: z.array(str).optional(),
+      newFacts: z.number().optional(),
     }),
   ),
   log: z.array(

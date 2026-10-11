@@ -84,3 +84,20 @@ export function potentialPoints(kb: KnowledgeBase, url: string, category: PageCa
   }
   return points;
 }
+
+/**
+ * Everything the knowledge base knows, as one number: filled scalar fields plus list items
+ * (every FAQ, offering, person…) and menus found in PDFs or images (read into offerings after the
+ * crawl). Broader than SCORE_CHECKS, so a page that adds a 4th FAQ still counts. The crawl compares
+ * it before and after each page to measure that page's yield.
+ */
+export function countFacts(kb: KnowledgeBase): number {
+  let count = kb.people.length + kb.offerings.length + (kb.crawl.menuSources?.length ?? 0);
+  for (const section of [kb.company, kb.contact, kb.customers, kb.brand, kb.insights]) {
+    for (const value of Object.values(section) as unknown[]) {
+      if (Array.isArray(value)) count += value.length;
+      else if ((value as Field<unknown> | null)?.value != null) count += 1;
+    }
+  }
+  return count;
+}

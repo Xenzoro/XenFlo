@@ -76,6 +76,22 @@ export function extractPage(
 const MAX_HEADINGS = 12;
 const MAX_ALTS = 10;
 
+/**
+ * The page's title and h1-h3 headings, read before extraction so the crawl can tell what kind
+ * of page it is from its content (discover.ts classifyContent). Headings inside the nav, header
+ * and footer are skipped: they repeat on every page ("Contact us", "Our menu").
+ */
+export function pageHeadings(html: string): { title: string | null; headings: string[] } {
+  const $ = cheerio.load(html);
+  const title = textOf($("title").first()) || null;
+  const headings = $("h1, h2, h3")
+    .filter((_, el) => $(el).closest("nav, header, footer").length === 0)
+    .map((_, el) => textOf($(el)).slice(0, 120))
+    .get()
+    .filter((t) => t.length >= 3);
+  return { title, headings: [...new Set(headings)].slice(0, MAX_HEADINGS) };
+}
+
 function pageEvidence(ctx: PageContext): PageEvidence {
   const { $, $text } = ctx;
   const headings = [...new Set($text("h1, h2, h3").map((_, el) => textOf($text(el)).slice(0, 120)).get().filter((t) => t.length >= 3))].slice(0, MAX_HEADINGS);
