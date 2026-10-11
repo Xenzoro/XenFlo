@@ -111,6 +111,7 @@ export async function enrich(kb: KnowledgeBase, opts: { preview?: boolean } = {}
     notEnough.push(...r.notEnough);
     usage.text = textRun.value.usage;
   } else {
+    logFailure("text", models.text, textRun.reason, payload);
     notes.push(`The understanding step didn't finish (${short(textRun.reason)}), so text fields were skipped.`);
   }
   if (visionRun.status === "fulfilled") {
@@ -118,6 +119,7 @@ export async function enrich(kb: KnowledgeBase, opts: { preview?: boolean } = {}
     visionRun.value.data.missing.forEach((m) => missing.add(m));
     usage.vision = visionRun.value.usage;
   } else if (images.length) {
+    logFailure("vision", models.vision, visionRun.reason, null);
     notes.push(`The image step didn't finish (${short(visionRun.reason)}), so art style and logo names were skipped.`);
   } else {
     notes.push("No logo or screenshot in a format AI can read (PNG, JPG, WebP), so art style was skipped.");
@@ -144,6 +146,7 @@ function runText(model: string, system: string, payload: string) {
     content: [{ type: "input_text", text: `Website evidence (JSON):\n${payload}` }],
     schema: textOutputSchema,
     schemaName: "understand_business",
+    timeoutMs: LIMITS.textTimeoutMs,
   });
 }
 
@@ -206,6 +209,8 @@ function fromText(out: TextOutput, e: Evidence, inputLower: string, kb: Knowledg
       const o = e.offerings.find((x) => x.name.toLowerCase() === c.offering.trim().toLowerCase());
       const current = o ? kb.offerings[o.index]?.value : null;
       if (!o || !current || !c.category.trim() || sameCategory(current.category, c.category)) continue;
+      // fill_missing means fill gaps: a model that re-categorizes offerings that already have one is ignored
+      if (e.offeringCategoryTask === "fill_missing" && current.category) continue;
       const path = `offerings.${o.index}.category`;
       const verdict = checkAnswer(path, { confidence: c.confidence, evidence: c.evidence, reason: null }, [c.category], e, inputLower);
       if (!verdict.ok) continue; // too many to list one by one; the rest stay as scraped
@@ -334,6 +339,15 @@ function clean(list: string[], max = MAX_LIST): string[] {
 
 function hash(value: unknown): string {
   return createHash("sha256").update(JSON.stringify(value)).digest("hex");
+}
+
+/**
+ * Server log for a failed call (Vercel function logs), so a run that came back with only some
+ * fields can be diagnosed later. Model, reason and input size only: no key, no site content.
+ */
+function logFailure(call: "text" | "vision", model: string, reason: unknown, payload: string | null) {
+  const size = payload ? ` input≈${estimateTokens(payload)} tokens` : "";
+  console.warn(`[enrich] ${call} call failed (${model}${size}): ${short(reason)}`);
 }
 
 /** Error message for the notes, without leaking anything sensitive (no keys are in these). */

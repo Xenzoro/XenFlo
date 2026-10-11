@@ -7,8 +7,8 @@ import { badRequest, errorResponse } from "@/lib/utils/http";
 import { knowledgeBaseSchema } from "@/types/knowledge.schema";
 import type { EnrichStatus } from "@/types/enrichment";
 
-// Node runtime for crypto and the prompt files. Two OpenAI calls run in parallel with a
-// 25s timeout each, so 60s (the Vercel Hobby maximum without Fluid compute) is plenty.
+// Node runtime for crypto and the prompt files. Two OpenAI calls run in parallel (text 40s,
+// image 25s timeout), so 60s (the Vercel Hobby maximum without Fluid compute) is enough.
 export const runtime = "nodejs";
 export const maxDuration = 60;
 

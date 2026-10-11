@@ -41,20 +41,37 @@ const pathOf = (url: string | null | undefined) => {
   }
 };
 
+const MAX_OFFERINGS = 40;
+/**
+ * Offerings asked to fill a missing category per run. Each answer costs ~25 output tokens, and
+ * 40 of them pushed Dragon's text call (757 menu items) past the timeout on slower models.
+ */
+export const MAX_CATEGORY_FILL = 15;
+
+type EvidenceOffering = Evidence["offerings"][number];
+
 /**
  * Offering categories: fill them when some are missing; when every offering shares one scraped
  * category (Apex: everything is "Minecraft Server Hosting"), ask for a per-offering review.
+ * Returns the task and the offerings to send with it. For fill_missing those are the offerings
+ * that actually lack a category: the first 40 of Dragon's menu items all had one, so the model
+ * re-categorized 40 items instead of filling the 38 real gaps further down the list.
  */
-function categoryTask(kb: KnowledgeBase): Evidence["offeringCategoryTask"] {
-  const offerings = vals(kb.offerings);
-  if (offerings.length === 0) return "none";
-  if (offerings.some((o) => !o.category)) return "fill_missing";
-  const shared = new Set(offerings.map((o) => o.category?.toLowerCase()));
-  return offerings.length >= 3 && shared.size === 1 ? "review_shared" : "none";
+function categoryWork(kb: KnowledgeBase): { task: Evidence["offeringCategoryTask"]; offerings: EvidenceOffering[] } {
+  const all = kb.offerings.flatMap((f, index) => (f.value ? [{ index, name: f.value.name, category: f.value.category, priceText: quotablePrice(f) }] : []));
+  if (all.length === 0) return { task: "none", offerings: [] };
+  const uncategorized = all.filter((o) => !o.category);
+  if (uncategorized.length) return { task: "fill_missing", offerings: uncategorized.slice(0, MAX_CATEGORY_FILL) };
+  const shared = new Set(all.map((o) => o.category?.toLowerCase()));
+  return { task: all.length >= 3 && shared.size === 1 ? "review_shared" : "none", offerings: all.slice(0, MAX_OFFERINGS) };
 }
 
 export function buildEvidence(kb: KnowledgeBase, budgetTokens: number): Evidence {
   const c = kb.company;
+  const { task, offerings } = categoryWork(kb);
+  // Offerings shown as evidence: the ones being categorized first (so they can be cited by id), then the rest in order
+  const first = new Set(task === "fill_missing" ? offerings.map((o) => o.index) : []);
+  const shown = [...first, ...kb.offerings.map((_, i) => i).filter((i) => !first.has(i))].slice(0, MAX_OFFERINGS).map((i) => kb.offerings[i]);
   // Groups in priority order; within a group, items keep page order.
   const groups: EvidenceItem[][] = [];
   const group = (prefix: string, rows: Omit<EvidenceItem, "id">[]) =>
@@ -90,7 +107,7 @@ export function buildEvidence(kb: KnowledgeBase, budgetTokens: number): Evidence
   ]);
   group(
     "o",
-    kb.offerings.slice(0, 40).flatMap((f) => (f.value ? [{ kind: "offering", page: pathOf(f.source), text: [f.value.name, f.value.category && `(${f.value.category})`, quotablePrice(f)].filter(Boolean).join(" ") }] : [])),
+    shown.flatMap((f) => (f.value ? [{ kind: "offering", page: pathOf(f.source), text: [f.value.name, f.value.category && `(${f.value.category})`, quotablePrice(f)].filter(Boolean).join(" ") }] : [])),
   );
   // 4. What visitors are asked to do, and where it goes
   group(
@@ -109,9 +126,6 @@ export function buildEvidence(kb: KnowledgeBase, budgetTokens: number): Evidence
     [...new Set(kb.crawl.pages.flatMap((p) => p.imageAlts ?? []))].map((a) => ({ kind: "image_alt_or_logo_file", text: a })),
   );
   group("x", vals(kb.customers.suppliersPartners).map((s) => ({ kind: `tool_or_partner:${s.category}`, text: s.name })));
-
-  const offerings = kb.offerings.slice(0, 40).flatMap((f, index) => (f.value ? [{ index, name: f.value.name, category: f.value.category, priceText: quotablePrice(f) }] : []));
-  const task = categoryTask(kb);
 
   // Fill the budget group by group, item by item: highest value first.
   const fixed = estimateTokens(JSON.stringify({ offerings, offeringCategoryTask: task })) + 200;

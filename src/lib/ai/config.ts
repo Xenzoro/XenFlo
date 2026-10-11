@@ -26,7 +26,7 @@ export const aiConfig = {
   },
 };
 
-// Budgets: ~16k tokens in (system prompt + page evidence), ~3.5k out, 2 images, 25s per call.
+// Budgets: ~16k tokens in (system prompt + page evidence), ~3.5k out, 2 images, 40s for the text call, 25s for images.
 // Phase 9 raised them from 12k/2.5k: the text call now reads every crawled page's headings
 // and answers ~25 fields with evidence. Worst case is about $0.03 per run on gpt-5.4-mini.
 export const LIMITS = {
@@ -36,6 +36,11 @@ export const LIMITS = {
   /** Phase 10: the rest of the site's logos (a restaurant group's logo grid) at low detail, to read each brand name. ~$0.001 */
   logoGrid: 12,
   timeoutMs: 25_000,
+  /**
+   * The text call writes ~25 fields with evidence: 1.4-2.4k tokens, which took gpt-5.4 ~19-31 s.
+   * 40 s leaves room for that; it runs alongside the image call, inside the route's 60 s.
+   */
+  textTimeoutMs: 40_000,
 };
 
 /**
