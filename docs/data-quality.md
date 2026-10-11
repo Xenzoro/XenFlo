@@ -53,6 +53,7 @@ For every tier 2 field, the model returns a value, a confidence (`high` / `mediu
 
 **Measured on the four test sites** (live, gpt-5.4-mini):
 - 20–22 field suggestions per site (Apex also gets per-offering category suggestions), with no tier 1 overwrites and no tier 3 suggestions.
+- With gpt-5.4 for the text call (as on the live demo), Dragon Factory with its menus read and Goettl got 23 field suggestions each, in 34 s and 28 s.
 - Typically held back:
   - industry outlook: none of the sites discusses its market
   - seasonal messaging
@@ -146,6 +147,10 @@ On the test sites:
 
 Fields that need judgment rather than reading (tier 2) are never filled during the scrape. They stay Missing until the owner writes them or accepts suggestions from Enrich with AI (live AI, or the keyword and CTA heuristics in preview mode).
 
+**Offering categories and service areas** follow the same review flow, with two extra rules:
+- **Categories:** only offerings with no category are sent for categorizing, at most 15 per run. A restaurant group repeats item names across menus ("ALL DAY AYCE" on every brand), so each answer goes to the next offering with that name that has no answer yet. No offering gets two suggestions.
+- **Service areas** come from the cities in the scraped addresses, with no AI ("Las Vegas, NV", Inferred, the addresses as evidence). They're suggested in live and preview mode alike, and cities already listed are skipped.
+
 ## 3. Fallbacks
 
 | Situation | What happens |
@@ -157,7 +162,9 @@ Fields that need judgment rather than reading (tier 2) are never filled during t
 | Pasted text or uploaded HTML | Runs through the same extractors as a scrape and only fills empty fields, so nothing the owner already has is overwritten. |
 | Menus in PDFs and images | PDFs are downloaded after the crawl (20 MB, 4 pages, 12 PDFs, 15 s) and their text is read with unpdf. Picture-only menus wait in "Menus not read yet" for **Read menus with AI** (8 pages per run, cached per menu). Without live AI, the owner sees the list with links and can add items by hand. |
 | Screenshots | Stored privately (Supabase Storage). Enrich with AI sends screenshots waiting for AI (`needsAiFields`) to the vision call at high detail, and readable overview, story, phone and email facts come back as suggestions. Without live AI, the app asks the owner to paste the text instead. |
-| No `OPENAI_API_KEY` or passcode, daily cap reached, or both AI calls fail | Enrich with AI falls back to preview suggestions labeled "AI preview". If only one call fails, the other's results are kept with a note. |
+| No `OPENAI_API_KEY` or no passcode set on the server, daily cap reached, or both AI calls fail | Enrich with AI falls back to preview suggestions labeled "AI preview". If only one call fails, the other's results are kept with a note. |
+| Wrong passcode | An error the owner can fix (401 `INVALID_PASSCODE`, "That passcode isn't right."), never a silent switch to preview. |
+| Slow text model | The text call may take up to 55 s, inside a 57 s deadline for the whole request, so the route always answers within Vercel's 60 s. If it runs out of time, the image results are kept and a note says why the text fields were skipped. The failure is also logged on the server. |
 | Supabase not configured | Scraping still works. Save returns a clear "not configured" error, and the JSON can still be downloaded. |
 
 ## 4. How heuristics fail on real sites

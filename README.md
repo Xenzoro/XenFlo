@@ -5,15 +5,19 @@
 This is my take on MoFlo's "MoKnowledge" feature for the MoFlo Builder Challenge.
 
 - **Live demo:** _coming soon (Vercel link)_
-- **Demo video:** _coming soon_
 
 | Scrape and review | Brand tab | Saved knowledge bases |
 |---|---|---|
 | _screenshot: `docs/screenshots/knowledge.png`_ | _screenshot: `docs/screenshots/brand.png`_ | _screenshot: `docs/screenshots/view.png`_ |
 
+## Demo video
+
+[![XenFlo demo](https://img.youtube.com/vi/0-TQ58lgKBM/hqdefault.jpg)](https://youtu.be/0-TQ58lgKBM)
+
 ---
 
 ## Contents
+- [Demo video](#demo-video)
 - [Setup and run](#setup-and-run)
 - [Features](#features)
 - [Scraping approach](#scraping-approach)
@@ -23,6 +27,7 @@ This is my take on MoFlo's "MoKnowledge" feature for the MoFlo Builder Challenge
 - [Assumptions and limitations](#assumptions-and-limitations)
 - [Security](#security)
 - [How AI tools were used](#how-ai-tools-were-used)
+- [How I learned the codebase](#how-i-learned-the-codebase)
 - [Ideas I'd love to build with the team](#ideas-id-love-to-build-with-the-team)
 - [Project layout](#project-layout)
 
@@ -48,7 +53,7 @@ npm run dev                   # http://localhost:3000 → redirects to /knowledg
 | `SUPABASE_SERVICE_ROLE_KEY` | yes, to save | Server-only secret key. Used only in API routes and never sent to the browser. |
 | `OPENAI_API_KEY` | no | Enables live AI enrichment. Without it, Enrich with AI gives labeled preview suggestions. |
 | `AI_PASSCODE` | no, but needed for live AI | Passcode people type to use live AI. **Live AI stays off until this is set**, so a deploy can't run up costs by accident. |
-| `AI_MODEL_TEXT` | no | Text model (default `gpt-5.4-mini`) |
+| `AI_MODEL_TEXT` | no | Text model (default `gpt-5.4-mini`; the live demo on Vercel uses `gpt-5.4`) |
 | `AI_MODEL_VISION` | no | Vision model for logos, hero images and screenshots (default `gpt-5.4-mini`) |
 | `AI_DAILY_LIMIT` | no | Live AI runs allowed per day across the whole site (default `20`; cached results don't count) |
 | `SCRAPER_USER_AGENT` | no | Overrides the default `XenFloBot/1.0` User-Agent. |
@@ -76,12 +81,13 @@ Run the migrations in `supabase/migrations/` in order, with the Supabase CLI (`s
    | `SUPABASE_SERVICE_ROLE_KEY` | ✓ (mark Sensitive) | ✓ (Sensitive) |
    | `OPENAI_API_KEY` | ✓ (Sensitive) | leave empty, so preview deploys use preview mode |
    | `AI_PASSCODE` | ✓ (Sensitive; share only with reviewers) | leave empty |
-   | `AI_DAILY_LIMIT` | `20` | - |
-   | `AI_MODEL_TEXT`, `AI_MODEL_VISION` | optional | optional |
+   | `AI_DAILY_LIMIT` | `100` | - |
+   | `AI_MODEL_TEXT` | `gpt-5.4` (optional; default `gpt-5.4-mini`) | optional |
+   | `AI_MODEL_VISION` | optional | optional |
 
    `NEXT_PUBLIC_*` values are public by design (the anon key can't read anything because there are no anon RLS policies). Everything else stays on the server.
 3. **Database:** run the migrations above on the Supabase project those keys point to.
-4. **Deploy.** The scrape, Dig deeper and enrich routes set `maxDuration = 60`, which fits the Hobby plan. A scrape stops starting new pages after 30 seconds, and each AI call times out after 25 seconds.
+4. **Deploy.** The scrape, Dig deeper and enrich routes set `maxDuration = 60`, which fits the Hobby plan. A scrape stops starting new pages after 30 seconds. Enrich with AI works inside a 57-second deadline: the text call gets up to 55 seconds and the image call 25, so the route always answers in time.
 5. **Smoke test:** scrape a site, save it, open `/knowledge/view`, then run Enrich with AI with and without the passcode.
 
 Changing an environment variable needs a redeploy to take effect.
@@ -90,7 +96,7 @@ Changing an environment variable needs a redeploy to take effect.
 
 ```bash
 npx tsc --noEmit   # type check
-npm test           # unit tests (Vitest)
+npm test           # unit tests (Vitest, 168 tests)
 npm run lint
 npm run build
 ```
@@ -111,7 +117,7 @@ npm run build
   - **Company, Customers, Brand, People, Offerings:** every field editable inline. Empty fields show dashed "+ Add" pills.
   - **Offerings and menus:** for restaurants, cafes and shops (or any site where menus were found) the Offerings tab comes right after Overview, in a **menu view**. Items are grouped by brand or location (with its address, item count and price range), then by section. Each item shows its name, description, price and source ("from Sakana Sushi menu PDF", "read from menu image"). The view has search and collapsible groups. Service businesses keep the card view. See [menus](#menus-and-price-lists).
   - **Read menus with AI:** one button on the Offerings tab reads picture menus (image PDFs and menu images), up to 8 pages per run. Already-read menus are cached and free.
-  - **Enrich with AI:** suggestions for everything a person could tell from your site: industry, business model, customers, channels, funnels, themes, pitch, writing style, Content Kit, art style and offering categories.
+  - **Enrich with AI:** suggestions for everything a person could tell from your site: industry, business model, customers, channels, funnels, themes, pitch, writing style, Content Kit, art style and offering categories. Service areas come from the cities in your addresses, with no AI. With gpt-5.4 a run takes about 30 to 40 seconds, and a progress bar shows it's still working.
   - Each suggestion comes with its evidence, and you accept or reject each one.
   - AI and inferred values carry a badge and a one-click "Wrong? Remove".
   - See [AI](#ai-enrichment-and-prompts).
@@ -308,6 +314,8 @@ Details: [docs/data-quality.md](docs/data-quality.md).
    - The owner sees every suggestion, with its evidence, next to the current value, and ticks the ones to keep. Per-offering category fixes are a separate opt-in group.
    - Accepted values keep `ai_live` and their evidence, and show an **AI** badge with a "Wrong? Remove" button everywhere.
    - Removing a value clears it and remembers it, so it isn't suggested again; editing it makes it the owner's.
+   - **Offering categories:** only offerings with no category are sent, at most 15 per run. A restaurant group repeats item names across menus ("ALL DAY AYCE"), so each answer goes to the next offering with that name, and no offering gets two suggestions.
+   - **Service areas from addresses, no AI:** the cities in the scraped addresses become service areas ("Las Vegas, NV" for Dragon Factory), marked **Inferred** with the addresses as evidence, in live and preview mode alike. Cities already listed are skipped; AI can still add areas the site states.
 4. **Never invent facts.** Unknown stays null. AI never overwrites what the owner edited, and fields marked Not applicable are skipped.
 
 **Live vs preview mode**
@@ -322,16 +330,17 @@ Details: [docs/data-quality.md](docs/data-quality.md).
   - when the user picks "Use preview mode"
   - when the daily cap is reached
   - when both AI calls fail
-- **Fallbacks:** a wrong passcode is an error the user can fix rather than a silent switch. If only one call fails (timeout, bad reply), the other call's results are kept and a note explains what was skipped.
+- **Fallbacks:** a wrong passcode is an error the user can fix (401 "That passcode isn't right."), not a silent switch to preview. If only one call fails (timeout, bad reply), the other call's results are kept, a note explains what was skipped, and the failure is logged on the server.
 
 **Limits** (`src/lib/ai/config.ts`)
 - **Calls:** one text call plus one image call per run; never automatic.
+- **Time:** the whole request has a 57-second deadline, so it always answers inside Vercel's 60 seconds. The text call gets up to 55 seconds of it (about 10 s on gpt-5.4-mini, 30–40 s on gpt-5.4), the image call up to 25, and the cache write and quota count 1 second each. The modal shows a progress bar, the expected time for the model, and "Still working" notes while it waits.
 - **Input:** capped at about 16,000 tokens, prompt included. Evidence goes in priority order: the business in its own words, every page's title/meta/headings, brands and locations, CTAs, testimonial text, FAQs, then the rest. Real runs used 4k–12k.
 - **Output:** capped at 3,500 tokens per call (real runs: 1.2k–2.6k). `reasoning.effort` is `none`, so the whole budget goes to the answer.
 - **Cost per run** (third-party list prices): about $0.02–0.03 on gpt-5.4-mini, or about $0.08 with gpt-5.4 for the text call.
 - **Images:** at most 2. The best raster logo and the hero image are sent at `detail: "low"`. Screenshots waiting for AI (`needsAiFields`) go first, at `detail: "high"`, because menus and about pages are text-heavy. SVG logos are skipped (OpenAI can't read them).
 - **Cache:** results are cached in Supabase (`ai_enrichments`) by a hash of the prompt text, models and exact input. The same knowledge base version never pays twice, and cache hits don't count toward the cap.
-- **Daily cap:** `AI_DAILY_LIMIT` (default 20) live runs per day site-wide, enforced atomically in Postgres (`take_ai_quota`).
+- **Daily cap:** `AI_DAILY_LIMIT` (100) live runs per day site-wide, enforced atomically in Postgres (`take_ai_quota`).
 - **Passcode:** `AI_PASSCODE`, compared in constant time. With no passcode configured, live AI is off.
 
 **Model comparison** (Apex Hosting, same input, text call only; vision stayed on mini; run with the earlier pre-Phase 9 prompts):
@@ -342,7 +351,7 @@ Details: [docs/data-quality.md](docs/data-quality.md).
 | Writing style | "The brand sounds direct, helpful, and gaming-focused. It uses short, simple phrases, second-person and we-language, and leans on practical benefits like support, speed, and easy setup rather than fancy wording." | "The voice is direct, feature-led, and supportive, with short benefit-focused phrases and clear how-to explanations. It speaks in second person and first person, uses gaming and hosting jargon comfortably, and often leans on upbeat calls to action and reassuring support language." |
 | Time / tokens | 6.5 s · 6,965 in / 607 out | 9.2 s · 6,965 in / 625 out |
 
-Both stayed within the facts. gpt-5.4 noticed that Apex hosts more than Minecraft and wrote a more specific persona; mini was faster and a little more generic. The default is `gpt-5.4-mini`; switching is one environment variable (`AI_MODEL_TEXT`).
+Both stayed within the facts. gpt-5.4 noticed that Apex hosts more than Minecraft and wrote a more specific persona; mini was faster and a little more generic. The code default is `gpt-5.4-mini`; the live demo on Vercel uses `gpt-5.4` for the text call (`AI_MODEL_TEXT`), which is slower (30–40 s per run on the current prompts) but more specific.
 
 **Privacy note:** the demo's OpenAI project takes part in OpenAI's data sharing program, which keeps the demo's cost near zero. A production version would turn data sharing off, because owners may upload private information (screenshots, pasted documents). Requests are sent with `store: false` either way.
 
@@ -437,7 +446,7 @@ Other results:
 
 **Limitations**
 - **No JavaScript rendering.** Sites that build everything in the browser (some React and Wix pages) return little text; XenFlo warns when the homepage has fewer than 30 words.
-- **AI is opt-in and capped.** Pitch, writing style, persona and art style stay Missing until the owner fills them in or accepts AI suggestions. The public demo needs a passcode for live AI and is limited to 20 runs a day.
+- **AI is opt-in and capped.** Pitch, writing style, persona and art style stay Missing until the owner fills them in or accepts AI suggestions. The public demo needs a passcode for live AI and is limited to 100 runs a day.
 - **Vision can't read SVG logos** (Apex's logo is an SVG), so art style may come from the hero image instead. Screenshots can fill overview, founding story, phones and emails; offerings and people from screenshots aren't extracted yet.
 - **Heuristics misfire** on some layouts: for example, section headings read as offerings. Every value shows its source and confidence in Advanced view, so these are easy to spot and fix.
 - **Information inside images** (menus, logos with names, flyers) needs vision AI. Picture menus are read 8 pages per run with "Read menus with AI". PDFs over 20 MB are not downloaded; the owner can upload a screenshot instead. Only the first 4 pages of a PDF are read.
@@ -498,6 +507,12 @@ I reviewed every change, ran the builds, and kept a running log of what broke on
 
 ---
 
+## How I learned the codebase
+
+Building with an AI pair programmer only works if I can explain every file myself, so I studied the code chapter by chapter. The **[study guide](docs/understanding-xenflo/xenflo-study-guide.pdf)** walks from a pasted URL to a saved knowledge base, with diagrams, real code and check-yourself questions, and **[my handwritten notes](docs/understanding-xenflo/my-notes.pdf)** are what I wrote while working through it. Both are in [docs/understanding-xenflo/](docs/understanding-xenflo/), with a suggested reading order.
+
+---
+
 ## Ideas I'd love to build with the team
 
 Pulled from my running log, **[docs/improvements.md](docs/improvements.md)**, which has the full list with where each issue was found.
@@ -525,6 +540,6 @@ src/lib/ai/             enrich() entry point, menu reader, prompt loading, schem
 src/types/              knowledge.ts (source of truth) + knowledge.schema.ts (Zod)
 supabase/migrations/    SQL migrations
 prompts/                versioned enrichment prompts
-docs/                   schema, data quality, enrichment, improvements log
+docs/                   schema, data quality, enrichment, improvements log, understanding-xenflo/ (study guide and my notes)
 data/examples/          complete JSON from real scrapes
 ```

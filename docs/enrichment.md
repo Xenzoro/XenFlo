@@ -11,7 +11,7 @@ None of these outside sources are wired in yet. Today XenFlo uses the website, o
 **Evidence input** (`src/lib/ai/evidence.ts`): more than the knowledge base fields, trimmed to a fixed budget (about 16k input tokens including the prompt), highest value first:
 1. Overview, founding story, company name.
 2. Every crawled page's title, meta description and h1–h3 headings, captured during the crawl.
-3. Sub-brand names, locations (city/state), offering names and categories.
+3. Sub-brand names, locations (city/state), offering names and categories. When some offerings have no category, only those (up to 15) are sent for categorizing, listed first.
 4. CTA texts **with their link targets** (`"order online" → clover.com/...`).
 5. Testimonial text **without names**, then FAQs.
 6. Differentiators, trust signals, promotions, image alt text and logo file names, tools and partners.
@@ -28,6 +28,10 @@ Every item has an id, so the model's evidence can be checked. Records scraped be
   - generated writing (pitch, style, Content Kit) needs at least 1
   - everything else is listed as "Not enough evidence" with the reason
 - **The owner decides:** every suggestion is reviewed; edits become `user_edited`, and "Wrong? Remove" is remembered.
+
+**Service areas from addresses (no AI):** every Enrich run, live or preview, also suggests service areas from the cities in the scraped addresses (every Dragon Factory location is in Las Vegas → "Las Vegas, NV"). They're marked "Inferred", with the addresses as evidence. Cities already listed are skipped, and AI can still add more areas the site states (`serviceAreaSuggestion` in `src/lib/ai/heuristics.ts`).
+
+**Time:** the text call takes about 10 s on gpt-5.4-mini and 30–40 s on gpt-5.4, which the live demo uses. It may run up to 55 s inside a 57 s deadline for the whole request, so the route always answers within Vercel's 60 s limit. The image call runs at the same time (up to 25 s). While it runs, the modal shows a progress bar, the expected time for the model, and a "Still working" note.
 
 **Without a key or passcode (preview mode):** a free heuristic pass (`src/lib/ai/heuristics.ts`):
 - **Industry and groupings** from a keyword map (sushi, KBBQ, hot pot, boba, HVAC, plumbing, game server hosting…).
