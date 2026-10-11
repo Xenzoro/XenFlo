@@ -149,6 +149,7 @@ Everything runs server side in API routes (`src/app/api/scrape`), split into sma
 2. **If robots.txt blocks XenFloBot**, or **asks AI crawlers to stay out** (GPTBot, ClaudeBot, CCBot, Google-Extended, PerplexityBot and 9 others), the scrape stops and shows a friendly panel. The owner can then either:
    - tick **"I own this business or have permission from the owner to use this website's content"** and continue, or
    - paste content or upload files instead.
+   _screenshot: `docs/screenshots/blocked-panel.png`_
 3. The consent is stored with the knowledge base (`confirmed: true`, timestamp, and method: `checkbox_scrape`, `checkbox_paste` or `checkbox_upload`), and in the `upload_consents` table when saved.
 4. Even with consent, the crawl stays polite: honest User-Agent, small page cap, and the site's Crawl-delay (capped at 3 seconds).
 
@@ -210,6 +211,8 @@ For restaurants and shops, the offerings usually live in PDFs and images, not HT
 - **Text copies:** a text copy of a menu that AI already read from its picture is skipped. Items found only in the copy are kept, and the kept items cite both files.
 - **Duplicates:** within a brand, an item listed twice is kept once (the priced and described version), citing both menus.
 - **Every brand appears** in the menu view, even without a menu: "Menu not read yet" (with the link) or "No menu found online". The brand list comes from brand pages, menu groups, and brand names read from the homepage logo grid by the vision call (Enrich with AI).
+
+_screenshot: `docs/screenshots/menu-view.png`_
 
 **Review before use.** Menu items read by AI start as unreviewed:
 - **Banner:** the menu view shows "Menus read by AI. Please review." with "X of Y menus reviewed". It can't be dismissed until every menu is reviewed.
@@ -317,6 +320,10 @@ Details: [docs/data-quality.md](docs/data-quality.md).
    - **Offering categories:** only offerings with no category are sent, at most 15 per run. A restaurant group repeats item names across menus ("ALL DAY AYCE"), so each answer goes to the next offering with that name, and no offering gets two suggestions.
    - **Service areas from addresses, no AI:** the cities in the scraped addresses become service areas ("Las Vegas, NV" for Dragon Factory), marked **Inferred** with the addresses as evidence, in live and preview mode alike. Cities already listed are skipped; AI can still add areas the site states.
 4. **Never invent facts.** Unknown stays null. AI never overwrites what the owner edited, and fields marked Not applicable are skipped.
+
+| Waiting (gpt-5.4, about 30–40 s) | Reviewing suggestions |
+|---|---|
+| _screenshot: `docs/screenshots/enrich-progress.png`_ | _screenshot: `docs/screenshots/enrich-review.png`_ |
 
 **Live vs preview mode**
 - **Live:** needs `OPENAI_API_KEY` **and** the right `AI_PASSCODE`, plus quota left today.
