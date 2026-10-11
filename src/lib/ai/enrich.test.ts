@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { emptyKnowledgeBase } from "@/lib/utils/knowledge";
+import { emptyKnowledgeBase, field } from "@/lib/utils/knowledge";
+import type { Suggestion } from "@/types/enrichment";
 import { LIMITS } from "./config";
 import type { TextOutput } from "./schemas";
 
@@ -25,7 +26,7 @@ vi.mock("./openai", () => ({
   },
 }));
 
-const { enrich, matchOfferings } = await import("./enrich");
+const { enrich, guard, matchOfferings } = await import("./enrich");
 
 describe("enrich route deadline", () => {
   beforeEach(() => {
@@ -82,5 +83,47 @@ describe("matchOfferings", () => {
 
   it("drops names that weren't sent", () => {
     expect(matchOfferings([answer("Mystery roll")], offerings)).toEqual([]);
+  });
+});
+
+describe("guard: suggestions that change nothing", () => {
+  const suggest = (path: string, value: string | string[]): Suggestion => ({
+    path,
+    label: path,
+    value,
+    list: Array.isArray(value),
+    confidence: "ai_live",
+    source: "ai:test",
+    basedOn: ["p1"],
+  });
+  const kb = () => {
+    const k = emptyKnowledgeBase("https://example.com/");
+    k.company.industry = field("Restaurant group", "https://example.com/", "ai_live");
+    k.customers.channels = [field("Online ordering", "https://example.com/", "scraped"), field("Dine-in", null, "ai_live")];
+    return k;
+  };
+
+  it("drops a value equal to the current one, ignoring case, spaces and punctuation", () => {
+    for (const same of ["Restaurant group", "restaurant group", "  Restaurant   group. "]) {
+      expect(guard(kb(), [suggest("company.industry", same)])).toEqual([]);
+    }
+  });
+
+  it("keeps a value that really is different", () => {
+    expect(guard(kb(), [suggest("company.industry", "Restaurant groups and bars")])).toHaveLength(1);
+  });
+
+  it("keeps a suggestion for an empty field", () => {
+    expect(guard(kb(), [suggest("company.businessModel", "B2C, local")])).toHaveLength(1);
+  });
+
+  it("keeps only the new items of a list suggestion", () => {
+    const out = guard(kb(), [suggest("customers.channels", ["online ordering", "Dine in", "Catering", "catering."])]);
+    expect(out).toHaveLength(1);
+    expect(out[0].value).toEqual(["Catering"]);
+  });
+
+  it("drops a list suggestion with nothing new", () => {
+    expect(guard(kb(), [suggest("customers.channels", ["Online Ordering!", "dine-in"])])).toEqual([]);
   });
 });

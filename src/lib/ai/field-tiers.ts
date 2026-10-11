@@ -123,6 +123,16 @@ export function valueKey(value: unknown): string {
   return (typeof value === "string" ? value : JSON.stringify(value)).trim().toLowerCase();
 }
 
+/**
+ * valueKey without punctuation and repeated whitespace: "Restaurant group." and " restaurant  group"
+ * are the same value, and so are "Dine-in" and "dine in" (punctuation counts as a space; apostrophes
+ * are dropped, so "Jake's" = "Jakes"). Used to drop suggestions that wouldn't change anything.
+ * Dismissals keep plain valueKey, so records saved before this still match.
+ */
+export function sameValueKey(value: unknown): string {
+  return valueKey(value).replace(/['’]/g, "").replace(/\p{P}+/gu, " ").replace(/\s+/g, " ").trim();
+}
+
 const isEmptyAt = (kb: KnowledgeBase, path: string) => {
   const at = getAt(kb, path) as { value: unknown } | unknown[] | undefined;
   return Array.isArray(at) ? at.length === 0 : !at || (at as { value: unknown }).value == null;

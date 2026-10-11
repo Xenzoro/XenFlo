@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { Suggestion } from "@/types/enrichment";
 import { emptyKnowledgeBase, field } from "@/lib/utils/knowledge";
-import { FIELD_TIERS, filterByTier, tierOf } from "./field-tiers";
+import { FIELD_TIERS, filterByTier, sameValueKey, tierOf, valueKey } from "./field-tiers";
 
 const SECTIONS = ["company", "contact", "customers", "brand", "insights", "contentKit"] as const;
 
@@ -71,5 +71,18 @@ describe("filterByTier", () => {
     const out = filterByTier([suggest("customers.channels", ["Drive-thru", "Online ordering"]), suggest("company.businessModel", "B2C")], kb);
     expect(out).toHaveLength(1);
     expect(out[0].value).toEqual(["Online ordering"]);
+  });
+});
+
+describe("sameValueKey", () => {
+  it("ignores case, extra spaces and punctuation", () => {
+    expect(sameValueKey("  Restaurant   group. ")).toBe(sameValueKey("restaurant group"));
+    expect(sameValueKey("Dine-in")).toBe(sameValueKey("dine in"));
+    expect(sameValueKey("Jake's Tacos")).toBe(sameValueKey("Jakes Tacos"));
+    expect(sameValueKey("Restaurant group")).not.toBe(sameValueKey("Restaurant groups"));
+  });
+
+  it("leaves valueKey (used for saved dismissals) unchanged", () => {
+    expect(valueKey(" Dine-in. ")).toBe("dine-in.");
   });
 });

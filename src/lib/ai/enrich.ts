@@ -21,7 +21,7 @@ import { getAt } from "@/lib/utils/path";
 import { aiConfig, LIMITS, liveAvailable } from "./config";
 import { checkAnswer, type Answer } from "./confidence";
 import { buildEvidence, estimateTokens, evidencePayload, type Evidence } from "./evidence";
-import { filterByTier, valueKey } from "./field-tiers";
+import { filterByTier, sameValueKey, valueKey } from "./field-tiers";
 import { heuristicSuggestions, withServiceAreas } from "./heuristics";
 import { pickImages, SCREENSHOT_PATHS, type ImageInput } from "./input";
 import { mockSuggestions } from "./mock";
@@ -296,7 +296,8 @@ function fromVision(out: VisionOutput, images: ImageInput[], kb: KnowledgeBase, 
 
 /**
  * Everything a suggestion must pass before the owner sees it:
- * - never replace what the owner edited by hand; skip list items already there
+ * - never replace what the owner edited by hand, and never "replace" a value with the same value
+ * - list suggestions keep only items not already there (same normalization: sameValueKey)
  * - field tiers, dismissals and Not applicable (field-tiers.ts)
  */
 export function guard(kb: KnowledgeBase, suggestions: Suggestion[]): Suggestion[] {
@@ -308,11 +309,19 @@ export function guard(kb: KnowledgeBase, suggestions: Suggestion[]): Suggestion[
     }
     const current = getAt(kb, s.path) as { value: unknown; confidence: string } | { value: unknown }[] | undefined;
     if (!s.list) {
-      const f = current as { confidence: string } | undefined;
-      return f?.confidence === "user_edited" ? [] : [s];
+      const f = current as { value: unknown; confidence: string } | undefined;
+      if (f?.confidence === "user_edited") return [];
+      // "Restaurant group" replacing "Restaurant group" changes nothing: don't show it
+      return f?.value != null && sameValueKey(f.value) === sameValueKey(s.value) ? [] : [s];
     }
-    const have = new Set(((current as { value: unknown }[]) ?? []).map((f) => String(f.value).toLowerCase()));
-    const fresh = (s.value as string[]).filter((v) => !have.has(v.toLowerCase()));
+    // Lists: keep only items not already there (or repeated within the suggestion), same normalization
+    const have = new Set(((current as { value: unknown }[]) ?? []).map((f) => sameValueKey(f.value)));
+    const fresh = (s.value as string[]).filter((v) => {
+      const key = sameValueKey(v);
+      if (have.has(key)) return false;
+      have.add(key);
+      return true;
+    });
     return fresh.length ? [{ ...s, value: fresh }] : [];
   });
   return filterByTier(own, kb);
