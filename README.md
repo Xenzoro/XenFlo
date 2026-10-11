@@ -4,7 +4,7 @@
 
 This is my take on MoFlo's "MoKnowledge" feature for the MoFlo Builder Challenge.
 
-- **Live demo:** _https://xenflo-phi.vercel.app/_
+- **Live demo:** [https://xenflo-phi.vercel.app](https://xenflo-phi.vercel.app)
 
 | Scrape and review | Brand tab | Saved knowledge bases |
 |---|---|---|
